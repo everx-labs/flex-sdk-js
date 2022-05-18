@@ -11,19 +11,42 @@ export type Transaction = {
     [name: string]: unknown,
 };
 
+function errorWith(
+    err: any,
+    method: string,
+    account: Account,
+    fn: string,
+    params: object,
+): any {
+    err.data = {
+        ...err.data,
+        [method]: {
+            fn: `${account.constructor.name}.${fn}`,
+            params,
+        },
+    };
+    return err;
+}
+
 export async function runHelper<O>(account: Account, fn: string, params: object): Promise<{
     transaction: Transaction,
     output: O,
 }> {
-    const result = await account.run(fn, params);
-    await account.client.net.query_transaction_tree({
-        in_msg: result.transaction.in_msg,
-        timeout: 60000 * 5,
-    });
-    return {
-        transaction: result.transaction,
-        output: result.decoded?.output,
-    };
+    process.stdout.write(`Running ${account.constructor.name}.${fn}...`)
+    try {
+        const result = await account.run(fn, params);
+        await account.client.net.query_transaction_tree({
+            in_msg: result.transaction.in_msg,
+            timeout: 60000 * 5,
+        });
+        process.stdout.write(" ok\n");
+        return {
+            transaction: result.transaction,
+            output: result.decoded?.output,
+        };
+    } catch (err: any) {
+        throw errorWith(err, "run", account, fn, params);
+    }
 }
 
 export async function deployHelper(
@@ -33,22 +56,33 @@ export async function deployHelper(
 ): Promise<{
     transaction: Transaction,
 }> {
-    const result = await account.deploy({
-        initFunctionName: fn,
-        initInput: params,
-    });
-    return {
-        transaction: result.transaction,
-    };
+    process.stdout.write(`Deploying ${account.constructor.name}.${fn ?? ""}...`)
+    try {
+        const result = await account.deploy({
+            initFunctionName: fn,
+            initInput: params,
+        });
+        process.stdout.write(" ok\n");
+        return {
+            transaction: result.transaction,
+        };
+    } catch (err: any) {
+        throw errorWith(err, "deploy", account, fn ?? "", params ?? {});
+    }
 }
 
-export async function runLocalHelper<O>(account: Account, fn: string, input: object): Promise<{
+export async function runLocalHelper<O>(account: Account, fn: string, params: object): Promise<{
     transaction: Transaction,
     output: O,
 }> {
-    const result = await account.runLocal(fn, input);
-    return {
-        transaction: result.transaction,
-        output: result.decoded?.output,
-    };
+    try {
+        const result = await account.runLocal(fn, params);
+        process.stdout.write(`Run local ${account.constructor.name}.${fn}... ok\n`)
+        return {
+            transaction: result.transaction,
+            output: result.decoded?.output,
+        };
+    } catch (err: any) {
+        throw errorWith(err, "run", account, fn, params);
+    }
 }

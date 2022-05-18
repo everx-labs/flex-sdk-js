@@ -200,6 +200,20 @@ export declare class SuperRootOwnerAccount extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
+    runUnlistXchgPair(input: {
+        main_evers: string | number | bigint;
+        flex: string;
+        pair: string;
+    }): Promise<{
+        transaction: Transaction;
+    }>;
+    runLocalUnlistXchgPair(input: {
+        main_evers: string | number | bigint;
+        flex: string;
+        pair: string;
+    }): Promise<{
+        transaction: Transaction;
+    }>;
     runDeployWrappersConfig(input: {
         main_evers: string | number | bigint;
         deploy_evers: string | number | bigint;

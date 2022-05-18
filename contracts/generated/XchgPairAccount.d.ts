@@ -80,6 +80,7 @@ export declare class XchgPairAccount extends Account {
                 root_address: string;
             };
             next?: string;
+            unlisted: boolean;
         };
     }>;
     runLocalRequestDetails(input: {
@@ -110,6 +111,7 @@ export declare class XchgPairAccount extends Account {
                 root_address: string;
             };
             next?: string;
+            unlisted: boolean;
         };
     }>;
     runSetNext(input: {
@@ -120,6 +122,12 @@ export declare class XchgPairAccount extends Account {
     runLocalSetNext(input: {
         next: string;
     }): Promise<{
+        transaction: Transaction;
+    }>;
+    runUnlist(): Promise<{
+        transaction: Transaction;
+    }>;
+    runLocalUnlist(): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
@@ -148,6 +156,7 @@ export declare class XchgPairAccount extends Account {
                 root_address: string;
             };
             next?: string;
+            unlisted: boolean;
         };
     }>;
     runLocalGetDetails(): Promise<{
@@ -176,6 +185,7 @@ export declare class XchgPairAccount extends Account {
                 root_address: string;
             };
             next?: string;
+            unlisted: boolean;
         };
     }>;
     runGetConfig(): Promise<{

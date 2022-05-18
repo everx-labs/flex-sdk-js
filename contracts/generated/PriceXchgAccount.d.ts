@@ -137,6 +137,40 @@ export declare class PriceXchgAccount extends Account {
                 order_id: string;
                 ltime: string;
             };
+            salt: {
+                flex: string;
+                pair: string;
+                notify_addr: string;
+                major_tip3cfg: {
+                    name: string;
+                    symbol: string;
+                    decimals: number;
+                    root_pubkey: string;
+                    root_address: string;
+                };
+                minor_tip3cfg: {
+                    name: string;
+                    symbol: string;
+                    decimals: number;
+                    root_pubkey: string;
+                    root_address: string;
+                };
+                major_reserve_wallet: string;
+                minor_reserve_wallet: string;
+                ev_cfg: {
+                    transfer_tip3: string;
+                    return_ownership: string;
+                    order_answer: string;
+                    process_queue: string;
+                    send_notify: string;
+                    dest_wallet_keep_evers: string;
+                };
+                min_amount: string;
+                minmove: string;
+                price_denum: string;
+                deals_limit: number;
+                workchain_id: number;
+            };
         };
     }>;
     runLocalGetDetails(): Promise<{
@@ -181,6 +215,40 @@ export declare class PriceXchgAccount extends Account {
                 user_id: string;
                 order_id: string;
                 ltime: string;
+            };
+            salt: {
+                flex: string;
+                pair: string;
+                notify_addr: string;
+                major_tip3cfg: {
+                    name: string;
+                    symbol: string;
+                    decimals: number;
+                    root_pubkey: string;
+                    root_address: string;
+                };
+                minor_tip3cfg: {
+                    name: string;
+                    symbol: string;
+                    decimals: number;
+                    root_pubkey: string;
+                    root_address: string;
+                };
+                major_reserve_wallet: string;
+                minor_reserve_wallet: string;
+                ev_cfg: {
+                    transfer_tip3: string;
+                    return_ownership: string;
+                    order_answer: string;
+                    process_queue: string;
+                    send_notify: string;
+                    dest_wallet_keep_evers: string;
+                };
+                min_amount: string;
+                minmove: string;
+                price_denum: string;
+                deals_limit: number;
+                workchain_id: number;
             };
         };
     }>;

@@ -76,11 +76,15 @@ export declare class SuperRootAccount extends Account {
     }>;
     runProxy(input: {
         msg: string;
+        cant_work_during_update: boolean;
+        starting_update: boolean;
     }): Promise<{
         transaction: Transaction;
     }>;
     runLocalProxy(input: {
         msg: string;
+        cant_work_during_update: boolean;
+        starting_update: boolean;
     }): Promise<{
         transaction: Transaction;
     }>;

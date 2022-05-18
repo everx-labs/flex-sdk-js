@@ -90,6 +90,16 @@ export declare class FlexAccount extends Account {
             value0: string;
         };
     }>;
+    runUnlistXchgPair(input: {
+        pair: string;
+    }): Promise<{
+        transaction: Transaction;
+    }>;
+    runLocalUnlistXchgPair(input: {
+        pair: string;
+    }): Promise<{
+        transaction: Transaction;
+    }>;
     runRequestPairs(input: {
         _answer_id: number;
     }): Promise<{
