@@ -28,7 +28,7 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const ever = new wallet_1.Wallet({
             address: "0:62fe1c8d300724cb154dd54f9d498c0b8baacdc8687feabf9251716a3c2aa7a2",
-            signer: "08d3c6e784a5bf44837ff58270b63797f800cecff17339671606b8100afd983c",
+            signer: "flex-wallet-1",
         });
         const flxEver = new market_1.Market({
             address: "0:f0bb8d8a4a1416a7b380cb217513395aea994487a2b3e80129c136184def8bb4",
