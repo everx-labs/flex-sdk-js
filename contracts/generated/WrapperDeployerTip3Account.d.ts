@@ -1,8 +1,11 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare class WrapperDeployerTip3Account extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(input: {
         pubkey: string | number | bigint;
         wrapper_pubkey: string | number | bigint;

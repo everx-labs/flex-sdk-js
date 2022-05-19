@@ -1,8 +1,11 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare class FlexWalletAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
@@ -255,7 +258,7 @@ export declare class FlexWalletAccount extends Account {
                 };
                 lend_balance: string;
                 lend_finish_time: number;
-            };
+            }[];
             lend_balance: string;
             binding?: {
                 flex: string;
@@ -289,7 +292,7 @@ export declare class FlexWalletAccount extends Account {
                 };
                 lend_balance: string;
                 lend_finish_time: number;
-            };
+            }[];
             lend_balance: string;
             binding?: {
                 flex: string;
@@ -321,7 +324,7 @@ export declare class FlexWalletAccount extends Account {
                 };
                 lend_balance: string;
                 lend_finish_time: number;
-            };
+            }[];
             lend_balance: string;
             binding?: {
                 flex: string;
@@ -353,7 +356,7 @@ export declare class FlexWalletAccount extends Account {
                 };
                 lend_balance: string;
                 lend_finish_time: number;
-            };
+            }[];
             lend_balance: string;
             binding?: {
                 flex: string;

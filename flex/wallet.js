@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Wallet = void 0;
 const flex_1 = require("./flex");
 const contracts_1 = require("../contracts");
+const helpers_1 = require("../contracts/helpers");
 class Wallet extends flex_1.FlexBoundLazy {
     constructor(options) {
         super(options);
@@ -33,20 +34,17 @@ class Wallet extends flex_1.FlexBoundLazy {
             const { flex } = yield this.flex.getState();
             const { account } = yield this.getState();
             const pairDetails = (yield pair.runLocalGetDetails()).output;
-            const price_denom = Number(pairDetails.price_denum);
-            const price_num = Math.floor(options.price * price_denom);
+            const walletDetails = (yield account.runLocalGetDetails()).output;
+            const sell = walletDetails.root_address === pairDetails.major_tip3cfg.root_address;
             const xchgPriceCode = (yield pair.runLocalGetPriceXchgCode({ salted: false })).output.value0;
             const priceSalt = (yield pair.runLocalGetPriceXchgSalt()).output.value0;
-            const amount = options.amount * Math.pow(10, pairDetails.major_tip3cfg.decimals);
+            const amount = (0, helpers_1.amountToUnits)(options.amount, pairDetails.major_tip3cfg.decimals);
             const evers = 3e9;
             const order_id = Math.floor(Date.now() / 1000);
-            const price = {
-                num: price_num.toString(),
-                denum: price_denom.toString(),
-            };
+            const price = (0, helpers_1.priceToUnits)(options.price, pairDetails.price_denum);
             const lend_balance = (yield flex.runLocalCalcLendTokensForOrder({
-                sell: options.sell,
-                major_tokens: amount.toString(),
+                sell,
+                major_tokens: amount,
                 price,
             })).output.value0;
             const lend_finish_time = Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
@@ -55,14 +53,14 @@ class Wallet extends flex_1.FlexBoundLazy {
                 evers: evers.toString(),
                 lend_balance,
                 lend_finish_time,
-                price_num: price_num.toString(),
+                price_num: price.num,
                 unsalted_price_code: xchgPriceCode,
                 salt: priceSalt,
                 args: {
-                    sell: options.sell,
+                    sell,
                     immediate_client: true,
                     post_order: true,
-                    amount: amount.toString(),
+                    amount,
                     client_addr: options.clientAddress,
                     user_id: "0x" + options.userId,
                     order_id: order_id.toString(),

@@ -9,7 +9,14 @@ export function contractCodeHeader(options: { hasDeploy: boolean }): string {
     return `
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { AbiContract } from "@eversdk/core";
-import { ${options.hasDeploy ? "deployHelper, " : ""}runHelper, runLocalHelper, Transaction, ContractPackageEx } from "../helpers";
+import { 
+    ${options.hasDeploy ? "deployHelper," : ""}
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
+} from "../helpers";
 `;
 }
 
@@ -37,9 +44,14 @@ export class ${name}Account extends Account {
         code: "${contractCode}",
         codeHash: "${contractCodeHash}",
     };
-    
-    constructor(options: AccountOptions) {
+    log: Log;
+    constructor(
+        options: AccountOptions & {
+            log?: Log
+        }
+    ) {
         super(${name}Account.package, options);
+        this.log = options.log ?? Log.default;
     }
 `;
     code += deployFnCode(abi);
@@ -143,7 +155,7 @@ function paramDecl(param: AbiParam, indent: string, isInput: boolean): string {
     case "tuple":
         decl += "{\n";
         for (const field of param.components ?? []) {
-            decl += `${indent}    ${paramDecl(field, indent + "    ", isInput)}\n`;
+            decl += `${indent}    ${paramDecl(field, indent + "    ", isInput)},\n`;
         }
         decl += `${indent}}`;
         break;
@@ -151,7 +163,10 @@ function paramDecl(param: AbiParam, indent: string, isInput: boolean): string {
         decl += type.name;
         break;
     }
-    decl += `// ${param.type}`;
+    if (type.array) {
+        decl += "[]";
+    }
+    decl += ` /* ${param.type} */`;
     return decl;
 }
 

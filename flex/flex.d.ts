@@ -1,5 +1,6 @@
 import { ClientConfig, Signer, TonClient } from "@eversdk/core";
 import { FlexAccount, GlobalConfigAccount, SuperRootAccount, UserDataConfigAccount } from "../contracts";
+import { Log } from "../contracts/helpers";
 export declare type FlexConfig = {
     superRoot?: string;
     globalConfig?: string;
@@ -14,6 +15,8 @@ export declare type FlexState = {
 export declare class Flex {
     config: FlexConfig;
     client: TonClient;
+    signers: Map<string, Signer>;
+    log: Log;
     private _state;
     private static _config;
     private static _default;
@@ -23,7 +26,9 @@ export declare class Flex {
     static get config(): FlexConfig;
     static resolve(options: FlexBoundOptions): Flex;
     constructor(config: FlexConfig);
-    resolveSigner(signer: Signer | string): Promise<Signer>;
+    resolveSigner(signer: Signer | string | undefined): Promise<Signer>;
+    signerFromSecret(secret: string): Promise<Signer>;
+    signerFromName(name: string): Promise<Signer>;
     signerPublicKey(signer: Signer): Promise<string>;
     getState(): Promise<FlexState>;
     close(): Promise<void>;
@@ -35,6 +40,7 @@ export declare type FlexBoundOptions = {
 };
 export declare abstract class FlexBoundLazy<O extends FlexBoundOptions, S> {
     flex: Flex;
+    log: Log;
     getState(): Promise<S>;
     protected constructor(options: O);
     protected abstract createState(options: O): Promise<S>;

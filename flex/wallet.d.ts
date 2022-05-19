@@ -14,7 +14,6 @@ declare type OrderOptions = {
     market: Market;
     clientAddress: string;
     userId: string;
-    sell: boolean;
     amount: number;
     price: number;
 };

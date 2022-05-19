@@ -1,8 +1,11 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare class WICAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
@@ -52,7 +55,7 @@ export declare class WICAccount extends Account {
         wic_count: number;
         token_version: number;
         new_wrappers_cfg: string;
-        wrapper_deployers: string;
+        wrapper_deployers: string[];
     }): Promise<{
         transaction: Transaction;
     }>;
@@ -68,7 +71,7 @@ export declare class WICAccount extends Account {
         wic_count: number;
         token_version: number;
         new_wrappers_cfg: string;
-        wrapper_deployers: string;
+        wrapper_deployers: string[];
     }): Promise<{
         transaction: Transaction;
     }>;

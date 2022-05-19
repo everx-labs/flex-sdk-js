@@ -1,7 +1,14 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { AbiContract } from "@eversdk/core";
-import { deployHelper, runHelper, runLocalHelper, Transaction, ContractPackageEx } from "../helpers";
+import { 
+    deployHelper,
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
+} from "../helpers";
 
 export class FlexClientAccount extends Account {
     static package: ContractPackageEx = {
@@ -10,9 +17,14 @@ export class FlexClientAccount extends Account {
         code: "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",
         codeHash: "ab1274cbd464f9ccc2ea97c50e19afbf68cff76d2a4b2ac70cc676565d635753",
     };
-    
-    constructor(options: AccountOptions) {
+    log: Log;
+    constructor(
+        options: AccountOptions & {
+            log?: Log
+        }
+    ) {
         super(FlexClientAccount.package, options);
+        this.log = options.log ?? Log.default;
     }
     async deployContract(): Promise<{
         transaction: Transaction,
@@ -21,58 +33,58 @@ export class FlexClientAccount extends Account {
     }
 
     async runDeployPriceXchg(input: {
-        sell: boolean// bool,
-        immediate_client: boolean// bool,
-        post_order: boolean// bool,
-        price_num: string | number | bigint// uint128,
-        amount: string | number | bigint// uint128,
-        lend_amount: string | number | bigint// uint128,
-        lend_finish_time: number// uint32,
-        evers: string | number | bigint// uint128,
-        unsalted_price_code: string// cell,
-        price_salt: string// cell,
-        my_tip3_addr: string// address,
-        user_id: string | number | bigint// uint256,
-        order_id: string | number | bigint// uint256,
+        sell: boolean /* bool */,
+        immediate_client: boolean /* bool */,
+        post_order: boolean /* bool */,
+        price_num: string | number | bigint /* uint128 */,
+        amount: string | number | bigint /* uint128 */,
+        lend_amount: string | number | bigint /* uint128 */,
+        lend_finish_time: number /* uint32 */,
+        evers: string | number | bigint /* uint128 */,
+        unsalted_price_code: string /* cell */,
+        price_salt: string /* cell */,
+        my_tip3_addr: string /* address */,
+        user_id: string | number | bigint /* uint256 */,
+        order_id: string | number | bigint /* uint256 */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runHelper(this, "deployPriceXchg", input);
     }
 
     async runLocalDeployPriceXchg(input: {
-        sell: boolean// bool,
-        immediate_client: boolean// bool,
-        post_order: boolean// bool,
-        price_num: string | number | bigint// uint128,
-        amount: string | number | bigint// uint128,
-        lend_amount: string | number | bigint// uint128,
-        lend_finish_time: number// uint32,
-        evers: string | number | bigint// uint128,
-        unsalted_price_code: string// cell,
-        price_salt: string// cell,
-        my_tip3_addr: string// address,
-        user_id: string | number | bigint// uint256,
-        order_id: string | number | bigint// uint256,
+        sell: boolean /* bool */,
+        immediate_client: boolean /* bool */,
+        post_order: boolean /* bool */,
+        price_num: string | number | bigint /* uint128 */,
+        amount: string | number | bigint /* uint128 */,
+        lend_amount: string | number | bigint /* uint128 */,
+        lend_finish_time: number /* uint32 */,
+        evers: string | number | bigint /* uint128 */,
+        unsalted_price_code: string /* cell */,
+        price_salt: string /* cell */,
+        my_tip3_addr: string /* address */,
+        user_id: string | number | bigint /* uint256 */,
+        order_id: string | number | bigint /* uint256 */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runLocalHelper(this, "deployPriceXchg", input);
     }
 
     async runCancelXchgOrder(input: {
-        sell: boolean// bool,
-        price_num: string | number | bigint// uint128,
-        value: string | number | bigint// uint128,
-        salted_price_code: string// cell,
-        user_id?: string | number | bigint// optional(uint256),
-        order_id?: string | number | bigint// optional(uint256),
+        sell: boolean /* bool */,
+        price_num: string | number | bigint /* uint128 */,
+        value: string | number | bigint /* uint128 */,
+        salted_price_code: string /* cell */,
+        user_id?: string | number | bigint /* optional(uint256) */,
+        order_id?: string | number | bigint /* optional(uint256) */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -80,12 +92,12 @@ export class FlexClientAccount extends Account {
     }
 
     async runLocalCancelXchgOrder(input: {
-        sell: boolean// bool,
-        price_num: string | number | bigint// uint128,
-        value: string | number | bigint// uint128,
-        salted_price_code: string// cell,
-        user_id?: string | number | bigint// optional(uint256),
-        order_id?: string | number | bigint// optional(uint256),
+        sell: boolean /* bool */,
+        price_num: string | number | bigint /* uint128 */,
+        value: string | number | bigint /* uint128 */,
+        salted_price_code: string /* cell */,
+        user_id?: string | number | bigint /* optional(uint256) */,
+        order_id?: string | number | bigint /* optional(uint256) */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -93,9 +105,9 @@ export class FlexClientAccount extends Account {
     }
 
     async runTransfer(input: {
-        dest: string// address,
-        value: string | number | bigint// uint128,
-        bounce: boolean// bool,
+        dest: string /* address */,
+        value: string | number | bigint /* uint128 */,
+        bounce: boolean /* bool */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -103,9 +115,9 @@ export class FlexClientAccount extends Account {
     }
 
     async runLocalTransfer(input: {
-        dest: string// address,
-        value: string | number | bigint// uint128,
-        bounce: boolean// bool,
+        dest: string /* address */,
+        value: string | number | bigint /* uint128 */,
+        bounce: boolean /* bool */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -113,14 +125,14 @@ export class FlexClientAccount extends Account {
     }
 
     async runTransferTokens(input: {
-        src: string// address,
+        src: string /* address */,
         dst: {
-            pubkey: string | number | bigint// uint256
-            owner?: string// optional(address)
-        }// tuple,
-        tokens: string | number | bigint// uint128,
-        evers: string | number | bigint// uint128,
-        keep_evers: string | number | bigint// uint128,
+            pubkey: string | number | bigint /* uint256 */,
+            owner?: string /* optional(address) */,
+        } /* tuple */,
+        tokens: string | number | bigint /* uint128 */,
+        evers: string | number | bigint /* uint128 */,
+        keep_evers: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -128,14 +140,14 @@ export class FlexClientAccount extends Account {
     }
 
     async runLocalTransferTokens(input: {
-        src: string// address,
+        src: string /* address */,
         dst: {
-            pubkey: string | number | bigint// uint256
-            owner?: string// optional(address)
-        }// tuple,
-        tokens: string | number | bigint// uint128,
-        evers: string | number | bigint// uint128,
-        keep_evers: string | number | bigint// uint128,
+            pubkey: string | number | bigint /* uint256 */,
+            owner?: string /* optional(address) */,
+        } /* tuple */,
+        tokens: string | number | bigint /* uint128 */,
+        evers: string | number | bigint /* uint128 */,
+        keep_evers: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -143,55 +155,55 @@ export class FlexClientAccount extends Account {
     }
 
     async runDeployEmptyFlexWallet(input: {
-        pubkey: string | number | bigint// uint256,
-        evers_to_wallet: string | number | bigint// uint128,
+        pubkey: string | number | bigint /* uint256 */,
+        evers_to_wallet: string | number | bigint /* uint128 */,
         tip3cfg: {
-            name: string// string
-            symbol: string// string
-            decimals: number// uint8
-            root_pubkey: string | number | bigint// uint256
-            root_address: string// address
-        }// tuple,
-        trader: string | number | bigint// uint256,
-        flex_wallet_code: string// cell,
+            name: string /* string */,
+            symbol: string /* string */,
+            decimals: number /* uint8 */,
+            root_pubkey: string | number | bigint /* uint256 */,
+            root_address: string /* address */,
+        } /* tuple */,
+        trader: string | number | bigint /* uint256 */,
+        flex_wallet_code: string /* cell */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runHelper(this, "deployEmptyFlexWallet", input);
     }
 
     async runLocalDeployEmptyFlexWallet(input: {
-        pubkey: string | number | bigint// uint256,
-        evers_to_wallet: string | number | bigint// uint128,
+        pubkey: string | number | bigint /* uint256 */,
+        evers_to_wallet: string | number | bigint /* uint128 */,
         tip3cfg: {
-            name: string// string
-            symbol: string// string
-            decimals: number// uint8
-            root_pubkey: string | number | bigint// uint256
-            root_address: string// address
-        }// tuple,
-        trader: string | number | bigint// uint256,
-        flex_wallet_code: string// cell,
+            name: string /* string */,
+            symbol: string /* string */,
+            decimals: number /* uint8 */,
+            root_pubkey: string | number | bigint /* uint256 */,
+            root_address: string /* address */,
+        } /* tuple */,
+        trader: string | number | bigint /* uint256 */,
+        flex_wallet_code: string /* cell */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runLocalHelper(this, "deployEmptyFlexWallet", input);
     }
 
     async runDeployIndex(input: {
-        user_id: string | number | bigint// uint256,
-        lend_pubkey: string | number | bigint// uint256,
-        name: string// string,
-        evers_all: string | number | bigint// uint128,
-        evers_to_auth_idx: string | number | bigint// uint128,
-        refill_wallet: string | number | bigint// uint128,
-        min_refill: string | number | bigint// uint128,
+        user_id: string | number | bigint /* uint256 */,
+        lend_pubkey: string | number | bigint /* uint256 */,
+        name: string /* string */,
+        evers_all: string | number | bigint /* uint128 */,
+        evers_to_auth_idx: string | number | bigint /* uint128 */,
+        refill_wallet: string | number | bigint /* uint128 */,
+        min_refill: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -199,13 +211,13 @@ export class FlexClientAccount extends Account {
     }
 
     async runLocalDeployIndex(input: {
-        user_id: string | number | bigint// uint256,
-        lend_pubkey: string | number | bigint// uint256,
-        name: string// string,
-        evers_all: string | number | bigint// uint128,
-        evers_to_auth_idx: string | number | bigint// uint128,
-        refill_wallet: string | number | bigint// uint128,
-        min_refill: string | number | bigint// uint128,
+        user_id: string | number | bigint /* uint256 */,
+        lend_pubkey: string | number | bigint /* uint256 */,
+        name: string /* string */,
+        evers_all: string | number | bigint /* uint128 */,
+        evers_to_auth_idx: string | number | bigint /* uint128 */,
+        refill_wallet: string | number | bigint /* uint128 */,
+        min_refill: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -213,13 +225,13 @@ export class FlexClientAccount extends Account {
     }
 
     async runReLendIndex(input: {
-        user_id: string | number | bigint// uint256,
-        new_lend_pubkey: string | number | bigint// uint256,
-        wallets: string// address[],
-        evers_relend_call: string | number | bigint// uint128,
-        evers_each_wallet_call: string | number | bigint// uint128,
-        evers_to_remove: string | number | bigint// uint128,
-        evers_to_auth_idx: string | number | bigint// uint128,
+        user_id: string | number | bigint /* uint256 */,
+        new_lend_pubkey: string | number | bigint /* uint256 */,
+        wallets: string[] /* address[] */,
+        evers_relend_call: string | number | bigint /* uint128 */,
+        evers_each_wallet_call: string | number | bigint /* uint128 */,
+        evers_to_remove: string | number | bigint /* uint128 */,
+        evers_to_auth_idx: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -227,13 +239,13 @@ export class FlexClientAccount extends Account {
     }
 
     async runLocalReLendIndex(input: {
-        user_id: string | number | bigint// uint256,
-        new_lend_pubkey: string | number | bigint// uint256,
-        wallets: string// address[],
-        evers_relend_call: string | number | bigint// uint128,
-        evers_each_wallet_call: string | number | bigint// uint128,
-        evers_to_remove: string | number | bigint// uint128,
-        evers_to_auth_idx: string | number | bigint// uint128,
+        user_id: string | number | bigint /* uint256 */,
+        new_lend_pubkey: string | number | bigint /* uint256 */,
+        wallets: string[] /* address[] */,
+        evers_relend_call: string | number | bigint /* uint128 */,
+        evers_each_wallet_call: string | number | bigint /* uint128 */,
+        evers_to_remove: string | number | bigint /* uint128 */,
+        evers_to_auth_idx: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -241,8 +253,8 @@ export class FlexClientAccount extends Account {
     }
 
     async runDestroyIndex(input: {
-        user_id: string | number | bigint// uint256,
-        evers: string | number | bigint// uint128,
+        user_id: string | number | bigint /* uint256 */,
+        evers: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -250,8 +262,8 @@ export class FlexClientAccount extends Account {
     }
 
     async runLocalDestroyIndex(input: {
-        user_id: string | number | bigint// uint256,
-        evers: string | number | bigint// uint128,
+        user_id: string | number | bigint /* uint256 */,
+        evers: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -259,10 +271,10 @@ export class FlexClientAccount extends Account {
     }
 
     async runBurnWallet(input: {
-        evers_value: string | number | bigint// uint128,
-        out_pubkey: string | number | bigint// uint256,
-        out_owner?: string// optional(address),
-        my_tip3_addr: string// address,
+        evers_value: string | number | bigint /* uint128 */,
+        out_pubkey: string | number | bigint /* uint256 */,
+        out_owner?: string /* optional(address) */,
+        my_tip3_addr: string /* address */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -270,10 +282,10 @@ export class FlexClientAccount extends Account {
     }
 
     async runLocalBurnWallet(input: {
-        evers_value: string | number | bigint// uint128,
-        out_pubkey: string | number | bigint// uint256,
-        out_owner?: string// optional(address),
-        my_tip3_addr: string// address,
+        evers_value: string | number | bigint /* uint128 */,
+        out_pubkey: string | number | bigint /* uint256 */,
+        out_owner?: string /* optional(address) */,
+        my_tip3_addr: string /* address */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -281,11 +293,11 @@ export class FlexClientAccount extends Account {
     }
 
     async runUnwrapWallet(input: {
-        evers_value: string | number | bigint// uint128,
-        out_pubkey: string | number | bigint// uint256,
-        out_owner?: string// optional(address),
-        my_tip3_addr: string// address,
-        tokens: string | number | bigint// uint128,
+        evers_value: string | number | bigint /* uint128 */,
+        out_pubkey: string | number | bigint /* uint256 */,
+        out_owner?: string /* optional(address) */,
+        my_tip3_addr: string /* address */,
+        tokens: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -293,11 +305,11 @@ export class FlexClientAccount extends Account {
     }
 
     async runLocalUnwrapWallet(input: {
-        evers_value: string | number | bigint// uint128,
-        out_pubkey: string | number | bigint// uint256,
-        out_owner?: string// optional(address),
-        my_tip3_addr: string// address,
-        tokens: string | number | bigint// uint128,
+        evers_value: string | number | bigint /* uint128 */,
+        out_pubkey: string | number | bigint /* uint256 */,
+        out_owner?: string /* optional(address) */,
+        my_tip3_addr: string /* address */,
+        tokens: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -305,15 +317,15 @@ export class FlexClientAccount extends Account {
     }
 
     async runBindWallet(input: {
-        evers: string | number | bigint// uint128,
-        my_tip3_addr: string// address,
-        set_binding: boolean// bool,
+        evers: string | number | bigint /* uint128 */,
+        my_tip3_addr: string /* address */,
+        set_binding: boolean /* bool */,
         binding?: {
-            flex: string// address
-            unsalted_price_code_hash: string | number | bigint// uint256
-        }// optional(tuple),
-        set_trader: boolean// bool,
-        trader?: string | number | bigint// optional(uint256),
+            flex: string /* address */,
+            unsalted_price_code_hash: string | number | bigint /* uint256 */,
+        } /* optional(tuple) */,
+        set_trader: boolean /* bool */,
+        trader?: string | number | bigint /* optional(uint256) */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -321,15 +333,15 @@ export class FlexClientAccount extends Account {
     }
 
     async runLocalBindWallet(input: {
-        evers: string | number | bigint// uint128,
-        my_tip3_addr: string// address,
-        set_binding: boolean// bool,
+        evers: string | number | bigint /* uint128 */,
+        my_tip3_addr: string /* address */,
+        set_binding: boolean /* bool */,
         binding?: {
-            flex: string// address
-            unsalted_price_code_hash: string | number | bigint// uint256
-        }// optional(tuple),
-        set_trader: boolean// bool,
-        trader?: string | number | bigint// optional(uint256),
+            flex: string /* address */,
+            unsalted_price_code_hash: string | number | bigint /* uint256 */,
+        } /* optional(tuple) */,
+        set_trader: boolean /* bool */,
+        trader?: string | number | bigint /* optional(uint256) */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -337,27 +349,27 @@ export class FlexClientAccount extends Account {
     }
 
     async runOnTip3Transfer(input: {
-        _answer_id: number// uint32,
-        balance: string | number | bigint// uint128,
-        new_tokens: string | number | bigint// uint128,
-        evers_balance: string | number | bigint// uint128,
+        _answer_id: number /* uint32 */,
+        balance: string | number | bigint /* uint128 */,
+        new_tokens: string | number | bigint /* uint128 */,
+        evers_balance: string | number | bigint /* uint128 */,
         tip3cfg: {
-            name: string// string
-            symbol: string// string
-            decimals: number// uint8
-            root_pubkey: string | number | bigint// uint256
-            root_address: string// address
-        }// tuple,
+            name: string /* string */,
+            symbol: string /* string */,
+            decimals: number /* uint8 */,
+            root_pubkey: string | number | bigint /* uint256 */,
+            root_address: string /* address */,
+        } /* tuple */,
         sender?: {
-            pubkey: string | number | bigint// uint256
-            owner?: string// optional(address)
-        }// optional(tuple),
+            pubkey: string | number | bigint /* uint256 */,
+            owner?: string /* optional(address) */,
+        } /* optional(tuple) */,
         receiver: {
-            pubkey: string | number | bigint// uint256
-            owner?: string// optional(address)
-        }// tuple,
-        payload: string// cell,
-        answer_addr: string// address,
+            pubkey: string | number | bigint /* uint256 */,
+            owner?: string /* optional(address) */,
+        } /* tuple */,
+        payload: string /* cell */,
+        answer_addr: string /* address */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -365,27 +377,27 @@ export class FlexClientAccount extends Account {
     }
 
     async runLocalOnTip3Transfer(input: {
-        _answer_id: number// uint32,
-        balance: string | number | bigint// uint128,
-        new_tokens: string | number | bigint// uint128,
-        evers_balance: string | number | bigint// uint128,
+        _answer_id: number /* uint32 */,
+        balance: string | number | bigint /* uint128 */,
+        new_tokens: string | number | bigint /* uint128 */,
+        evers_balance: string | number | bigint /* uint128 */,
         tip3cfg: {
-            name: string// string
-            symbol: string// string
-            decimals: number// uint8
-            root_pubkey: string | number | bigint// uint256
-            root_address: string// address
-        }// tuple,
+            name: string /* string */,
+            symbol: string /* string */,
+            decimals: number /* uint8 */,
+            root_pubkey: string | number | bigint /* uint256 */,
+            root_address: string /* address */,
+        } /* tuple */,
         sender?: {
-            pubkey: string | number | bigint// uint256
-            owner?: string// optional(address)
-        }// optional(tuple),
+            pubkey: string | number | bigint /* uint256 */,
+            owner?: string /* optional(address) */,
+        } /* optional(tuple) */,
         receiver: {
-            pubkey: string | number | bigint// uint256
-            owner?: string// optional(address)
-        }// tuple,
-        payload: string// cell,
-        answer_addr: string// address,
+            pubkey: string | number | bigint /* uint256 */,
+            owner?: string /* optional(address) */,
+        } /* tuple */,
+        payload: string /* cell */,
+        answer_addr: string /* address */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -393,8 +405,8 @@ export class FlexClientAccount extends Account {
     }
 
     async runUpgrade(input: {
-        request_evers: string | number | bigint// uint128,
-        user_data_cfg: string// address,
+        request_evers: string | number | bigint /* uint128 */,
+        user_data_cfg: string /* address */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -402,8 +414,8 @@ export class FlexClientAccount extends Account {
     }
 
     async runLocalUpgrade(input: {
-        request_evers: string | number | bigint// uint128,
-        user_data_cfg: string// address,
+        request_evers: string | number | bigint /* uint128 */,
+        user_data_cfg: string /* address */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -411,74 +423,74 @@ export class FlexClientAccount extends Account {
     }
 
     async runGetPayloadForDeployInternalWallet(input: {
-        owner_pubkey: string | number | bigint// uint256,
-        owner_addr?: string// optional(address),
-        evers: string | number | bigint// uint128,
-        keep_evers: string | number | bigint// uint128,
+        owner_pubkey: string | number | bigint /* uint256 */,
+        owner_addr?: string /* optional(address) */,
+        evers: string | number | bigint /* uint128 */,
+        keep_evers: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// cell,
+            value0: string /* cell */,
         }
     }> {
         return await runHelper(this, "getPayloadForDeployInternalWallet", input);
     }
 
     async runLocalGetPayloadForDeployInternalWallet(input: {
-        owner_pubkey: string | number | bigint// uint256,
-        owner_addr?: string// optional(address),
-        evers: string | number | bigint// uint128,
-        keep_evers: string | number | bigint// uint128,
+        owner_pubkey: string | number | bigint /* uint256 */,
+        owner_addr?: string /* optional(address) */,
+        evers: string | number | bigint /* uint128 */,
+        keep_evers: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// cell,
+            value0: string /* cell */,
         }
     }> {
         return await runLocalHelper(this, "getPayloadForDeployInternalWallet", input);
     }
 
     async runGetPriceXchgAddress(input: {
-        price_num: string | number | bigint// uint128,
-        salted_price_code: string// cell,
+        price_num: string | number | bigint /* uint128 */,
+        salted_price_code: string /* cell */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runHelper(this, "getPriceXchgAddress", input);
     }
 
     async runLocalGetPriceXchgAddress(input: {
-        price_num: string | number | bigint// uint128,
-        salted_price_code: string// cell,
+        price_num: string | number | bigint /* uint128 */,
+        salted_price_code: string /* cell */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runLocalHelper(this, "getPriceXchgAddress", input);
     }
 
     async runGetUserIdIndex(input: {
-        user_id: string | number | bigint// uint256,
+        user_id: string | number | bigint /* uint256 */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runHelper(this, "getUserIdIndex", input);
     }
 
     async runLocalGetUserIdIndex(input: {
-        user_id: string | number | bigint// uint256,
+        user_id: string | number | bigint /* uint256 */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runLocalHelper(this, "getUserIdIndex", input);
@@ -487,19 +499,19 @@ export class FlexClientAccount extends Account {
     async runGetDetails(): Promise<{
         transaction: Transaction,
         output: {
-            owner: string// uint256,
+            owner: string /* uint256 */,
             triplet: {
-                wallet: number// uint32
-                exchange: number// uint32
-                user: number// uint32
-            }// tuple,
+                wallet: number /* uint32 */,
+                exchange: number /* uint32 */,
+                user: number /* uint32 */,
+            } /* tuple */,
             ex_triplet?: {
-                wallet: number// uint32
-                exchange: number// uint32
-                user: number// uint32
-            }// optional(tuple),
-            auth_index_code: string// cell,
-            user_id_index_code: string// cell,
+                wallet: number /* uint32 */,
+                exchange: number /* uint32 */,
+                user: number /* uint32 */,
+            } /* optional(tuple) */,
+            auth_index_code: string /* cell */,
+            user_id_index_code: string /* cell */,
         }
     }> {
         return await runHelper(this, "getDetails", {});
@@ -508,19 +520,19 @@ export class FlexClientAccount extends Account {
     async runLocalGetDetails(): Promise<{
         transaction: Transaction,
         output: {
-            owner: string// uint256,
+            owner: string /* uint256 */,
             triplet: {
-                wallet: number// uint32
-                exchange: number// uint32
-                user: number// uint32
-            }// tuple,
+                wallet: number /* uint32 */,
+                exchange: number /* uint32 */,
+                user: number /* uint32 */,
+            } /* tuple */,
             ex_triplet?: {
-                wallet: number// uint32
-                exchange: number// uint32
-                user: number// uint32
-            }// optional(tuple),
-            auth_index_code: string// cell,
-            user_id_index_code: string// cell,
+                wallet: number /* uint32 */,
+                exchange: number /* uint32 */,
+                user: number /* uint32 */,
+            } /* optional(tuple) */,
+            auth_index_code: string /* cell */,
+            user_id_index_code: string /* cell */,
         }
     }> {
         return await runLocalHelper(this, "getDetails", {});

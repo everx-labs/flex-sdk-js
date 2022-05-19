@@ -2,6 +2,7 @@ import { Flex, FlexBoundLazy } from "./flex";
 import { Signer } from "@eversdk/core";
 import { FlexWalletAccount } from "../contracts";
 import { Market } from "./market";
+import { amountToUnits, priceToUnits } from "../contracts/helpers";
 
 export type WalletOptions = {
     flex?: Flex,
@@ -17,7 +18,6 @@ type OrderOptions = {
     market: Market,
     clientAddress: string,
     userId: string,
-    sell: boolean,
     amount: number,
     price: number,
 };
@@ -44,20 +44,17 @@ export class Wallet extends FlexBoundLazy<WalletOptions, WalletState> {
         const { account } = await this.getState();
 
         const pairDetails = (await pair.runLocalGetDetails()).output;
-        const price_denom = Number(pairDetails.price_denum);
-        const price_num = Math.floor(options.price * price_denom);
+        const walletDetails = (await account.runLocalGetDetails()).output;
+        const sell = walletDetails.root_address === pairDetails.major_tip3cfg.root_address;
         const xchgPriceCode = (await pair.runLocalGetPriceXchgCode({ salted: false })).output.value0;
         const priceSalt = (await pair.runLocalGetPriceXchgSalt()).output.value0;
-        const amount = options.amount * Math.pow(10, pairDetails.major_tip3cfg.decimals);
+        const amount = amountToUnits(options.amount, pairDetails.major_tip3cfg.decimals);
         const evers = 3e9;
         const order_id = Math.floor(Date.now() / 1000);// unique value for the user (u32)
-        const price = {
-            num: price_num.toString(),
-            denum: price_denom.toString(),
-        };
+        const price = priceToUnits(options.price, pairDetails.price_denum);
         const lend_balance = (await flex.runLocalCalcLendTokensForOrder({
-            sell: options.sell,
-            major_tokens: amount.toString(),
+            sell,
+            major_tokens: amount,
             price,
         })).output.value0;
         const lend_finish_time = Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
@@ -67,14 +64,14 @@ export class Wallet extends FlexBoundLazy<WalletOptions, WalletState> {
             evers: evers.toString(),
             lend_balance,
             lend_finish_time,
-            price_num: price_num.toString(),
+            price_num: price.num,
             unsalted_price_code: xchgPriceCode,
             salt: priceSalt,
             args: {
-                sell: options.sell,
+                sell,
                 immediate_client: true,
                 post_order: true,
-                amount: amount.toString(),
+                amount,
                 client_addr: options.clientAddress,
                 user_id: "0x" + options.userId,
                 order_id: order_id.toString(),

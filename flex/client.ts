@@ -28,14 +28,16 @@ export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
         const publicKey = await flex.signerPublicKey(signer);
         const { userConfig } = await flex.getState();
         const pubkey = `0x${publicKey}`;
-        await everWallet.submitPayload({
-            value: 55e9,
+        await everWallet.transfer({
             dest: await userConfig.getAddress(),
-            abi: UserDataConfigAccount.package.abi,
-            fn: "deployFlexClient",
-            params: {
-                pubkey,
-                deploy_evers: 50e9,
+            value: 55e9,
+            messageBody: {
+                abi: UserDataConfigAccount.package.abi,
+                fn: "deployFlexClient",
+                params: {
+                    pubkey,
+                    deploy_evers: 50e9,
+                },
             },
         });
         const address = (await userConfig.runLocalGetFlexClientAddr({

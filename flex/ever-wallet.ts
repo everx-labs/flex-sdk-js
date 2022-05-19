@@ -1,21 +1,24 @@
 import { FlexBoundLazy, FlexBoundOptions } from "./flex";
 import { MultisigWalletAccount } from "../contracts";
-import { abiContract, AbiContract } from "@eversdk/core";
+import { abiContract, AbiContract, Signer, signerNone } from "@eversdk/core";
 
 export type EverWalletOptions = FlexBoundOptions & {
     address: string,
+    signer?: Signer | string,
 }
 
 type EverWalletState = {
     account: MultisigWalletAccount,
 }
 
-type SubmitPayloadOptions = {
+type SubmitTransactionOptions = {
     dest: string,
     value: string | number | bigint,
-    abi: AbiContract,
-    fn: string,
-    params: object
+    messageBody: {
+        abi: AbiContract,
+        fn: string,
+        params: object
+    }
 }
 
 export class EverWallet extends FlexBoundLazy<EverWalletOptions, EverWalletState> {
@@ -26,22 +29,27 @@ export class EverWallet extends FlexBoundLazy<EverWalletOptions, EverWalletState
     protected async createState(options: EverWalletOptions): Promise<EverWalletState> {
         return {
             account: new MultisigWalletAccount({
+                log: this.log,
                 client: this.flex.client,
                 address: options.address,
+                signer: await this.flex.resolveSigner(options.signer),
             }),
         };
     }
 
-    async submitPayload(options: SubmitPayloadOptions) {
+    async transfer(options: SubmitTransactionOptions) {
         const { account } = await this.getState();
         const payload = (await this.flex.client.abi.encode_message_body({
-            abi: abiContract(options.abi),
+            abi: abiContract(options.messageBody.abi),
             call_set: {
-                function_name: options.fn,
-                input: { _answer_id: 0, ...options.params },
+                function_name: options.messageBody.fn,
+                input: {
+                    _answer_id: 0,
+                    ...options.messageBody.params,
+                },
             },
             is_internal: true,
-            signer: { type: "None" },
+            signer: signerNone(),
         })).body;
         await account.runSubmitTransaction({
             dest: options.dest,

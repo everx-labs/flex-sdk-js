@@ -8,8 +8,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.runLocalHelper = exports.deployHelper = exports.runHelper = void 0;
+exports.priceToUnits = exports.amountToUnits = exports.runLocalHelper = exports.deployHelper = exports.runHelper = exports.Log = void 0;
+class Log {
+    processingStart(title) {
+        this.verbose(`${title}...`);
+    }
+    processingDone() {
+        this.verbose(" ✓\n");
+    }
+}
+exports.Log = Log;
+_a = Log;
+Log.NULL = new class NullLog extends Log {
+    verbose(_text) {
+    }
+};
+Log.STDOUT = new class StdOutLog extends Log {
+    verbose(text) {
+        process.stdout.write(text);
+    }
+}();
+Log.default = _a.STDOUT;
 function errorWith(err, method, account, fn, params) {
     err.data = Object.assign(Object.assign({}, err.data), { [method]: {
             fn: `${account.constructor.name}.${fn}`,
@@ -18,19 +39,20 @@ function errorWith(err, method, account, fn, params) {
     return err;
 }
 function runHelper(account, fn, params) {
-    var _a;
+    var _b, _c, _d, _e;
     return __awaiter(this, void 0, void 0, function* () {
-        process.stdout.write(`Running ${account.constructor.name}.${fn}...`);
+        (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Processing on Network ${account.constructor.name}.${fn}`);
         try {
             const result = yield account.run(fn, params);
             yield account.client.net.query_transaction_tree({
                 in_msg: result.transaction.in_msg,
                 timeout: 60000 * 5,
             });
-            process.stdout.write(" ok\n");
+            (_c = account.log) === null || _c === void 0 ? void 0 : _c.verbose(`TRN: ${result.transaction.id}`);
+            (_d = account.log) === null || _d === void 0 ? void 0 : _d.processingDone();
             return {
                 transaction: result.transaction,
-                output: (_a = result.decoded) === null || _a === void 0 ? void 0 : _a.output,
+                output: (_e = result.decoded) === null || _e === void 0 ? void 0 : _e.output,
             };
         }
         catch (err) {
@@ -40,14 +62,15 @@ function runHelper(account, fn, params) {
 }
 exports.runHelper = runHelper;
 function deployHelper(account, fn, params) {
+    var _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
-        process.stdout.write(`Deploying ${account.constructor.name}.${fn !== null && fn !== void 0 ? fn : ""}...`);
+        (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Deploy to Network ${account.constructor.name}.${fn !== null && fn !== void 0 ? fn : ""}`);
         try {
             const result = yield account.deploy({
                 initFunctionName: fn,
                 initInput: params,
             });
-            process.stdout.write(" ok\n");
+            (_c = account.log) === null || _c === void 0 ? void 0 : _c.processingDone();
             return {
                 transaction: result.transaction,
             };
@@ -59,14 +82,15 @@ function deployHelper(account, fn, params) {
 }
 exports.deployHelper = deployHelper;
 function runLocalHelper(account, fn, params) {
-    var _a;
+    var _b, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Executing on VM ${account.constructor.name}.${fn}`);
             const result = yield account.runLocal(fn, params);
-            process.stdout.write(`Run local ${account.constructor.name}.${fn}... ok\n`);
+            (_c = account.log) === null || _c === void 0 ? void 0 : _c.processingDone();
             return {
                 transaction: result.transaction,
-                output: (_a = result.decoded) === null || _a === void 0 ? void 0 : _a.output,
+                output: (_d = result.decoded) === null || _d === void 0 ? void 0 : _d.output,
             };
         }
         catch (err) {
@@ -75,4 +99,17 @@ function runLocalHelper(account, fn, params) {
     });
 }
 exports.runLocalHelper = runLocalHelper;
+function amountToUnits(tokens, decimals) {
+    return Math.floor(tokens * Math.pow(10, Number(decimals))).toString();
+}
+exports.amountToUnits = amountToUnits;
+function priceToUnits(price, denominator) {
+    const denom = Math.floor(Number(denominator));
+    const price_num = Math.floor(price * denom);
+    return {
+        num: price_num.toString(),
+        denum: denom.toString(),
+    };
+}
+exports.priceToUnits = priceToUnits;
 //# sourceMappingURL=helpers.js.map

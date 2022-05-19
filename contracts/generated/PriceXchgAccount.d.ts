@@ -1,8 +1,11 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare class PriceXchgAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
@@ -116,7 +119,7 @@ export declare class PriceXchgAccount extends Account {
                 user_id: string;
                 order_id: string;
                 ltime: string;
-            };
+            }[];
             buys: {
                 immediate_client: boolean;
                 post_order: boolean;
@@ -136,7 +139,7 @@ export declare class PriceXchgAccount extends Account {
                 user_id: string;
                 order_id: string;
                 ltime: string;
-            };
+            }[];
             salt: {
                 flex: string;
                 pair: string;
@@ -195,7 +198,7 @@ export declare class PriceXchgAccount extends Account {
                 user_id: string;
                 order_id: string;
                 ltime: string;
-            };
+            }[];
             buys: {
                 immediate_client: boolean;
                 post_order: boolean;
@@ -215,7 +218,7 @@ export declare class PriceXchgAccount extends Account {
                 user_id: string;
                 order_id: string;
                 ltime: string;
-            };
+            }[];
             salt: {
                 flex: string;
                 pair: string;

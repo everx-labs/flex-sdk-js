@@ -1,7 +1,14 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { AbiContract } from "@eversdk/core";
-import { deployHelper, runHelper, runLocalHelper, Transaction, ContractPackageEx } from "../helpers";
+import { 
+    deployHelper,
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
+} from "../helpers";
 
 export class PriceXchgAccount extends Account {
     static package: ContractPackageEx = {
@@ -10,9 +17,14 @@ export class PriceXchgAccount extends Account {
         code: "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",
         codeHash: "0c425dd26f76de62f6ca9d8c094aa19cc1992cddb17419c223eefcf46a787e22",
     };
-    
-    constructor(options: AccountOptions) {
+    log: Log;
+    constructor(
+        options: AccountOptions & {
+            log?: Log
+        }
+    ) {
         super(PriceXchgAccount.package, options);
+        this.log = options.log ?? Log.default;
     }
     async deployContract(): Promise<{
         transaction: Transaction,
@@ -21,58 +33,58 @@ export class PriceXchgAccount extends Account {
     }
 
     async runOnTip3LendOwnership(input: {
-        _answer_id: number// uint32,
-        balance: string | number | bigint// uint128,
-        lend_finish_time: number// uint32,
+        _answer_id: number /* uint32 */,
+        balance: string | number | bigint /* uint128 */,
+        lend_finish_time: number /* uint32 */,
         creds: {
-            pubkey: string | number | bigint// uint256
-            owner?: string// optional(address)
-        }// tuple,
-        payload: string// cell,
-        answer_addr: string// address,
+            pubkey: string | number | bigint /* uint256 */,
+            owner?: string /* optional(address) */,
+        } /* tuple */,
+        payload: string /* cell */,
+        answer_addr: string /* address */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            err_code: number// uint32,
-            processed: string// uint128,
-            enqueued: string// uint128,
-            price_num: string// uint128,
-            price_denum: string// uint128,
-            user_id: string// uint256,
-            order_id: string// uint256,
-            pair: string// address,
-            major_decimals: number// uint8,
-            minor_decimals: number// uint8,
-            sell: boolean// bool,
+            err_code: number /* uint32 */,
+            processed: string /* uint128 */,
+            enqueued: string /* uint128 */,
+            price_num: string /* uint128 */,
+            price_denum: string /* uint128 */,
+            user_id: string /* uint256 */,
+            order_id: string /* uint256 */,
+            pair: string /* address */,
+            major_decimals: number /* uint8 */,
+            minor_decimals: number /* uint8 */,
+            sell: boolean /* bool */,
         }
     }> {
         return await runHelper(this, "onTip3LendOwnership", input);
     }
 
     async runLocalOnTip3LendOwnership(input: {
-        _answer_id: number// uint32,
-        balance: string | number | bigint// uint128,
-        lend_finish_time: number// uint32,
+        _answer_id: number /* uint32 */,
+        balance: string | number | bigint /* uint128 */,
+        lend_finish_time: number /* uint32 */,
         creds: {
-            pubkey: string | number | bigint// uint256
-            owner?: string// optional(address)
-        }// tuple,
-        payload: string// cell,
-        answer_addr: string// address,
+            pubkey: string | number | bigint /* uint256 */,
+            owner?: string /* optional(address) */,
+        } /* tuple */,
+        payload: string /* cell */,
+        answer_addr: string /* address */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            err_code: number// uint32,
-            processed: string// uint128,
-            enqueued: string// uint128,
-            price_num: string// uint128,
-            price_denum: string// uint128,
-            user_id: string// uint256,
-            order_id: string// uint256,
-            pair: string// address,
-            major_decimals: number// uint8,
-            minor_decimals: number// uint8,
-            sell: boolean// bool,
+            err_code: number /* uint32 */,
+            processed: string /* uint128 */,
+            enqueued: string /* uint128 */,
+            price_num: string /* uint128 */,
+            price_denum: string /* uint128 */,
+            user_id: string /* uint256 */,
+            order_id: string /* uint256 */,
+            pair: string /* address */,
+            major_decimals: number /* uint8 */,
+            minor_decimals: number /* uint8 */,
+            sell: boolean /* bool */,
         }
     }> {
         return await runLocalHelper(this, "onTip3LendOwnership", input);
@@ -91,9 +103,9 @@ export class PriceXchgAccount extends Account {
     }
 
     async runCancelOrder(input: {
-        sell: boolean// bool,
-        user_id?: string | number | bigint// optional(uint256),
-        order_id?: string | number | bigint// optional(uint256),
+        sell: boolean /* bool */,
+        user_id?: string | number | bigint /* optional(uint256) */,
+        order_id?: string | number | bigint /* optional(uint256) */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -101,9 +113,9 @@ export class PriceXchgAccount extends Account {
     }
 
     async runLocalCancelOrder(input: {
-        sell: boolean// bool,
-        user_id?: string | number | bigint// optional(uint256),
-        order_id?: string | number | bigint// optional(uint256),
+        sell: boolean /* bool */,
+        user_id?: string | number | bigint /* optional(uint256) */,
+        order_id?: string | number | bigint /* optional(uint256) */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -111,10 +123,10 @@ export class PriceXchgAccount extends Account {
     }
 
     async runCancelWalletOrder(input: {
-        sell: boolean// bool,
-        owner: string// address,
-        user_id: string | number | bigint// uint256,
-        order_id?: string | number | bigint// optional(uint256),
+        sell: boolean /* bool */,
+        owner: string /* address */,
+        user_id: string | number | bigint /* uint256 */,
+        order_id?: string | number | bigint /* optional(uint256) */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -122,10 +134,10 @@ export class PriceXchgAccount extends Account {
     }
 
     async runLocalCancelWalletOrder(input: {
-        sell: boolean// bool,
-        owner: string// address,
-        user_id: string | number | bigint// uint256,
-        order_id?: string | number | bigint// optional(uint256),
+        sell: boolean /* bool */,
+        owner: string /* address */,
+        user_id: string | number | bigint /* uint256 */,
+        order_id?: string | number | bigint /* optional(uint256) */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -136,79 +148,79 @@ export class PriceXchgAccount extends Account {
         transaction: Transaction,
         output: {
             sells: {
-                immediate_client: boolean// bool
-                post_order: boolean// bool
-                original_amount: string// uint128
-                amount: string// uint128
-                account: string// uint128
-                lend_amount: string// uint128
+                immediate_client: boolean /* bool */,
+                post_order: boolean /* bool */,
+                original_amount: string /* uint128 */,
+                amount: string /* uint128 */,
+                account: string /* uint128 */,
+                lend_amount: string /* uint128 */,
                 tip3_wallet_provide: {
-                    workchain_id: number// int8
-                    address: string// uint256
-                }// tuple
+                    workchain_id: number /* int8 */,
+                    address: string /* uint256 */,
+                } /* tuple */,
                 client_addr: {
-                    workchain_id: number// int8
-                    address: string// uint256
-                }// tuple
-                order_finish_time: number// uint32
-                user_id: string// uint256
-                order_id: string// uint256
-                ltime: string// uint64
-            }// tuple[],
+                    workchain_id: number /* int8 */,
+                    address: string /* uint256 */,
+                } /* tuple */,
+                order_finish_time: number /* uint32 */,
+                user_id: string /* uint256 */,
+                order_id: string /* uint256 */,
+                ltime: string /* uint64 */,
+            }[] /* tuple[] */,
             buys: {
-                immediate_client: boolean// bool
-                post_order: boolean// bool
-                original_amount: string// uint128
-                amount: string// uint128
-                account: string// uint128
-                lend_amount: string// uint128
+                immediate_client: boolean /* bool */,
+                post_order: boolean /* bool */,
+                original_amount: string /* uint128 */,
+                amount: string /* uint128 */,
+                account: string /* uint128 */,
+                lend_amount: string /* uint128 */,
                 tip3_wallet_provide: {
-                    workchain_id: number// int8
-                    address: string// uint256
-                }// tuple
+                    workchain_id: number /* int8 */,
+                    address: string /* uint256 */,
+                } /* tuple */,
                 client_addr: {
-                    workchain_id: number// int8
-                    address: string// uint256
-                }// tuple
-                order_finish_time: number// uint32
-                user_id: string// uint256
-                order_id: string// uint256
-                ltime: string// uint64
-            }// tuple[],
+                    workchain_id: number /* int8 */,
+                    address: string /* uint256 */,
+                } /* tuple */,
+                order_finish_time: number /* uint32 */,
+                user_id: string /* uint256 */,
+                order_id: string /* uint256 */,
+                ltime: string /* uint64 */,
+            }[] /* tuple[] */,
             salt: {
-                flex: string// address
-                pair: string// address
-                notify_addr: string// address
+                flex: string /* address */,
+                pair: string /* address */,
+                notify_addr: string /* address */,
                 major_tip3cfg: {
-                    name: string// string
-                    symbol: string// string
-                    decimals: number// uint8
-                    root_pubkey: string// uint256
-                    root_address: string// address
-                }// tuple
+                    name: string /* string */,
+                    symbol: string /* string */,
+                    decimals: number /* uint8 */,
+                    root_pubkey: string /* uint256 */,
+                    root_address: string /* address */,
+                } /* tuple */,
                 minor_tip3cfg: {
-                    name: string// string
-                    symbol: string// string
-                    decimals: number// uint8
-                    root_pubkey: string// uint256
-                    root_address: string// address
-                }// tuple
-                major_reserve_wallet: string// address
-                minor_reserve_wallet: string// address
+                    name: string /* string */,
+                    symbol: string /* string */,
+                    decimals: number /* uint8 */,
+                    root_pubkey: string /* uint256 */,
+                    root_address: string /* address */,
+                } /* tuple */,
+                major_reserve_wallet: string /* address */,
+                minor_reserve_wallet: string /* address */,
                 ev_cfg: {
-                    transfer_tip3: string// uint128
-                    return_ownership: string// uint128
-                    order_answer: string// uint128
-                    process_queue: string// uint128
-                    send_notify: string// uint128
-                    dest_wallet_keep_evers: string// uint128
-                }// tuple
-                min_amount: string// uint128
-                minmove: string// uint128
-                price_denum: string// uint128
-                deals_limit: number// uint8
-                workchain_id: number// int8
-            }// tuple,
+                    transfer_tip3: string /* uint128 */,
+                    return_ownership: string /* uint128 */,
+                    order_answer: string /* uint128 */,
+                    process_queue: string /* uint128 */,
+                    send_notify: string /* uint128 */,
+                    dest_wallet_keep_evers: string /* uint128 */,
+                } /* tuple */,
+                min_amount: string /* uint128 */,
+                minmove: string /* uint128 */,
+                price_denum: string /* uint128 */,
+                deals_limit: number /* uint8 */,
+                workchain_id: number /* int8 */,
+            } /* tuple */,
         }
     }> {
         return await runHelper(this, "getDetails", {});
@@ -218,79 +230,79 @@ export class PriceXchgAccount extends Account {
         transaction: Transaction,
         output: {
             sells: {
-                immediate_client: boolean// bool
-                post_order: boolean// bool
-                original_amount: string// uint128
-                amount: string// uint128
-                account: string// uint128
-                lend_amount: string// uint128
+                immediate_client: boolean /* bool */,
+                post_order: boolean /* bool */,
+                original_amount: string /* uint128 */,
+                amount: string /* uint128 */,
+                account: string /* uint128 */,
+                lend_amount: string /* uint128 */,
                 tip3_wallet_provide: {
-                    workchain_id: number// int8
-                    address: string// uint256
-                }// tuple
+                    workchain_id: number /* int8 */,
+                    address: string /* uint256 */,
+                } /* tuple */,
                 client_addr: {
-                    workchain_id: number// int8
-                    address: string// uint256
-                }// tuple
-                order_finish_time: number// uint32
-                user_id: string// uint256
-                order_id: string// uint256
-                ltime: string// uint64
-            }// tuple[],
+                    workchain_id: number /* int8 */,
+                    address: string /* uint256 */,
+                } /* tuple */,
+                order_finish_time: number /* uint32 */,
+                user_id: string /* uint256 */,
+                order_id: string /* uint256 */,
+                ltime: string /* uint64 */,
+            }[] /* tuple[] */,
             buys: {
-                immediate_client: boolean// bool
-                post_order: boolean// bool
-                original_amount: string// uint128
-                amount: string// uint128
-                account: string// uint128
-                lend_amount: string// uint128
+                immediate_client: boolean /* bool */,
+                post_order: boolean /* bool */,
+                original_amount: string /* uint128 */,
+                amount: string /* uint128 */,
+                account: string /* uint128 */,
+                lend_amount: string /* uint128 */,
                 tip3_wallet_provide: {
-                    workchain_id: number// int8
-                    address: string// uint256
-                }// tuple
+                    workchain_id: number /* int8 */,
+                    address: string /* uint256 */,
+                } /* tuple */,
                 client_addr: {
-                    workchain_id: number// int8
-                    address: string// uint256
-                }// tuple
-                order_finish_time: number// uint32
-                user_id: string// uint256
-                order_id: string// uint256
-                ltime: string// uint64
-            }// tuple[],
+                    workchain_id: number /* int8 */,
+                    address: string /* uint256 */,
+                } /* tuple */,
+                order_finish_time: number /* uint32 */,
+                user_id: string /* uint256 */,
+                order_id: string /* uint256 */,
+                ltime: string /* uint64 */,
+            }[] /* tuple[] */,
             salt: {
-                flex: string// address
-                pair: string// address
-                notify_addr: string// address
+                flex: string /* address */,
+                pair: string /* address */,
+                notify_addr: string /* address */,
                 major_tip3cfg: {
-                    name: string// string
-                    symbol: string// string
-                    decimals: number// uint8
-                    root_pubkey: string// uint256
-                    root_address: string// address
-                }// tuple
+                    name: string /* string */,
+                    symbol: string /* string */,
+                    decimals: number /* uint8 */,
+                    root_pubkey: string /* uint256 */,
+                    root_address: string /* address */,
+                } /* tuple */,
                 minor_tip3cfg: {
-                    name: string// string
-                    symbol: string// string
-                    decimals: number// uint8
-                    root_pubkey: string// uint256
-                    root_address: string// address
-                }// tuple
-                major_reserve_wallet: string// address
-                minor_reserve_wallet: string// address
+                    name: string /* string */,
+                    symbol: string /* string */,
+                    decimals: number /* uint8 */,
+                    root_pubkey: string /* uint256 */,
+                    root_address: string /* address */,
+                } /* tuple */,
+                major_reserve_wallet: string /* address */,
+                minor_reserve_wallet: string /* address */,
                 ev_cfg: {
-                    transfer_tip3: string// uint128
-                    return_ownership: string// uint128
-                    order_answer: string// uint128
-                    process_queue: string// uint128
-                    send_notify: string// uint128
-                    dest_wallet_keep_evers: string// uint128
-                }// tuple
-                min_amount: string// uint128
-                minmove: string// uint128
-                price_denum: string// uint128
-                deals_limit: number// uint8
-                workchain_id: number// int8
-            }// tuple,
+                    transfer_tip3: string /* uint128 */,
+                    return_ownership: string /* uint128 */,
+                    order_answer: string /* uint128 */,
+                    process_queue: string /* uint128 */,
+                    send_notify: string /* uint128 */,
+                    dest_wallet_keep_evers: string /* uint128 */,
+                } /* tuple */,
+                min_amount: string /* uint128 */,
+                minmove: string /* uint128 */,
+                price_denum: string /* uint128 */,
+                deals_limit: number /* uint8 */,
+                workchain_id: number /* int8 */,
+            } /* tuple */,
         }
     }> {
         return await runLocalHelper(this, "getDetails", {});

@@ -1,8 +1,11 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare class FlexClientTestUpdateAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
@@ -165,7 +168,7 @@ export declare class FlexClientTestUpdateAccount extends Account {
     runReLendIndex(input: {
         user_id: string | number | bigint;
         new_lend_pubkey: string | number | bigint;
-        wallets: string;
+        wallets: string[];
         evers_relend_call: string | number | bigint;
         evers_each_wallet_call: string | number | bigint;
         evers_to_remove: string | number | bigint;
@@ -176,7 +179,7 @@ export declare class FlexClientTestUpdateAccount extends Account {
     runLocalReLendIndex(input: {
         user_id: string | number | bigint;
         new_lend_pubkey: string | number | bigint;
-        wallets: string;
+        wallets: string[];
         evers_relend_call: string | number | bigint;
         evers_each_wallet_call: string | number | bigint;
         evers_to_remove: string | number | bigint;

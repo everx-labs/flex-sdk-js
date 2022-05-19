@@ -14,7 +14,9 @@ const appkit_1 = require("@eversdk/appkit");
 const helpers_1 = require("../helpers");
 class PriceXchgAccount extends appkit_1.Account {
     constructor(options) {
+        var _a;
         super(PriceXchgAccount.package, options);
+        this.log = (_a = options.log) !== null && _a !== void 0 ? _a : helpers_1.Log.default;
     }
     deployContract() {
         return __awaiter(this, void 0, void 0, function* () {

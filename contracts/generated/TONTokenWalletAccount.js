@@ -14,7 +14,9 @@ const appkit_1 = require("@eversdk/appkit");
 const helpers_1 = require("../helpers");
 class TONTokenWalletAccount extends appkit_1.Account {
     constructor(options) {
+        var _a;
         super(TONTokenWalletAccount.package, options);
+        this.log = (_a = options.log) !== null && _a !== void 0 ? _a : helpers_1.Log.default;
     }
     deployContract() {
         return __awaiter(this, void 0, void 0, function* () {

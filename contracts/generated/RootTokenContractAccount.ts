@@ -1,7 +1,14 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { AbiContract } from "@eversdk/core";
-import { deployHelper, runHelper, runLocalHelper, Transaction, ContractPackageEx } from "../helpers";
+import { 
+    deployHelper,
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
+} from "../helpers";
 
 export class RootTokenContractAccount extends Account {
     static package: ContractPackageEx = {
@@ -10,17 +17,22 @@ export class RootTokenContractAccount extends Account {
         code: "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",
         codeHash: "cc0c3ccd58dc53bd7d914bc3ba9ce7d93936bbe966c6bc23583c9c7583c534bc",
     };
-    
-    constructor(options: AccountOptions) {
+    log: Log;
+    constructor(
+        options: AccountOptions & {
+            log?: Log
+        }
+    ) {
         super(RootTokenContractAccount.package, options);
+        this.log = options.log ?? Log.default;
     }
     async deployContract(input: {
-        name: string// string,
-        symbol: string// string,
-        decimals: number// uint8,
-        root_pubkey: string | number | bigint// uint256,
-        root_owner?: string// optional(address),
-        total_supply: string | number | bigint// uint128,
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_owner?: string /* optional(address) */,
+        total_supply: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -28,95 +40,95 @@ export class RootTokenContractAccount extends Account {
     }
 
     async runSetWalletCode(input: {
-        _answer_id: number// uint32,
-        wallet_code: string// cell,
+        _answer_id: number /* uint32 */,
+        wallet_code: string /* cell */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: boolean// bool,
+            value0: boolean /* bool */,
         }
     }> {
         return await runHelper(this, "setWalletCode", input);
     }
 
     async runLocalSetWalletCode(input: {
-        _answer_id: number// uint32,
-        wallet_code: string// cell,
+        _answer_id: number /* uint32 */,
+        wallet_code: string /* cell */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: boolean// bool,
+            value0: boolean /* bool */,
         }
     }> {
         return await runLocalHelper(this, "setWalletCode", input);
     }
 
     async runDeployWallet(input: {
-        _answer_id: number// uint32,
-        pubkey: string | number | bigint// uint256,
-        owner?: string// optional(address),
-        tokens: string | number | bigint// uint128,
-        evers: string | number | bigint// uint128,
-        notify?: string// optional(cell),
+        _answer_id: number /* uint32 */,
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+        tokens: string | number | bigint /* uint128 */,
+        evers: string | number | bigint /* uint128 */,
+        notify?: string /* optional(cell) */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runHelper(this, "deployWallet", input);
     }
 
     async runLocalDeployWallet(input: {
-        _answer_id: number// uint32,
-        pubkey: string | number | bigint// uint256,
-        owner?: string// optional(address),
-        tokens: string | number | bigint// uint128,
-        evers: string | number | bigint// uint128,
-        notify?: string// optional(cell),
+        _answer_id: number /* uint32 */,
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+        tokens: string | number | bigint /* uint128 */,
+        evers: string | number | bigint /* uint128 */,
+        notify?: string /* optional(cell) */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runLocalHelper(this, "deployWallet", input);
     }
 
     async runDeployEmptyWallet(input: {
-        _answer_id: number// uint32,
-        pubkey: string | number | bigint// uint256,
-        owner?: string// optional(address),
-        evers: string | number | bigint// uint128,
+        _answer_id: number /* uint32 */,
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+        evers: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runHelper(this, "deployEmptyWallet", input);
     }
 
     async runLocalDeployEmptyWallet(input: {
-        _answer_id: number// uint32,
-        pubkey: string | number | bigint// uint256,
-        owner?: string// optional(address),
-        evers: string | number | bigint// uint128,
+        _answer_id: number /* uint32 */,
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+        evers: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runLocalHelper(this, "deployEmptyWallet", input);
     }
 
     async runGrant(input: {
-        _answer_id: number// uint32,
-        dest: string// address,
-        tokens: string | number | bigint// uint128,
-        evers: string | number | bigint// uint128,
-        notify?: string// optional(cell),
+        _answer_id: number /* uint32 */,
+        dest: string /* address */,
+        tokens: string | number | bigint /* uint128 */,
+        evers: string | number | bigint /* uint128 */,
+        notify?: string /* optional(cell) */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -124,11 +136,11 @@ export class RootTokenContractAccount extends Account {
     }
 
     async runLocalGrant(input: {
-        _answer_id: number// uint32,
-        dest: string// address,
-        tokens: string | number | bigint// uint128,
-        evers: string | number | bigint// uint128,
-        notify?: string// optional(cell),
+        _answer_id: number /* uint32 */,
+        dest: string /* address */,
+        tokens: string | number | bigint /* uint128 */,
+        evers: string | number | bigint /* uint128 */,
+        notify?: string /* optional(cell) */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -136,46 +148,46 @@ export class RootTokenContractAccount extends Account {
     }
 
     async runMint(input: {
-        _answer_id: number// uint32,
-        tokens: string | number | bigint// uint128,
+        _answer_id: number /* uint32 */,
+        tokens: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: boolean// bool,
+            value0: boolean /* bool */,
         }
     }> {
         return await runHelper(this, "mint", input);
     }
 
     async runLocalMint(input: {
-        _answer_id: number// uint32,
-        tokens: string | number | bigint// uint128,
+        _answer_id: number /* uint32 */,
+        tokens: string | number | bigint /* uint128 */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: boolean// bool,
+            value0: boolean /* bool */,
         }
     }> {
         return await runLocalHelper(this, "mint", input);
     }
 
     async runRequestTotalGranted(input: {
-        _answer_id: number// uint32,
+        _answer_id: number /* uint32 */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// uint128,
+            value0: string /* uint128 */,
         }
     }> {
         return await runHelper(this, "requestTotalGranted", input);
     }
 
     async runLocalRequestTotalGranted(input: {
-        _answer_id: number// uint32,
+        _answer_id: number /* uint32 */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// uint128,
+            value0: string /* uint128 */,
         }
     }> {
         return await runLocalHelper(this, "requestTotalGranted", input);
@@ -184,7 +196,7 @@ export class RootTokenContractAccount extends Account {
     async runGetName(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// string,
+            value0: string /* string */,
         }
     }> {
         return await runHelper(this, "getName", {});
@@ -193,7 +205,7 @@ export class RootTokenContractAccount extends Account {
     async runLocalGetName(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// string,
+            value0: string /* string */,
         }
     }> {
         return await runLocalHelper(this, "getName", {});
@@ -202,7 +214,7 @@ export class RootTokenContractAccount extends Account {
     async runGetSymbol(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// string,
+            value0: string /* string */,
         }
     }> {
         return await runHelper(this, "getSymbol", {});
@@ -211,7 +223,7 @@ export class RootTokenContractAccount extends Account {
     async runLocalGetSymbol(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// string,
+            value0: string /* string */,
         }
     }> {
         return await runLocalHelper(this, "getSymbol", {});
@@ -220,7 +232,7 @@ export class RootTokenContractAccount extends Account {
     async runGetDecimals(): Promise<{
         transaction: Transaction,
         output: {
-            value0: number// uint8,
+            value0: number /* uint8 */,
         }
     }> {
         return await runHelper(this, "getDecimals", {});
@@ -229,7 +241,7 @@ export class RootTokenContractAccount extends Account {
     async runLocalGetDecimals(): Promise<{
         transaction: Transaction,
         output: {
-            value0: number// uint8,
+            value0: number /* uint8 */,
         }
     }> {
         return await runLocalHelper(this, "getDecimals", {});
@@ -238,7 +250,7 @@ export class RootTokenContractAccount extends Account {
     async runGetRootKey(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// uint256,
+            value0: string /* uint256 */,
         }
     }> {
         return await runHelper(this, "getRootKey", {});
@@ -247,7 +259,7 @@ export class RootTokenContractAccount extends Account {
     async runLocalGetRootKey(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// uint256,
+            value0: string /* uint256 */,
         }
     }> {
         return await runLocalHelper(this, "getRootKey", {});
@@ -256,7 +268,7 @@ export class RootTokenContractAccount extends Account {
     async runGetRootOwner(): Promise<{
         transaction: Transaction,
         output: {
-            value0?: string// optional(address),
+            value0?: string /* optional(address) */,
         }
     }> {
         return await runHelper(this, "getRootOwner", {});
@@ -265,7 +277,7 @@ export class RootTokenContractAccount extends Account {
     async runLocalGetRootOwner(): Promise<{
         transaction: Transaction,
         output: {
-            value0?: string// optional(address),
+            value0?: string /* optional(address) */,
         }
     }> {
         return await runLocalHelper(this, "getRootOwner", {});
@@ -274,7 +286,7 @@ export class RootTokenContractAccount extends Account {
     async runGetTotalSupply(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// uint128,
+            value0: string /* uint128 */,
         }
     }> {
         return await runHelper(this, "getTotalSupply", {});
@@ -283,7 +295,7 @@ export class RootTokenContractAccount extends Account {
     async runLocalGetTotalSupply(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// uint128,
+            value0: string /* uint128 */,
         }
     }> {
         return await runLocalHelper(this, "getTotalSupply", {});
@@ -292,7 +304,7 @@ export class RootTokenContractAccount extends Account {
     async runGetTotalGranted(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// uint128,
+            value0: string /* uint128 */,
         }
     }> {
         return await runHelper(this, "getTotalGranted", {});
@@ -301,7 +313,7 @@ export class RootTokenContractAccount extends Account {
     async runLocalGetTotalGranted(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// uint128,
+            value0: string /* uint128 */,
         }
     }> {
         return await runLocalHelper(this, "getTotalGranted", {});
@@ -310,7 +322,7 @@ export class RootTokenContractAccount extends Account {
     async runHasWalletCode(): Promise<{
         transaction: Transaction,
         output: {
-            value0: boolean// bool,
+            value0: boolean /* bool */,
         }
     }> {
         return await runHelper(this, "hasWalletCode", {});
@@ -319,7 +331,7 @@ export class RootTokenContractAccount extends Account {
     async runLocalHasWalletCode(): Promise<{
         transaction: Transaction,
         output: {
-            value0: boolean// bool,
+            value0: boolean /* bool */,
         }
     }> {
         return await runLocalHelper(this, "hasWalletCode", {});
@@ -328,7 +340,7 @@ export class RootTokenContractAccount extends Account {
     async runGetWalletCode(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// cell,
+            value0: string /* cell */,
         }
     }> {
         return await runHelper(this, "getWalletCode", {});
@@ -337,31 +349,31 @@ export class RootTokenContractAccount extends Account {
     async runLocalGetWalletCode(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// cell,
+            value0: string /* cell */,
         }
     }> {
         return await runLocalHelper(this, "getWalletCode", {});
     }
 
     async runGetWalletAddress(input: {
-        pubkey: string | number | bigint// uint256,
-        owner?: string// optional(address),
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runHelper(this, "getWalletAddress", input);
     }
 
     async runLocalGetWalletAddress(input: {
-        pubkey: string | number | bigint// uint256,
-        owner?: string// optional(address),
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
     }): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// address,
+            value0: string /* address */,
         }
     }> {
         return await runLocalHelper(this, "getWalletAddress", input);
@@ -370,7 +382,7 @@ export class RootTokenContractAccount extends Account {
     async runGetWalletCodeHash(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// uint256,
+            value0: string /* uint256 */,
         }
     }> {
         return await runHelper(this, "getWalletCodeHash", {});
@@ -379,7 +391,7 @@ export class RootTokenContractAccount extends Account {
     async runLocalGetWalletCodeHash(): Promise<{
         transaction: Transaction,
         output: {
-            value0: string// uint256,
+            value0: string /* uint256 */,
         }
     }> {
         return await runLocalHelper(this, "getWalletCodeHash", {});

@@ -1,8 +1,11 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare class SuperRootOwnerAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(input: {
         pubkey: string | number | bigint;
     }): Promise<{
@@ -329,7 +332,7 @@ export declare class SuperRootOwnerAccount extends Account {
             wic_keep: string | number | bigint;
         };
         new_token_version: number;
-        wrapper_deployers: string;
+        wrapper_deployers: string[];
     }): Promise<{
         transaction: Transaction;
         output: {
@@ -347,7 +350,7 @@ export declare class SuperRootOwnerAccount extends Account {
             wic_keep: string | number | bigint;
         };
         new_token_version: number;
-        wrapper_deployers: string;
+        wrapper_deployers: string[];
     }): Promise<{
         transaction: Transaction;
         output: {

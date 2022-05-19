@@ -1,7 +1,14 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { AbiContract } from "@eversdk/core";
-import { deployHelper, runHelper, runLocalHelper, Transaction, ContractPackageEx } from "../helpers";
+import { 
+    deployHelper,
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
+} from "../helpers";
 
 export class FlexClientStubAccount extends Account {
     static package: ContractPackageEx = {
@@ -10,9 +17,14 @@ export class FlexClientStubAccount extends Account {
         code: "te6ccgECEAEAAyMAAij/ACDBAfSkIFiS9KDgXwKKIO1T2QMBAQr0pCD0oQIAEKAAAAAB8sBnAgEgBQQABv/yKQFk3wHQ0wAB8nAg1gHTADDyd5ntQO1QCV8J2zAjxwGOgCBZAVUB4STHAiHhcCJwXzBVE9kGBP4wI9cNH2+jcCElcHBVCFUGVRIBVQNVGQFVCVUnVQrhcBPjBCLXSfKwk3Am2SEB4YIQgAAAALAC0x+OgCQB4JVwATAm2SLBC46A4QLACiLh7UTQ0wAB8n/TP9Mf9ATT/9Mf0x/TH9Mf0x/TH/QE9ATV0wCOgCIh4QH6QNP/WVshDQoIBwAGVQHZAfwwD9Mf0x+AEWHR0x/6QNP/+CrQ10pw+GTAAwHU1NQwA/LgZQtu8uBmyHAhAc8LAIAWYQHLP4AVYQHLH4AUYQH0AHESzwsAFc4h+wQTy/+AEWFVA8v/A9DU1DDQ7R5QdMsfA+1TyVBCyx8Syx8ayx8Yyx8Wyx8U9AAV9AAVzMkJAATwAQGCAsALIuHtRNDTAAHyf9M/0x/0BNP/0x/TH9Mf0x/TH9Mf9AT0BNWOgAHTAJtwcHElVSFeEFUS2SIB4fpA0/9wJdkLAfwB0YAgVhFWEVUB9A9voVYSpIIQf////7CAE2HjBCD4ZMhwIQHPCwAEo4AUYSXLPxPLH4ATYQH0AIASYQHL/4ARYQHLH1UPAcsfH8sfHcsfG8sfGcsfF/QAFfQAjhEwBslQBszJ7VSAC1WAXwkm2Skh4HEbzwsAFc4Vy/8ocHAMACJVJ1UlXhBVCVUWVQlVClUK2QF2ghCAAAAAErLtRNDTAAHyf9M/0x/0BNP/0x/TH9Mf0x/TH9Mf9AT0BNXTAI6AIiHhAfpA0/9ZWyFVAdkOAXww0YAgU/xVAfQPb6Hyu9DTH4AUYdMA0wDTAPpAMNMBBdIH0//V+kDRWyLBA5hbwAPy0GPyNOECwALytAXTAA8ApI5BMNIHB7oG0/8wUAK6FbDyu4AggBRhgBJhVQH0WzAFwAvyul8EDvhjgCBUTP/0D2+hLKSCEH////+wQQ3jBPhk+AAiIeEB0wQB1xgBMCFVAdk=",
         codeHash: "3a929b8afb8b282e55dc8dd18761307909709ff14dba1316df8835982bff78d0",
     };
-    
-    constructor(options: AccountOptions) {
+    log: Log;
+    constructor(
+        options: AccountOptions & {
+            log?: Log
+        }
+    ) {
         super(FlexClientStubAccount.package, options);
+        this.log = options.log ?? Log.default;
     }
     async deployContract(): Promise<{
         transaction: Transaction,
@@ -22,17 +34,17 @@ export class FlexClientStubAccount extends Account {
 
     async runOnDeploy(input: {
         triplet: {
-            wallet: number// uint32
-            exchange: number// uint32
-            user: number// uint32
-        }// tuple,
+            wallet: number /* uint32 */,
+            exchange: number /* uint32 */,
+            user: number /* uint32 */,
+        } /* tuple */,
         binding: {
-            flex: string// address
-            unsalted_price_code_hash: string | number | bigint// uint256
-        }// tuple,
-        flex_client_code: string// cell,
-        auth_index_code: string// cell,
-        user_id_index_code: string// cell,
+            flex: string /* address */,
+            unsalted_price_code_hash: string | number | bigint /* uint256 */,
+        } /* tuple */,
+        flex_client_code: string /* cell */,
+        auth_index_code: string /* cell */,
+        user_id_index_code: string /* cell */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -41,17 +53,17 @@ export class FlexClientStubAccount extends Account {
 
     async runLocalOnDeploy(input: {
         triplet: {
-            wallet: number// uint32
-            exchange: number// uint32
-            user: number// uint32
-        }// tuple,
+            wallet: number /* uint32 */,
+            exchange: number /* uint32 */,
+            user: number /* uint32 */,
+        } /* tuple */,
         binding: {
-            flex: string// address
-            unsalted_price_code_hash: string | number | bigint// uint256
-        }// tuple,
-        flex_client_code: string// cell,
-        auth_index_code: string// cell,
-        user_id_index_code: string// cell,
+            flex: string /* address */,
+            unsalted_price_code_hash: string | number | bigint /* uint256 */,
+        } /* tuple */,
+        flex_client_code: string /* cell */,
+        auth_index_code: string /* cell */,
+        user_id_index_code: string /* cell */,
     }): Promise<{
         transaction: Transaction,
     }> {

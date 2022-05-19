@@ -1,8 +1,11 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare class stTONsAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
@@ -106,7 +109,7 @@ export declare class stTONsAccount extends Account {
                 lend_addr: string;
                 lend_balance: string;
                 lend_finish_time: number;
-            };
+            }[];
             lend_balance: string;
             transferring_stake_back: boolean;
             last_depool_error: number;
@@ -124,7 +127,7 @@ export declare class stTONsAccount extends Account {
                 lend_addr: string;
                 lend_balance: string;
                 lend_finish_time: number;
-            };
+            }[];
             lend_balance: string;
             transferring_stake_back: boolean;
             last_depool_error: number;

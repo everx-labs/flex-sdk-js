@@ -1,7 +1,14 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { AbiContract } from "@eversdk/core";
-import { deployHelper, runHelper, runLocalHelper, Transaction, ContractPackageEx } from "../helpers";
+import { 
+    deployHelper,
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
+} from "../helpers";
 
 export class AuthIndexAccount extends Account {
     static package: ContractPackageEx = {
@@ -10,9 +17,14 @@ export class AuthIndexAccount extends Account {
         code: "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",
         codeHash: "4e305bcbd34b3a8b3825ddc769a51e7f8f848b94217097e40c9aa4aa7b8f3d30",
     };
-    
-    constructor(options: AccountOptions) {
+    log: Log;
+    constructor(
+        options: AccountOptions & {
+            log?: Log
+        }
+    ) {
         super(AuthIndexAccount.package, options);
+        this.log = options.log ?? Log.default;
     }
     async deployContract(): Promise<{
         transaction: Transaction,
@@ -33,7 +45,7 @@ export class AuthIndexAccount extends Account {
     }
 
     async runRemove(input: {
-        dst: string// address,
+        dst: string /* address */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -41,7 +53,7 @@ export class AuthIndexAccount extends Account {
     }
 
     async runLocalRemove(input: {
-        dst: string// address,
+        dst: string /* address */,
     }): Promise<{
         transaction: Transaction,
     }> {

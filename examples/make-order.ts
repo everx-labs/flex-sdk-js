@@ -15,18 +15,17 @@ Flex.config = {
 };
 
 async function main() {
-    const wallet = new Wallet({
+    const ever = new Wallet({
         address: "0:b87de6635e37b4569c25c87a9bd1a7a312b083b8dd0ad2ec48270e6fe4d8804d",
         signer: "583085240bd1f44917e2b4708b3173352872c1f521e7bd16ea97b39d2d66a98b",
     });
-    const market = new Market({
+    const flxEver = new Market({
         address: "0:f0bb8d8a4a1416a7b380cb217513395aea994487a2b3e80129c136184def8bb4", // FLX/EVER
     });
-    await wallet.makeOrder({
-        market,
-        sell: true,
+    await ever.makeOrder({
+        market: flxEver,
         price: 1.23,
-        amount: 10000,
+        amount: 10,
         clientAddress: "0:c34ec7bfae799c69479d50db89d3744e0175d8ab571e2c65bd78b0f70dc48e95",
         userId: "e890f897ddda3f49f35e65e95074ca31f29d8874785d7898691c005170ac548f",
     });

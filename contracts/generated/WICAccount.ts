@@ -1,7 +1,14 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { AbiContract } from "@eversdk/core";
-import { deployHelper, runHelper, runLocalHelper, Transaction, ContractPackageEx } from "../helpers";
+import { 
+    deployHelper,
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
+} from "../helpers";
 
 export class WICAccount extends Account {
     static package: ContractPackageEx = {
@@ -10,9 +17,14 @@ export class WICAccount extends Account {
         code: "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",
         codeHash: "dd02a9ef34766ca2387b399a5fd068373fce90d4d275085662faf288306e9431",
     };
-    
-    constructor(options: AccountOptions) {
+    log: Log;
+    constructor(
+        options: AccountOptions & {
+            log?: Log
+        }
+    ) {
         super(WICAccount.package, options);
+        this.log = options.log ?? Log.default;
     }
     async deployContract(): Promise<{
         transaction: Transaction,
@@ -21,12 +33,12 @@ export class WICAccount extends Account {
     }
 
     async runOnDeploy(input: {
-        keep_evers: string | number | bigint// uint128,
-        old_wrappers_cfg?: string// optional(address),
-        keep_wrapper?: string// optional(address),
-        deployer: string// address,
-        type: number// uint8,
-        init_args: string// cell,
+        keep_evers: string | number | bigint /* uint128 */,
+        old_wrappers_cfg?: string /* optional(address) */,
+        keep_wrapper?: string /* optional(address) */,
+        deployer: string /* address */,
+        type: number /* uint8 */,
+        init_args: string /* cell */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -34,12 +46,12 @@ export class WICAccount extends Account {
     }
 
     async runLocalOnDeploy(input: {
-        keep_evers: string | number | bigint// uint128,
-        old_wrappers_cfg?: string// optional(address),
-        keep_wrapper?: string// optional(address),
-        deployer: string// address,
-        type: number// uint8,
-        init_args: string// cell,
+        keep_evers: string | number | bigint /* uint128 */,
+        old_wrappers_cfg?: string /* optional(address) */,
+        keep_wrapper?: string /* optional(address) */,
+        deployer: string /* address */,
+        type: number /* uint8 */,
+        init_args: string /* cell */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -47,9 +59,9 @@ export class WICAccount extends Account {
     }
 
     async runSetNext(input: {
-        old_wrappers_cfg?: string// optional(address),
-        next_symbol?: string// optional(string),
-        next: string// address,
+        old_wrappers_cfg?: string /* optional(address) */,
+        next_symbol?: string /* optional(string) */,
+        next: string /* address */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -57,9 +69,9 @@ export class WICAccount extends Account {
     }
 
     async runLocalSetNext(input: {
-        old_wrappers_cfg?: string// optional(address),
-        next_symbol?: string// optional(string),
-        next: string// address,
+        old_wrappers_cfg?: string /* optional(address) */,
+        next_symbol?: string /* optional(string) */,
+        next: string /* address */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -68,17 +80,17 @@ export class WICAccount extends Account {
 
     async runCloneUpgrade(input: {
         evers: {
-            deploy: string | number | bigint// uint128
-            setnext: string | number | bigint// uint128
-            wic_keep: string | number | bigint// uint128
-        }// tuple,
-        first_clone?: string// optional(address),
-        last_clone?: string// optional(address),
-        prev_symbol?: string// optional(string),
-        wic_count: number// uint32,
-        token_version: number// uint32,
-        new_wrappers_cfg: string// address,
-        wrapper_deployers: string// address[],
+            deploy: string | number | bigint /* uint128 */,
+            setnext: string | number | bigint /* uint128 */,
+            wic_keep: string | number | bigint /* uint128 */,
+        } /* tuple */,
+        first_clone?: string /* optional(address) */,
+        last_clone?: string /* optional(address) */,
+        prev_symbol?: string /* optional(string) */,
+        wic_count: number /* uint32 */,
+        token_version: number /* uint32 */,
+        new_wrappers_cfg: string /* address */,
+        wrapper_deployers: string[] /* address[] */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -87,17 +99,17 @@ export class WICAccount extends Account {
 
     async runLocalCloneUpgrade(input: {
         evers: {
-            deploy: string | number | bigint// uint128
-            setnext: string | number | bigint// uint128
-            wic_keep: string | number | bigint// uint128
-        }// tuple,
-        first_clone?: string// optional(address),
-        last_clone?: string// optional(address),
-        prev_symbol?: string// optional(string),
-        wic_count: number// uint32,
-        token_version: number// uint32,
-        new_wrappers_cfg: string// address,
-        wrapper_deployers: string// address[],
+            deploy: string | number | bigint /* uint128 */,
+            setnext: string | number | bigint /* uint128 */,
+            wic_keep: string | number | bigint /* uint128 */,
+        } /* tuple */,
+        first_clone?: string /* optional(address) */,
+        last_clone?: string /* optional(address) */,
+        prev_symbol?: string /* optional(string) */,
+        wic_count: number /* uint32 */,
+        token_version: number /* uint32 */,
+        new_wrappers_cfg: string /* address */,
+        wrapper_deployers: string[] /* address[] */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -119,14 +131,14 @@ export class WICAccount extends Account {
     async runGetDetails(): Promise<{
         transaction: Transaction,
         output: {
-            symbol: string// string,
-            workchain_id: number// int8,
-            deployer?: string// optional(address),
-            wrapper?: string// optional(address),
-            type?: number// optional(uint8),
-            init_args?: string// optional(cell),
-            next?: string// optional(address),
-            unlisted: boolean// bool,
+            symbol: string /* string */,
+            workchain_id: number /* int8 */,
+            deployer?: string /* optional(address) */,
+            wrapper?: string /* optional(address) */,
+            type?: number /* optional(uint8) */,
+            init_args?: string /* optional(cell) */,
+            next?: string /* optional(address) */,
+            unlisted: boolean /* bool */,
         }
     }> {
         return await runHelper(this, "getDetails", {});
@@ -135,14 +147,14 @@ export class WICAccount extends Account {
     async runLocalGetDetails(): Promise<{
         transaction: Transaction,
         output: {
-            symbol: string// string,
-            workchain_id: number// int8,
-            deployer?: string// optional(address),
-            wrapper?: string// optional(address),
-            type?: number// optional(uint8),
-            init_args?: string// optional(cell),
-            next?: string// optional(address),
-            unlisted: boolean// bool,
+            symbol: string /* string */,
+            workchain_id: number /* int8 */,
+            deployer?: string /* optional(address) */,
+            wrapper?: string /* optional(address) */,
+            type?: number /* optional(uint8) */,
+            init_args?: string /* optional(cell) */,
+            next?: string /* optional(address) */,
+            unlisted: boolean /* bool */,
         }
     }> {
         return await runLocalHelper(this, "getDetails", {});

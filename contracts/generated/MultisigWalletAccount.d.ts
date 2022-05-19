@@ -1,10 +1,13 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare class MultisigWalletAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(input: {
-        owners: string | number | bigint;
+        owners: string | number | bigint[];
         reqConfirms: number;
     }): Promise<{
         transaction: Transaction;
@@ -172,7 +175,7 @@ export declare class MultisigWalletAccount extends Account {
                 sendFlags: number;
                 payload: string;
                 bounce: boolean;
-            };
+            }[];
         };
     }>;
     runLocalGetTransactions(): Promise<{
@@ -190,19 +193,19 @@ export declare class MultisigWalletAccount extends Account {
                 sendFlags: number;
                 payload: string;
                 bounce: boolean;
-            };
+            }[];
         };
     }>;
     runGetTransactionIds(): Promise<{
         transaction: Transaction;
         output: {
-            ids: string;
+            ids: string[];
         };
     }>;
     runLocalGetTransactionIds(): Promise<{
         transaction: Transaction;
         output: {
-            ids: string;
+            ids: string[];
         };
     }>;
     runGetCustodians(): Promise<{
@@ -211,7 +214,7 @@ export declare class MultisigWalletAccount extends Account {
             custodians: {
                 index: number;
                 pubkey: string;
-            };
+            }[];
         };
     }>;
     runLocalGetCustodians(): Promise<{
@@ -220,7 +223,7 @@ export declare class MultisigWalletAccount extends Account {
             custodians: {
                 index: number;
                 pubkey: string;
-            };
+            }[];
         };
     }>;
     runCreateLimit(input: {
@@ -297,7 +300,7 @@ export declare class MultisigWalletAccount extends Account {
                 start: number;
                 votes: number;
                 deletionMask: number;
-            };
+            }[];
         };
     }>;
     runLocalGetLimits(): Promise<{
@@ -312,7 +315,7 @@ export declare class MultisigWalletAccount extends Account {
                 start: number;
                 votes: number;
                 deletionMask: number;
-            };
+            }[];
         };
     }>;
     runGetPendingLimit(input: {
@@ -385,7 +388,7 @@ export declare class MultisigWalletAccount extends Account {
                         deletionMask: number;
                     };
                 };
-            };
+            }[];
         };
     }>;
     runLocalGetPendingLimits(): Promise<{
@@ -410,7 +413,7 @@ export declare class MultisigWalletAccount extends Account {
                         deletionMask: number;
                     };
                 };
-            };
+            }[];
         };
     }>;
     runGetLimit(input: {
@@ -449,7 +452,7 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runSubmitUpdate(input: {
         codeHash: string | number | bigint;
-        owners: string | number | bigint;
+        owners: string | number | bigint[];
         reqConfirms: number;
     }): Promise<{
         transaction: Transaction;
@@ -459,7 +462,7 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runLocalSubmitUpdate(input: {
         codeHash: string | number | bigint;
-        owners: string | number | bigint;
+        owners: string | number | bigint[];
         reqConfirms: number;
     }): Promise<{
         transaction: Transaction;
@@ -499,9 +502,9 @@ export declare class MultisigWalletAccount extends Account {
                 confirmationsMask: number;
                 creator: string;
                 codeHash: string;
-                custodians: string;
+                custodians: string[];
                 reqConfirms: number;
-            };
+            }[];
         };
     }>;
     runLocalGetUpdateRequests(): Promise<{
@@ -514,9 +517,9 @@ export declare class MultisigWalletAccount extends Account {
                 confirmationsMask: number;
                 creator: string;
                 codeHash: string;
-                custodians: string;
+                custodians: string[];
                 reqConfirms: number;
-            };
+            }[];
         };
     }>;
 }

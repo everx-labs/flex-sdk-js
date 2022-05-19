@@ -1,7 +1,14 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { AbiContract } from "@eversdk/core";
-import { deployHelper, runHelper, runLocalHelper, Transaction, ContractPackageEx } from "../helpers";
+import { 
+    deployHelper,
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
+} from "../helpers";
 
 export class GlobalConfigAccount extends Account {
     static package: ContractPackageEx = {
@@ -10,9 +17,14 @@ export class GlobalConfigAccount extends Account {
         code: "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",
         codeHash: "56e189c3b798a674c0423b4a773eed03aa623faf0cb4f2ab5303bc8b33a69a54",
     };
-    
-    constructor(options: AccountOptions) {
+    log: Log;
+    constructor(
+        options: AccountOptions & {
+            log?: Log
+        }
+    ) {
         super(GlobalConfigAccount.package, options);
+        this.log = options.log ?? Log.default;
     }
     async deployContract(): Promise<{
         transaction: Transaction,
@@ -21,11 +33,11 @@ export class GlobalConfigAccount extends Account {
     }
 
     async runOnDeploy(input: {
-        keep_evers: string | number | bigint// uint128,
-        wrappers_cfg: string// address,
-        flex: string// address,
-        user_cfg: string// address,
-        description: string// string,
+        keep_evers: string | number | bigint /* uint128 */,
+        wrappers_cfg: string /* address */,
+        flex: string /* address */,
+        user_cfg: string /* address */,
+        description: string /* string */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -33,11 +45,11 @@ export class GlobalConfigAccount extends Account {
     }
 
     async runLocalOnDeploy(input: {
-        keep_evers: string | number | bigint// uint128,
-        wrappers_cfg: string// address,
-        flex: string// address,
-        user_cfg: string// address,
-        description: string// string,
+        keep_evers: string | number | bigint /* uint128 */,
+        wrappers_cfg: string /* address */,
+        flex: string /* address */,
+        user_cfg: string /* address */,
+        description: string /* string */,
     }): Promise<{
         transaction: Transaction,
     }> {
@@ -48,14 +60,14 @@ export class GlobalConfigAccount extends Account {
         transaction: Transaction,
         output: {
             version: {
-                wallet: number// uint32
-                exchange: number// uint32
-                user: number// uint32
-            }// tuple,
-            wrappers_cfg: string// address,
-            flex: string// address,
-            user_cfg: string// address,
-            description: string// string,
+                wallet: number /* uint32 */,
+                exchange: number /* uint32 */,
+                user: number /* uint32 */,
+            } /* tuple */,
+            wrappers_cfg: string /* address */,
+            flex: string /* address */,
+            user_cfg: string /* address */,
+            description: string /* string */,
         }
     }> {
         return await runHelper(this, "getDetails", {});
@@ -65,14 +77,14 @@ export class GlobalConfigAccount extends Account {
         transaction: Transaction,
         output: {
             version: {
-                wallet: number// uint32
-                exchange: number// uint32
-                user: number// uint32
-            }// tuple,
-            wrappers_cfg: string// address,
-            flex: string// address,
-            user_cfg: string// address,
-            description: string// string,
+                wallet: number /* uint32 */,
+                exchange: number /* uint32 */,
+                user: number /* uint32 */,
+            } /* tuple */,
+            wrappers_cfg: string /* address */,
+            flex: string /* address */,
+            user_cfg: string /* address */,
+            description: string /* string */,
         }
     }> {
         return await runLocalHelper(this, "getDetails", {});
@@ -81,7 +93,7 @@ export class GlobalConfigAccount extends Account {
     async runGetConfig(): Promise<{
         transaction: Transaction,
         output: {
-            super_root: string// address,
+            super_root: string /* address */,
         }
     }> {
         return await runHelper(this, "getConfig", {});
@@ -90,7 +102,7 @@ export class GlobalConfigAccount extends Account {
     async runLocalGetConfig(): Promise<{
         transaction: Transaction,
         output: {
-            super_root: string// address,
+            super_root: string /* address */,
         }
     }> {
         return await runLocalHelper(this, "getConfig", {});
