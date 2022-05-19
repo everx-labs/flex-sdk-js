@@ -48,7 +48,7 @@ class Client extends flex_1.FlexBoundLazy {
     createState(options) {
         return __awaiter(this, void 0, void 0, function* () {
             return {
-                client: new contracts_1.FlexClientAccount({
+                account: new contracts_1.FlexClientAccount({
                     client: this.flex.client,
                     address: options.address,
                 }),

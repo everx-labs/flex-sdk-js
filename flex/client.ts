@@ -13,7 +13,7 @@ export type ClientDeployOptions = FlexBoundOptions & {
 }
 
 type ClientState = {
-    client: FlexClientAccount,
+    account: FlexClientAccount,
 }
 
 export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
@@ -51,7 +51,7 @@ export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
 
     protected async createState(options: ClientOptions): Promise<ClientState> {
         return {
-            client: new FlexClientAccount({
+            account: new FlexClientAccount({
                 client: this.flex.client,
                 address: options.address,
             }),

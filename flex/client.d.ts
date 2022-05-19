@@ -10,7 +10,7 @@ export declare type ClientDeployOptions = FlexBoundOptions & {
     signer: Signer | string;
 };
 declare type ClientState = {
-    client: FlexClientAccount;
+    account: FlexClientAccount;
 };
 export declare class Client extends FlexBoundLazy<ClientOptions, ClientState> {
     constructor(options: ClientOptions);

@@ -14,6 +14,7 @@ const lib_node_1 = require("@eversdk/lib-node");
 const flex_1 = require("../flex");
 const wallet_1 = require("../flex/wallet");
 const market_1 = require("../flex/market");
+const client_1 = require("../flex/client");
 core_1.TonClient.useBinaryLibrary(lib_node_1.libNode);
 flex_1.Flex.config = {
     client: {
@@ -26,19 +27,23 @@ flex_1.Flex.config = {
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const ever = new wallet_1.Wallet({
-            address: "0:b87de6635e37b4569c25c87a9bd1a7a312b083b8dd0ad2ec48270e6fe4d8804d",
-            signer: "583085240bd1f44917e2b4708b3173352872c1f521e7bd16ea97b39d2d66a98b",
+            address: "0:62fe1c8d300724cb154dd54f9d498c0b8baacdc8687feabf9251716a3c2aa7a2",
+            signer: "08d3c6e784a5bf44837ff58270b63797f800cecff17339671606b8100afd983c",
         });
         const flxEver = new market_1.Market({
             address: "0:f0bb8d8a4a1416a7b380cb217513395aea994487a2b3e80129c136184def8bb4",
         });
-        yield ever.makeOrder({
+        const client = new client_1.Client({
+            address: "0:ae6cb924f28a5b95f61afd239ad7cf3920edcfadcda456afa3b2dea7c9da31a8",
+        });
+        const order = yield ever.makeOrder({
             market: flxEver,
             price: 1.23,
-            amount: 10,
-            clientAddress: "0:c34ec7bfae799c69479d50db89d3744e0175d8ab571e2c65bd78b0f70dc48e95",
-            userId: "e890f897ddda3f49f35e65e95074ca31f29d8874785d7898691c005170ac548f",
+            amount: 1,
+            client,
+            userId: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
         });
+        flex_1.Flex.default.log.verbose(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
     });
 }
 (() => __awaiter(void 0, void 0, void 0, function* () {
