@@ -47,14 +47,6 @@ class Flex {
         }
         return this._config;
     }
-    static resolve(options) {
-        var _a;
-        const source = options.flex;
-        if (source) {
-            return source instanceof Flex ? source : ((_a = source.flex) !== null && _a !== void 0 ? _a : Flex.default);
-        }
-        return Flex.default;
-    }
     resolveSigner(signer) {
         return __awaiter(this, void 0, void 0, function* () {
             if (signer === undefined) {
@@ -154,9 +146,9 @@ exports.Flex = Flex;
 Flex._config = undefined;
 Flex._default = undefined;
 class FlexBoundLazy {
-    constructor(options) {
+    constructor(options, flex) {
         this._state = undefined;
-        this.flex = Flex.resolve(options);
+        this.flex = flex !== null && flex !== void 0 ? flex : Flex.default;
         this.log = this.flex.log;
         this._options = options;
     }

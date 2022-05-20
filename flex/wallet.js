@@ -14,9 +14,6 @@ const flex_1 = require("./flex");
 const contracts_1 = require("../contracts");
 const helpers_1 = require("../contracts/helpers");
 class Wallet extends flex_1.FlexBoundLazy {
-    constructor(options) {
-        super(options);
-    }
     createState(options) {
         return __awaiter(this, void 0, void 0, function* () {
             return {

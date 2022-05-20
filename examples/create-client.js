@@ -12,7 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@eversdk/core");
 const lib_node_1 = require("@eversdk/lib-node");
 const flex_1 = require("../flex");
-const trading_1 = require("../flex/trading");
+const client_1 = require("../flex/client");
+const ever_wallet_1 = require("../flex/ever-wallet");
 core_1.TonClient.useBinaryLibrary(lib_node_1.libNode);
 flex_1.Flex.config = {
     client: {
@@ -24,22 +25,26 @@ flex_1.Flex.config = {
 };
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        const order = yield trading_1.Trading.makeOrder({
-            client: {
-                address: "0:ae6cb924f28a5b95f61afd239ad7cf3920edcfadcda456afa3b2dea7c9da31a8",
-            },
-            wallet: {
-                address: "0:62fe1c8d300724cb154dd54f9d498c0b8baacdc8687feabf9251716a3c2aa7a2",
-                signer: "flex-wallet-1",
-            },
-            market: {
-                address: "0:f0bb8d8a4a1416a7b380cb217513395aea994487a2b3e80129c136184def8bb4",
-            },
-            price: 1.23,
-            amount: 1,
-            userId: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
+        const everWallet = new ever_wallet_1.EverWallet({
+            address: "0:b4da2773b3566c8799ff8292bb1058662d143556a7ac8a129c481a38657cbd33",
+            signer: "msig",
         });
-        flex_1.Flex.default.log.verbose(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
+        const client = yield client_1.Client.deploy({
+            everWallet,
+            signer: "flex-client-1",
+        });
+        const userAccount = yield client.deployUser({
+            id: 1,
+            name: "Client 1 User 1",
+            signer: "flex-user-1-1",
+            eversAll: 40e9,
+            eversAuth: 1e9,
+            refillWallet: 10e9,
+            minRefill: 0.1e9,
+        });
+        const { account: clientAccount } = yield client.getState();
+        flex_1.Flex.default.log.verbose(`Client: ${yield clientAccount.getAddress()}\n`);
+        flex_1.Flex.default.log.verbose(`User: ${yield userAccount.getAddress()}\n`);
     });
 }
 (() => __awaiter(void 0, void 0, void 0, function* () {
@@ -52,4 +57,4 @@ function main() {
         process.exit(1);
     }
 }))();
-//# sourceMappingURL=make-order.js.map
+//# sourceMappingURL=create-client.js.map

@@ -24,7 +24,6 @@ export declare class Flex {
     static get default(): Flex;
     static set config(config: FlexConfig);
     static get config(): FlexConfig;
-    static resolve(options: FlexBoundOptions): Flex;
     constructor(config: FlexConfig);
     resolveSigner(signer: Signer | string | undefined): Promise<Signer>;
     signerFromSecret(secret: string): Promise<Signer>;
@@ -33,16 +32,11 @@ export declare class Flex {
     getState(): Promise<FlexState>;
     close(): Promise<void>;
 }
-export declare type FlexBoundOptions = {
-    flex?: Flex | {
-        flex?: Flex;
-    };
-};
-export declare abstract class FlexBoundLazy<O extends FlexBoundOptions, S> {
+export declare abstract class FlexBoundLazy<O, S> {
     flex: Flex;
     log: Log;
+    constructor(options: O, flex?: Flex);
     getState(): Promise<S>;
-    protected constructor(options: O);
     protected abstract createState(options: O): Promise<S>;
     private readonly _options;
     private _state;

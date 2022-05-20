@@ -1,7 +1,7 @@
-import { FlexBoundLazy, FlexBoundOptions } from "./flex";
+import { FlexBoundLazy } from "./flex";
 import { MultisigWalletAccount } from "../contracts";
 import { AbiContract, Signer } from "@eversdk/core";
-export declare type EverWalletOptions = FlexBoundOptions & {
+export declare type EverWalletOptions = {
     address: string;
     signer?: Signer | string;
 };

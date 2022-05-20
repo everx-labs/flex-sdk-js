@@ -9,20 +9,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Market = void 0;
+exports.Trading = void 0;
+const market_1 = require("./market");
+const client_1 = require("./client");
 const flex_1 = require("./flex");
-const contracts_1 = require("../contracts");
-class Market extends flex_1.FlexBoundLazy {
-    createState(options) {
+const wallet_1 = require("./wallet");
+class Trading {
+    static makeOrder(options, bindFlex) {
         return __awaiter(this, void 0, void 0, function* () {
-            return {
-                pair: new contracts_1.XchgPairAccount({
-                    client: this.flex.client,
-                    address: options.address,
-                }),
-            };
+            const flex = bindFlex !== null && bindFlex !== void 0 ? bindFlex : flex_1.Flex.default;
+            return yield new wallet_1.Wallet(options.wallet, flex).makeOrder({
+                client: new client_1.Client(options.client, flex),
+                market: new market_1.Market(options.market, flex),
+                userId: options.userId,
+                price: options.price,
+                amount: options.amount,
+            });
         });
     }
 }
-exports.Market = Market;
-//# sourceMappingURL=market.js.map
+exports.Trading = Trading;
+//# sourceMappingURL=trading.js.map

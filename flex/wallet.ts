@@ -1,4 +1,4 @@
-import { Flex, FlexBoundLazy } from "./flex";
+import { FlexBoundLazy } from "./flex";
 import { Signer } from "@eversdk/core";
 import { FlexWalletAccount, PriceXchgAccount } from "../contracts";
 import { Market } from "./market";
@@ -6,7 +6,6 @@ import { amountToUnits, priceToUnits } from "../contracts/helpers";
 import { Client } from "./client";
 
 export type WalletOptions = {
-    flex?: Flex,
     address: string,
     signer: Signer | string,
 }
@@ -25,10 +24,6 @@ type OrderOptions = {
 
 export class Wallet extends FlexBoundLazy<WalletOptions, WalletState> {
 
-    constructor(options: WalletOptions) {
-        super(options);
-    }
-
     protected async createState(options: WalletOptions): Promise<WalletState> {
         return {
             account: new FlexWalletAccount({
@@ -38,7 +33,6 @@ export class Wallet extends FlexBoundLazy<WalletOptions, WalletState> {
             }),
         };
     }
-
 
     async makeOrder(options: OrderOptions): Promise<any> {
         const { pair } = await options.market.getState();

@@ -1,7 +1,7 @@
-import { FlexBoundLazy, FlexBoundOptions } from "./flex";
+import { FlexBoundLazy } from "./flex";
 import { XchgPairAccount } from "../contracts";
 
-export type MarketOptions = FlexBoundOptions & {
+export type MarketOptions = {
     address: string,
 }
 
@@ -10,10 +10,6 @@ type MarketState = {
 }
 
 export class Market extends FlexBoundLazy<MarketOptions, MarketState> {
-    constructor(options: MarketOptions) {
-        super(options);
-    }
-
     protected async createState(options: MarketOptions): Promise<MarketState> {
         return {
             pair: new XchgPairAccount({
@@ -22,5 +18,4 @@ export class Market extends FlexBoundLazy<MarketOptions, MarketState> {
             }),
         };
     }
-
 }

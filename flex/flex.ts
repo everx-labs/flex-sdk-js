@@ -58,14 +58,6 @@ export class Flex {
         return this._config;
     }
 
-    static resolve(options: FlexBoundOptions): Flex {
-        const source = options.flex;
-        if (source) {
-            return source instanceof Flex ? source : (source.flex ?? Flex.default);
-        }
-        return Flex.default;
-    }
-
     constructor(config: FlexConfig) {
         this.config = config;
         this.client = new TonClient(config.client);
@@ -171,14 +163,15 @@ export class Flex {
     }
 }
 
-export type FlexBoundOptions = {
-    flex?: Flex | { flex?: Flex }
-}
-
-
-export abstract class FlexBoundLazy<O extends FlexBoundOptions, S> {
+export abstract class FlexBoundLazy<O, S> {
     public flex: Flex;
     public log: Log;
+
+    constructor(options: O, flex?: Flex) {
+        this.flex = flex ?? Flex.default;
+        this.log = this.flex.log;
+        this._options = options;
+    }
 
     async getState(): Promise<S> {
         if (!this._state) {
@@ -188,12 +181,6 @@ export abstract class FlexBoundLazy<O extends FlexBoundOptions, S> {
     }
 
     // To Implement
-
-    protected constructor(options: O) {
-        this.flex = Flex.resolve(options);
-        this.log = this.flex.log;
-        this._options = options;
-    }
 
     protected abstract createState(options: O): Promise<S>;
 
