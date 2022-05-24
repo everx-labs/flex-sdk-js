@@ -23,6 +23,16 @@ class Market extends flex_1.FlexBoundLazy {
             };
         });
     }
+    getPair() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.getState()).pair;
+        });
+    }
+    getPairDetails() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield (yield this.getPair()).getDetails()).output;
+        });
+    }
 }
 exports.Market = Market;
 //# sourceMappingURL=market.js.map

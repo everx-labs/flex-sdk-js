@@ -9,6 +9,37 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type stTONsClientMockDeployStTONsInput = {
+    evers: string | number | bigint /* uint128 */,
+    code: string /* cell */,
+    owner_pubkey: string | number | bigint /* uint256 */,
+    owner_address?: string /* optional(address) */,
+    depool: string /* address */,
+    depool_pubkey: string | number | bigint /* uint256 */,
+};
+
+export type stTONsClientMockDeployStTONsOutput = {
+    value0: string /* address */,
+};
+
+export type stTONsClientMockReturnStakeInput = {
+    stTONsAddr: string /* address */,
+    dst: string /* address */,
+    processing_evers: string | number | bigint /* uint128 */,
+    depool_processing_evers: string | number | bigint /* uint128 */,
+};
+
+export type stTONsClientMockFinalizeInput = {
+    stTONsAddr: string /* address */,
+    dst: string /* address */,
+    processing_evers: string | number | bigint /* uint128 */,
+    ignore_errors: boolean /* bool */,
+};
+
+export type stTONsClientMockGetOwnerPubkeyOutput = {
+    value0: string /* uint256 */,
+};
+
 
 export class stTONsClientMockAccount extends Account {
     static package: ContractPackageEx = {
@@ -34,77 +65,39 @@ export class stTONsClientMockAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runDeployStTONs(input: {
-        evers: string | number | bigint /* uint128 */,
-        code: string /* cell */,
-        owner_pubkey: string | number | bigint /* uint256 */,
-        owner_address?: string /* optional(address) */,
-        depool: string /* address */,
-        depool_pubkey: string | number | bigint /* uint256 */,
-    }): Promise<{
+    async runDeployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: stTONsClientMockDeployStTONsOutput,
     }> {
         return await runHelper(this, "deployStTONs", input);
     }
 
-    async runLocalDeployStTONs(input: {
-        evers: string | number | bigint /* uint128 */,
-        code: string /* cell */,
-        owner_pubkey: string | number | bigint /* uint256 */,
-        owner_address?: string /* optional(address) */,
-        depool: string /* address */,
-        depool_pubkey: string | number | bigint /* uint256 */,
-    }): Promise<{
+    async deployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: stTONsClientMockDeployStTONsOutput,
     }> {
         return await runLocalHelper(this, "deployStTONs", input);
     }
 
-    async runReturnStake(input: {
-        stTONsAddr: string /* address */,
-        dst: string /* address */,
-        processing_evers: string | number | bigint /* uint128 */,
-        depool_processing_evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runReturnStake(input: stTONsClientMockReturnStakeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "returnStake", input);
     }
 
-    async runLocalReturnStake(input: {
-        stTONsAddr: string /* address */,
-        dst: string /* address */,
-        processing_evers: string | number | bigint /* uint128 */,
-        depool_processing_evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async returnStake(input: stTONsClientMockReturnStakeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "returnStake", input);
     }
 
-    async runFinalize(input: {
-        stTONsAddr: string /* address */,
-        dst: string /* address */,
-        processing_evers: string | number | bigint /* uint128 */,
-        ignore_errors: boolean /* bool */,
-    }): Promise<{
+    async runFinalize(input: stTONsClientMockFinalizeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "finalize", input);
     }
 
-    async runLocalFinalize(input: {
-        stTONsAddr: string /* address */,
-        dst: string /* address */,
-        processing_evers: string | number | bigint /* uint128 */,
-        ignore_errors: boolean /* bool */,
-    }): Promise<{
+    async finalize(input: stTONsClientMockFinalizeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "finalize", input);
@@ -112,18 +105,14 @@ export class stTONsClientMockAccount extends Account {
 
     async runGetOwnerPubkey(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint256 */,
-        }
+        output: stTONsClientMockGetOwnerPubkeyOutput,
     }> {
         return await runHelper(this, "getOwnerPubkey", {});
     }
 
-    async runLocalGetOwnerPubkey(): Promise<{
+    async getOwnerPubkey(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint256 */,
-        }
+        output: stTONsClientMockGetOwnerPubkeyOutput,
     }> {
         return await runLocalHelper(this, "getOwnerPubkey", {});
     }

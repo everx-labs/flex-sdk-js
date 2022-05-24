@@ -8,6 +8,8 @@ declare type MarketState = {
 };
 export declare class Market extends FlexBoundLazy<MarketOptions, MarketState> {
     protected createState(options: MarketOptions): Promise<MarketState>;
+    getPair(): Promise<XchgPairAccount>;
+    getPairDetails(): Promise<import("../contracts/generated/XchgPairAccount").XchgPairGetDetailsOutput>;
 }
 export {};
 //# sourceMappingURL=market.d.ts.map

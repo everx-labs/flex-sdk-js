@@ -112,12 +112,12 @@ class Flex {
                     client: this.client,
                     address: this.config.superRoot,
                 });
-                const globalConfigAddress = (_a = this.config.globalConfig) !== null && _a !== void 0 ? _a : (yield superRoot.runLocalGetCurrentGlobalConfig()).output.value0;
+                const globalConfigAddress = (_a = this.config.globalConfig) !== null && _a !== void 0 ? _a : (yield superRoot.getCurrentGlobalConfig()).output.value0;
                 const globalConfig = new contracts_1.GlobalConfigAccount({
                     client: this.client,
                     address: globalConfigAddress,
                 });
-                const globalConfigDetails = (yield globalConfig.runLocalGetDetails()).output;
+                const globalConfigDetails = (yield globalConfig.getDetails()).output;
                 const flex = new contracts_1.FlexAccount({
                     client: this.client,
                     address: globalConfigDetails.flex,

@@ -134,12 +134,12 @@ export class Flex {
             });
             const globalConfigAddress =
                 this.config.globalConfig
-                ?? (await superRoot.runLocalGetCurrentGlobalConfig()).output.value0;
+                ?? (await superRoot.getCurrentGlobalConfig()).output.value0;
             const globalConfig = new GlobalConfigAccount({
                 client: this.client,
                 address: globalConfigAddress,
             });
-            const globalConfigDetails = (await globalConfig.runLocalGetDetails()).output;
+            const globalConfigDetails = (await globalConfig.getDetails()).output;
             const flex = new FlexAccount({
                 client: this.client,
                 address: globalConfigDetails.flex,

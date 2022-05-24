@@ -28,7 +28,7 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "init", input);
         });
     }
-    runLocalInit(input) {
+    init(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "init", input);
         });
@@ -38,7 +38,7 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployEmptyWallet", input);
         });
     }
-    runLocalDeployEmptyWallet(input) {
+    deployEmptyWallet(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployEmptyWallet", input);
         });
@@ -48,7 +48,7 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onEverTransfer", input);
         });
     }
-    runLocalOnEverTransfer(input) {
+    onEverTransfer(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onEverTransfer", input);
         });
@@ -58,7 +58,7 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "burn", input);
         });
     }
-    runLocalBurn(input) {
+    burn(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "burn", input);
         });
@@ -68,7 +68,7 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "transferFromReserveWallet", input);
         });
     }
-    runLocalTransferFromReserveWallet(input) {
+    transferFromReserveWallet(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "transferFromReserveWallet", input);
         });
@@ -78,7 +78,7 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "requestTotalGranted", input);
         });
     }
-    runLocalRequestTotalGranted(input) {
+    requestTotalGranted(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "requestTotalGranted", input);
         });
@@ -88,7 +88,7 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
@@ -98,7 +98,7 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getTip3Config", {});
         });
     }
-    runLocalGetTip3Config() {
+    getTip3Config() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getTip3Config", {});
         });
@@ -108,7 +108,7 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "hasInternalWalletCode", {});
         });
     }
-    runLocalHasInternalWalletCode() {
+    hasInternalWalletCode() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "hasInternalWalletCode", {});
         });
@@ -118,7 +118,7 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getWalletAddress", input);
         });
     }
-    runLocalGetWalletAddress(input) {
+    getWalletAddress(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getWalletAddress", input);
         });
@@ -128,7 +128,7 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getReserveWallet", {});
         });
     }
-    runLocalGetReserveWallet() {
+    getReserveWallet() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getReserveWallet", {});
         });

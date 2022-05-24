@@ -1,5 +1,65 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type UserDataConfigOnDeployInput = {
+    binding: {
+        flex: string;
+        unsalted_price_code_hash: string | number | bigint;
+    };
+    flex_client_stub: string;
+    flex_client_code: string;
+    auth_index_code: string;
+    user_id_index_code: string;
+};
+export declare type UserDataConfigDeployFlexClientInput = {
+    _answer_id: number;
+    pubkey: string | number | bigint;
+    deploy_evers: string | number | bigint;
+};
+export declare type UserDataConfigDeployFlexClientOutput = {
+    value0: string;
+};
+export declare type UserDataConfigRequestDetailsInput = {
+    _answer_id: number;
+};
+export declare type UserDataConfigRequestDetailsOutput = {
+    triplet: {
+        wallet: number;
+        exchange: number;
+        user: number;
+    };
+    binding: {
+        flex: string;
+        unsalted_price_code_hash: string;
+    };
+    flex_client_stub: string;
+    flex_client_code: string;
+    auth_index_code: string;
+    user_id_index_code: string;
+};
+export declare type UserDataConfigGetFlexClientAddrInput = {
+    pubkey: string | number | bigint;
+};
+export declare type UserDataConfigGetFlexClientAddrOutput = {
+    value0: string;
+};
+export declare type UserDataConfigGetDetailsOutput = {
+    triplet: {
+        wallet: number;
+        exchange: number;
+        user: number;
+    };
+    binding: {
+        flex: string;
+        unsalted_price_code_hash: string;
+    };
+    flex_client_stub: string;
+    flex_client_code: string;
+    auth_index_code: string;
+    user_id_index_code: string;
+};
+export declare type UserDataConfigGetConfigOutput = {
+    super_root: string;
+};
 export declare class UserDataConfigAccount extends Account {
     static package: ContractPackageEx;
     log: Log;
@@ -9,153 +69,51 @@ export declare class UserDataConfigAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(input: {
-        binding: {
-            flex: string;
-            unsalted_price_code_hash: string | number | bigint;
-        };
-        flex_client_stub: string;
-        flex_client_code: string;
-        auth_index_code: string;
-        user_id_index_code: string;
-    }): Promise<{
+    runOnDeploy(input: UserDataConfigOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalOnDeploy(input: {
-        binding: {
-            flex: string;
-            unsalted_price_code_hash: string | number | bigint;
-        };
-        flex_client_stub: string;
-        flex_client_code: string;
-        auth_index_code: string;
-        user_id_index_code: string;
-    }): Promise<{
+    onDeploy(input: UserDataConfigOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
-    runDeployFlexClient(input: {
-        _answer_id: number;
-        pubkey: string | number | bigint;
-        deploy_evers: string | number | bigint;
-    }): Promise<{
+    runDeployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: UserDataConfigDeployFlexClientOutput;
     }>;
-    runLocalDeployFlexClient(input: {
-        _answer_id: number;
-        pubkey: string | number | bigint;
-        deploy_evers: string | number | bigint;
-    }): Promise<{
+    deployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: UserDataConfigDeployFlexClientOutput;
     }>;
-    runRequestDetails(input: {
-        _answer_id: number;
-    }): Promise<{
+    runRequestDetails(input: UserDataConfigRequestDetailsInput): Promise<{
         transaction: Transaction;
-        output: {
-            triplet: {
-                wallet: number;
-                exchange: number;
-                user: number;
-            };
-            binding: {
-                flex: string;
-                unsalted_price_code_hash: string;
-            };
-            flex_client_stub: string;
-            flex_client_code: string;
-            auth_index_code: string;
-            user_id_index_code: string;
-        };
+        output: UserDataConfigRequestDetailsOutput;
     }>;
-    runLocalRequestDetails(input: {
-        _answer_id: number;
-    }): Promise<{
+    requestDetails(input: UserDataConfigRequestDetailsInput): Promise<{
         transaction: Transaction;
-        output: {
-            triplet: {
-                wallet: number;
-                exchange: number;
-                user: number;
-            };
-            binding: {
-                flex: string;
-                unsalted_price_code_hash: string;
-            };
-            flex_client_stub: string;
-            flex_client_code: string;
-            auth_index_code: string;
-            user_id_index_code: string;
-        };
+        output: UserDataConfigRequestDetailsOutput;
     }>;
-    runGetFlexClientAddr(input: {
-        pubkey: string | number | bigint;
-    }): Promise<{
+    runGetFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: UserDataConfigGetFlexClientAddrOutput;
     }>;
-    runLocalGetFlexClientAddr(input: {
-        pubkey: string | number | bigint;
-    }): Promise<{
+    getFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: UserDataConfigGetFlexClientAddrOutput;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            triplet: {
-                wallet: number;
-                exchange: number;
-                user: number;
-            };
-            binding: {
-                flex: string;
-                unsalted_price_code_hash: string;
-            };
-            flex_client_stub: string;
-            flex_client_code: string;
-            auth_index_code: string;
-            user_id_index_code: string;
-        };
+        output: UserDataConfigGetDetailsOutput;
     }>;
-    runLocalGetDetails(): Promise<{
+    getDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            triplet: {
-                wallet: number;
-                exchange: number;
-                user: number;
-            };
-            binding: {
-                flex: string;
-                unsalted_price_code_hash: string;
-            };
-            flex_client_stub: string;
-            flex_client_code: string;
-            auth_index_code: string;
-            user_id_index_code: string;
-        };
+        output: UserDataConfigGetDetailsOutput;
     }>;
     runGetConfig(): Promise<{
         transaction: Transaction;
-        output: {
-            super_root: string;
-        };
+        output: UserDataConfigGetConfigOutput;
     }>;
-    runLocalGetConfig(): Promise<{
+    getConfig(): Promise<{
         transaction: Transaction;
-        output: {
-            super_root: string;
-        };
+        output: UserDataConfigGetConfigOutput;
     }>;
 }
 //# sourceMappingURL=UserDataConfigAccount.d.ts.map

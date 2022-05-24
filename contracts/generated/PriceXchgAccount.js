@@ -28,7 +28,7 @@ class PriceXchgAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onTip3LendOwnership", input);
         });
     }
-    runLocalOnTip3LendOwnership(input) {
+    onTip3LendOwnership(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onTip3LendOwnership", input);
         });
@@ -38,7 +38,7 @@ class PriceXchgAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "processQueue", {});
         });
     }
-    runLocalProcessQueue() {
+    processQueue() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "processQueue", {});
         });
@@ -48,7 +48,7 @@ class PriceXchgAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "cancelOrder", input);
         });
     }
-    runLocalCancelOrder(input) {
+    cancelOrder(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "cancelOrder", input);
         });
@@ -58,7 +58,7 @@ class PriceXchgAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "cancelWalletOrder", input);
         });
     }
-    runLocalCancelWalletOrder(input) {
+    cancelWalletOrder(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "cancelWalletOrder", input);
         });
@@ -68,7 +68,7 @@ class PriceXchgAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });

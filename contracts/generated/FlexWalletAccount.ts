@@ -9,6 +9,177 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type FlexWalletTransferInput = {
+    _answer_id: number /* uint32 */,
+    answer_addr?: string /* optional(address) */,
+    to: string /* address */,
+    tokens: string | number | bigint /* uint128 */,
+    evers: string | number | bigint /* uint128 */,
+    return_ownership: string | number | bigint /* uint128 */,
+    notify_payload?: string /* optional(cell) */,
+};
+
+export type FlexWalletTransferToRecipientInput = {
+    _answer_id: number /* uint32 */,
+    answer_addr?: string /* optional(address) */,
+    to: {
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+    } /* tuple */,
+    tokens: string | number | bigint /* uint128 */,
+    evers: string | number | bigint /* uint128 */,
+    keep_evers: string | number | bigint /* uint128 */,
+    deploy: boolean /* bool */,
+    return_ownership: string | number | bigint /* uint128 */,
+    notify_payload?: string /* optional(cell) */,
+};
+
+export type FlexWalletBalanceInput = {
+    _answer_id: number /* uint32 */,
+};
+
+export type FlexWalletBalanceOutput = {
+    value0: string /* uint128 */,
+};
+
+export type FlexWalletAcceptMintInput = {
+    _value: string | number | bigint /* uint128 */,
+    answer_addr: string /* address */,
+    keep_evers: string | number | bigint /* uint128 */,
+    notify_payload?: string /* optional(cell) */,
+};
+
+export type FlexWalletAcceptTransferInput = {
+    _value: string | number | bigint /* uint128 */,
+    answer_addr: string /* address */,
+    keep_evers: string | number | bigint /* uint128 */,
+    sender_pubkey: string | number | bigint /* uint256 */,
+    sender_owner?: string /* optional(address) */,
+    payload?: string /* optional(cell) */,
+};
+
+export type FlexWalletBurnInput = {
+    _answer_id: number /* uint32 */,
+    out_pubkey: string | number | bigint /* uint256 */,
+    out_owner?: string /* optional(address) */,
+};
+
+export type FlexWalletUnwrapInput = {
+    _answer_id: number /* uint32 */,
+    out_pubkey: string | number | bigint /* uint256 */,
+    out_owner?: string /* optional(address) */,
+    tokens: string | number | bigint /* uint128 */,
+};
+
+export type FlexWalletMakeOrderInput = {
+    _answer_id: number /* uint32 */,
+    answer_addr?: string /* optional(address) */,
+    evers: string | number | bigint /* uint128 */,
+    lend_balance: string | number | bigint /* uint128 */,
+    lend_finish_time: number /* uint32 */,
+    price_num: string | number | bigint /* uint128 */,
+    unsalted_price_code: string /* cell */,
+    salt: string /* cell */,
+    args: {
+        sell: boolean /* bool */,
+        immediate_client: boolean /* bool */,
+        post_order: boolean /* bool */,
+        amount: string | number | bigint /* uint128 */,
+        client_addr: string /* address */,
+        user_id: string | number | bigint /* uint256 */,
+        order_id: string | number | bigint /* uint256 */,
+    } /* tuple */,
+};
+
+export type FlexWalletCancelOrderInput = {
+    evers: string | number | bigint /* uint128 */,
+    price: string /* address */,
+    sell: boolean /* bool */,
+    order_id?: string | number | bigint /* optional(uint256) */,
+};
+
+export type FlexWalletReturnOwnershipInput = {
+    tokens: string | number | bigint /* uint128 */,
+};
+
+export type FlexWalletBindInput = {
+    set_binding: boolean /* bool */,
+    binding?: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string | number | bigint /* uint256 */,
+    } /* optional(tuple) */,
+    set_trader: boolean /* bool */,
+    trader?: string | number | bigint /* optional(uint256) */,
+};
+
+export type FlexWalletDetailsInput = {
+    _answer_id: number /* uint32 */,
+};
+
+export type FlexWalletDetailsOutput = {
+    name: string /* string */,
+    symbol: string /* string */,
+    decimals: number /* uint8 */,
+    balance: string /* uint128 */,
+    root_pubkey: string /* uint256 */,
+    root_address: string /* address */,
+    wallet_pubkey: string /* uint256 */,
+    owner_address?: string /* optional(address) */,
+    lend_pubkey?: string /* optional(uint256) */,
+    lend_owners: {
+        lend_key: {
+            dest: {
+                workchain_id: number /* int8 */,
+                address: string /* uint256 */,
+            } /* tuple */,
+        } /* tuple */,
+        lend_balance: string /* uint128 */,
+        lend_finish_time: number /* uint32 */,
+    }[] /* tuple[] */,
+    lend_balance: string /* uint128 */,
+    binding?: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string /* uint256 */,
+    } /* optional(tuple) */,
+    code_hash: string /* uint256 */,
+    code_depth: number /* uint16 */,
+    workchain_id: number /* int8 */,
+};
+
+export type FlexWalletGetDetailsOutput = {
+    name: string /* string */,
+    symbol: string /* string */,
+    decimals: number /* uint8 */,
+    balance: string /* uint128 */,
+    root_pubkey: string /* uint256 */,
+    root_address: string /* address */,
+    wallet_pubkey: string /* uint256 */,
+    owner_address?: string /* optional(address) */,
+    lend_pubkey?: string /* optional(uint256) */,
+    lend_owners: {
+        lend_key: {
+            dest: {
+                workchain_id: number /* int8 */,
+                address: string /* uint256 */,
+            } /* tuple */,
+        } /* tuple */,
+        lend_balance: string /* uint128 */,
+        lend_finish_time: number /* uint32 */,
+    }[] /* tuple[] */,
+    lend_balance: string /* uint128 */,
+    binding?: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string /* uint256 */,
+    } /* optional(tuple) */,
+    code_hash: string /* uint256 */,
+    code_depth: number /* uint16 */,
+    workchain_id: number /* int8 */,
+};
+
+export type FlexWalletGetBalanceOutput = {
+    value0: string /* uint128 */,
+};
+
 
 export class FlexWalletAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,456 +203,178 @@ export class FlexWalletAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runTransfer(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr?: string /* optional(address) */,
-        to: string /* address */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        return_ownership: string | number | bigint /* uint128 */,
-        notify_payload?: string /* optional(cell) */,
-    }): Promise<{
+    async runTransfer(input: FlexWalletTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transfer", input);
     }
 
-    async runLocalTransfer(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr?: string /* optional(address) */,
-        to: string /* address */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        return_ownership: string | number | bigint /* uint128 */,
-        notify_payload?: string /* optional(cell) */,
-    }): Promise<{
+    async transfer(input: FlexWalletTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transfer", input);
     }
 
-    async runTransferToRecipient(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr?: string /* optional(address) */,
-        to: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* tuple */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        keep_evers: string | number | bigint /* uint128 */,
-        deploy: boolean /* bool */,
-        return_ownership: string | number | bigint /* uint128 */,
-        notify_payload?: string /* optional(cell) */,
-    }): Promise<{
+    async runTransferToRecipient(input: FlexWalletTransferToRecipientInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transferToRecipient", input);
     }
 
-    async runLocalTransferToRecipient(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr?: string /* optional(address) */,
-        to: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* tuple */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        keep_evers: string | number | bigint /* uint128 */,
-        deploy: boolean /* bool */,
-        return_ownership: string | number | bigint /* uint128 */,
-        notify_payload?: string /* optional(cell) */,
-    }): Promise<{
+    async transferToRecipient(input: FlexWalletTransferToRecipientInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transferToRecipient", input);
     }
 
-    async runBalance(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async runBalance(input: FlexWalletBalanceInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: FlexWalletBalanceOutput,
     }> {
         return await runHelper(this, "balance", input);
     }
 
-    async runLocalBalance(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async balance(input: FlexWalletBalanceInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: FlexWalletBalanceOutput,
     }> {
         return await runLocalHelper(this, "balance", input);
     }
 
-    async runAcceptMint(input: {
-        _value: string | number | bigint /* uint128 */,
-        answer_addr: string /* address */,
-        keep_evers: string | number | bigint /* uint128 */,
-        notify_payload?: string /* optional(cell) */,
-    }): Promise<{
+    async runAcceptMint(input: FlexWalletAcceptMintInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "acceptMint", input);
     }
 
-    async runLocalAcceptMint(input: {
-        _value: string | number | bigint /* uint128 */,
-        answer_addr: string /* address */,
-        keep_evers: string | number | bigint /* uint128 */,
-        notify_payload?: string /* optional(cell) */,
-    }): Promise<{
+    async acceptMint(input: FlexWalletAcceptMintInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "acceptMint", input);
     }
 
-    async runAcceptTransfer(input: {
-        _value: string | number | bigint /* uint128 */,
-        answer_addr: string /* address */,
-        keep_evers: string | number | bigint /* uint128 */,
-        sender_pubkey: string | number | bigint /* uint256 */,
-        sender_owner?: string /* optional(address) */,
-        payload?: string /* optional(cell) */,
-    }): Promise<{
+    async runAcceptTransfer(input: FlexWalletAcceptTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "acceptTransfer", input);
     }
 
-    async runLocalAcceptTransfer(input: {
-        _value: string | number | bigint /* uint128 */,
-        answer_addr: string /* address */,
-        keep_evers: string | number | bigint /* uint128 */,
-        sender_pubkey: string | number | bigint /* uint256 */,
-        sender_owner?: string /* optional(address) */,
-        payload?: string /* optional(cell) */,
-    }): Promise<{
+    async acceptTransfer(input: FlexWalletAcceptTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "acceptTransfer", input);
     }
 
-    async runBurn(input: {
-        _answer_id: number /* uint32 */,
-        out_pubkey: string | number | bigint /* uint256 */,
-        out_owner?: string /* optional(address) */,
-    }): Promise<{
+    async runBurn(input: FlexWalletBurnInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "burn", input);
     }
 
-    async runLocalBurn(input: {
-        _answer_id: number /* uint32 */,
-        out_pubkey: string | number | bigint /* uint256 */,
-        out_owner?: string /* optional(address) */,
-    }): Promise<{
+    async burn(input: FlexWalletBurnInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "burn", input);
     }
 
-    async runUnwrap(input: {
-        _answer_id: number /* uint32 */,
-        out_pubkey: string | number | bigint /* uint256 */,
-        out_owner?: string /* optional(address) */,
-        tokens: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runUnwrap(input: FlexWalletUnwrapInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "unwrap", input);
     }
 
-    async runLocalUnwrap(input: {
-        _answer_id: number /* uint32 */,
-        out_pubkey: string | number | bigint /* uint256 */,
-        out_owner?: string /* optional(address) */,
-        tokens: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async unwrap(input: FlexWalletUnwrapInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "unwrap", input);
     }
 
-    async runMakeOrder(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr?: string /* optional(address) */,
-        evers: string | number | bigint /* uint128 */,
-        lend_balance: string | number | bigint /* uint128 */,
-        lend_finish_time: number /* uint32 */,
-        price_num: string | number | bigint /* uint128 */,
-        unsalted_price_code: string /* cell */,
-        salt: string /* cell */,
-        args: {
-            sell: boolean /* bool */,
-            immediate_client: boolean /* bool */,
-            post_order: boolean /* bool */,
-            amount: string | number | bigint /* uint128 */,
-            client_addr: string /* address */,
-            user_id: string | number | bigint /* uint256 */,
-            order_id: string | number | bigint /* uint256 */,
-        } /* tuple */,
-    }): Promise<{
+    async runMakeOrder(input: FlexWalletMakeOrderInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "makeOrder", input);
     }
 
-    async runLocalMakeOrder(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr?: string /* optional(address) */,
-        evers: string | number | bigint /* uint128 */,
-        lend_balance: string | number | bigint /* uint128 */,
-        lend_finish_time: number /* uint32 */,
-        price_num: string | number | bigint /* uint128 */,
-        unsalted_price_code: string /* cell */,
-        salt: string /* cell */,
-        args: {
-            sell: boolean /* bool */,
-            immediate_client: boolean /* bool */,
-            post_order: boolean /* bool */,
-            amount: string | number | bigint /* uint128 */,
-            client_addr: string /* address */,
-            user_id: string | number | bigint /* uint256 */,
-            order_id: string | number | bigint /* uint256 */,
-        } /* tuple */,
-    }): Promise<{
+    async makeOrder(input: FlexWalletMakeOrderInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "makeOrder", input);
     }
 
-    async runCancelOrder(input: {
-        evers: string | number | bigint /* uint128 */,
-        price: string /* address */,
-        sell: boolean /* bool */,
-        order_id?: string | number | bigint /* optional(uint256) */,
-    }): Promise<{
+    async runCancelOrder(input: FlexWalletCancelOrderInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "cancelOrder", input);
     }
 
-    async runLocalCancelOrder(input: {
-        evers: string | number | bigint /* uint128 */,
-        price: string /* address */,
-        sell: boolean /* bool */,
-        order_id?: string | number | bigint /* optional(uint256) */,
-    }): Promise<{
+    async cancelOrder(input: FlexWalletCancelOrderInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "cancelOrder", input);
     }
 
-    async runReturnOwnership(input: {
-        tokens: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runReturnOwnership(input: FlexWalletReturnOwnershipInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "returnOwnership", input);
     }
 
-    async runLocalReturnOwnership(input: {
-        tokens: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async returnOwnership(input: FlexWalletReturnOwnershipInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "returnOwnership", input);
     }
 
-    async runBind(input: {
-        set_binding: boolean /* bool */,
-        binding?: {
-            flex: string /* address */,
-            unsalted_price_code_hash: string | number | bigint /* uint256 */,
-        } /* optional(tuple) */,
-        set_trader: boolean /* bool */,
-        trader?: string | number | bigint /* optional(uint256) */,
-    }): Promise<{
+    async runBind(input: FlexWalletBindInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "bind", input);
     }
 
-    async runLocalBind(input: {
-        set_binding: boolean /* bool */,
-        binding?: {
-            flex: string /* address */,
-            unsalted_price_code_hash: string | number | bigint /* uint256 */,
-        } /* optional(tuple) */,
-        set_trader: boolean /* bool */,
-        trader?: string | number | bigint /* optional(uint256) */,
-    }): Promise<{
+    async bind(input: FlexWalletBindInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "bind", input);
     }
 
-    async runDetails(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async runDetails(input: FlexWalletDetailsInput): Promise<{
         transaction: Transaction,
-        output: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            balance: string /* uint128 */,
-            root_pubkey: string /* uint256 */,
-            root_address: string /* address */,
-            wallet_pubkey: string /* uint256 */,
-            owner_address?: string /* optional(address) */,
-            lend_pubkey?: string /* optional(uint256) */,
-            lend_owners: {
-                lend_key: {
-                    dest: {
-                        workchain_id: number /* int8 */,
-                        address: string /* uint256 */,
-                    } /* tuple */,
-                } /* tuple */,
-                lend_balance: string /* uint128 */,
-                lend_finish_time: number /* uint32 */,
-            }[] /* tuple[] */,
-            lend_balance: string /* uint128 */,
-            binding?: {
-                flex: string /* address */,
-                unsalted_price_code_hash: string /* uint256 */,
-            } /* optional(tuple) */,
-            code_hash: string /* uint256 */,
-            code_depth: number /* uint16 */,
-            workchain_id: number /* int8 */,
-        }
+        output: FlexWalletDetailsOutput,
     }> {
         return await runHelper(this, "details", input);
     }
 
-    async runLocalDetails(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async details(input: FlexWalletDetailsInput): Promise<{
         transaction: Transaction,
-        output: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            balance: string /* uint128 */,
-            root_pubkey: string /* uint256 */,
-            root_address: string /* address */,
-            wallet_pubkey: string /* uint256 */,
-            owner_address?: string /* optional(address) */,
-            lend_pubkey?: string /* optional(uint256) */,
-            lend_owners: {
-                lend_key: {
-                    dest: {
-                        workchain_id: number /* int8 */,
-                        address: string /* uint256 */,
-                    } /* tuple */,
-                } /* tuple */,
-                lend_balance: string /* uint128 */,
-                lend_finish_time: number /* uint32 */,
-            }[] /* tuple[] */,
-            lend_balance: string /* uint128 */,
-            binding?: {
-                flex: string /* address */,
-                unsalted_price_code_hash: string /* uint256 */,
-            } /* optional(tuple) */,
-            code_hash: string /* uint256 */,
-            code_depth: number /* uint16 */,
-            workchain_id: number /* int8 */,
-        }
+        output: FlexWalletDetailsOutput,
     }> {
         return await runLocalHelper(this, "details", input);
     }
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            balance: string /* uint128 */,
-            root_pubkey: string /* uint256 */,
-            root_address: string /* address */,
-            wallet_pubkey: string /* uint256 */,
-            owner_address?: string /* optional(address) */,
-            lend_pubkey?: string /* optional(uint256) */,
-            lend_owners: {
-                lend_key: {
-                    dest: {
-                        workchain_id: number /* int8 */,
-                        address: string /* uint256 */,
-                    } /* tuple */,
-                } /* tuple */,
-                lend_balance: string /* uint128 */,
-                lend_finish_time: number /* uint32 */,
-            }[] /* tuple[] */,
-            lend_balance: string /* uint128 */,
-            binding?: {
-                flex: string /* address */,
-                unsalted_price_code_hash: string /* uint256 */,
-            } /* optional(tuple) */,
-            code_hash: string /* uint256 */,
-            code_depth: number /* uint16 */,
-            workchain_id: number /* int8 */,
-        }
+        output: FlexWalletGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            balance: string /* uint128 */,
-            root_pubkey: string /* uint256 */,
-            root_address: string /* address */,
-            wallet_pubkey: string /* uint256 */,
-            owner_address?: string /* optional(address) */,
-            lend_pubkey?: string /* optional(uint256) */,
-            lend_owners: {
-                lend_key: {
-                    dest: {
-                        workchain_id: number /* int8 */,
-                        address: string /* uint256 */,
-                    } /* tuple */,
-                } /* tuple */,
-                lend_balance: string /* uint128 */,
-                lend_finish_time: number /* uint32 */,
-            }[] /* tuple[] */,
-            lend_balance: string /* uint128 */,
-            binding?: {
-                flex: string /* address */,
-                unsalted_price_code_hash: string /* uint256 */,
-            } /* optional(tuple) */,
-            code_hash: string /* uint256 */,
-            code_depth: number /* uint16 */,
-            workchain_id: number /* int8 */,
-        }
+        output: FlexWalletGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
     async runGetBalance(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: FlexWalletGetBalanceOutput,
     }> {
         return await runHelper(this, "getBalance", {});
     }
 
-    async runLocalGetBalance(): Promise<{
+    async getBalance_(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: FlexWalletGetBalanceOutput,
     }> {
         return await runLocalHelper(this, "getBalance", {});
     }

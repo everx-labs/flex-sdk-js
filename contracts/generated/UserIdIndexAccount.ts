@@ -9,6 +9,45 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type UserIdIndexOnDeployInput = {
+    lend_pubkey: string | number | bigint /* uint256 */,
+    name: string /* string */,
+    evers_to_auth_idx: string | number | bigint /* uint128 */,
+    refill_wallet: string | number | bigint /* uint128 */,
+    min_refill: string | number | bigint /* uint128 */,
+};
+
+export type UserIdIndexReLendPubkeyInput = {
+    new_lend_pubkey: string | number | bigint /* uint256 */,
+    evers_to_remove: string | number | bigint /* uint128 */,
+    evers_to_auth_idx: string | number | bigint /* uint128 */,
+};
+
+export type UserIdIndexRequestLendPubkeyInput = {
+    _answer_id: number /* uint32 */,
+    evers_balance: string | number | bigint /* uint128 */,
+};
+
+export type UserIdIndexRequestLendPubkeyOutput = {
+    value0: string /* uint256 */,
+};
+
+export type UserIdIndexTransferInput = {
+    dest: string /* address */,
+    value: string | number | bigint /* uint128 */,
+    bounce: boolean /* bool */,
+};
+
+export type UserIdIndexSetRefillWalletInput = {
+    refill_wallet: string | number | bigint /* uint128 */,
+    min_refill: string | number | bigint /* uint128 */,
+};
+
+export type UserIdIndexGetConfigOutput = {
+    owner: string /* address */,
+    auth_index_code: string /* cell */,
+};
+
 
 export class UserIdIndexAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,45 +71,25 @@ export class UserIdIndexAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: {
-        lend_pubkey: string | number | bigint /* uint256 */,
-        name: string /* string */,
-        evers_to_auth_idx: string | number | bigint /* uint128 */,
-        refill_wallet: string | number | bigint /* uint128 */,
-        min_refill: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runOnDeploy(input: UserIdIndexOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
 
-    async runLocalOnDeploy(input: {
-        lend_pubkey: string | number | bigint /* uint256 */,
-        name: string /* string */,
-        evers_to_auth_idx: string | number | bigint /* uint128 */,
-        refill_wallet: string | number | bigint /* uint128 */,
-        min_refill: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async onDeploy(input: UserIdIndexOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runReLendPubkey(input: {
-        new_lend_pubkey: string | number | bigint /* uint256 */,
-        evers_to_remove: string | number | bigint /* uint128 */,
-        evers_to_auth_idx: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runReLendPubkey(input: UserIdIndexReLendPubkeyInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "reLendPubkey", input);
     }
 
-    async runLocalReLendPubkey(input: {
-        new_lend_pubkey: string | number | bigint /* uint256 */,
-        evers_to_remove: string | number | bigint /* uint128 */,
-        evers_to_auth_idx: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async reLendPubkey(input: UserIdIndexReLendPubkeyInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "reLendPubkey", input);
@@ -82,69 +101,45 @@ export class UserIdIndexAccount extends Account {
         return await runHelper(this, "remove", {});
     }
 
-    async runLocalRemove(): Promise<{
+    async remove(): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "remove", {});
     }
 
-    async runRequestLendPubkey(input: {
-        _answer_id: number /* uint32 */,
-        evers_balance: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runRequestLendPubkey(input: UserIdIndexRequestLendPubkeyInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint256 */,
-        }
+        output: UserIdIndexRequestLendPubkeyOutput,
     }> {
         return await runHelper(this, "requestLendPubkey", input);
     }
 
-    async runLocalRequestLendPubkey(input: {
-        _answer_id: number /* uint32 */,
-        evers_balance: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async requestLendPubkey(input: UserIdIndexRequestLendPubkeyInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint256 */,
-        }
+        output: UserIdIndexRequestLendPubkeyOutput,
     }> {
         return await runLocalHelper(this, "requestLendPubkey", input);
     }
 
-    async runTransfer(input: {
-        dest: string /* address */,
-        value: string | number | bigint /* uint128 */,
-        bounce: boolean /* bool */,
-    }): Promise<{
+    async runTransfer(input: UserIdIndexTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transfer", input);
     }
 
-    async runLocalTransfer(input: {
-        dest: string /* address */,
-        value: string | number | bigint /* uint128 */,
-        bounce: boolean /* bool */,
-    }): Promise<{
+    async transfer(input: UserIdIndexTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transfer", input);
     }
 
-    async runSetRefillWallet(input: {
-        refill_wallet: string | number | bigint /* uint128 */,
-        min_refill: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runSetRefillWallet(input: UserIdIndexSetRefillWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setRefillWallet", input);
     }
 
-    async runLocalSetRefillWallet(input: {
-        refill_wallet: string | number | bigint /* uint128 */,
-        min_refill: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async setRefillWallet(input: UserIdIndexSetRefillWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setRefillWallet", input);
@@ -152,20 +147,14 @@ export class UserIdIndexAccount extends Account {
 
     async runGetConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            owner: string /* address */,
-            auth_index_code: string /* cell */,
-        }
+        output: UserIdIndexGetConfigOutput,
     }> {
         return await runHelper(this, "getConfig", {});
     }
 
-    async runLocalGetConfig(): Promise<{
+    async getConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            owner: string /* address */,
-            auth_index_code: string /* cell */,
-        }
+        output: UserIdIndexGetConfigOutput,
     }> {
         return await runLocalHelper(this, "getConfig", {});
     }

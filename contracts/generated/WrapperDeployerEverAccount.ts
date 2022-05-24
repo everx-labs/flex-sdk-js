@@ -9,6 +9,27 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type WrapperDeployerEverSetWrapperEverCodeInput = {
+    code: string /* cell */,
+};
+
+export type WrapperDeployerEverSetExtWalletCodeInput = {
+    code: string /* cell */,
+};
+
+export type WrapperDeployerEverSetFlexWalletCodeInput = {
+    code: string /* cell */,
+};
+
+export type WrapperDeployerEverDeployInput = {
+    _answer_id: number /* uint32 */,
+    init_args: string /* cell */,
+};
+
+export type WrapperDeployerEverDeployOutput = {
+    value0: string /* address */,
+};
+
 
 export class WrapperDeployerEverAccount extends Account {
     static package: ContractPackageEx = {
@@ -39,74 +60,52 @@ export class WrapperDeployerEverAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSetWrapperEverCode(input: {
-        code: string /* cell */,
-    }): Promise<{
+    async runSetWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setWrapperEverCode", input);
     }
 
-    async runLocalSetWrapperEverCode(input: {
-        code: string /* cell */,
-    }): Promise<{
+    async setWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setWrapperEverCode", input);
     }
 
-    async runSetExtWalletCode(input: {
-        code: string /* cell */,
-    }): Promise<{
+    async runSetExtWalletCode(input: WrapperDeployerEverSetExtWalletCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setExtWalletCode", input);
     }
 
-    async runLocalSetExtWalletCode(input: {
-        code: string /* cell */,
-    }): Promise<{
+    async setExtWalletCode(input: WrapperDeployerEverSetExtWalletCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setExtWalletCode", input);
     }
 
-    async runSetFlexWalletCode(input: {
-        code: string /* cell */,
-    }): Promise<{
+    async runSetFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setFlexWalletCode", input);
     }
 
-    async runLocalSetFlexWalletCode(input: {
-        code: string /* cell */,
-    }): Promise<{
+    async setFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setFlexWalletCode", input);
     }
 
-    async runDeploy(input: {
-        _answer_id: number /* uint32 */,
-        init_args: string /* cell */,
-    }): Promise<{
+    async runDeploy(input: WrapperDeployerEverDeployInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: WrapperDeployerEverDeployOutput,
     }> {
         return await runHelper(this, "deploy", input);
     }
 
-    async runLocalDeploy(input: {
-        _answer_id: number /* uint32 */,
-        init_args: string /* cell */,
-    }): Promise<{
+    async deploy_(input: WrapperDeployerEverDeployInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: WrapperDeployerEverDeployOutput,
     }> {
         return await runLocalHelper(this, "deploy", input);
     }

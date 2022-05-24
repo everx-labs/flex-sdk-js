@@ -28,7 +28,7 @@ class stTONsClientMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployStTONs", input);
         });
     }
-    runLocalDeployStTONs(input) {
+    deployStTONs(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployStTONs", input);
         });
@@ -38,7 +38,7 @@ class stTONsClientMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "returnStake", input);
         });
     }
-    runLocalReturnStake(input) {
+    returnStake(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "returnStake", input);
         });
@@ -48,7 +48,7 @@ class stTONsClientMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "finalize", input);
         });
     }
-    runLocalFinalize(input) {
+    finalize(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "finalize", input);
         });
@@ -58,7 +58,7 @@ class stTONsClientMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getOwnerPubkey", {});
         });
     }
-    runLocalGetOwnerPubkey() {
+    getOwnerPubkey() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getOwnerPubkey", {});
         });

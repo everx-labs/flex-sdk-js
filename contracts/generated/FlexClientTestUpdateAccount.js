@@ -28,7 +28,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployPriceXchg", input);
         });
     }
-    runLocalDeployPriceXchg(input) {
+    deployPriceXchg(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployPriceXchg", input);
         });
@@ -38,7 +38,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "cancelXchgOrder", input);
         });
     }
-    runLocalCancelXchgOrder(input) {
+    cancelXchgOrder(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "cancelXchgOrder", input);
         });
@@ -48,7 +48,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "transfer", input);
         });
     }
-    runLocalTransfer(input) {
+    transfer(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "transfer", input);
         });
@@ -58,7 +58,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "transferTokens", input);
         });
     }
-    runLocalTransferTokens(input) {
+    transferTokens(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "transferTokens", input);
         });
@@ -68,7 +68,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployEmptyFlexWallet", input);
         });
     }
-    runLocalDeployEmptyFlexWallet(input) {
+    deployEmptyFlexWallet(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployEmptyFlexWallet", input);
         });
@@ -78,7 +78,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployIndex", input);
         });
     }
-    runLocalDeployIndex(input) {
+    deployIndex(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployIndex", input);
         });
@@ -88,7 +88,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "reLendIndex", input);
         });
     }
-    runLocalReLendIndex(input) {
+    reLendIndex(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "reLendIndex", input);
         });
@@ -98,7 +98,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "destroyIndex", input);
         });
     }
-    runLocalDestroyIndex(input) {
+    destroyIndex(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "destroyIndex", input);
         });
@@ -108,7 +108,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "burnWallet", input);
         });
     }
-    runLocalBurnWallet(input) {
+    burnWallet(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "burnWallet", input);
         });
@@ -118,7 +118,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "unwrapWallet", input);
         });
     }
-    runLocalUnwrapWallet(input) {
+    unwrapWallet(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "unwrapWallet", input);
         });
@@ -128,7 +128,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "bindWallet", input);
         });
     }
-    runLocalBindWallet(input) {
+    bindWallet(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "bindWallet", input);
         });
@@ -138,7 +138,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onTip3Transfer", input);
         });
     }
-    runLocalOnTip3Transfer(input) {
+    onTip3Transfer(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onTip3Transfer", input);
         });
@@ -148,7 +148,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "upgrade", input);
         });
     }
-    runLocalUpgrade(input) {
+    upgrade(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "upgrade", input);
         });
@@ -158,7 +158,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getPayloadForDeployInternalWallet", input);
         });
     }
-    runLocalGetPayloadForDeployInternalWallet(input) {
+    getPayloadForDeployInternalWallet(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getPayloadForDeployInternalWallet", input);
         });
@@ -168,7 +168,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getPriceXchgAddress", input);
         });
     }
-    runLocalGetPriceXchgAddress(input) {
+    getPriceXchgAddress(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getPriceXchgAddress", input);
         });
@@ -178,7 +178,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getUserIdIndex", input);
         });
     }
-    runLocalGetUserIdIndex(input) {
+    getUserIdIndex(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getUserIdIndex", input);
         });
@@ -188,7 +188,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
@@ -198,7 +198,7 @@ class FlexClientTestUpdateAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getTestValue", {});
         });
     }
-    runLocalGetTestValue() {
+    getTestValue() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getTestValue", {});
         });

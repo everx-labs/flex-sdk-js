@@ -9,6 +9,127 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type TONTokenWalletTransferInput = {
+    _answer_id: number /* uint32 */,
+    answer_addr?: string /* optional(address) */,
+    to: string /* address */,
+    tokens: string | number | bigint /* uint128 */,
+    evers: string | number | bigint /* uint128 */,
+    return_ownership: string | number | bigint /* uint128 */,
+    notify_payload?: string /* optional(cell) */,
+};
+
+export type TONTokenWalletTransferToRecipientInput = {
+    _answer_id: number /* uint32 */,
+    answer_addr?: string /* optional(address) */,
+    to: {
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+    } /* tuple */,
+    tokens: string | number | bigint /* uint128 */,
+    evers: string | number | bigint /* uint128 */,
+    keep_evers: string | number | bigint /* uint128 */,
+    deploy: boolean /* bool */,
+    return_ownership: string | number | bigint /* uint128 */,
+    notify_payload?: string /* optional(cell) */,
+};
+
+export type TONTokenWalletBalanceInput = {
+    _answer_id: number /* uint32 */,
+};
+
+export type TONTokenWalletBalanceOutput = {
+    value0: string /* uint128 */,
+};
+
+export type TONTokenWalletAcceptMintInput = {
+    _value: string | number | bigint /* uint128 */,
+    answer_addr: string /* address */,
+    keep_evers: string | number | bigint /* uint128 */,
+    notify_payload?: string /* optional(cell) */,
+};
+
+export type TONTokenWalletAcceptTransferInput = {
+    _value: string | number | bigint /* uint128 */,
+    answer_addr: string /* address */,
+    keep_evers: string | number | bigint /* uint128 */,
+    sender_pubkey: string | number | bigint /* uint256 */,
+    sender_owner?: string /* optional(address) */,
+    payload?: string /* optional(cell) */,
+};
+
+export type TONTokenWalletDestroyInput = {
+    dest: string /* address */,
+};
+
+export type TONTokenWalletDetailsInput = {
+    _answer_id: number /* uint32 */,
+};
+
+export type TONTokenWalletDetailsOutput = {
+    name: string /* string */,
+    symbol: string /* string */,
+    decimals: number /* uint8 */,
+    balance: string /* uint128 */,
+    root_pubkey: string /* uint256 */,
+    root_address: string /* address */,
+    wallet_pubkey: string /* uint256 */,
+    owner_address?: string /* optional(address) */,
+    lend_pubkey?: string /* optional(uint256) */,
+    lend_owners: {
+        lend_key: {
+            dest: {
+                workchain_id: number /* int8 */,
+                address: string /* uint256 */,
+            } /* tuple */,
+        } /* tuple */,
+        lend_balance: string /* uint128 */,
+        lend_finish_time: number /* uint32 */,
+    }[] /* tuple[] */,
+    lend_balance: string /* uint128 */,
+    binding?: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string /* uint256 */,
+    } /* optional(tuple) */,
+    code_hash: string /* uint256 */,
+    code_depth: number /* uint16 */,
+    workchain_id: number /* int8 */,
+};
+
+export type TONTokenWalletGetDetailsOutput = {
+    name: string /* string */,
+    symbol: string /* string */,
+    decimals: number /* uint8 */,
+    balance: string /* uint128 */,
+    root_pubkey: string /* uint256 */,
+    root_address: string /* address */,
+    wallet_pubkey: string /* uint256 */,
+    owner_address?: string /* optional(address) */,
+    lend_pubkey?: string /* optional(uint256) */,
+    lend_owners: {
+        lend_key: {
+            dest: {
+                workchain_id: number /* int8 */,
+                address: string /* uint256 */,
+            } /* tuple */,
+        } /* tuple */,
+        lend_balance: string /* uint128 */,
+        lend_finish_time: number /* uint32 */,
+    }[] /* tuple[] */,
+    lend_balance: string /* uint128 */,
+    binding?: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string /* uint256 */,
+    } /* optional(tuple) */,
+    code_hash: string /* uint256 */,
+    code_depth: number /* uint16 */,
+    workchain_id: number /* int8 */,
+};
+
+export type TONTokenWalletGetBalanceOutput = {
+    value0: string /* uint128 */,
+};
+
 
 export class TONTokenWalletAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,316 +153,118 @@ export class TONTokenWalletAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runTransfer(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr?: string /* optional(address) */,
-        to: string /* address */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        return_ownership: string | number | bigint /* uint128 */,
-        notify_payload?: string /* optional(cell) */,
-    }): Promise<{
+    async runTransfer(input: TONTokenWalletTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transfer", input);
     }
 
-    async runLocalTransfer(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr?: string /* optional(address) */,
-        to: string /* address */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        return_ownership: string | number | bigint /* uint128 */,
-        notify_payload?: string /* optional(cell) */,
-    }): Promise<{
+    async transfer(input: TONTokenWalletTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transfer", input);
     }
 
-    async runTransferToRecipient(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr?: string /* optional(address) */,
-        to: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* tuple */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        keep_evers: string | number | bigint /* uint128 */,
-        deploy: boolean /* bool */,
-        return_ownership: string | number | bigint /* uint128 */,
-        notify_payload?: string /* optional(cell) */,
-    }): Promise<{
+    async runTransferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transferToRecipient", input);
     }
 
-    async runLocalTransferToRecipient(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr?: string /* optional(address) */,
-        to: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* tuple */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        keep_evers: string | number | bigint /* uint128 */,
-        deploy: boolean /* bool */,
-        return_ownership: string | number | bigint /* uint128 */,
-        notify_payload?: string /* optional(cell) */,
-    }): Promise<{
+    async transferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transferToRecipient", input);
     }
 
-    async runBalance(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async runBalance(input: TONTokenWalletBalanceInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: TONTokenWalletBalanceOutput,
     }> {
         return await runHelper(this, "balance", input);
     }
 
-    async runLocalBalance(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async balance(input: TONTokenWalletBalanceInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: TONTokenWalletBalanceOutput,
     }> {
         return await runLocalHelper(this, "balance", input);
     }
 
-    async runAcceptMint(input: {
-        _value: string | number | bigint /* uint128 */,
-        answer_addr: string /* address */,
-        keep_evers: string | number | bigint /* uint128 */,
-        notify_payload?: string /* optional(cell) */,
-    }): Promise<{
+    async runAcceptMint(input: TONTokenWalletAcceptMintInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "acceptMint", input);
     }
 
-    async runLocalAcceptMint(input: {
-        _value: string | number | bigint /* uint128 */,
-        answer_addr: string /* address */,
-        keep_evers: string | number | bigint /* uint128 */,
-        notify_payload?: string /* optional(cell) */,
-    }): Promise<{
+    async acceptMint(input: TONTokenWalletAcceptMintInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "acceptMint", input);
     }
 
-    async runAcceptTransfer(input: {
-        _value: string | number | bigint /* uint128 */,
-        answer_addr: string /* address */,
-        keep_evers: string | number | bigint /* uint128 */,
-        sender_pubkey: string | number | bigint /* uint256 */,
-        sender_owner?: string /* optional(address) */,
-        payload?: string /* optional(cell) */,
-    }): Promise<{
+    async runAcceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "acceptTransfer", input);
     }
 
-    async runLocalAcceptTransfer(input: {
-        _value: string | number | bigint /* uint128 */,
-        answer_addr: string /* address */,
-        keep_evers: string | number | bigint /* uint128 */,
-        sender_pubkey: string | number | bigint /* uint256 */,
-        sender_owner?: string /* optional(address) */,
-        payload?: string /* optional(cell) */,
-    }): Promise<{
+    async acceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "acceptTransfer", input);
     }
 
-    async runDestroy(input: {
-        dest: string /* address */,
-    }): Promise<{
+    async runDestroy(input: TONTokenWalletDestroyInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "destroy", input);
     }
 
-    async runLocalDestroy(input: {
-        dest: string /* address */,
-    }): Promise<{
+    async destroy(input: TONTokenWalletDestroyInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "destroy", input);
     }
 
-    async runDetails(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async runDetails(input: TONTokenWalletDetailsInput): Promise<{
         transaction: Transaction,
-        output: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            balance: string /* uint128 */,
-            root_pubkey: string /* uint256 */,
-            root_address: string /* address */,
-            wallet_pubkey: string /* uint256 */,
-            owner_address?: string /* optional(address) */,
-            lend_pubkey?: string /* optional(uint256) */,
-            lend_owners: {
-                lend_key: {
-                    dest: {
-                        workchain_id: number /* int8 */,
-                        address: string /* uint256 */,
-                    } /* tuple */,
-                } /* tuple */,
-                lend_balance: string /* uint128 */,
-                lend_finish_time: number /* uint32 */,
-            }[] /* tuple[] */,
-            lend_balance: string /* uint128 */,
-            binding?: {
-                flex: string /* address */,
-                unsalted_price_code_hash: string /* uint256 */,
-            } /* optional(tuple) */,
-            code_hash: string /* uint256 */,
-            code_depth: number /* uint16 */,
-            workchain_id: number /* int8 */,
-        }
+        output: TONTokenWalletDetailsOutput,
     }> {
         return await runHelper(this, "details", input);
     }
 
-    async runLocalDetails(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async details(input: TONTokenWalletDetailsInput): Promise<{
         transaction: Transaction,
-        output: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            balance: string /* uint128 */,
-            root_pubkey: string /* uint256 */,
-            root_address: string /* address */,
-            wallet_pubkey: string /* uint256 */,
-            owner_address?: string /* optional(address) */,
-            lend_pubkey?: string /* optional(uint256) */,
-            lend_owners: {
-                lend_key: {
-                    dest: {
-                        workchain_id: number /* int8 */,
-                        address: string /* uint256 */,
-                    } /* tuple */,
-                } /* tuple */,
-                lend_balance: string /* uint128 */,
-                lend_finish_time: number /* uint32 */,
-            }[] /* tuple[] */,
-            lend_balance: string /* uint128 */,
-            binding?: {
-                flex: string /* address */,
-                unsalted_price_code_hash: string /* uint256 */,
-            } /* optional(tuple) */,
-            code_hash: string /* uint256 */,
-            code_depth: number /* uint16 */,
-            workchain_id: number /* int8 */,
-        }
+        output: TONTokenWalletDetailsOutput,
     }> {
         return await runLocalHelper(this, "details", input);
     }
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            balance: string /* uint128 */,
-            root_pubkey: string /* uint256 */,
-            root_address: string /* address */,
-            wallet_pubkey: string /* uint256 */,
-            owner_address?: string /* optional(address) */,
-            lend_pubkey?: string /* optional(uint256) */,
-            lend_owners: {
-                lend_key: {
-                    dest: {
-                        workchain_id: number /* int8 */,
-                        address: string /* uint256 */,
-                    } /* tuple */,
-                } /* tuple */,
-                lend_balance: string /* uint128 */,
-                lend_finish_time: number /* uint32 */,
-            }[] /* tuple[] */,
-            lend_balance: string /* uint128 */,
-            binding?: {
-                flex: string /* address */,
-                unsalted_price_code_hash: string /* uint256 */,
-            } /* optional(tuple) */,
-            code_hash: string /* uint256 */,
-            code_depth: number /* uint16 */,
-            workchain_id: number /* int8 */,
-        }
+        output: TONTokenWalletGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            balance: string /* uint128 */,
-            root_pubkey: string /* uint256 */,
-            root_address: string /* address */,
-            wallet_pubkey: string /* uint256 */,
-            owner_address?: string /* optional(address) */,
-            lend_pubkey?: string /* optional(uint256) */,
-            lend_owners: {
-                lend_key: {
-                    dest: {
-                        workchain_id: number /* int8 */,
-                        address: string /* uint256 */,
-                    } /* tuple */,
-                } /* tuple */,
-                lend_balance: string /* uint128 */,
-                lend_finish_time: number /* uint32 */,
-            }[] /* tuple[] */,
-            lend_balance: string /* uint128 */,
-            binding?: {
-                flex: string /* address */,
-                unsalted_price_code_hash: string /* uint256 */,
-            } /* optional(tuple) */,
-            code_hash: string /* uint256 */,
-            code_depth: number /* uint16 */,
-            workchain_id: number /* int8 */,
-        }
+        output: TONTokenWalletGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
     async runGetBalance(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: TONTokenWalletGetBalanceOutput,
     }> {
         return await runHelper(this, "getBalance", {});
     }
 
-    async runLocalGetBalance(): Promise<{
+    async getBalance_(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: TONTokenWalletGetBalanceOutput,
     }> {
         return await runLocalHelper(this, "getBalance", {});
     }

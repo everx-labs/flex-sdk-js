@@ -9,6 +9,75 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type UserDataConfigOnDeployInput = {
+    binding: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string | number | bigint /* uint256 */,
+    } /* tuple */,
+    flex_client_stub: string /* cell */,
+    flex_client_code: string /* cell */,
+    auth_index_code: string /* cell */,
+    user_id_index_code: string /* cell */,
+};
+
+export type UserDataConfigDeployFlexClientInput = {
+    _answer_id: number /* uint32 */,
+    pubkey: string | number | bigint /* uint256 */,
+    deploy_evers: string | number | bigint /* uint128 */,
+};
+
+export type UserDataConfigDeployFlexClientOutput = {
+    value0: string /* address */,
+};
+
+export type UserDataConfigRequestDetailsInput = {
+    _answer_id: number /* uint32 */,
+};
+
+export type UserDataConfigRequestDetailsOutput = {
+    triplet: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* tuple */,
+    binding: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string /* uint256 */,
+    } /* tuple */,
+    flex_client_stub: string /* cell */,
+    flex_client_code: string /* cell */,
+    auth_index_code: string /* cell */,
+    user_id_index_code: string /* cell */,
+};
+
+export type UserDataConfigGetFlexClientAddrInput = {
+    pubkey: string | number | bigint /* uint256 */,
+};
+
+export type UserDataConfigGetFlexClientAddrOutput = {
+    value0: string /* address */,
+};
+
+export type UserDataConfigGetDetailsOutput = {
+    triplet: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* tuple */,
+    binding: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string /* uint256 */,
+    } /* tuple */,
+    flex_client_stub: string /* cell */,
+    flex_client_code: string /* cell */,
+    auth_index_code: string /* cell */,
+    user_id_index_code: string /* cell */,
+};
+
+export type UserDataConfigGetConfigOutput = {
+    super_root: string /* address */,
+};
+
 
 export class UserDataConfigAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,186 +101,84 @@ export class UserDataConfigAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: {
-        binding: {
-            flex: string /* address */,
-            unsalted_price_code_hash: string | number | bigint /* uint256 */,
-        } /* tuple */,
-        flex_client_stub: string /* cell */,
-        flex_client_code: string /* cell */,
-        auth_index_code: string /* cell */,
-        user_id_index_code: string /* cell */,
-    }): Promise<{
+    async runOnDeploy(input: UserDataConfigOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
 
-    async runLocalOnDeploy(input: {
-        binding: {
-            flex: string /* address */,
-            unsalted_price_code_hash: string | number | bigint /* uint256 */,
-        } /* tuple */,
-        flex_client_stub: string /* cell */,
-        flex_client_code: string /* cell */,
-        auth_index_code: string /* cell */,
-        user_id_index_code: string /* cell */,
-    }): Promise<{
+    async onDeploy(input: UserDataConfigOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runDeployFlexClient(input: {
-        _answer_id: number /* uint32 */,
-        pubkey: string | number | bigint /* uint256 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runDeployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: UserDataConfigDeployFlexClientOutput,
     }> {
         return await runHelper(this, "deployFlexClient", input);
     }
 
-    async runLocalDeployFlexClient(input: {
-        _answer_id: number /* uint32 */,
-        pubkey: string | number | bigint /* uint256 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async deployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: UserDataConfigDeployFlexClientOutput,
     }> {
         return await runLocalHelper(this, "deployFlexClient", input);
     }
 
-    async runRequestDetails(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async runRequestDetails(input: UserDataConfigRequestDetailsInput): Promise<{
         transaction: Transaction,
-        output: {
-            triplet: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* tuple */,
-            binding: {
-                flex: string /* address */,
-                unsalted_price_code_hash: string /* uint256 */,
-            } /* tuple */,
-            flex_client_stub: string /* cell */,
-            flex_client_code: string /* cell */,
-            auth_index_code: string /* cell */,
-            user_id_index_code: string /* cell */,
-        }
+        output: UserDataConfigRequestDetailsOutput,
     }> {
         return await runHelper(this, "requestDetails", input);
     }
 
-    async runLocalRequestDetails(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async requestDetails(input: UserDataConfigRequestDetailsInput): Promise<{
         transaction: Transaction,
-        output: {
-            triplet: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* tuple */,
-            binding: {
-                flex: string /* address */,
-                unsalted_price_code_hash: string /* uint256 */,
-            } /* tuple */,
-            flex_client_stub: string /* cell */,
-            flex_client_code: string /* cell */,
-            auth_index_code: string /* cell */,
-            user_id_index_code: string /* cell */,
-        }
+        output: UserDataConfigRequestDetailsOutput,
     }> {
         return await runLocalHelper(this, "requestDetails", input);
     }
 
-    async runGetFlexClientAddr(input: {
-        pubkey: string | number | bigint /* uint256 */,
-    }): Promise<{
+    async runGetFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: UserDataConfigGetFlexClientAddrOutput,
     }> {
         return await runHelper(this, "getFlexClientAddr", input);
     }
 
-    async runLocalGetFlexClientAddr(input: {
-        pubkey: string | number | bigint /* uint256 */,
-    }): Promise<{
+    async getFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: UserDataConfigGetFlexClientAddrOutput,
     }> {
         return await runLocalHelper(this, "getFlexClientAddr", input);
     }
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            triplet: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* tuple */,
-            binding: {
-                flex: string /* address */,
-                unsalted_price_code_hash: string /* uint256 */,
-            } /* tuple */,
-            flex_client_stub: string /* cell */,
-            flex_client_code: string /* cell */,
-            auth_index_code: string /* cell */,
-            user_id_index_code: string /* cell */,
-        }
+        output: UserDataConfigGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            triplet: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* tuple */,
-            binding: {
-                flex: string /* address */,
-                unsalted_price_code_hash: string /* uint256 */,
-            } /* tuple */,
-            flex_client_stub: string /* cell */,
-            flex_client_code: string /* cell */,
-            auth_index_code: string /* cell */,
-            user_id_index_code: string /* cell */,
-        }
+        output: UserDataConfigGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
     async runGetConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            super_root: string /* address */,
-        }
+        output: UserDataConfigGetConfigOutput,
     }> {
         return await runHelper(this, "getConfig", {});
     }
 
-    async runLocalGetConfig(): Promise<{
+    async getConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            super_root: string /* address */,
-        }
+        output: UserDataConfigGetConfigOutput,
     }> {
         return await runLocalHelper(this, "getConfig", {});
     }

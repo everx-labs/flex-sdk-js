@@ -9,6 +9,195 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type FlexClientDeployPriceXchgInput = {
+    sell: boolean /* bool */,
+    immediate_client: boolean /* bool */,
+    post_order: boolean /* bool */,
+    price_num: string | number | bigint /* uint128 */,
+    amount: string | number | bigint /* uint128 */,
+    lend_amount: string | number | bigint /* uint128 */,
+    lend_finish_time: number /* uint32 */,
+    evers: string | number | bigint /* uint128 */,
+    unsalted_price_code: string /* cell */,
+    price_salt: string /* cell */,
+    my_tip3_addr: string /* address */,
+    user_id: string | number | bigint /* uint256 */,
+    order_id: string | number | bigint /* uint256 */,
+};
+
+export type FlexClientDeployPriceXchgOutput = {
+    value0: string /* address */,
+};
+
+export type FlexClientCancelXchgOrderInput = {
+    sell: boolean /* bool */,
+    price_num: string | number | bigint /* uint128 */,
+    value: string | number | bigint /* uint128 */,
+    salted_price_code: string /* cell */,
+    user_id?: string | number | bigint /* optional(uint256) */,
+    order_id?: string | number | bigint /* optional(uint256) */,
+};
+
+export type FlexClientTransferInput = {
+    dest: string /* address */,
+    value: string | number | bigint /* uint128 */,
+    bounce: boolean /* bool */,
+};
+
+export type FlexClientTransferTokensInput = {
+    src: string /* address */,
+    dst: {
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+    } /* tuple */,
+    tokens: string | number | bigint /* uint128 */,
+    evers: string | number | bigint /* uint128 */,
+    keep_evers: string | number | bigint /* uint128 */,
+};
+
+export type FlexClientDeployEmptyFlexWalletInput = {
+    pubkey: string | number | bigint /* uint256 */,
+    evers_to_wallet: string | number | bigint /* uint128 */,
+    tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    trader: string | number | bigint /* uint256 */,
+    flex_wallet_code: string /* cell */,
+};
+
+export type FlexClientDeployEmptyFlexWalletOutput = {
+    value0: string /* address */,
+};
+
+export type FlexClientDeployIndexInput = {
+    user_id: string | number | bigint /* uint256 */,
+    lend_pubkey: string | number | bigint /* uint256 */,
+    name: string /* string */,
+    evers_all: string | number | bigint /* uint128 */,
+    evers_to_auth_idx: string | number | bigint /* uint128 */,
+    refill_wallet: string | number | bigint /* uint128 */,
+    min_refill: string | number | bigint /* uint128 */,
+};
+
+export type FlexClientReLendIndexInput = {
+    user_id: string | number | bigint /* uint256 */,
+    new_lend_pubkey: string | number | bigint /* uint256 */,
+    wallets: string[] /* address[] */,
+    evers_relend_call: string | number | bigint /* uint128 */,
+    evers_each_wallet_call: string | number | bigint /* uint128 */,
+    evers_to_remove: string | number | bigint /* uint128 */,
+    evers_to_auth_idx: string | number | bigint /* uint128 */,
+};
+
+export type FlexClientDestroyIndexInput = {
+    user_id: string | number | bigint /* uint256 */,
+    evers: string | number | bigint /* uint128 */,
+};
+
+export type FlexClientBurnWalletInput = {
+    evers_value: string | number | bigint /* uint128 */,
+    out_pubkey: string | number | bigint /* uint256 */,
+    out_owner?: string /* optional(address) */,
+    my_tip3_addr: string /* address */,
+};
+
+export type FlexClientUnwrapWalletInput = {
+    evers_value: string | number | bigint /* uint128 */,
+    out_pubkey: string | number | bigint /* uint256 */,
+    out_owner?: string /* optional(address) */,
+    my_tip3_addr: string /* address */,
+    tokens: string | number | bigint /* uint128 */,
+};
+
+export type FlexClientBindWalletInput = {
+    evers: string | number | bigint /* uint128 */,
+    my_tip3_addr: string /* address */,
+    set_binding: boolean /* bool */,
+    binding?: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string | number | bigint /* uint256 */,
+    } /* optional(tuple) */,
+    set_trader: boolean /* bool */,
+    trader?: string | number | bigint /* optional(uint256) */,
+};
+
+export type FlexClientOnTip3TransferInput = {
+    _answer_id: number /* uint32 */,
+    balance: string | number | bigint /* uint128 */,
+    new_tokens: string | number | bigint /* uint128 */,
+    evers_balance: string | number | bigint /* uint128 */,
+    tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    sender?: {
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+    } /* optional(tuple) */,
+    receiver: {
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+    } /* tuple */,
+    payload: string /* cell */,
+    answer_addr: string /* address */,
+};
+
+export type FlexClientUpgradeInput = {
+    request_evers: string | number | bigint /* uint128 */,
+    user_data_cfg: string /* address */,
+};
+
+export type FlexClientGetPayloadForDeployInternalWalletInput = {
+    owner_pubkey: string | number | bigint /* uint256 */,
+    owner_addr?: string /* optional(address) */,
+    evers: string | number | bigint /* uint128 */,
+    keep_evers: string | number | bigint /* uint128 */,
+};
+
+export type FlexClientGetPayloadForDeployInternalWalletOutput = {
+    value0: string /* cell */,
+};
+
+export type FlexClientGetPriceXchgAddressInput = {
+    price_num: string | number | bigint /* uint128 */,
+    salted_price_code: string /* cell */,
+};
+
+export type FlexClientGetPriceXchgAddressOutput = {
+    value0: string /* address */,
+};
+
+export type FlexClientGetUserIdIndexInput = {
+    user_id: string | number | bigint /* uint256 */,
+};
+
+export type FlexClientGetUserIdIndexOutput = {
+    value0: string /* address */,
+};
+
+export type FlexClientGetDetailsOutput = {
+    owner: string /* uint256 */,
+    triplet: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* tuple */,
+    ex_triplet?: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* optional(tuple) */,
+    auth_index_code: string /* cell */,
+    user_id_index_code: string /* cell */,
+};
+
 
 export class FlexClientAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,508 +221,218 @@ export class FlexClientAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runDeployPriceXchg(input: {
-        sell: boolean /* bool */,
-        immediate_client: boolean /* bool */,
-        post_order: boolean /* bool */,
-        price_num: string | number | bigint /* uint128 */,
-        amount: string | number | bigint /* uint128 */,
-        lend_amount: string | number | bigint /* uint128 */,
-        lend_finish_time: number /* uint32 */,
-        evers: string | number | bigint /* uint128 */,
-        unsalted_price_code: string /* cell */,
-        price_salt: string /* cell */,
-        my_tip3_addr: string /* address */,
-        user_id: string | number | bigint /* uint256 */,
-        order_id: string | number | bigint /* uint256 */,
-    }): Promise<{
+    async runDeployPriceXchg(input: FlexClientDeployPriceXchgInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexClientDeployPriceXchgOutput,
     }> {
         return await runHelper(this, "deployPriceXchg", input);
     }
 
-    async runLocalDeployPriceXchg(input: {
-        sell: boolean /* bool */,
-        immediate_client: boolean /* bool */,
-        post_order: boolean /* bool */,
-        price_num: string | number | bigint /* uint128 */,
-        amount: string | number | bigint /* uint128 */,
-        lend_amount: string | number | bigint /* uint128 */,
-        lend_finish_time: number /* uint32 */,
-        evers: string | number | bigint /* uint128 */,
-        unsalted_price_code: string /* cell */,
-        price_salt: string /* cell */,
-        my_tip3_addr: string /* address */,
-        user_id: string | number | bigint /* uint256 */,
-        order_id: string | number | bigint /* uint256 */,
-    }): Promise<{
+    async deployPriceXchg(input: FlexClientDeployPriceXchgInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexClientDeployPriceXchgOutput,
     }> {
         return await runLocalHelper(this, "deployPriceXchg", input);
     }
 
-    async runCancelXchgOrder(input: {
-        sell: boolean /* bool */,
-        price_num: string | number | bigint /* uint128 */,
-        value: string | number | bigint /* uint128 */,
-        salted_price_code: string /* cell */,
-        user_id?: string | number | bigint /* optional(uint256) */,
-        order_id?: string | number | bigint /* optional(uint256) */,
-    }): Promise<{
+    async runCancelXchgOrder(input: FlexClientCancelXchgOrderInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "cancelXchgOrder", input);
     }
 
-    async runLocalCancelXchgOrder(input: {
-        sell: boolean /* bool */,
-        price_num: string | number | bigint /* uint128 */,
-        value: string | number | bigint /* uint128 */,
-        salted_price_code: string /* cell */,
-        user_id?: string | number | bigint /* optional(uint256) */,
-        order_id?: string | number | bigint /* optional(uint256) */,
-    }): Promise<{
+    async cancelXchgOrder(input: FlexClientCancelXchgOrderInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "cancelXchgOrder", input);
     }
 
-    async runTransfer(input: {
-        dest: string /* address */,
-        value: string | number | bigint /* uint128 */,
-        bounce: boolean /* bool */,
-    }): Promise<{
+    async runTransfer(input: FlexClientTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transfer", input);
     }
 
-    async runLocalTransfer(input: {
-        dest: string /* address */,
-        value: string | number | bigint /* uint128 */,
-        bounce: boolean /* bool */,
-    }): Promise<{
+    async transfer(input: FlexClientTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transfer", input);
     }
 
-    async runTransferTokens(input: {
-        src: string /* address */,
-        dst: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* tuple */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        keep_evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runTransferTokens(input: FlexClientTransferTokensInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transferTokens", input);
     }
 
-    async runLocalTransferTokens(input: {
-        src: string /* address */,
-        dst: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* tuple */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        keep_evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async transferTokens(input: FlexClientTransferTokensInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transferTokens", input);
     }
 
-    async runDeployEmptyFlexWallet(input: {
-        pubkey: string | number | bigint /* uint256 */,
-        evers_to_wallet: string | number | bigint /* uint128 */,
-        tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        trader: string | number | bigint /* uint256 */,
-        flex_wallet_code: string /* cell */,
-    }): Promise<{
+    async runDeployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexClientDeployEmptyFlexWalletOutput,
     }> {
         return await runHelper(this, "deployEmptyFlexWallet", input);
     }
 
-    async runLocalDeployEmptyFlexWallet(input: {
-        pubkey: string | number | bigint /* uint256 */,
-        evers_to_wallet: string | number | bigint /* uint128 */,
-        tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        trader: string | number | bigint /* uint256 */,
-        flex_wallet_code: string /* cell */,
-    }): Promise<{
+    async deployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexClientDeployEmptyFlexWalletOutput,
     }> {
         return await runLocalHelper(this, "deployEmptyFlexWallet", input);
     }
 
-    async runDeployIndex(input: {
-        user_id: string | number | bigint /* uint256 */,
-        lend_pubkey: string | number | bigint /* uint256 */,
-        name: string /* string */,
-        evers_all: string | number | bigint /* uint128 */,
-        evers_to_auth_idx: string | number | bigint /* uint128 */,
-        refill_wallet: string | number | bigint /* uint128 */,
-        min_refill: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runDeployIndex(input: FlexClientDeployIndexInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "deployIndex", input);
     }
 
-    async runLocalDeployIndex(input: {
-        user_id: string | number | bigint /* uint256 */,
-        lend_pubkey: string | number | bigint /* uint256 */,
-        name: string /* string */,
-        evers_all: string | number | bigint /* uint128 */,
-        evers_to_auth_idx: string | number | bigint /* uint128 */,
-        refill_wallet: string | number | bigint /* uint128 */,
-        min_refill: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async deployIndex(input: FlexClientDeployIndexInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "deployIndex", input);
     }
 
-    async runReLendIndex(input: {
-        user_id: string | number | bigint /* uint256 */,
-        new_lend_pubkey: string | number | bigint /* uint256 */,
-        wallets: string[] /* address[] */,
-        evers_relend_call: string | number | bigint /* uint128 */,
-        evers_each_wallet_call: string | number | bigint /* uint128 */,
-        evers_to_remove: string | number | bigint /* uint128 */,
-        evers_to_auth_idx: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runReLendIndex(input: FlexClientReLendIndexInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "reLendIndex", input);
     }
 
-    async runLocalReLendIndex(input: {
-        user_id: string | number | bigint /* uint256 */,
-        new_lend_pubkey: string | number | bigint /* uint256 */,
-        wallets: string[] /* address[] */,
-        evers_relend_call: string | number | bigint /* uint128 */,
-        evers_each_wallet_call: string | number | bigint /* uint128 */,
-        evers_to_remove: string | number | bigint /* uint128 */,
-        evers_to_auth_idx: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async reLendIndex(input: FlexClientReLendIndexInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "reLendIndex", input);
     }
 
-    async runDestroyIndex(input: {
-        user_id: string | number | bigint /* uint256 */,
-        evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runDestroyIndex(input: FlexClientDestroyIndexInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "destroyIndex", input);
     }
 
-    async runLocalDestroyIndex(input: {
-        user_id: string | number | bigint /* uint256 */,
-        evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async destroyIndex(input: FlexClientDestroyIndexInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "destroyIndex", input);
     }
 
-    async runBurnWallet(input: {
-        evers_value: string | number | bigint /* uint128 */,
-        out_pubkey: string | number | bigint /* uint256 */,
-        out_owner?: string /* optional(address) */,
-        my_tip3_addr: string /* address */,
-    }): Promise<{
+    async runBurnWallet(input: FlexClientBurnWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "burnWallet", input);
     }
 
-    async runLocalBurnWallet(input: {
-        evers_value: string | number | bigint /* uint128 */,
-        out_pubkey: string | number | bigint /* uint256 */,
-        out_owner?: string /* optional(address) */,
-        my_tip3_addr: string /* address */,
-    }): Promise<{
+    async burnWallet(input: FlexClientBurnWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "burnWallet", input);
     }
 
-    async runUnwrapWallet(input: {
-        evers_value: string | number | bigint /* uint128 */,
-        out_pubkey: string | number | bigint /* uint256 */,
-        out_owner?: string /* optional(address) */,
-        my_tip3_addr: string /* address */,
-        tokens: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runUnwrapWallet(input: FlexClientUnwrapWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "unwrapWallet", input);
     }
 
-    async runLocalUnwrapWallet(input: {
-        evers_value: string | number | bigint /* uint128 */,
-        out_pubkey: string | number | bigint /* uint256 */,
-        out_owner?: string /* optional(address) */,
-        my_tip3_addr: string /* address */,
-        tokens: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async unwrapWallet(input: FlexClientUnwrapWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "unwrapWallet", input);
     }
 
-    async runBindWallet(input: {
-        evers: string | number | bigint /* uint128 */,
-        my_tip3_addr: string /* address */,
-        set_binding: boolean /* bool */,
-        binding?: {
-            flex: string /* address */,
-            unsalted_price_code_hash: string | number | bigint /* uint256 */,
-        } /* optional(tuple) */,
-        set_trader: boolean /* bool */,
-        trader?: string | number | bigint /* optional(uint256) */,
-    }): Promise<{
+    async runBindWallet(input: FlexClientBindWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "bindWallet", input);
     }
 
-    async runLocalBindWallet(input: {
-        evers: string | number | bigint /* uint128 */,
-        my_tip3_addr: string /* address */,
-        set_binding: boolean /* bool */,
-        binding?: {
-            flex: string /* address */,
-            unsalted_price_code_hash: string | number | bigint /* uint256 */,
-        } /* optional(tuple) */,
-        set_trader: boolean /* bool */,
-        trader?: string | number | bigint /* optional(uint256) */,
-    }): Promise<{
+    async bindWallet(input: FlexClientBindWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "bindWallet", input);
     }
 
-    async runOnTip3Transfer(input: {
-        _answer_id: number /* uint32 */,
-        balance: string | number | bigint /* uint128 */,
-        new_tokens: string | number | bigint /* uint128 */,
-        evers_balance: string | number | bigint /* uint128 */,
-        tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        sender?: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* optional(tuple) */,
-        receiver: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* tuple */,
-        payload: string /* cell */,
-        answer_addr: string /* address */,
-    }): Promise<{
+    async runOnTip3Transfer(input: FlexClientOnTip3TransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "onTip3Transfer", input);
     }
 
-    async runLocalOnTip3Transfer(input: {
-        _answer_id: number /* uint32 */,
-        balance: string | number | bigint /* uint128 */,
-        new_tokens: string | number | bigint /* uint128 */,
-        evers_balance: string | number | bigint /* uint128 */,
-        tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        sender?: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* optional(tuple) */,
-        receiver: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* tuple */,
-        payload: string /* cell */,
-        answer_addr: string /* address */,
-    }): Promise<{
+    async onTip3Transfer(input: FlexClientOnTip3TransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onTip3Transfer", input);
     }
 
-    async runUpgrade(input: {
-        request_evers: string | number | bigint /* uint128 */,
-        user_data_cfg: string /* address */,
-    }): Promise<{
+    async runUpgrade(input: FlexClientUpgradeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "upgrade", input);
     }
 
-    async runLocalUpgrade(input: {
-        request_evers: string | number | bigint /* uint128 */,
-        user_data_cfg: string /* address */,
-    }): Promise<{
+    async upgrade(input: FlexClientUpgradeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "upgrade", input);
     }
 
-    async runGetPayloadForDeployInternalWallet(input: {
-        owner_pubkey: string | number | bigint /* uint256 */,
-        owner_addr?: string /* optional(address) */,
-        evers: string | number | bigint /* uint128 */,
-        keep_evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runGetPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* cell */,
-        }
+        output: FlexClientGetPayloadForDeployInternalWalletOutput,
     }> {
         return await runHelper(this, "getPayloadForDeployInternalWallet", input);
     }
 
-    async runLocalGetPayloadForDeployInternalWallet(input: {
-        owner_pubkey: string | number | bigint /* uint256 */,
-        owner_addr?: string /* optional(address) */,
-        evers: string | number | bigint /* uint128 */,
-        keep_evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async getPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* cell */,
-        }
+        output: FlexClientGetPayloadForDeployInternalWalletOutput,
     }> {
         return await runLocalHelper(this, "getPayloadForDeployInternalWallet", input);
     }
 
-    async runGetPriceXchgAddress(input: {
-        price_num: string | number | bigint /* uint128 */,
-        salted_price_code: string /* cell */,
-    }): Promise<{
+    async runGetPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexClientGetPriceXchgAddressOutput,
     }> {
         return await runHelper(this, "getPriceXchgAddress", input);
     }
 
-    async runLocalGetPriceXchgAddress(input: {
-        price_num: string | number | bigint /* uint128 */,
-        salted_price_code: string /* cell */,
-    }): Promise<{
+    async getPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexClientGetPriceXchgAddressOutput,
     }> {
         return await runLocalHelper(this, "getPriceXchgAddress", input);
     }
 
-    async runGetUserIdIndex(input: {
-        user_id: string | number | bigint /* uint256 */,
-    }): Promise<{
+    async runGetUserIdIndex(input: FlexClientGetUserIdIndexInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexClientGetUserIdIndexOutput,
     }> {
         return await runHelper(this, "getUserIdIndex", input);
     }
 
-    async runLocalGetUserIdIndex(input: {
-        user_id: string | number | bigint /* uint256 */,
-    }): Promise<{
+    async getUserIdIndex(input: FlexClientGetUserIdIndexInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexClientGetUserIdIndexOutput,
     }> {
         return await runLocalHelper(this, "getUserIdIndex", input);
     }
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            owner: string /* uint256 */,
-            triplet: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* tuple */,
-            ex_triplet?: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* optional(tuple) */,
-            auth_index_code: string /* cell */,
-            user_id_index_code: string /* cell */,
-        }
+        output: FlexClientGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            owner: string /* uint256 */,
-            triplet: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* tuple */,
-            ex_triplet?: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* optional(tuple) */,
-            auth_index_code: string /* cell */,
-            user_id_index_code: string /* cell */,
-        }
+        output: FlexClientGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }

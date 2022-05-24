@@ -9,6 +9,41 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type WrapperDeployerTip3SetWrapperCodeInput = {
+    code: string /* cell */,
+};
+
+export type WrapperDeployerTip3SetExtWalletCodeInput = {
+    code: string /* cell */,
+};
+
+export type WrapperDeployerTip3SetFlexWalletCodeInput = {
+    code: string /* cell */,
+};
+
+export type WrapperDeployerTip3DeployInput = {
+    _answer_id: number /* uint32 */,
+    init_args: string /* cell */,
+};
+
+export type WrapperDeployerTip3DeployOutput = {
+    value0: string /* address */,
+};
+
+export type WrapperDeployerTip3GetArgsInput = {
+    tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+};
+
+export type WrapperDeployerTip3GetArgsOutput = {
+    value0: string /* cell */,
+};
+
 
 export class WrapperDeployerTip3Account extends Account {
     static package: ContractPackageEx = {
@@ -40,108 +75,66 @@ export class WrapperDeployerTip3Account extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSetWrapperCode(input: {
-        code: string /* cell */,
-    }): Promise<{
+    async runSetWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setWrapperCode", input);
     }
 
-    async runLocalSetWrapperCode(input: {
-        code: string /* cell */,
-    }): Promise<{
+    async setWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setWrapperCode", input);
     }
 
-    async runSetExtWalletCode(input: {
-        code: string /* cell */,
-    }): Promise<{
+    async runSetExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setExtWalletCode", input);
     }
 
-    async runLocalSetExtWalletCode(input: {
-        code: string /* cell */,
-    }): Promise<{
+    async setExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setExtWalletCode", input);
     }
 
-    async runSetFlexWalletCode(input: {
-        code: string /* cell */,
-    }): Promise<{
+    async runSetFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setFlexWalletCode", input);
     }
 
-    async runLocalSetFlexWalletCode(input: {
-        code: string /* cell */,
-    }): Promise<{
+    async setFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setFlexWalletCode", input);
     }
 
-    async runDeploy(input: {
-        _answer_id: number /* uint32 */,
-        init_args: string /* cell */,
-    }): Promise<{
+    async runDeploy(input: WrapperDeployerTip3DeployInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: WrapperDeployerTip3DeployOutput,
     }> {
         return await runHelper(this, "deploy", input);
     }
 
-    async runLocalDeploy(input: {
-        _answer_id: number /* uint32 */,
-        init_args: string /* cell */,
-    }): Promise<{
+    async deploy_(input: WrapperDeployerTip3DeployInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: WrapperDeployerTip3DeployOutput,
     }> {
         return await runLocalHelper(this, "deploy", input);
     }
 
-    async runGetArgs(input: {
-        tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-    }): Promise<{
+    async runGetArgs(input: WrapperDeployerTip3GetArgsInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* cell */,
-        }
+        output: WrapperDeployerTip3GetArgsOutput,
     }> {
         return await runHelper(this, "getArgs", input);
     }
 
-    async runLocalGetArgs(input: {
-        tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-    }): Promise<{
+    async getArgs(input: WrapperDeployerTip3GetArgsInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* cell */,
-        }
+        output: WrapperDeployerTip3GetArgsOutput,
     }> {
         return await runLocalHelper(this, "getArgs", input);
     }

@@ -1,5 +1,8 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type AuthIndexRemoveInput = {
+    dst: string;
+};
 export declare class AuthIndexAccount extends Account {
     static package: ContractPackageEx;
     log: Log;
@@ -12,17 +15,13 @@ export declare class AuthIndexAccount extends Account {
     runOnDeploy(): Promise<{
         transaction: Transaction;
     }>;
-    runLocalOnDeploy(): Promise<{
+    onDeploy(): Promise<{
         transaction: Transaction;
     }>;
-    runRemove(input: {
-        dst: string;
-    }): Promise<{
+    runRemove(input: AuthIndexRemoveInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalRemove(input: {
-        dst: string;
-    }): Promise<{
+    remove(input: AuthIndexRemoveInput): Promise<{
         transaction: Transaction;
     }>;
 }

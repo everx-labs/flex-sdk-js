@@ -28,7 +28,7 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
         });
     }
-    runLocalOnDeploy(input) {
+    onDeploy(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
@@ -38,7 +38,7 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onWICsCloned", input);
         });
     }
-    runLocalOnWICsCloned(input) {
+    onWICsCloned(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onWICsCloned", input);
         });
@@ -48,7 +48,7 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "addWrapperType", input);
         });
     }
-    runLocalAddWrapperType(input) {
+    addWrapperType(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "addWrapperType", input);
         });
@@ -58,7 +58,7 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "addWrapper", input);
         });
     }
-    runLocalAddWrapper(input) {
+    addWrapper(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "addWrapper", input);
         });
@@ -68,7 +68,7 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "unlistWrapper", input);
         });
     }
-    runLocalUnlistWrapper(input) {
+    unlistWrapper(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "unlistWrapper", input);
         });
@@ -78,7 +78,7 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "cloneUpgrade", input);
         });
     }
-    runLocalCloneUpgrade(input) {
+    cloneUpgrade(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "cloneUpgrade", input);
         });
@@ -88,7 +88,7 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
@@ -98,7 +98,7 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getConfig", {});
         });
     }
-    runLocalGetConfig() {
+    getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getConfig", {});
         });

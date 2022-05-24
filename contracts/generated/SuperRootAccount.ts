@@ -9,6 +9,192 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type SuperRootOnDeployInput = {
+    global_config_code: string /* cell */,
+    flex_client_stub: string /* cell */,
+    prev_super_root?: string /* optional(address) */,
+};
+
+export type SuperRootUpdateInput = {
+    cfg_deploy_evers: string | number | bigint /* uint128 */,
+    cfg_keep_evers: string | number | bigint /* uint128 */,
+    version: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* tuple */,
+    wrappers_cfg: string /* address */,
+    flex: string /* address */,
+    user_cfg: string /* address */,
+    description: string /* string */,
+};
+
+export type SuperRootUpdateConfirmedInput = {
+    version: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* tuple */,
+};
+
+export type SuperRootProxyInput = {
+    msg: string /* cell */,
+    cant_work_during_update: boolean /* bool */,
+    starting_update: boolean /* bool */,
+};
+
+export type SuperRootDeployWrappersConfigInput = {
+    _answer_id: number /* uint32 */,
+    deploy_evers: string | number | bigint /* uint128 */,
+    wrappers_cfg_keep_evers: string | number | bigint /* uint128 */,
+    token_version: number /* uint32 */,
+    wrappers_cfg_code: string /* cell */,
+    wic_code: string /* cell */,
+};
+
+export type SuperRootDeployWrappersConfigOutput = {
+    value0: string /* address */,
+};
+
+export type SuperRootDeployFlexInput = {
+    _answer_id: number /* uint32 */,
+    deploy_evers: string | number | bigint /* uint128 */,
+    keep_evers: string | number | bigint /* uint128 */,
+    evers: {
+        deploy: string | number | bigint /* uint128 */,
+        setnext: string | number | bigint /* uint128 */,
+        pair_keep: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    old_flex?: string /* optional(address) */,
+    exchange_version: number /* uint32 */,
+    flex_code: string /* cell */,
+    xchg_pair_code: string /* cell */,
+    xchg_price_code: string /* cell */,
+    ev_cfg: {
+        transfer_tip3: string | number | bigint /* uint128 */,
+        return_ownership: string | number | bigint /* uint128 */,
+        order_answer: string | number | bigint /* uint128 */,
+        process_queue: string | number | bigint /* uint128 */,
+        send_notify: string | number | bigint /* uint128 */,
+        dest_wallet_keep_evers: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    deals_limit: number /* uint8 */,
+};
+
+export type SuperRootDeployFlexOutput = {
+    value0: string /* address */,
+};
+
+export type SuperRootDeployUserDataConfigInput = {
+    _answer_id: number /* uint32 */,
+    deploy_evers: string | number | bigint /* uint128 */,
+    triplet: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* tuple */,
+    binding: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string | number | bigint /* uint256 */,
+    } /* tuple */,
+    user_data_cfg_code: string /* cell */,
+    flex_client_code: string /* cell */,
+    auth_index_code: string /* cell */,
+    user_id_index_code: string /* cell */,
+};
+
+export type SuperRootDeployUserDataConfigOutput = {
+    value0: string /* address */,
+};
+
+export type SuperRootCloneWrappersConfigInput = {
+    _answer_id: number /* uint32 */,
+    wrappers_cfg: string /* address */,
+    wrapper_cfg_keep_evers: string | number | bigint /* uint128 */,
+    clone_deploy_evers: string | number | bigint /* uint128 */,
+    wic_evers: {
+        deploy: string | number | bigint /* uint128 */,
+        setnext: string | number | bigint /* uint128 */,
+        wic_keep: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    new_token_version: number /* uint32 */,
+    wrapper_deployers: string[] /* address[] */,
+};
+
+export type SuperRootTransferInput = {
+    to: string /* address */,
+    evers: string | number | bigint /* uint128 */,
+};
+
+export type SuperRootTransferReserveTokensInput = {
+    wrapper: string /* address */,
+    tokens: string | number | bigint /* uint128 */,
+    to: string /* address */,
+    evers: string | number | bigint /* uint128 */,
+};
+
+export type SuperRootSetFlagsInput = {
+    stop_trade?: boolean /* optional(bool) */,
+    abandon_ship?: boolean /* optional(bool) */,
+    update_started?: boolean /* optional(bool) */,
+};
+
+export type SuperRootSetOwnerInput = {
+    owner: string /* address */,
+};
+
+export type SuperRootSetUpdateTeamInput = {
+    team?: string /* optional(address) */,
+};
+
+export type SuperRootSetNextSuperRootInput = {
+    next_super_root: string /* address */,
+};
+
+export type SuperRootGetDetailsOutput = {
+    pubkey: string /* uint256 */,
+    stop_trade_: boolean /* bool */,
+    abandon_ship_: boolean /* bool */,
+    update_started_: boolean /* bool */,
+    owner: string /* address */,
+    update_team?: string /* optional(address) */,
+    global_config_code: string /* cell */,
+    global_config_hash: string /* uint256 */,
+    workchain_id: number /* int8 */,
+    version?: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* optional(tuple) */,
+    beta_version?: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* optional(tuple) */,
+    deploying_cfg?: string /* optional(address) */,
+    cur_cfg?: string /* optional(address) */,
+    beta_cfg?: string /* optional(address) */,
+    prev_super_root?: string /* optional(address) */,
+    next_super_root?: string /* optional(address) */,
+    revision: number /* uint32 */,
+};
+
+export type SuperRootGetGlobalConfigInput = {
+    version: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* tuple */,
+};
+
+export type SuperRootGetGlobalConfigOutput = {
+    value0: string /* address */,
+};
+
+export type SuperRootGetCurrentGlobalConfigOutput = {
+    value0: string /* address */,
+};
+
 
 export class SuperRootAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,81 +218,37 @@ export class SuperRootAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: {
-        global_config_code: string /* cell */,
-        flex_client_stub: string /* cell */,
-        prev_super_root?: string /* optional(address) */,
-    }): Promise<{
+    async runOnDeploy(input: SuperRootOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
 
-    async runLocalOnDeploy(input: {
-        global_config_code: string /* cell */,
-        flex_client_stub: string /* cell */,
-        prev_super_root?: string /* optional(address) */,
-    }): Promise<{
+    async onDeploy(input: SuperRootOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runUpdate(input: {
-        cfg_deploy_evers: string | number | bigint /* uint128 */,
-        cfg_keep_evers: string | number | bigint /* uint128 */,
-        version: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-        wrappers_cfg: string /* address */,
-        flex: string /* address */,
-        user_cfg: string /* address */,
-        description: string /* string */,
-    }): Promise<{
+    async runUpdate(input: SuperRootUpdateInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "update", input);
     }
 
-    async runLocalUpdate(input: {
-        cfg_deploy_evers: string | number | bigint /* uint128 */,
-        cfg_keep_evers: string | number | bigint /* uint128 */,
-        version: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-        wrappers_cfg: string /* address */,
-        flex: string /* address */,
-        user_cfg: string /* address */,
-        description: string /* string */,
-    }): Promise<{
+    async update(input: SuperRootUpdateInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "update", input);
     }
 
-    async runUpdateConfirmed(input: {
-        version: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-    }): Promise<{
+    async runUpdateConfirmed(input: SuperRootUpdateConfirmedInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "updateConfirmed", input);
     }
 
-    async runLocalUpdateConfirmed(input: {
-        version: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-    }): Promise<{
+    async updateConfirmed(input: SuperRootUpdateConfirmedInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "updateConfirmed", input);
@@ -118,317 +260,145 @@ export class SuperRootAccount extends Account {
         return await runHelper(this, "release", {});
     }
 
-    async runLocalRelease(): Promise<{
+    async release(): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "release", {});
     }
 
-    async runProxy(input: {
-        msg: string /* cell */,
-        cant_work_during_update: boolean /* bool */,
-        starting_update: boolean /* bool */,
-    }): Promise<{
+    async runProxy(input: SuperRootProxyInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "proxy", input);
     }
 
-    async runLocalProxy(input: {
-        msg: string /* cell */,
-        cant_work_during_update: boolean /* bool */,
-        starting_update: boolean /* bool */,
-    }): Promise<{
+    async proxy(input: SuperRootProxyInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "proxy", input);
     }
 
-    async runDeployWrappersConfig(input: {
-        _answer_id: number /* uint32 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg_keep_evers: string | number | bigint /* uint128 */,
-        token_version: number /* uint32 */,
-        wrappers_cfg_code: string /* cell */,
-        wic_code: string /* cell */,
-    }): Promise<{
+    async runDeployWrappersConfig(input: SuperRootDeployWrappersConfigInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootDeployWrappersConfigOutput,
     }> {
         return await runHelper(this, "deployWrappersConfig", input);
     }
 
-    async runLocalDeployWrappersConfig(input: {
-        _answer_id: number /* uint32 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg_keep_evers: string | number | bigint /* uint128 */,
-        token_version: number /* uint32 */,
-        wrappers_cfg_code: string /* cell */,
-        wic_code: string /* cell */,
-    }): Promise<{
+    async deployWrappersConfig(input: SuperRootDeployWrappersConfigInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootDeployWrappersConfigOutput,
     }> {
         return await runLocalHelper(this, "deployWrappersConfig", input);
     }
 
-    async runDeployFlex(input: {
-        _answer_id: number /* uint32 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-        keep_evers: string | number | bigint /* uint128 */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            pair_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        old_flex?: string /* optional(address) */,
-        exchange_version: number /* uint32 */,
-        flex_code: string /* cell */,
-        xchg_pair_code: string /* cell */,
-        xchg_price_code: string /* cell */,
-        ev_cfg: {
-            transfer_tip3: string | number | bigint /* uint128 */,
-            return_ownership: string | number | bigint /* uint128 */,
-            order_answer: string | number | bigint /* uint128 */,
-            process_queue: string | number | bigint /* uint128 */,
-            send_notify: string | number | bigint /* uint128 */,
-            dest_wallet_keep_evers: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        deals_limit: number /* uint8 */,
-    }): Promise<{
+    async runDeployFlex(input: SuperRootDeployFlexInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootDeployFlexOutput,
     }> {
         return await runHelper(this, "deployFlex", input);
     }
 
-    async runLocalDeployFlex(input: {
-        _answer_id: number /* uint32 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-        keep_evers: string | number | bigint /* uint128 */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            pair_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        old_flex?: string /* optional(address) */,
-        exchange_version: number /* uint32 */,
-        flex_code: string /* cell */,
-        xchg_pair_code: string /* cell */,
-        xchg_price_code: string /* cell */,
-        ev_cfg: {
-            transfer_tip3: string | number | bigint /* uint128 */,
-            return_ownership: string | number | bigint /* uint128 */,
-            order_answer: string | number | bigint /* uint128 */,
-            process_queue: string | number | bigint /* uint128 */,
-            send_notify: string | number | bigint /* uint128 */,
-            dest_wallet_keep_evers: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        deals_limit: number /* uint8 */,
-    }): Promise<{
+    async deployFlex(input: SuperRootDeployFlexInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootDeployFlexOutput,
     }> {
         return await runLocalHelper(this, "deployFlex", input);
     }
 
-    async runDeployUserDataConfig(input: {
-        _answer_id: number /* uint32 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-        triplet: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-        binding: {
-            flex: string /* address */,
-            unsalted_price_code_hash: string | number | bigint /* uint256 */,
-        } /* tuple */,
-        user_data_cfg_code: string /* cell */,
-        flex_client_code: string /* cell */,
-        auth_index_code: string /* cell */,
-        user_id_index_code: string /* cell */,
-    }): Promise<{
+    async runDeployUserDataConfig(input: SuperRootDeployUserDataConfigInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootDeployUserDataConfigOutput,
     }> {
         return await runHelper(this, "deployUserDataConfig", input);
     }
 
-    async runLocalDeployUserDataConfig(input: {
-        _answer_id: number /* uint32 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-        triplet: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-        binding: {
-            flex: string /* address */,
-            unsalted_price_code_hash: string | number | bigint /* uint256 */,
-        } /* tuple */,
-        user_data_cfg_code: string /* cell */,
-        flex_client_code: string /* cell */,
-        auth_index_code: string /* cell */,
-        user_id_index_code: string /* cell */,
-    }): Promise<{
+    async deployUserDataConfig(input: SuperRootDeployUserDataConfigInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootDeployUserDataConfigOutput,
     }> {
         return await runLocalHelper(this, "deployUserDataConfig", input);
     }
 
-    async runCloneWrappersConfig(input: {
-        _answer_id: number /* uint32 */,
-        wrappers_cfg: string /* address */,
-        wrapper_cfg_keep_evers: string | number | bigint /* uint128 */,
-        clone_deploy_evers: string | number | bigint /* uint128 */,
-        wic_evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        new_token_version: number /* uint32 */,
-        wrapper_deployers: string[] /* address[] */,
-    }): Promise<{
+    async runCloneWrappersConfig(input: SuperRootCloneWrappersConfigInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "cloneWrappersConfig", input);
     }
 
-    async runLocalCloneWrappersConfig(input: {
-        _answer_id: number /* uint32 */,
-        wrappers_cfg: string /* address */,
-        wrapper_cfg_keep_evers: string | number | bigint /* uint128 */,
-        clone_deploy_evers: string | number | bigint /* uint128 */,
-        wic_evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        new_token_version: number /* uint32 */,
-        wrapper_deployers: string[] /* address[] */,
-    }): Promise<{
+    async cloneWrappersConfig(input: SuperRootCloneWrappersConfigInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "cloneWrappersConfig", input);
     }
 
-    async runTransfer(input: {
-        to: string /* address */,
-        evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runTransfer(input: SuperRootTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transfer", input);
     }
 
-    async runLocalTransfer(input: {
-        to: string /* address */,
-        evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async transfer(input: SuperRootTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transfer", input);
     }
 
-    async runTransferReserveTokens(input: {
-        wrapper: string /* address */,
-        tokens: string | number | bigint /* uint128 */,
-        to: string /* address */,
-        evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runTransferReserveTokens(input: SuperRootTransferReserveTokensInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transferReserveTokens", input);
     }
 
-    async runLocalTransferReserveTokens(input: {
-        wrapper: string /* address */,
-        tokens: string | number | bigint /* uint128 */,
-        to: string /* address */,
-        evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async transferReserveTokens(input: SuperRootTransferReserveTokensInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transferReserveTokens", input);
     }
 
-    async runSetFlags(input: {
-        stop_trade?: boolean /* optional(bool) */,
-        abandon_ship?: boolean /* optional(bool) */,
-        update_started?: boolean /* optional(bool) */,
-    }): Promise<{
+    async runSetFlags(input: SuperRootSetFlagsInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setFlags", input);
     }
 
-    async runLocalSetFlags(input: {
-        stop_trade?: boolean /* optional(bool) */,
-        abandon_ship?: boolean /* optional(bool) */,
-        update_started?: boolean /* optional(bool) */,
-    }): Promise<{
+    async setFlags(input: SuperRootSetFlagsInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setFlags", input);
     }
 
-    async runSetOwner(input: {
-        owner: string /* address */,
-    }): Promise<{
+    async runSetOwner(input: SuperRootSetOwnerInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setOwner", input);
     }
 
-    async runLocalSetOwner(input: {
-        owner: string /* address */,
-    }): Promise<{
+    async setOwner(input: SuperRootSetOwnerInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setOwner", input);
     }
 
-    async runSetUpdateTeam(input: {
-        team?: string /* optional(address) */,
-    }): Promise<{
+    async runSetUpdateTeam(input: SuperRootSetUpdateTeamInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setUpdateTeam", input);
     }
 
-    async runLocalSetUpdateTeam(input: {
-        team?: string /* optional(address) */,
-    }): Promise<{
+    async setUpdateTeam(input: SuperRootSetUpdateTeamInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setUpdateTeam", input);
     }
 
-    async runSetNextSuperRoot(input: {
-        next_super_root: string /* address */,
-    }): Promise<{
+    async runSetNextSuperRoot(input: SuperRootSetNextSuperRootInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setNextSuperRoot", input);
     }
 
-    async runLocalSetNextSuperRoot(input: {
-        next_super_root: string /* address */,
-    }): Promise<{
+    async setNextSuperRoot(input: SuperRootSetNextSuperRootInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setNextSuperRoot", input);
@@ -436,114 +406,42 @@ export class SuperRootAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            pubkey: string /* uint256 */,
-            stop_trade_: boolean /* bool */,
-            abandon_ship_: boolean /* bool */,
-            update_started_: boolean /* bool */,
-            owner: string /* address */,
-            update_team?: string /* optional(address) */,
-            global_config_code: string /* cell */,
-            global_config_hash: string /* uint256 */,
-            workchain_id: number /* int8 */,
-            version?: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* optional(tuple) */,
-            beta_version?: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* optional(tuple) */,
-            deploying_cfg?: string /* optional(address) */,
-            cur_cfg?: string /* optional(address) */,
-            beta_cfg?: string /* optional(address) */,
-            prev_super_root?: string /* optional(address) */,
-            next_super_root?: string /* optional(address) */,
-            revision: number /* uint32 */,
-        }
+        output: SuperRootGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            pubkey: string /* uint256 */,
-            stop_trade_: boolean /* bool */,
-            abandon_ship_: boolean /* bool */,
-            update_started_: boolean /* bool */,
-            owner: string /* address */,
-            update_team?: string /* optional(address) */,
-            global_config_code: string /* cell */,
-            global_config_hash: string /* uint256 */,
-            workchain_id: number /* int8 */,
-            version?: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* optional(tuple) */,
-            beta_version?: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* optional(tuple) */,
-            deploying_cfg?: string /* optional(address) */,
-            cur_cfg?: string /* optional(address) */,
-            beta_cfg?: string /* optional(address) */,
-            prev_super_root?: string /* optional(address) */,
-            next_super_root?: string /* optional(address) */,
-            revision: number /* uint32 */,
-        }
+        output: SuperRootGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runGetGlobalConfig(input: {
-        version: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-    }): Promise<{
+    async runGetGlobalConfig(input: SuperRootGetGlobalConfigInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootGetGlobalConfigOutput,
     }> {
         return await runHelper(this, "getGlobalConfig", input);
     }
 
-    async runLocalGetGlobalConfig(input: {
-        version: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-    }): Promise<{
+    async getGlobalConfig(input: SuperRootGetGlobalConfigInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootGetGlobalConfigOutput,
     }> {
         return await runLocalHelper(this, "getGlobalConfig", input);
     }
 
     async runGetCurrentGlobalConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootGetCurrentGlobalConfigOutput,
     }> {
         return await runHelper(this, "getCurrentGlobalConfig", {});
     }
 
-    async runLocalGetCurrentGlobalConfig(): Promise<{
+    async getCurrentGlobalConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootGetCurrentGlobalConfigOutput,
     }> {
         return await runLocalHelper(this, "getCurrentGlobalConfig", {});
     }

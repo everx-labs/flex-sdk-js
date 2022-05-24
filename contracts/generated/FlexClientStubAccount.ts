@@ -9,6 +9,21 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type FlexClientStubOnDeployInput = {
+    triplet: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* tuple */,
+    binding: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string | number | bigint /* uint256 */,
+    } /* tuple */,
+    flex_client_code: string /* cell */,
+    auth_index_code: string /* cell */,
+    user_id_index_code: string /* cell */,
+};
+
 
 export class FlexClientStubAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,39 +47,13 @@ export class FlexClientStubAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: {
-        triplet: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-        binding: {
-            flex: string /* address */,
-            unsalted_price_code_hash: string | number | bigint /* uint256 */,
-        } /* tuple */,
-        flex_client_code: string /* cell */,
-        auth_index_code: string /* cell */,
-        user_id_index_code: string /* cell */,
-    }): Promise<{
+    async runOnDeploy(input: FlexClientStubOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
 
-    async runLocalOnDeploy(input: {
-        triplet: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-        binding: {
-            flex: string /* address */,
-            unsalted_price_code_hash: string | number | bigint /* uint256 */,
-        } /* tuple */,
-        flex_client_code: string /* cell */,
-        auth_index_code: string /* cell */,
-        user_id_index_code: string /* cell */,
-    }): Promise<{
+    async onDeploy(input: FlexClientStubOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onDeploy", input);
@@ -76,7 +65,7 @@ export class FlexClientStubAccount extends Account {
         return await runHelper(this, "unused", {});
     }
 
-    async runLocalUnused(): Promise<{
+    async unused(): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "unused", {});

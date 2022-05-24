@@ -28,7 +28,7 @@ class WrapperDeployerTip3Account extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setWrapperCode", input);
         });
     }
-    runLocalSetWrapperCode(input) {
+    setWrapperCode(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setWrapperCode", input);
         });
@@ -38,7 +38,7 @@ class WrapperDeployerTip3Account extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setExtWalletCode", input);
         });
     }
-    runLocalSetExtWalletCode(input) {
+    setExtWalletCode(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setExtWalletCode", input);
         });
@@ -48,7 +48,7 @@ class WrapperDeployerTip3Account extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setFlexWalletCode", input);
         });
     }
-    runLocalSetFlexWalletCode(input) {
+    setFlexWalletCode(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setFlexWalletCode", input);
         });
@@ -58,7 +58,7 @@ class WrapperDeployerTip3Account extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deploy", input);
         });
     }
-    runLocalDeploy(input) {
+    deploy_(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deploy", input);
         });
@@ -68,7 +68,7 @@ class WrapperDeployerTip3Account extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getArgs", input);
         });
     }
-    runLocalGetArgs(input) {
+    getArgs(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getArgs", input);
         });

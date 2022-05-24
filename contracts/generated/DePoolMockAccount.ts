@@ -9,6 +9,33 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type DePoolMockSendOnTransferInput = {
+    dst: string /* address */,
+    src: string /* address */,
+    amount: string | number | bigint /* uint128 */,
+};
+
+export type DePoolMockTransferStakeInput = {
+    destination: string /* address */,
+    amount: string | number | bigint /* uint64 */,
+};
+
+export type DePoolMockGetDetailsOutput = {
+    owner_pubkey: string /* uint256 */,
+    fwd_records: {
+        dst: string /* address */,
+        src: string /* address */,
+        amount: string /* uint128 */,
+        timestamp: string /* uint64 */,
+    }[] /* tuple[] */,
+    bck_records: {
+        dst: string /* address */,
+        src: string /* address */,
+        amount: string /* uint128 */,
+        timestamp: string /* uint64 */,
+    }[] /* tuple[] */,
+};
+
 
 export class DePoolMockAccount extends Account {
     static package: ContractPackageEx = {
@@ -34,39 +61,25 @@ export class DePoolMockAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSendOnTransfer(input: {
-        dst: string /* address */,
-        src: string /* address */,
-        amount: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runSendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "sendOnTransfer", input);
     }
 
-    async runLocalSendOnTransfer(input: {
-        dst: string /* address */,
-        src: string /* address */,
-        amount: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async sendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "sendOnTransfer", input);
     }
 
-    async runTransferStake(input: {
-        destination: string /* address */,
-        amount: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async runTransferStake(input: DePoolMockTransferStakeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transferStake", input);
     }
 
-    async runLocalTransferStake(input: {
-        destination: string /* address */,
-        amount: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async transferStake(input: DePoolMockTransferStakeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transferStake", input);
@@ -74,42 +87,14 @@ export class DePoolMockAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            owner_pubkey: string /* uint256 */,
-            fwd_records: {
-                dst: string /* address */,
-                src: string /* address */,
-                amount: string /* uint128 */,
-                timestamp: string /* uint64 */,
-            }[] /* tuple[] */,
-            bck_records: {
-                dst: string /* address */,
-                src: string /* address */,
-                amount: string /* uint128 */,
-                timestamp: string /* uint64 */,
-            }[] /* tuple[] */,
-        }
+        output: DePoolMockGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            owner_pubkey: string /* uint256 */,
-            fwd_records: {
-                dst: string /* address */,
-                src: string /* address */,
-                amount: string /* uint128 */,
-                timestamp: string /* uint64 */,
-            }[] /* tuple[] */,
-            bck_records: {
-                dst: string /* address */,
-                src: string /* address */,
-                amount: string /* uint128 */,
-                timestamp: string /* uint64 */,
-            }[] /* tuple[] */,
-        }
+        output: DePoolMockGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }

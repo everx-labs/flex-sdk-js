@@ -9,6 +9,113 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type FlexTokenRootSetWalletCodeInput = {
+    _answer_id: number /* uint32 */,
+    wallet_code: string /* cell */,
+};
+
+export type FlexTokenRootSetWalletCodeOutput = {
+    value0: boolean /* bool */,
+};
+
+export type FlexTokenRootDeployWalletInput = {
+    _answer_id: number /* uint32 */,
+    pubkey: string | number | bigint /* uint256 */,
+    owner?: string /* optional(address) */,
+    tokens: string | number | bigint /* uint128 */,
+    evers: string | number | bigint /* uint128 */,
+    notify?: string /* optional(cell) */,
+};
+
+export type FlexTokenRootDeployWalletOutput = {
+    value0: string /* address */,
+};
+
+export type FlexTokenRootDeployEmptyWalletInput = {
+    _answer_id: number /* uint32 */,
+    pubkey: string | number | bigint /* uint256 */,
+    owner?: string /* optional(address) */,
+    evers: string | number | bigint /* uint128 */,
+};
+
+export type FlexTokenRootDeployEmptyWalletOutput = {
+    value0: string /* address */,
+};
+
+export type FlexTokenRootGrantInput = {
+    _answer_id: number /* uint32 */,
+    dest: string /* address */,
+    tokens: string | number | bigint /* uint128 */,
+    evers: string | number | bigint /* uint128 */,
+    notify?: string /* optional(cell) */,
+};
+
+export type FlexTokenRootMintInput = {
+    _answer_id: number /* uint32 */,
+    tokens: string | number | bigint /* uint128 */,
+};
+
+export type FlexTokenRootMintOutput = {
+    value0: boolean /* bool */,
+};
+
+export type FlexTokenRootRequestTotalGrantedInput = {
+    _answer_id: number /* uint32 */,
+};
+
+export type FlexTokenRootRequestTotalGrantedOutput = {
+    value0: string /* uint128 */,
+};
+
+export type FlexTokenRootGetNameOutput = {
+    value0: string /* string */,
+};
+
+export type FlexTokenRootGetSymbolOutput = {
+    value0: string /* string */,
+};
+
+export type FlexTokenRootGetDecimalsOutput = {
+    value0: number /* uint8 */,
+};
+
+export type FlexTokenRootGetRootKeyOutput = {
+    value0: string /* uint256 */,
+};
+
+export type FlexTokenRootGetRootOwnerOutput = {
+    value0?: string /* optional(address) */,
+};
+
+export type FlexTokenRootGetTotalSupplyOutput = {
+    value0: string /* uint128 */,
+};
+
+export type FlexTokenRootGetTotalGrantedOutput = {
+    value0: string /* uint128 */,
+};
+
+export type FlexTokenRootHasWalletCodeOutput = {
+    value0: boolean /* bool */,
+};
+
+export type FlexTokenRootGetWalletCodeOutput = {
+    value0: string /* cell */,
+};
+
+export type FlexTokenRootGetWalletAddressInput = {
+    pubkey: string | number | bigint /* uint256 */,
+    owner?: string /* optional(address) */,
+};
+
+export type FlexTokenRootGetWalletAddressOutput = {
+    value0: string /* address */,
+};
+
+export type FlexTokenRootGetWalletCodeHashOutput = {
+    value0: string /* uint256 */,
+};
+
 
 export class FlexTokenRootAccount extends Account {
     static package: ContractPackageEx = {
@@ -39,360 +146,238 @@ export class FlexTokenRootAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSetWalletCode(input: {
-        _answer_id: number /* uint32 */,
-        wallet_code: string /* cell */,
-    }): Promise<{
+    async runSetWalletCode(input: FlexTokenRootSetWalletCodeInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: boolean /* bool */,
-        }
+        output: FlexTokenRootSetWalletCodeOutput,
     }> {
         return await runHelper(this, "setWalletCode", input);
     }
 
-    async runLocalSetWalletCode(input: {
-        _answer_id: number /* uint32 */,
-        wallet_code: string /* cell */,
-    }): Promise<{
+    async setWalletCode(input: FlexTokenRootSetWalletCodeInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: boolean /* bool */,
-        }
+        output: FlexTokenRootSetWalletCodeOutput,
     }> {
         return await runLocalHelper(this, "setWalletCode", input);
     }
 
-    async runDeployWallet(input: {
-        _answer_id: number /* uint32 */,
-        pubkey: string | number | bigint /* uint256 */,
-        owner?: string /* optional(address) */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        notify?: string /* optional(cell) */,
-    }): Promise<{
+    async runDeployWallet(input: FlexTokenRootDeployWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexTokenRootDeployWalletOutput,
     }> {
         return await runHelper(this, "deployWallet", input);
     }
 
-    async runLocalDeployWallet(input: {
-        _answer_id: number /* uint32 */,
-        pubkey: string | number | bigint /* uint256 */,
-        owner?: string /* optional(address) */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        notify?: string /* optional(cell) */,
-    }): Promise<{
+    async deployWallet(input: FlexTokenRootDeployWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexTokenRootDeployWalletOutput,
     }> {
         return await runLocalHelper(this, "deployWallet", input);
     }
 
-    async runDeployEmptyWallet(input: {
-        _answer_id: number /* uint32 */,
-        pubkey: string | number | bigint /* uint256 */,
-        owner?: string /* optional(address) */,
-        evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runDeployEmptyWallet(input: FlexTokenRootDeployEmptyWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexTokenRootDeployEmptyWalletOutput,
     }> {
         return await runHelper(this, "deployEmptyWallet", input);
     }
 
-    async runLocalDeployEmptyWallet(input: {
-        _answer_id: number /* uint32 */,
-        pubkey: string | number | bigint /* uint256 */,
-        owner?: string /* optional(address) */,
-        evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async deployEmptyWallet(input: FlexTokenRootDeployEmptyWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexTokenRootDeployEmptyWalletOutput,
     }> {
         return await runLocalHelper(this, "deployEmptyWallet", input);
     }
 
-    async runGrant(input: {
-        _answer_id: number /* uint32 */,
-        dest: string /* address */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        notify?: string /* optional(cell) */,
-    }): Promise<{
+    async runGrant(input: FlexTokenRootGrantInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "grant", input);
     }
 
-    async runLocalGrant(input: {
-        _answer_id: number /* uint32 */,
-        dest: string /* address */,
-        tokens: string | number | bigint /* uint128 */,
-        evers: string | number | bigint /* uint128 */,
-        notify?: string /* optional(cell) */,
-    }): Promise<{
+    async grant(input: FlexTokenRootGrantInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "grant", input);
     }
 
-    async runMint(input: {
-        _answer_id: number /* uint32 */,
-        tokens: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runMint(input: FlexTokenRootMintInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: boolean /* bool */,
-        }
+        output: FlexTokenRootMintOutput,
     }> {
         return await runHelper(this, "mint", input);
     }
 
-    async runLocalMint(input: {
-        _answer_id: number /* uint32 */,
-        tokens: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async mint(input: FlexTokenRootMintInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: boolean /* bool */,
-        }
+        output: FlexTokenRootMintOutput,
     }> {
         return await runLocalHelper(this, "mint", input);
     }
 
-    async runRequestTotalGranted(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async runRequestTotalGranted(input: FlexTokenRootRequestTotalGrantedInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: FlexTokenRootRequestTotalGrantedOutput,
     }> {
         return await runHelper(this, "requestTotalGranted", input);
     }
 
-    async runLocalRequestTotalGranted(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async requestTotalGranted(input: FlexTokenRootRequestTotalGrantedInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: FlexTokenRootRequestTotalGrantedOutput,
     }> {
         return await runLocalHelper(this, "requestTotalGranted", input);
     }
 
     async runGetName(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* string */,
-        }
+        output: FlexTokenRootGetNameOutput,
     }> {
         return await runHelper(this, "getName", {});
     }
 
-    async runLocalGetName(): Promise<{
+    async getName(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* string */,
-        }
+        output: FlexTokenRootGetNameOutput,
     }> {
         return await runLocalHelper(this, "getName", {});
     }
 
     async runGetSymbol(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* string */,
-        }
+        output: FlexTokenRootGetSymbolOutput,
     }> {
         return await runHelper(this, "getSymbol", {});
     }
 
-    async runLocalGetSymbol(): Promise<{
+    async getSymbol(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* string */,
-        }
+        output: FlexTokenRootGetSymbolOutput,
     }> {
         return await runLocalHelper(this, "getSymbol", {});
     }
 
     async runGetDecimals(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: number /* uint8 */,
-        }
+        output: FlexTokenRootGetDecimalsOutput,
     }> {
         return await runHelper(this, "getDecimals", {});
     }
 
-    async runLocalGetDecimals(): Promise<{
+    async getDecimals(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: number /* uint8 */,
-        }
+        output: FlexTokenRootGetDecimalsOutput,
     }> {
         return await runLocalHelper(this, "getDecimals", {});
     }
 
     async runGetRootKey(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint256 */,
-        }
+        output: FlexTokenRootGetRootKeyOutput,
     }> {
         return await runHelper(this, "getRootKey", {});
     }
 
-    async runLocalGetRootKey(): Promise<{
+    async getRootKey(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint256 */,
-        }
+        output: FlexTokenRootGetRootKeyOutput,
     }> {
         return await runLocalHelper(this, "getRootKey", {});
     }
 
     async runGetRootOwner(): Promise<{
         transaction: Transaction,
-        output: {
-            value0?: string /* optional(address) */,
-        }
+        output: FlexTokenRootGetRootOwnerOutput,
     }> {
         return await runHelper(this, "getRootOwner", {});
     }
 
-    async runLocalGetRootOwner(): Promise<{
+    async getRootOwner(): Promise<{
         transaction: Transaction,
-        output: {
-            value0?: string /* optional(address) */,
-        }
+        output: FlexTokenRootGetRootOwnerOutput,
     }> {
         return await runLocalHelper(this, "getRootOwner", {});
     }
 
     async runGetTotalSupply(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: FlexTokenRootGetTotalSupplyOutput,
     }> {
         return await runHelper(this, "getTotalSupply", {});
     }
 
-    async runLocalGetTotalSupply(): Promise<{
+    async getTotalSupply(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: FlexTokenRootGetTotalSupplyOutput,
     }> {
         return await runLocalHelper(this, "getTotalSupply", {});
     }
 
     async runGetTotalGranted(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: FlexTokenRootGetTotalGrantedOutput,
     }> {
         return await runHelper(this, "getTotalGranted", {});
     }
 
-    async runLocalGetTotalGranted(): Promise<{
+    async getTotalGranted(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: FlexTokenRootGetTotalGrantedOutput,
     }> {
         return await runLocalHelper(this, "getTotalGranted", {});
     }
 
     async runHasWalletCode(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: boolean /* bool */,
-        }
+        output: FlexTokenRootHasWalletCodeOutput,
     }> {
         return await runHelper(this, "hasWalletCode", {});
     }
 
-    async runLocalHasWalletCode(): Promise<{
+    async hasWalletCode(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: boolean /* bool */,
-        }
+        output: FlexTokenRootHasWalletCodeOutput,
     }> {
         return await runLocalHelper(this, "hasWalletCode", {});
     }
 
     async runGetWalletCode(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* cell */,
-        }
+        output: FlexTokenRootGetWalletCodeOutput,
     }> {
         return await runHelper(this, "getWalletCode", {});
     }
 
-    async runLocalGetWalletCode(): Promise<{
+    async getWalletCode(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* cell */,
-        }
+        output: FlexTokenRootGetWalletCodeOutput,
     }> {
         return await runLocalHelper(this, "getWalletCode", {});
     }
 
-    async runGetWalletAddress(input: {
-        pubkey: string | number | bigint /* uint256 */,
-        owner?: string /* optional(address) */,
-    }): Promise<{
+    async runGetWalletAddress(input: FlexTokenRootGetWalletAddressInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexTokenRootGetWalletAddressOutput,
     }> {
         return await runHelper(this, "getWalletAddress", input);
     }
 
-    async runLocalGetWalletAddress(input: {
-        pubkey: string | number | bigint /* uint256 */,
-        owner?: string /* optional(address) */,
-    }): Promise<{
+    async getWalletAddress(input: FlexTokenRootGetWalletAddressInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexTokenRootGetWalletAddressOutput,
     }> {
         return await runLocalHelper(this, "getWalletAddress", input);
     }
 
     async runGetWalletCodeHash(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint256 */,
-        }
+        output: FlexTokenRootGetWalletCodeHashOutput,
     }> {
         return await runHelper(this, "getWalletCodeHash", {});
     }
 
-    async runLocalGetWalletCodeHash(): Promise<{
+    async getWalletCodeHash(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint256 */,
-        }
+        output: FlexTokenRootGetWalletCodeHashOutput,
     }> {
         return await runLocalHelper(this, "getWalletCodeHash", {});
     }

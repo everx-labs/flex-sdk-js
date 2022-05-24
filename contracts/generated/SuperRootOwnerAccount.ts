@@ -9,6 +9,211 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type SuperRootOwnerSetCodeInput = {
+    type: number /* uint8 */,
+    code: string /* cell */,
+};
+
+export type SuperRootOwnerDeploySuperRootInput = {
+    evers: string | number | bigint /* uint128 */,
+    prev_super_root?: string /* optional(address) */,
+};
+
+export type SuperRootOwnerDeploySuperRootOutput = {
+    value0: string /* address */,
+};
+
+export type SuperRootOwnerUpdateInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    cfg_deploy_evers: string | number | bigint /* uint128 */,
+    cfg_keep_evers: string | number | bigint /* uint128 */,
+    version: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* tuple */,
+    wrappers_cfg: string /* address */,
+    flex: string /* address */,
+    user_cfg: string /* address */,
+    description: string /* string */,
+};
+
+export type SuperRootOwnerReleaseInput = {
+    main_evers: string | number | bigint /* uint128 */,
+};
+
+export type SuperRootOwnerAddWrapperTypeInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    wrappers_cfg_keep_evers: string | number | bigint /* uint128 */,
+    wrappers_cfg: string /* address */,
+    type: number /* uint8 */,
+    wrapper_deployer: string /* address */,
+};
+
+export type SuperRootOwnerAddWrapperInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    wrappers_cfg_keep_evers: string | number | bigint /* uint128 */,
+    wrappers_cfg: string /* address */,
+    evers: {
+        deploy: string | number | bigint /* uint128 */,
+        setnext: string | number | bigint /* uint128 */,
+        wic_keep: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    symbol: string /* string */,
+    type: number /* uint8 */,
+    init_args: string /* cell */,
+};
+
+export type SuperRootOwnerAddXchgPairInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    flex: string /* address */,
+    evers: {
+        deploy: string | number | bigint /* uint128 */,
+        setnext: string | number | bigint /* uint128 */,
+        pair_keep: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    major_tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    minor_tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    min_amount: string | number | bigint /* uint128 */,
+    minmove: string | number | bigint /* uint128 */,
+    price_denum: string | number | bigint /* uint128 */,
+    notify_addr: string /* address */,
+};
+
+export type SuperRootOwnerUnlistWrapperInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    wrappers_cfg: string /* address */,
+    wic: string /* address */,
+};
+
+export type SuperRootOwnerUnlistXchgPairInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    flex: string /* address */,
+    pair: string /* address */,
+};
+
+export type SuperRootOwnerDeployWrappersConfigInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    deploy_evers: string | number | bigint /* uint128 */,
+    wrappers_cfg_keep_evers: string | number | bigint /* uint128 */,
+    token_version: number /* uint32 */,
+};
+
+export type SuperRootOwnerDeployWrappersConfigOutput = {
+    value0: string /* address */,
+};
+
+export type SuperRootOwnerDeployFlexInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    deploy_evers: string | number | bigint /* uint128 */,
+    keep_evers: string | number | bigint /* uint128 */,
+    evers: {
+        deploy: string | number | bigint /* uint128 */,
+        setnext: string | number | bigint /* uint128 */,
+        pair_keep: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    old_flex?: string /* optional(address) */,
+    exchange_version: number /* uint32 */,
+    ev_cfg: {
+        transfer_tip3: string | number | bigint /* uint128 */,
+        return_ownership: string | number | bigint /* uint128 */,
+        order_answer: string | number | bigint /* uint128 */,
+        process_queue: string | number | bigint /* uint128 */,
+        send_notify: string | number | bigint /* uint128 */,
+        dest_wallet_keep_evers: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    deals_limit: number /* uint8 */,
+};
+
+export type SuperRootOwnerDeployFlexOutput = {
+    value0: string /* address */,
+};
+
+export type SuperRootOwnerDeployUserDataConfigInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    deploy_evers: string | number | bigint /* uint128 */,
+    triplet: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* tuple */,
+    flex: string /* address */,
+};
+
+export type SuperRootOwnerDeployUserDataConfigOutput = {
+    value0: string /* address */,
+};
+
+export type SuperRootOwnerCloneWrappersConfigInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    wrappers_cfg: string /* address */,
+    wrapper_cfg_keep_evers: string | number | bigint /* uint128 */,
+    clone_deploy_evers: string | number | bigint /* uint128 */,
+    wic_evers: {
+        deploy: string | number | bigint /* uint128 */,
+        setnext: string | number | bigint /* uint128 */,
+        wic_keep: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    new_token_version: number /* uint32 */,
+    wrapper_deployers: string[] /* address[] */,
+};
+
+export type SuperRootOwnerCloneWrappersConfigOutput = {
+    value0: string /* address */,
+};
+
+export type SuperRootOwnerSetFlagsInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    stop_trade?: boolean /* optional(bool) */,
+    abandon_ship?: boolean /* optional(bool) */,
+    update_started?: boolean /* optional(bool) */,
+};
+
+export type SuperRootOwnerSetOwnerInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    owner: string /* address */,
+};
+
+export type SuperRootOwnerSetUpdateTeamInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    team?: string /* optional(address) */,
+};
+
+export type SuperRootOwnerSetNextSuperRootInput = {
+    main_evers: string | number | bigint /* uint128 */,
+    next_super_root: string /* address */,
+};
+
+export type SuperRootOwnerGetDetailsOutput = {
+    initialized: boolean /* bool */,
+    pubkey: string /* uint256 */,
+    super_root?: string /* optional(address) */,
+    super_root_code?: string /* optional(cell) */,
+    global_cfg_code?: string /* optional(cell) */,
+    flex_client_stub?: string /* optional(cell) */,
+    wrappers_cfg_code?: string /* optional(cell) */,
+    wic_code?: string /* optional(cell) */,
+    flex_code?: string /* optional(cell) */,
+    pair_code?: string /* optional(cell) */,
+    price_code?: string /* optional(cell) */,
+    user_data_cfg_code?: string /* optional(cell) */,
+    flex_client_code?: string /* optional(cell) */,
+    auth_index_code?: string /* optional(cell) */,
+    user_id_index_code?: string /* optional(cell) */,
+};
+
 
 export class SuperRootOwnerAccount extends Account {
     static package: ContractPackageEx = {
@@ -34,501 +239,215 @@ export class SuperRootOwnerAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSetCode(input: {
-        type: number /* uint8 */,
-        code: string /* cell */,
-    }): Promise<{
+    async runSetCode(input: SuperRootOwnerSetCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setCode", input);
     }
 
-    async runLocalSetCode(input: {
-        type: number /* uint8 */,
-        code: string /* cell */,
-    }): Promise<{
+    async setCode(input: SuperRootOwnerSetCodeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setCode", input);
     }
 
-    async runDeploySuperRoot(input: {
-        evers: string | number | bigint /* uint128 */,
-        prev_super_root?: string /* optional(address) */,
-    }): Promise<{
+    async runDeploySuperRoot(input: SuperRootOwnerDeploySuperRootInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootOwnerDeploySuperRootOutput,
     }> {
         return await runHelper(this, "deploySuperRoot", input);
     }
 
-    async runLocalDeploySuperRoot(input: {
-        evers: string | number | bigint /* uint128 */,
-        prev_super_root?: string /* optional(address) */,
-    }): Promise<{
+    async deploySuperRoot(input: SuperRootOwnerDeploySuperRootInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootOwnerDeploySuperRootOutput,
     }> {
         return await runLocalHelper(this, "deploySuperRoot", input);
     }
 
-    async runUpdate(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        cfg_deploy_evers: string | number | bigint /* uint128 */,
-        cfg_keep_evers: string | number | bigint /* uint128 */,
-        version: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-        wrappers_cfg: string /* address */,
-        flex: string /* address */,
-        user_cfg: string /* address */,
-        description: string /* string */,
-    }): Promise<{
+    async runUpdate(input: SuperRootOwnerUpdateInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "update", input);
     }
 
-    async runLocalUpdate(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        cfg_deploy_evers: string | number | bigint /* uint128 */,
-        cfg_keep_evers: string | number | bigint /* uint128 */,
-        version: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-        wrappers_cfg: string /* address */,
-        flex: string /* address */,
-        user_cfg: string /* address */,
-        description: string /* string */,
-    }): Promise<{
+    async update(input: SuperRootOwnerUpdateInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "update", input);
     }
 
-    async runRelease(input: {
-        main_evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runRelease(input: SuperRootOwnerReleaseInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "release", input);
     }
 
-    async runLocalRelease(input: {
-        main_evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async release(input: SuperRootOwnerReleaseInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "release", input);
     }
 
-    async runAddWrapperType(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg_keep_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg: string /* address */,
-        type: number /* uint8 */,
-        wrapper_deployer: string /* address */,
-    }): Promise<{
+    async runAddWrapperType(input: SuperRootOwnerAddWrapperTypeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "addWrapperType", input);
     }
 
-    async runLocalAddWrapperType(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg_keep_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg: string /* address */,
-        type: number /* uint8 */,
-        wrapper_deployer: string /* address */,
-    }): Promise<{
+    async addWrapperType(input: SuperRootOwnerAddWrapperTypeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "addWrapperType", input);
     }
 
-    async runAddWrapper(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg_keep_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg: string /* address */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        symbol: string /* string */,
-        type: number /* uint8 */,
-        init_args: string /* cell */,
-    }): Promise<{
+    async runAddWrapper(input: SuperRootOwnerAddWrapperInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "addWrapper", input);
     }
 
-    async runLocalAddWrapper(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg_keep_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg: string /* address */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        symbol: string /* string */,
-        type: number /* uint8 */,
-        init_args: string /* cell */,
-    }): Promise<{
+    async addWrapper(input: SuperRootOwnerAddWrapperInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "addWrapper", input);
     }
 
-    async runAddXchgPair(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        flex: string /* address */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            pair_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        major_tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        minor_tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        min_amount: string | number | bigint /* uint128 */,
-        minmove: string | number | bigint /* uint128 */,
-        price_denum: string | number | bigint /* uint128 */,
-        notify_addr: string /* address */,
-    }): Promise<{
+    async runAddXchgPair(input: SuperRootOwnerAddXchgPairInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "addXchgPair", input);
     }
 
-    async runLocalAddXchgPair(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        flex: string /* address */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            pair_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        major_tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        minor_tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        min_amount: string | number | bigint /* uint128 */,
-        minmove: string | number | bigint /* uint128 */,
-        price_denum: string | number | bigint /* uint128 */,
-        notify_addr: string /* address */,
-    }): Promise<{
+    async addXchgPair(input: SuperRootOwnerAddXchgPairInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "addXchgPair", input);
     }
 
-    async runUnlistWrapper(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg: string /* address */,
-        wic: string /* address */,
-    }): Promise<{
+    async runUnlistWrapper(input: SuperRootOwnerUnlistWrapperInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "unlistWrapper", input);
     }
 
-    async runLocalUnlistWrapper(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg: string /* address */,
-        wic: string /* address */,
-    }): Promise<{
+    async unlistWrapper(input: SuperRootOwnerUnlistWrapperInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "unlistWrapper", input);
     }
 
-    async runUnlistXchgPair(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        flex: string /* address */,
-        pair: string /* address */,
-    }): Promise<{
+    async runUnlistXchgPair(input: SuperRootOwnerUnlistXchgPairInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "unlistXchgPair", input);
     }
 
-    async runLocalUnlistXchgPair(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        flex: string /* address */,
-        pair: string /* address */,
-    }): Promise<{
+    async unlistXchgPair(input: SuperRootOwnerUnlistXchgPairInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "unlistXchgPair", input);
     }
 
-    async runDeployWrappersConfig(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg_keep_evers: string | number | bigint /* uint128 */,
-        token_version: number /* uint32 */,
-    }): Promise<{
+    async runDeployWrappersConfig(input: SuperRootOwnerDeployWrappersConfigInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootOwnerDeployWrappersConfigOutput,
     }> {
         return await runHelper(this, "deployWrappersConfig", input);
     }
 
-    async runLocalDeployWrappersConfig(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg_keep_evers: string | number | bigint /* uint128 */,
-        token_version: number /* uint32 */,
-    }): Promise<{
+    async deployWrappersConfig(input: SuperRootOwnerDeployWrappersConfigInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootOwnerDeployWrappersConfigOutput,
     }> {
         return await runLocalHelper(this, "deployWrappersConfig", input);
     }
 
-    async runDeployFlex(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-        keep_evers: string | number | bigint /* uint128 */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            pair_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        old_flex?: string /* optional(address) */,
-        exchange_version: number /* uint32 */,
-        ev_cfg: {
-            transfer_tip3: string | number | bigint /* uint128 */,
-            return_ownership: string | number | bigint /* uint128 */,
-            order_answer: string | number | bigint /* uint128 */,
-            process_queue: string | number | bigint /* uint128 */,
-            send_notify: string | number | bigint /* uint128 */,
-            dest_wallet_keep_evers: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        deals_limit: number /* uint8 */,
-    }): Promise<{
+    async runDeployFlex(input: SuperRootOwnerDeployFlexInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootOwnerDeployFlexOutput,
     }> {
         return await runHelper(this, "deployFlex", input);
     }
 
-    async runLocalDeployFlex(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-        keep_evers: string | number | bigint /* uint128 */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            pair_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        old_flex?: string /* optional(address) */,
-        exchange_version: number /* uint32 */,
-        ev_cfg: {
-            transfer_tip3: string | number | bigint /* uint128 */,
-            return_ownership: string | number | bigint /* uint128 */,
-            order_answer: string | number | bigint /* uint128 */,
-            process_queue: string | number | bigint /* uint128 */,
-            send_notify: string | number | bigint /* uint128 */,
-            dest_wallet_keep_evers: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        deals_limit: number /* uint8 */,
-    }): Promise<{
+    async deployFlex(input: SuperRootOwnerDeployFlexInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootOwnerDeployFlexOutput,
     }> {
         return await runLocalHelper(this, "deployFlex", input);
     }
 
-    async runDeployUserDataConfig(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-        triplet: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-        flex: string /* address */,
-    }): Promise<{
+    async runDeployUserDataConfig(input: SuperRootOwnerDeployUserDataConfigInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootOwnerDeployUserDataConfigOutput,
     }> {
         return await runHelper(this, "deployUserDataConfig", input);
     }
 
-    async runLocalDeployUserDataConfig(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        deploy_evers: string | number | bigint /* uint128 */,
-        triplet: {
-            wallet: number /* uint32 */,
-            exchange: number /* uint32 */,
-            user: number /* uint32 */,
-        } /* tuple */,
-        flex: string /* address */,
-    }): Promise<{
+    async deployUserDataConfig(input: SuperRootOwnerDeployUserDataConfigInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootOwnerDeployUserDataConfigOutput,
     }> {
         return await runLocalHelper(this, "deployUserDataConfig", input);
     }
 
-    async runCloneWrappersConfig(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg: string /* address */,
-        wrapper_cfg_keep_evers: string | number | bigint /* uint128 */,
-        clone_deploy_evers: string | number | bigint /* uint128 */,
-        wic_evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        new_token_version: number /* uint32 */,
-        wrapper_deployers: string[] /* address[] */,
-    }): Promise<{
+    async runCloneWrappersConfig(input: SuperRootOwnerCloneWrappersConfigInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootOwnerCloneWrappersConfigOutput,
     }> {
         return await runHelper(this, "cloneWrappersConfig", input);
     }
 
-    async runLocalCloneWrappersConfig(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg: string /* address */,
-        wrapper_cfg_keep_evers: string | number | bigint /* uint128 */,
-        clone_deploy_evers: string | number | bigint /* uint128 */,
-        wic_evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        new_token_version: number /* uint32 */,
-        wrapper_deployers: string[] /* address[] */,
-    }): Promise<{
+    async cloneWrappersConfig(input: SuperRootOwnerCloneWrappersConfigInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: SuperRootOwnerCloneWrappersConfigOutput,
     }> {
         return await runLocalHelper(this, "cloneWrappersConfig", input);
     }
 
-    async runSetFlags(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        stop_trade?: boolean /* optional(bool) */,
-        abandon_ship?: boolean /* optional(bool) */,
-        update_started?: boolean /* optional(bool) */,
-    }): Promise<{
+    async runSetFlags(input: SuperRootOwnerSetFlagsInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setFlags", input);
     }
 
-    async runLocalSetFlags(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        stop_trade?: boolean /* optional(bool) */,
-        abandon_ship?: boolean /* optional(bool) */,
-        update_started?: boolean /* optional(bool) */,
-    }): Promise<{
+    async setFlags(input: SuperRootOwnerSetFlagsInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setFlags", input);
     }
 
-    async runSetOwner(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        owner: string /* address */,
-    }): Promise<{
+    async runSetOwner(input: SuperRootOwnerSetOwnerInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setOwner", input);
     }
 
-    async runLocalSetOwner(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        owner: string /* address */,
-    }): Promise<{
+    async setOwner(input: SuperRootOwnerSetOwnerInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setOwner", input);
     }
 
-    async runSetUpdateTeam(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        team?: string /* optional(address) */,
-    }): Promise<{
+    async runSetUpdateTeam(input: SuperRootOwnerSetUpdateTeamInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setUpdateTeam", input);
     }
 
-    async runLocalSetUpdateTeam(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        team?: string /* optional(address) */,
-    }): Promise<{
+    async setUpdateTeam(input: SuperRootOwnerSetUpdateTeamInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setUpdateTeam", input);
     }
 
-    async runSetNextSuperRoot(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        next_super_root: string /* address */,
-    }): Promise<{
+    async runSetNextSuperRoot(input: SuperRootOwnerSetNextSuperRootInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setNextSuperRoot", input);
     }
 
-    async runLocalSetNextSuperRoot(input: {
-        main_evers: string | number | bigint /* uint128 */,
-        next_super_root: string /* address */,
-    }): Promise<{
+    async setNextSuperRoot(input: SuperRootOwnerSetNextSuperRootInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setNextSuperRoot", input);
@@ -536,46 +455,14 @@ export class SuperRootOwnerAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            initialized: boolean /* bool */,
-            pubkey: string /* uint256 */,
-            super_root?: string /* optional(address) */,
-            super_root_code?: string /* optional(cell) */,
-            global_cfg_code?: string /* optional(cell) */,
-            flex_client_stub?: string /* optional(cell) */,
-            wrappers_cfg_code?: string /* optional(cell) */,
-            wic_code?: string /* optional(cell) */,
-            flex_code?: string /* optional(cell) */,
-            pair_code?: string /* optional(cell) */,
-            price_code?: string /* optional(cell) */,
-            user_data_cfg_code?: string /* optional(cell) */,
-            flex_client_code?: string /* optional(cell) */,
-            auth_index_code?: string /* optional(cell) */,
-            user_id_index_code?: string /* optional(cell) */,
-        }
+        output: SuperRootOwnerGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            initialized: boolean /* bool */,
-            pubkey: string /* uint256 */,
-            super_root?: string /* optional(address) */,
-            super_root_code?: string /* optional(cell) */,
-            global_cfg_code?: string /* optional(cell) */,
-            flex_client_stub?: string /* optional(cell) */,
-            wrappers_cfg_code?: string /* optional(cell) */,
-            wic_code?: string /* optional(cell) */,
-            flex_code?: string /* optional(cell) */,
-            pair_code?: string /* optional(cell) */,
-            price_code?: string /* optional(cell) */,
-            user_data_cfg_code?: string /* optional(cell) */,
-            flex_client_code?: string /* optional(cell) */,
-            auth_index_code?: string /* optional(cell) */,
-            user_id_index_code?: string /* optional(cell) */,
-        }
+        output: SuperRootOwnerGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }

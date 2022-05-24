@@ -9,6 +9,122 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type PriceXchgOnTip3LendOwnershipInput = {
+    _answer_id: number /* uint32 */,
+    balance: string | number | bigint /* uint128 */,
+    lend_finish_time: number /* uint32 */,
+    creds: {
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+    } /* tuple */,
+    payload: string /* cell */,
+    answer_addr: string /* address */,
+};
+
+export type PriceXchgOnTip3LendOwnershipOutput = {
+    err_code: number /* uint32 */,
+    processed: string /* uint128 */,
+    enqueued: string /* uint128 */,
+    price_num: string /* uint128 */,
+    price_denum: string /* uint128 */,
+    user_id: string /* uint256 */,
+    order_id: string /* uint256 */,
+    pair: string /* address */,
+    major_decimals: number /* uint8 */,
+    minor_decimals: number /* uint8 */,
+    sell: boolean /* bool */,
+};
+
+export type PriceXchgCancelOrderInput = {
+    sell: boolean /* bool */,
+    user_id?: string | number | bigint /* optional(uint256) */,
+    order_id?: string | number | bigint /* optional(uint256) */,
+};
+
+export type PriceXchgCancelWalletOrderInput = {
+    sell: boolean /* bool */,
+    owner: string /* address */,
+    user_id: string | number | bigint /* uint256 */,
+    order_id?: string | number | bigint /* optional(uint256) */,
+};
+
+export type PriceXchgGetDetailsOutput = {
+    sells: {
+        immediate_client: boolean /* bool */,
+        post_order: boolean /* bool */,
+        original_amount: string /* uint128 */,
+        amount: string /* uint128 */,
+        account: string /* uint128 */,
+        lend_amount: string /* uint128 */,
+        tip3_wallet_provide: {
+            workchain_id: number /* int8 */,
+            address: string /* uint256 */,
+        } /* tuple */,
+        client_addr: {
+            workchain_id: number /* int8 */,
+            address: string /* uint256 */,
+        } /* tuple */,
+        order_finish_time: number /* uint32 */,
+        user_id: string /* uint256 */,
+        order_id: string /* uint256 */,
+        ltime: string /* uint64 */,
+    }[] /* tuple[] */,
+    buys: {
+        immediate_client: boolean /* bool */,
+        post_order: boolean /* bool */,
+        original_amount: string /* uint128 */,
+        amount: string /* uint128 */,
+        account: string /* uint128 */,
+        lend_amount: string /* uint128 */,
+        tip3_wallet_provide: {
+            workchain_id: number /* int8 */,
+            address: string /* uint256 */,
+        } /* tuple */,
+        client_addr: {
+            workchain_id: number /* int8 */,
+            address: string /* uint256 */,
+        } /* tuple */,
+        order_finish_time: number /* uint32 */,
+        user_id: string /* uint256 */,
+        order_id: string /* uint256 */,
+        ltime: string /* uint64 */,
+    }[] /* tuple[] */,
+    salt: {
+        flex: string /* address */,
+        pair: string /* address */,
+        notify_addr: string /* address */,
+        major_tip3cfg: {
+            name: string /* string */,
+            symbol: string /* string */,
+            decimals: number /* uint8 */,
+            root_pubkey: string /* uint256 */,
+            root_address: string /* address */,
+        } /* tuple */,
+        minor_tip3cfg: {
+            name: string /* string */,
+            symbol: string /* string */,
+            decimals: number /* uint8 */,
+            root_pubkey: string /* uint256 */,
+            root_address: string /* address */,
+        } /* tuple */,
+        major_reserve_wallet: string /* address */,
+        minor_reserve_wallet: string /* address */,
+        ev_cfg: {
+            transfer_tip3: string /* uint128 */,
+            return_ownership: string /* uint128 */,
+            order_answer: string /* uint128 */,
+            process_queue: string /* uint128 */,
+            send_notify: string /* uint128 */,
+            dest_wallet_keep_evers: string /* uint128 */,
+        } /* tuple */,
+        min_amount: string /* uint128 */,
+        minmove: string /* uint128 */,
+        price_denum: string /* uint128 */,
+        deals_limit: number /* uint8 */,
+        workchain_id: number /* int8 */,
+    } /* tuple */,
+};
+
 
 export class PriceXchgAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,60 +148,16 @@ export class PriceXchgAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnTip3LendOwnership(input: {
-        _answer_id: number /* uint32 */,
-        balance: string | number | bigint /* uint128 */,
-        lend_finish_time: number /* uint32 */,
-        creds: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* tuple */,
-        payload: string /* cell */,
-        answer_addr: string /* address */,
-    }): Promise<{
+    async runOnTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput): Promise<{
         transaction: Transaction,
-        output: {
-            err_code: number /* uint32 */,
-            processed: string /* uint128 */,
-            enqueued: string /* uint128 */,
-            price_num: string /* uint128 */,
-            price_denum: string /* uint128 */,
-            user_id: string /* uint256 */,
-            order_id: string /* uint256 */,
-            pair: string /* address */,
-            major_decimals: number /* uint8 */,
-            minor_decimals: number /* uint8 */,
-            sell: boolean /* bool */,
-        }
+        output: PriceXchgOnTip3LendOwnershipOutput,
     }> {
         return await runHelper(this, "onTip3LendOwnership", input);
     }
 
-    async runLocalOnTip3LendOwnership(input: {
-        _answer_id: number /* uint32 */,
-        balance: string | number | bigint /* uint128 */,
-        lend_finish_time: number /* uint32 */,
-        creds: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* tuple */,
-        payload: string /* cell */,
-        answer_addr: string /* address */,
-    }): Promise<{
+    async onTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput): Promise<{
         transaction: Transaction,
-        output: {
-            err_code: number /* uint32 */,
-            processed: string /* uint128 */,
-            enqueued: string /* uint128 */,
-            price_num: string /* uint128 */,
-            price_denum: string /* uint128 */,
-            user_id: string /* uint256 */,
-            order_id: string /* uint256 */,
-            pair: string /* address */,
-            major_decimals: number /* uint8 */,
-            minor_decimals: number /* uint8 */,
-            sell: boolean /* bool */,
-        }
+        output: PriceXchgOnTip3LendOwnershipOutput,
     }> {
         return await runLocalHelper(this, "onTip3LendOwnership", input);
     }
@@ -96,49 +168,31 @@ export class PriceXchgAccount extends Account {
         return await runHelper(this, "processQueue", {});
     }
 
-    async runLocalProcessQueue(): Promise<{
+    async processQueue(): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "processQueue", {});
     }
 
-    async runCancelOrder(input: {
-        sell: boolean /* bool */,
-        user_id?: string | number | bigint /* optional(uint256) */,
-        order_id?: string | number | bigint /* optional(uint256) */,
-    }): Promise<{
+    async runCancelOrder(input: PriceXchgCancelOrderInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "cancelOrder", input);
     }
 
-    async runLocalCancelOrder(input: {
-        sell: boolean /* bool */,
-        user_id?: string | number | bigint /* optional(uint256) */,
-        order_id?: string | number | bigint /* optional(uint256) */,
-    }): Promise<{
+    async cancelOrder(input: PriceXchgCancelOrderInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "cancelOrder", input);
     }
 
-    async runCancelWalletOrder(input: {
-        sell: boolean /* bool */,
-        owner: string /* address */,
-        user_id: string | number | bigint /* uint256 */,
-        order_id?: string | number | bigint /* optional(uint256) */,
-    }): Promise<{
+    async runCancelWalletOrder(input: PriceXchgCancelWalletOrderInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "cancelWalletOrder", input);
     }
 
-    async runLocalCancelWalletOrder(input: {
-        sell: boolean /* bool */,
-        owner: string /* address */,
-        user_id: string | number | bigint /* uint256 */,
-        order_id?: string | number | bigint /* optional(uint256) */,
-    }): Promise<{
+    async cancelWalletOrder(input: PriceXchgCancelWalletOrderInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "cancelWalletOrder", input);
@@ -146,164 +200,14 @@ export class PriceXchgAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            sells: {
-                immediate_client: boolean /* bool */,
-                post_order: boolean /* bool */,
-                original_amount: string /* uint128 */,
-                amount: string /* uint128 */,
-                account: string /* uint128 */,
-                lend_amount: string /* uint128 */,
-                tip3_wallet_provide: {
-                    workchain_id: number /* int8 */,
-                    address: string /* uint256 */,
-                } /* tuple */,
-                client_addr: {
-                    workchain_id: number /* int8 */,
-                    address: string /* uint256 */,
-                } /* tuple */,
-                order_finish_time: number /* uint32 */,
-                user_id: string /* uint256 */,
-                order_id: string /* uint256 */,
-                ltime: string /* uint64 */,
-            }[] /* tuple[] */,
-            buys: {
-                immediate_client: boolean /* bool */,
-                post_order: boolean /* bool */,
-                original_amount: string /* uint128 */,
-                amount: string /* uint128 */,
-                account: string /* uint128 */,
-                lend_amount: string /* uint128 */,
-                tip3_wallet_provide: {
-                    workchain_id: number /* int8 */,
-                    address: string /* uint256 */,
-                } /* tuple */,
-                client_addr: {
-                    workchain_id: number /* int8 */,
-                    address: string /* uint256 */,
-                } /* tuple */,
-                order_finish_time: number /* uint32 */,
-                user_id: string /* uint256 */,
-                order_id: string /* uint256 */,
-                ltime: string /* uint64 */,
-            }[] /* tuple[] */,
-            salt: {
-                flex: string /* address */,
-                pair: string /* address */,
-                notify_addr: string /* address */,
-                major_tip3cfg: {
-                    name: string /* string */,
-                    symbol: string /* string */,
-                    decimals: number /* uint8 */,
-                    root_pubkey: string /* uint256 */,
-                    root_address: string /* address */,
-                } /* tuple */,
-                minor_tip3cfg: {
-                    name: string /* string */,
-                    symbol: string /* string */,
-                    decimals: number /* uint8 */,
-                    root_pubkey: string /* uint256 */,
-                    root_address: string /* address */,
-                } /* tuple */,
-                major_reserve_wallet: string /* address */,
-                minor_reserve_wallet: string /* address */,
-                ev_cfg: {
-                    transfer_tip3: string /* uint128 */,
-                    return_ownership: string /* uint128 */,
-                    order_answer: string /* uint128 */,
-                    process_queue: string /* uint128 */,
-                    send_notify: string /* uint128 */,
-                    dest_wallet_keep_evers: string /* uint128 */,
-                } /* tuple */,
-                min_amount: string /* uint128 */,
-                minmove: string /* uint128 */,
-                price_denum: string /* uint128 */,
-                deals_limit: number /* uint8 */,
-                workchain_id: number /* int8 */,
-            } /* tuple */,
-        }
+        output: PriceXchgGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            sells: {
-                immediate_client: boolean /* bool */,
-                post_order: boolean /* bool */,
-                original_amount: string /* uint128 */,
-                amount: string /* uint128 */,
-                account: string /* uint128 */,
-                lend_amount: string /* uint128 */,
-                tip3_wallet_provide: {
-                    workchain_id: number /* int8 */,
-                    address: string /* uint256 */,
-                } /* tuple */,
-                client_addr: {
-                    workchain_id: number /* int8 */,
-                    address: string /* uint256 */,
-                } /* tuple */,
-                order_finish_time: number /* uint32 */,
-                user_id: string /* uint256 */,
-                order_id: string /* uint256 */,
-                ltime: string /* uint64 */,
-            }[] /* tuple[] */,
-            buys: {
-                immediate_client: boolean /* bool */,
-                post_order: boolean /* bool */,
-                original_amount: string /* uint128 */,
-                amount: string /* uint128 */,
-                account: string /* uint128 */,
-                lend_amount: string /* uint128 */,
-                tip3_wallet_provide: {
-                    workchain_id: number /* int8 */,
-                    address: string /* uint256 */,
-                } /* tuple */,
-                client_addr: {
-                    workchain_id: number /* int8 */,
-                    address: string /* uint256 */,
-                } /* tuple */,
-                order_finish_time: number /* uint32 */,
-                user_id: string /* uint256 */,
-                order_id: string /* uint256 */,
-                ltime: string /* uint64 */,
-            }[] /* tuple[] */,
-            salt: {
-                flex: string /* address */,
-                pair: string /* address */,
-                notify_addr: string /* address */,
-                major_tip3cfg: {
-                    name: string /* string */,
-                    symbol: string /* string */,
-                    decimals: number /* uint8 */,
-                    root_pubkey: string /* uint256 */,
-                    root_address: string /* address */,
-                } /* tuple */,
-                minor_tip3cfg: {
-                    name: string /* string */,
-                    symbol: string /* string */,
-                    decimals: number /* uint8 */,
-                    root_pubkey: string /* uint256 */,
-                    root_address: string /* address */,
-                } /* tuple */,
-                major_reserve_wallet: string /* address */,
-                minor_reserve_wallet: string /* address */,
-                ev_cfg: {
-                    transfer_tip3: string /* uint128 */,
-                    return_ownership: string /* uint128 */,
-                    order_answer: string /* uint128 */,
-                    process_queue: string /* uint128 */,
-                    send_notify: string /* uint128 */,
-                    dest_wallet_keep_evers: string /* uint128 */,
-                } /* tuple */,
-                min_amount: string /* uint128 */,
-                minmove: string /* uint128 */,
-                price_denum: string /* uint128 */,
-                deals_limit: number /* uint8 */,
-                workchain_id: number /* int8 */,
-            } /* tuple */,
-        }
+        output: PriceXchgGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }

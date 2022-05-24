@@ -9,6 +9,240 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type MultisigWalletAcceptTransferInput = {
+    payload: string /* bytes */,
+};
+
+export type MultisigWalletSendTransactionInput = {
+    dest: string /* address */,
+    value: string | number | bigint /* uint128 */,
+    bounce: boolean /* bool */,
+    flags: number /* uint8 */,
+    payload: string /* cell */,
+};
+
+export type MultisigWalletSubmitTransactionInput = {
+    dest: string /* address */,
+    value: string | number | bigint /* uint128 */,
+    bounce: boolean /* bool */,
+    allBalance: boolean /* bool */,
+    payload: string /* cell */,
+};
+
+export type MultisigWalletSubmitTransactionOutput = {
+    transId: string /* uint64 */,
+};
+
+export type MultisigWalletConfirmTransactionInput = {
+    transactionId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletIsConfirmedInput = {
+    mask: number /* uint32 */,
+    index: number /* uint8 */,
+};
+
+export type MultisigWalletIsConfirmedOutput = {
+    confirmed: boolean /* bool */,
+};
+
+export type MultisigWalletGetParametersOutput = {
+    maxQueuedTransactions: number /* uint8 */,
+    maxQueuedLimits: number /* uint8 */,
+    maxCustodianCount: number /* uint8 */,
+    maxLimitPeriod: number /* uint32 */,
+    expirationTime: string /* uint64 */,
+    minValue: string /* uint128 */,
+    requiredTxnConfirms: number /* uint8 */,
+    requiredLimConfirms: number /* uint8 */,
+    requiredUpdConfirms: number /* uint8 */,
+};
+
+export type MultisigWalletGetTransactionInput = {
+    transactionId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletGetTransactionOutput = {
+    trans: {
+        id: string /* uint64 */,
+        confirmationsMask: number /* uint32 */,
+        signsRequired: number /* uint8 */,
+        signsReceived: number /* uint8 */,
+        creator: string /* uint256 */,
+        index: number /* uint8 */,
+        dest: string /* address */,
+        value: string /* uint128 */,
+        sendFlags: number /* uint16 */,
+        payload: string /* cell */,
+        bounce: boolean /* bool */,
+    } /* tuple */,
+};
+
+export type MultisigWalletGetTransactionsOutput = {
+    transactions: {
+        id: string /* uint64 */,
+        confirmationsMask: number /* uint32 */,
+        signsRequired: number /* uint8 */,
+        signsReceived: number /* uint8 */,
+        creator: string /* uint256 */,
+        index: number /* uint8 */,
+        dest: string /* address */,
+        value: string /* uint128 */,
+        sendFlags: number /* uint16 */,
+        payload: string /* cell */,
+        bounce: boolean /* bool */,
+    }[] /* tuple[] */,
+};
+
+export type MultisigWalletGetTransactionIdsOutput = {
+    ids: string[] /* uint64[] */,
+};
+
+export type MultisigWalletGetCustodiansOutput = {
+    custodians: {
+        index: number /* uint8 */,
+        pubkey: string /* uint256 */,
+    }[] /* tuple[] */,
+};
+
+export type MultisigWalletCreateLimitInput = {
+    value: string | number | bigint /* uint128 */,
+    period: number /* uint32 */,
+    required: number /* uint8 */,
+};
+
+export type MultisigWalletCreateLimitOutput = {
+    limitId: string /* uint64 */,
+};
+
+export type MultisigWalletConfirmLimitInput = {
+    limitId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletChangeLimitInput = {
+    limitId: string | number | bigint /* uint64 */,
+    value: string | number | bigint /* uint128 */,
+    period: number /* uint32 */,
+    required: number /* uint8 */,
+};
+
+export type MultisigWalletChangeLimitOutput = {
+    newLimitId: string /* uint64 */,
+};
+
+export type MultisigWalletDeleteLimitInput = {
+    limitId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletGetLimitsOutput = {
+    limits: {
+        id: string /* uint64 */,
+        value: string /* uint128 */,
+        period: number /* uint32 */,
+        required: number /* uint8 */,
+        spent: string /* uint256 */,
+        start: number /* uint32 */,
+        votes: number /* uint8 */,
+        deletionMask: number /* uint32 */,
+    }[] /* tuple[] */,
+};
+
+export type MultisigWalletGetPendingLimitInput = {
+    limitId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletGetPendingLimitOutput = {
+    limit: {
+        creator: string /* uint256 */,
+        index: number /* uint8 */,
+        confirmationsMask: number /* uint32 */,
+        signs: number /* uint8 */,
+        parentId: string /* uint64 */,
+        limit: {
+            id: string /* uint64 */,
+            value: string /* uint128 */,
+            period: number /* uint32 */,
+            required: number /* uint8 */,
+            spent: string /* uint256 */,
+            start: number /* uint32 */,
+            votes: number /* uint8 */,
+            deletionMask: number /* uint32 */,
+        } /* tuple */,
+    } /* tuple */,
+};
+
+export type MultisigWalletGetPendingLimitsOutput = {
+    pendingLimits: {
+        id: string /* uint64 */,
+        info: {
+            creator: string /* uint256 */,
+            index: number /* uint8 */,
+            confirmationsMask: number /* uint32 */,
+            signs: number /* uint8 */,
+            parentId: string /* uint64 */,
+            limit: {
+                id: string /* uint64 */,
+                value: string /* uint128 */,
+                period: number /* uint32 */,
+                required: number /* uint8 */,
+                spent: string /* uint256 */,
+                start: number /* uint32 */,
+                votes: number /* uint8 */,
+                deletionMask: number /* uint32 */,
+            } /* tuple */,
+        } /* tuple */,
+    }[] /* tuple[] */,
+};
+
+export type MultisigWalletGetLimitInput = {
+    limitId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletGetLimitOutput = {
+    limit: {
+        id: string /* uint64 */,
+        value: string /* uint128 */,
+        period: number /* uint32 */,
+        required: number /* uint8 */,
+        spent: string /* uint256 */,
+        start: number /* uint32 */,
+        votes: number /* uint8 */,
+        deletionMask: number /* uint32 */,
+    } /* tuple */,
+};
+
+export type MultisigWalletSubmitUpdateInput = {
+    codeHash: string | number | bigint /* uint256 */,
+    owners: string | number | bigint[] /* uint256[] */,
+    reqConfirms: number /* uint8 */,
+};
+
+export type MultisigWalletSubmitUpdateOutput = {
+    updateId: string /* uint64 */,
+};
+
+export type MultisigWalletConfirmUpdateInput = {
+    updateId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletExecuteUpdateInput = {
+    updateId: string | number | bigint /* uint64 */,
+    code: string /* cell */,
+};
+
+export type MultisigWalletGetUpdateRequestsOutput = {
+    updates: {
+        id: string /* uint64 */,
+        index: number /* uint8 */,
+        signs: number /* uint8 */,
+        confirmationsMask: number /* uint32 */,
+        creator: string /* uint256 */,
+        codeHash: string /* uint256 */,
+        custodians: string[] /* uint256[] */,
+        reqConfirms: number /* uint8 */,
+    }[] /* tuple[] */,
+};
+
 
 export class MultisigWalletAccount extends Account {
     static package: ContractPackageEx = {
@@ -35,361 +269,187 @@ export class MultisigWalletAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runAcceptTransfer(input: {
-        payload: string /* bytes */,
-    }): Promise<{
+    async runAcceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "acceptTransfer", input);
     }
 
-    async runLocalAcceptTransfer(input: {
-        payload: string /* bytes */,
-    }): Promise<{
+    async acceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "acceptTransfer", input);
     }
 
-    async runSendTransaction(input: {
-        dest: string /* address */,
-        value: string | number | bigint /* uint128 */,
-        bounce: boolean /* bool */,
-        flags: number /* uint8 */,
-        payload: string /* cell */,
-    }): Promise<{
+    async runSendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "sendTransaction", input);
     }
 
-    async runLocalSendTransaction(input: {
-        dest: string /* address */,
-        value: string | number | bigint /* uint128 */,
-        bounce: boolean /* bool */,
-        flags: number /* uint8 */,
-        payload: string /* cell */,
-    }): Promise<{
+    async sendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "sendTransaction", input);
     }
 
-    async runSubmitTransaction(input: {
-        dest: string /* address */,
-        value: string | number | bigint /* uint128 */,
-        bounce: boolean /* bool */,
-        allBalance: boolean /* bool */,
-        payload: string /* cell */,
-    }): Promise<{
+    async runSubmitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
         transaction: Transaction,
-        output: {
-            transId: string /* uint64 */,
-        }
+        output: MultisigWalletSubmitTransactionOutput,
     }> {
         return await runHelper(this, "submitTransaction", input);
     }
 
-    async runLocalSubmitTransaction(input: {
-        dest: string /* address */,
-        value: string | number | bigint /* uint128 */,
-        bounce: boolean /* bool */,
-        allBalance: boolean /* bool */,
-        payload: string /* cell */,
-    }): Promise<{
+    async submitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
         transaction: Transaction,
-        output: {
-            transId: string /* uint64 */,
-        }
+        output: MultisigWalletSubmitTransactionOutput,
     }> {
         return await runLocalHelper(this, "submitTransaction", input);
     }
 
-    async runConfirmTransaction(input: {
-        transactionId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async runConfirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "confirmTransaction", input);
     }
 
-    async runLocalConfirmTransaction(input: {
-        transactionId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async confirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "confirmTransaction", input);
     }
 
-    async runIsConfirmed(input: {
-        mask: number /* uint32 */,
-        index: number /* uint8 */,
-    }): Promise<{
+    async runIsConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
         transaction: Transaction,
-        output: {
-            confirmed: boolean /* bool */,
-        }
+        output: MultisigWalletIsConfirmedOutput,
     }> {
         return await runHelper(this, "isConfirmed", input);
     }
 
-    async runLocalIsConfirmed(input: {
-        mask: number /* uint32 */,
-        index: number /* uint8 */,
-    }): Promise<{
+    async isConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
         transaction: Transaction,
-        output: {
-            confirmed: boolean /* bool */,
-        }
+        output: MultisigWalletIsConfirmedOutput,
     }> {
         return await runLocalHelper(this, "isConfirmed", input);
     }
 
     async runGetParameters(): Promise<{
         transaction: Transaction,
-        output: {
-            maxQueuedTransactions: number /* uint8 */,
-            maxQueuedLimits: number /* uint8 */,
-            maxCustodianCount: number /* uint8 */,
-            maxLimitPeriod: number /* uint32 */,
-            expirationTime: string /* uint64 */,
-            minValue: string /* uint128 */,
-            requiredTxnConfirms: number /* uint8 */,
-            requiredLimConfirms: number /* uint8 */,
-            requiredUpdConfirms: number /* uint8 */,
-        }
+        output: MultisigWalletGetParametersOutput,
     }> {
         return await runHelper(this, "getParameters", {});
     }
 
-    async runLocalGetParameters(): Promise<{
+    async getParameters(): Promise<{
         transaction: Transaction,
-        output: {
-            maxQueuedTransactions: number /* uint8 */,
-            maxQueuedLimits: number /* uint8 */,
-            maxCustodianCount: number /* uint8 */,
-            maxLimitPeriod: number /* uint32 */,
-            expirationTime: string /* uint64 */,
-            minValue: string /* uint128 */,
-            requiredTxnConfirms: number /* uint8 */,
-            requiredLimConfirms: number /* uint8 */,
-            requiredUpdConfirms: number /* uint8 */,
-        }
+        output: MultisigWalletGetParametersOutput,
     }> {
         return await runLocalHelper(this, "getParameters", {});
     }
 
-    async runGetTransaction(input: {
-        transactionId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async runGetTransaction(input: MultisigWalletGetTransactionInput): Promise<{
         transaction: Transaction,
-        output: {
-            trans: {
-                id: string /* uint64 */,
-                confirmationsMask: number /* uint32 */,
-                signsRequired: number /* uint8 */,
-                signsReceived: number /* uint8 */,
-                creator: string /* uint256 */,
-                index: number /* uint8 */,
-                dest: string /* address */,
-                value: string /* uint128 */,
-                sendFlags: number /* uint16 */,
-                payload: string /* cell */,
-                bounce: boolean /* bool */,
-            } /* tuple */,
-        }
+        output: MultisigWalletGetTransactionOutput,
     }> {
         return await runHelper(this, "getTransaction", input);
     }
 
-    async runLocalGetTransaction(input: {
-        transactionId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async getTransaction(input: MultisigWalletGetTransactionInput): Promise<{
         transaction: Transaction,
-        output: {
-            trans: {
-                id: string /* uint64 */,
-                confirmationsMask: number /* uint32 */,
-                signsRequired: number /* uint8 */,
-                signsReceived: number /* uint8 */,
-                creator: string /* uint256 */,
-                index: number /* uint8 */,
-                dest: string /* address */,
-                value: string /* uint128 */,
-                sendFlags: number /* uint16 */,
-                payload: string /* cell */,
-                bounce: boolean /* bool */,
-            } /* tuple */,
-        }
+        output: MultisigWalletGetTransactionOutput,
     }> {
         return await runLocalHelper(this, "getTransaction", input);
     }
 
     async runGetTransactions(): Promise<{
         transaction: Transaction,
-        output: {
-            transactions: {
-                id: string /* uint64 */,
-                confirmationsMask: number /* uint32 */,
-                signsRequired: number /* uint8 */,
-                signsReceived: number /* uint8 */,
-                creator: string /* uint256 */,
-                index: number /* uint8 */,
-                dest: string /* address */,
-                value: string /* uint128 */,
-                sendFlags: number /* uint16 */,
-                payload: string /* cell */,
-                bounce: boolean /* bool */,
-            }[] /* tuple[] */,
-        }
+        output: MultisigWalletGetTransactionsOutput,
     }> {
         return await runHelper(this, "getTransactions", {});
     }
 
-    async runLocalGetTransactions(): Promise<{
+    async getTransactions(): Promise<{
         transaction: Transaction,
-        output: {
-            transactions: {
-                id: string /* uint64 */,
-                confirmationsMask: number /* uint32 */,
-                signsRequired: number /* uint8 */,
-                signsReceived: number /* uint8 */,
-                creator: string /* uint256 */,
-                index: number /* uint8 */,
-                dest: string /* address */,
-                value: string /* uint128 */,
-                sendFlags: number /* uint16 */,
-                payload: string /* cell */,
-                bounce: boolean /* bool */,
-            }[] /* tuple[] */,
-        }
+        output: MultisigWalletGetTransactionsOutput,
     }> {
         return await runLocalHelper(this, "getTransactions", {});
     }
 
     async runGetTransactionIds(): Promise<{
         transaction: Transaction,
-        output: {
-            ids: string[] /* uint64[] */,
-        }
+        output: MultisigWalletGetTransactionIdsOutput,
     }> {
         return await runHelper(this, "getTransactionIds", {});
     }
 
-    async runLocalGetTransactionIds(): Promise<{
+    async getTransactionIds(): Promise<{
         transaction: Transaction,
-        output: {
-            ids: string[] /* uint64[] */,
-        }
+        output: MultisigWalletGetTransactionIdsOutput,
     }> {
         return await runLocalHelper(this, "getTransactionIds", {});
     }
 
     async runGetCustodians(): Promise<{
         transaction: Transaction,
-        output: {
-            custodians: {
-                index: number /* uint8 */,
-                pubkey: string /* uint256 */,
-            }[] /* tuple[] */,
-        }
+        output: MultisigWalletGetCustodiansOutput,
     }> {
         return await runHelper(this, "getCustodians", {});
     }
 
-    async runLocalGetCustodians(): Promise<{
+    async getCustodians(): Promise<{
         transaction: Transaction,
-        output: {
-            custodians: {
-                index: number /* uint8 */,
-                pubkey: string /* uint256 */,
-            }[] /* tuple[] */,
-        }
+        output: MultisigWalletGetCustodiansOutput,
     }> {
         return await runLocalHelper(this, "getCustodians", {});
     }
 
-    async runCreateLimit(input: {
-        value: string | number | bigint /* uint128 */,
-        period: number /* uint32 */,
-        required: number /* uint8 */,
-    }): Promise<{
+    async runCreateLimit(input: MultisigWalletCreateLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            limitId: string /* uint64 */,
-        }
+        output: MultisigWalletCreateLimitOutput,
     }> {
         return await runHelper(this, "createLimit", input);
     }
 
-    async runLocalCreateLimit(input: {
-        value: string | number | bigint /* uint128 */,
-        period: number /* uint32 */,
-        required: number /* uint8 */,
-    }): Promise<{
+    async createLimit(input: MultisigWalletCreateLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            limitId: string /* uint64 */,
-        }
+        output: MultisigWalletCreateLimitOutput,
     }> {
         return await runLocalHelper(this, "createLimit", input);
     }
 
-    async runConfirmLimit(input: {
-        limitId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async runConfirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "confirmLimit", input);
     }
 
-    async runLocalConfirmLimit(input: {
-        limitId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async confirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "confirmLimit", input);
     }
 
-    async runChangeLimit(input: {
-        limitId: string | number | bigint /* uint64 */,
-        value: string | number | bigint /* uint128 */,
-        period: number /* uint32 */,
-        required: number /* uint8 */,
-    }): Promise<{
+    async runChangeLimit(input: MultisigWalletChangeLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            newLimitId: string /* uint64 */,
-        }
+        output: MultisigWalletChangeLimitOutput,
     }> {
         return await runHelper(this, "changeLimit", input);
     }
 
-    async runLocalChangeLimit(input: {
-        limitId: string | number | bigint /* uint64 */,
-        value: string | number | bigint /* uint128 */,
-        period: number /* uint32 */,
-        required: number /* uint8 */,
-    }): Promise<{
+    async changeLimit(input: MultisigWalletChangeLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            newLimitId: string /* uint64 */,
-        }
+        output: MultisigWalletChangeLimitOutput,
     }> {
         return await runLocalHelper(this, "changeLimit", input);
     }
 
-    async runDeleteLimit(input: {
-        limitId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async runDeleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "deleteLimit", input);
     }
 
-    async runLocalDeleteLimit(input: {
-        limitId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async deleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "deleteLimit", input);
@@ -397,245 +457,93 @@ export class MultisigWalletAccount extends Account {
 
     async runGetLimits(): Promise<{
         transaction: Transaction,
-        output: {
-            limits: {
-                id: string /* uint64 */,
-                value: string /* uint128 */,
-                period: number /* uint32 */,
-                required: number /* uint8 */,
-                spent: string /* uint256 */,
-                start: number /* uint32 */,
-                votes: number /* uint8 */,
-                deletionMask: number /* uint32 */,
-            }[] /* tuple[] */,
-        }
+        output: MultisigWalletGetLimitsOutput,
     }> {
         return await runHelper(this, "getLimits", {});
     }
 
-    async runLocalGetLimits(): Promise<{
+    async getLimits(): Promise<{
         transaction: Transaction,
-        output: {
-            limits: {
-                id: string /* uint64 */,
-                value: string /* uint128 */,
-                period: number /* uint32 */,
-                required: number /* uint8 */,
-                spent: string /* uint256 */,
-                start: number /* uint32 */,
-                votes: number /* uint8 */,
-                deletionMask: number /* uint32 */,
-            }[] /* tuple[] */,
-        }
+        output: MultisigWalletGetLimitsOutput,
     }> {
         return await runLocalHelper(this, "getLimits", {});
     }
 
-    async runGetPendingLimit(input: {
-        limitId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async runGetPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            limit: {
-                creator: string /* uint256 */,
-                index: number /* uint8 */,
-                confirmationsMask: number /* uint32 */,
-                signs: number /* uint8 */,
-                parentId: string /* uint64 */,
-                limit: {
-                    id: string /* uint64 */,
-                    value: string /* uint128 */,
-                    period: number /* uint32 */,
-                    required: number /* uint8 */,
-                    spent: string /* uint256 */,
-                    start: number /* uint32 */,
-                    votes: number /* uint8 */,
-                    deletionMask: number /* uint32 */,
-                } /* tuple */,
-            } /* tuple */,
-        }
+        output: MultisigWalletGetPendingLimitOutput,
     }> {
         return await runHelper(this, "getPendingLimit", input);
     }
 
-    async runLocalGetPendingLimit(input: {
-        limitId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async getPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            limit: {
-                creator: string /* uint256 */,
-                index: number /* uint8 */,
-                confirmationsMask: number /* uint32 */,
-                signs: number /* uint8 */,
-                parentId: string /* uint64 */,
-                limit: {
-                    id: string /* uint64 */,
-                    value: string /* uint128 */,
-                    period: number /* uint32 */,
-                    required: number /* uint8 */,
-                    spent: string /* uint256 */,
-                    start: number /* uint32 */,
-                    votes: number /* uint8 */,
-                    deletionMask: number /* uint32 */,
-                } /* tuple */,
-            } /* tuple */,
-        }
+        output: MultisigWalletGetPendingLimitOutput,
     }> {
         return await runLocalHelper(this, "getPendingLimit", input);
     }
 
     async runGetPendingLimits(): Promise<{
         transaction: Transaction,
-        output: {
-            pendingLimits: {
-                id: string /* uint64 */,
-                info: {
-                    creator: string /* uint256 */,
-                    index: number /* uint8 */,
-                    confirmationsMask: number /* uint32 */,
-                    signs: number /* uint8 */,
-                    parentId: string /* uint64 */,
-                    limit: {
-                        id: string /* uint64 */,
-                        value: string /* uint128 */,
-                        period: number /* uint32 */,
-                        required: number /* uint8 */,
-                        spent: string /* uint256 */,
-                        start: number /* uint32 */,
-                        votes: number /* uint8 */,
-                        deletionMask: number /* uint32 */,
-                    } /* tuple */,
-                } /* tuple */,
-            }[] /* tuple[] */,
-        }
+        output: MultisigWalletGetPendingLimitsOutput,
     }> {
         return await runHelper(this, "getPendingLimits", {});
     }
 
-    async runLocalGetPendingLimits(): Promise<{
+    async getPendingLimits(): Promise<{
         transaction: Transaction,
-        output: {
-            pendingLimits: {
-                id: string /* uint64 */,
-                info: {
-                    creator: string /* uint256 */,
-                    index: number /* uint8 */,
-                    confirmationsMask: number /* uint32 */,
-                    signs: number /* uint8 */,
-                    parentId: string /* uint64 */,
-                    limit: {
-                        id: string /* uint64 */,
-                        value: string /* uint128 */,
-                        period: number /* uint32 */,
-                        required: number /* uint8 */,
-                        spent: string /* uint256 */,
-                        start: number /* uint32 */,
-                        votes: number /* uint8 */,
-                        deletionMask: number /* uint32 */,
-                    } /* tuple */,
-                } /* tuple */,
-            }[] /* tuple[] */,
-        }
+        output: MultisigWalletGetPendingLimitsOutput,
     }> {
         return await runLocalHelper(this, "getPendingLimits", {});
     }
 
-    async runGetLimit(input: {
-        limitId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async runGetLimit(input: MultisigWalletGetLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            limit: {
-                id: string /* uint64 */,
-                value: string /* uint128 */,
-                period: number /* uint32 */,
-                required: number /* uint8 */,
-                spent: string /* uint256 */,
-                start: number /* uint32 */,
-                votes: number /* uint8 */,
-                deletionMask: number /* uint32 */,
-            } /* tuple */,
-        }
+        output: MultisigWalletGetLimitOutput,
     }> {
         return await runHelper(this, "getLimit", input);
     }
 
-    async runLocalGetLimit(input: {
-        limitId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async getLimit(input: MultisigWalletGetLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            limit: {
-                id: string /* uint64 */,
-                value: string /* uint128 */,
-                period: number /* uint32 */,
-                required: number /* uint8 */,
-                spent: string /* uint256 */,
-                start: number /* uint32 */,
-                votes: number /* uint8 */,
-                deletionMask: number /* uint32 */,
-            } /* tuple */,
-        }
+        output: MultisigWalletGetLimitOutput,
     }> {
         return await runLocalHelper(this, "getLimit", input);
     }
 
-    async runSubmitUpdate(input: {
-        codeHash: string | number | bigint /* uint256 */,
-        owners: string | number | bigint[] /* uint256[] */,
-        reqConfirms: number /* uint8 */,
-    }): Promise<{
+    async runSubmitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
         transaction: Transaction,
-        output: {
-            updateId: string /* uint64 */,
-        }
+        output: MultisigWalletSubmitUpdateOutput,
     }> {
         return await runHelper(this, "submitUpdate", input);
     }
 
-    async runLocalSubmitUpdate(input: {
-        codeHash: string | number | bigint /* uint256 */,
-        owners: string | number | bigint[] /* uint256[] */,
-        reqConfirms: number /* uint8 */,
-    }): Promise<{
+    async submitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
         transaction: Transaction,
-        output: {
-            updateId: string /* uint64 */,
-        }
+        output: MultisigWalletSubmitUpdateOutput,
     }> {
         return await runLocalHelper(this, "submitUpdate", input);
     }
 
-    async runConfirmUpdate(input: {
-        updateId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async runConfirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "confirmUpdate", input);
     }
 
-    async runLocalConfirmUpdate(input: {
-        updateId: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async confirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "confirmUpdate", input);
     }
 
-    async runExecuteUpdate(input: {
-        updateId: string | number | bigint /* uint64 */,
-        code: string /* cell */,
-    }): Promise<{
+    async runExecuteUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "executeUpdate", input);
     }
 
-    async runLocalExecuteUpdate(input: {
-        updateId: string | number | bigint /* uint64 */,
-        code: string /* cell */,
-    }): Promise<{
+    async executeUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "executeUpdate", input);
@@ -643,36 +551,14 @@ export class MultisigWalletAccount extends Account {
 
     async runGetUpdateRequests(): Promise<{
         transaction: Transaction,
-        output: {
-            updates: {
-                id: string /* uint64 */,
-                index: number /* uint8 */,
-                signs: number /* uint8 */,
-                confirmationsMask: number /* uint32 */,
-                creator: string /* uint256 */,
-                codeHash: string /* uint256 */,
-                custodians: string[] /* uint256[] */,
-                reqConfirms: number /* uint8 */,
-            }[] /* tuple[] */,
-        }
+        output: MultisigWalletGetUpdateRequestsOutput,
     }> {
         return await runHelper(this, "getUpdateRequests", {});
     }
 
-    async runLocalGetUpdateRequests(): Promise<{
+    async getUpdateRequests(): Promise<{
         transaction: Transaction,
-        output: {
-            updates: {
-                id: string /* uint64 */,
-                index: number /* uint8 */,
-                signs: number /* uint8 */,
-                confirmationsMask: number /* uint32 */,
-                creator: string /* uint256 */,
-                codeHash: string /* uint256 */,
-                custodians: string[] /* uint256[] */,
-                reqConfirms: number /* uint8 */,
-            }[] /* tuple[] */,
-        }
+        output: MultisigWalletGetUpdateRequestsOutput,
     }> {
         return await runLocalHelper(this, "getUpdateRequests", {});
     }

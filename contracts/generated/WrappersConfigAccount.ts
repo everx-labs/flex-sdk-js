@@ -9,6 +9,80 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type WrappersConfigOnDeployInput = {
+    keep_evers: string | number | bigint /* uint128 */,
+    evers?: {
+        deploy: string | number | bigint /* uint128 */,
+        setnext: string | number | bigint /* uint128 */,
+        wic_keep: string | number | bigint /* uint128 */,
+    } /* optional(tuple) */,
+    old_token_version?: number /* optional(uint32) */,
+    wrapper_deployers: string[] /* address[] */,
+    first_wic?: string /* optional(address) */,
+    last_wic?: string /* optional(address) */,
+    wic_count: number /* uint32 */,
+};
+
+export type WrappersConfigOnWICsClonedInput = {
+    first_wic?: string /* optional(address) */,
+    last_wic?: string /* optional(address) */,
+    wic_count: number /* uint32 */,
+};
+
+export type WrappersConfigAddWrapperTypeInput = {
+    keep_evers: string | number | bigint /* uint128 */,
+    type: number /* uint8 */,
+    wrapper_deployer: string /* address */,
+};
+
+export type WrappersConfigAddWrapperInput = {
+    keep_evers: string | number | bigint /* uint128 */,
+    evers: {
+        deploy: string | number | bigint /* uint128 */,
+        setnext: string | number | bigint /* uint128 */,
+        wic_keep: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    symbol: string /* string */,
+    type: number /* uint8 */,
+    init_args: string /* cell */,
+};
+
+export type WrappersConfigUnlistWrapperInput = {
+    wic: string /* address */,
+};
+
+export type WrappersConfigCloneUpgradeInput = {
+    _answer_id: number /* uint32 */,
+    answer_addr?: string /* optional(address) */,
+    keep_evers: string | number | bigint /* uint128 */,
+    clone_deploy_evers: string | number | bigint /* uint128 */,
+    evers: {
+        deploy: string | number | bigint /* uint128 */,
+        setnext: string | number | bigint /* uint128 */,
+        wic_keep: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    new_token_version: number /* uint32 */,
+    wrapper_deployers: string[] /* address[] */,
+};
+
+export type WrappersConfigCloneUpgradeOutput = {
+    value0: string /* address */,
+};
+
+export type WrappersConfigGetDetailsOutput = {
+    token_version: number /* uint32 */,
+    wrapper_deployers: string[] /* address[] */,
+    first_wic?: string /* optional(address) */,
+    last_wic?: string /* optional(address) */,
+    wic_count: number /* uint32 */,
+    salted_wic_hash: string /* uint256 */,
+};
+
+export type WrappersConfigGetConfigOutput = {
+    super_root: string /* address */,
+    wic_code: string /* cell */,
+};
+
 
 export class WrappersConfigAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,216 +106,104 @@ export class WrappersConfigAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: {
-        keep_evers: string | number | bigint /* uint128 */,
-        evers?: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* optional(tuple) */,
-        old_token_version?: number /* optional(uint32) */,
-        wrapper_deployers: string[] /* address[] */,
-        first_wic?: string /* optional(address) */,
-        last_wic?: string /* optional(address) */,
-        wic_count: number /* uint32 */,
-    }): Promise<{
+    async runOnDeploy(input: WrappersConfigOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
 
-    async runLocalOnDeploy(input: {
-        keep_evers: string | number | bigint /* uint128 */,
-        evers?: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* optional(tuple) */,
-        old_token_version?: number /* optional(uint32) */,
-        wrapper_deployers: string[] /* address[] */,
-        first_wic?: string /* optional(address) */,
-        last_wic?: string /* optional(address) */,
-        wic_count: number /* uint32 */,
-    }): Promise<{
+    async onDeploy(input: WrappersConfigOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runOnWICsCloned(input: {
-        first_wic?: string /* optional(address) */,
-        last_wic?: string /* optional(address) */,
-        wic_count: number /* uint32 */,
-    }): Promise<{
+    async runOnWICsCloned(input: WrappersConfigOnWICsClonedInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "onWICsCloned", input);
     }
 
-    async runLocalOnWICsCloned(input: {
-        first_wic?: string /* optional(address) */,
-        last_wic?: string /* optional(address) */,
-        wic_count: number /* uint32 */,
-    }): Promise<{
+    async onWICsCloned(input: WrappersConfigOnWICsClonedInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onWICsCloned", input);
     }
 
-    async runAddWrapperType(input: {
-        keep_evers: string | number | bigint /* uint128 */,
-        type: number /* uint8 */,
-        wrapper_deployer: string /* address */,
-    }): Promise<{
+    async runAddWrapperType(input: WrappersConfigAddWrapperTypeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "addWrapperType", input);
     }
 
-    async runLocalAddWrapperType(input: {
-        keep_evers: string | number | bigint /* uint128 */,
-        type: number /* uint8 */,
-        wrapper_deployer: string /* address */,
-    }): Promise<{
+    async addWrapperType(input: WrappersConfigAddWrapperTypeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "addWrapperType", input);
     }
 
-    async runAddWrapper(input: {
-        keep_evers: string | number | bigint /* uint128 */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        symbol: string /* string */,
-        type: number /* uint8 */,
-        init_args: string /* cell */,
-    }): Promise<{
+    async runAddWrapper(input: WrappersConfigAddWrapperInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "addWrapper", input);
     }
 
-    async runLocalAddWrapper(input: {
-        keep_evers: string | number | bigint /* uint128 */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        symbol: string /* string */,
-        type: number /* uint8 */,
-        init_args: string /* cell */,
-    }): Promise<{
+    async addWrapper(input: WrappersConfigAddWrapperInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "addWrapper", input);
     }
 
-    async runUnlistWrapper(input: {
-        wic: string /* address */,
-    }): Promise<{
+    async runUnlistWrapper(input: WrappersConfigUnlistWrapperInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "unlistWrapper", input);
     }
 
-    async runLocalUnlistWrapper(input: {
-        wic: string /* address */,
-    }): Promise<{
+    async unlistWrapper(input: WrappersConfigUnlistWrapperInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "unlistWrapper", input);
     }
 
-    async runCloneUpgrade(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr?: string /* optional(address) */,
-        keep_evers: string | number | bigint /* uint128 */,
-        clone_deploy_evers: string | number | bigint /* uint128 */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        new_token_version: number /* uint32 */,
-        wrapper_deployers: string[] /* address[] */,
-    }): Promise<{
+    async runCloneUpgrade(input: WrappersConfigCloneUpgradeInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: WrappersConfigCloneUpgradeOutput,
     }> {
         return await runHelper(this, "cloneUpgrade", input);
     }
 
-    async runLocalCloneUpgrade(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr?: string /* optional(address) */,
-        keep_evers: string | number | bigint /* uint128 */,
-        clone_deploy_evers: string | number | bigint /* uint128 */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        new_token_version: number /* uint32 */,
-        wrapper_deployers: string[] /* address[] */,
-    }): Promise<{
+    async cloneUpgrade(input: WrappersConfigCloneUpgradeInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: WrappersConfigCloneUpgradeOutput,
     }> {
         return await runLocalHelper(this, "cloneUpgrade", input);
     }
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            token_version: number /* uint32 */,
-            wrapper_deployers: string[] /* address[] */,
-            first_wic?: string /* optional(address) */,
-            last_wic?: string /* optional(address) */,
-            wic_count: number /* uint32 */,
-            salted_wic_hash: string /* uint256 */,
-        }
+        output: WrappersConfigGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            token_version: number /* uint32 */,
-            wrapper_deployers: string[] /* address[] */,
-            first_wic?: string /* optional(address) */,
-            last_wic?: string /* optional(address) */,
-            wic_count: number /* uint32 */,
-            salted_wic_hash: string /* uint256 */,
-        }
+        output: WrappersConfigGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
     async runGetConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            super_root: string /* address */,
-            wic_code: string /* cell */,
-        }
+        output: WrappersConfigGetConfigOutput,
     }> {
         return await runHelper(this, "getConfig", {});
     }
 
-    async runLocalGetConfig(): Promise<{
+    async getConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            super_root: string /* address */,
-            wic_code: string /* cell */,
-        }
+        output: WrappersConfigGetConfigOutput,
     }> {
         return await runLocalHelper(this, "getConfig", {});
     }

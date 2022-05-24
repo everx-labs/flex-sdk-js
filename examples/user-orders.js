@@ -14,7 +14,6 @@ const lib_node_1 = require("@eversdk/lib-node");
 const flex_1 = require("../flex");
 const trader_1 = require("../flex/trader");
 const client_1 = require("../flex/client");
-const market_1 = require("../flex/market");
 core_1.TonClient.useBinaryLibrary(lib_node_1.libNode);
 flex_1.Flex.config = {
     client: {
@@ -33,15 +32,8 @@ flex_1.Flex.config = {
             userId: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
             walletSigner: "flex-wallet-1",
         });
-        const order = yield trader.makeOrder({
-            sell: false,
-            market: new market_1.Market({
-                address: "0:f0bb8d8a4a1416a7b380cb217513395aea994487a2b3e80129c136184def8bb4",
-            }),
-            price: 1.23,
-            amount: 1,
-        });
-        console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
+        const orders = yield trader.getOrders();
+        console.log("User orders:", orders);
         yield flex_1.Flex.default.close();
     }
     catch (err) {
@@ -49,4 +41,4 @@ flex_1.Flex.config = {
         process.exit(1);
     }
 }))();
-//# sourceMappingURL=make-order.js.map
+//# sourceMappingURL=user-orders.js.map

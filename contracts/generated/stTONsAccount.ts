@@ -9,6 +9,69 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type stTONsLendOwnershipInput = {
+    _answer_id: number /* uint32 */,
+    answer_addr: string /* address */,
+    evers: string | number | bigint /* uint128 */,
+    dest: string /* address */,
+    lend_balance: string | number | bigint /* uint128 */,
+    lend_finish_time: number /* uint32 */,
+    deploy_init_cl: string /* cell */,
+    payload: string /* cell */,
+};
+
+export type stTONsReturnOwnershipInput = {
+    tokens: string | number | bigint /* uint128 */,
+};
+
+export type stTONsReturnStakeInput = {
+    dst: string /* address */,
+    processing_evers: string | number | bigint /* uint128 */,
+};
+
+export type stTONsFinalizeInput = {
+    dst: string /* address */,
+    ignore_errors: boolean /* bool */,
+};
+
+export type stTONsReceiveStakeTransferInput = {
+    source: string /* address */,
+    amount: string | number | bigint /* uint128 */,
+};
+
+export type stTONsReceiveAnswerInput = {
+    errcode: number /* uint32 */,
+    comment: string | number | bigint /* uint64 */,
+};
+
+export type stTONsGetDetailsOutput = {
+    owner_pubkey: string /* uint256 */,
+    owner_address: string /* address */,
+    depool: string /* address */,
+    depool_pubkey: string /* uint256 */,
+    balance: string /* uint128 */,
+    lend_ownership: {
+        lend_addr: string /* address */,
+        lend_balance: string /* uint128 */,
+        lend_finish_time: number /* uint32 */,
+    }[] /* tuple[] */,
+    lend_balance: string /* uint128 */,
+    transferring_stake_back: boolean /* bool */,
+    last_depool_error: number /* uint8 */,
+};
+
+export type stTONsCalcStTONsAddrInput = {
+    code: string /* cell */,
+    owner_pubkey: string | number | bigint /* uint256 */,
+    owner_address?: string /* optional(address) */,
+    depool: string /* address */,
+    depool_pubkey: string | number | bigint /* uint256 */,
+};
+
+export type stTONsCalcStTONsAddrOutput = {
+    value0: string /* address */,
+};
+
 
 export class stTONsAccount extends Account {
     static package: ContractPackageEx = {
@@ -38,125 +101,79 @@ export class stTONsAccount extends Account {
         return await runHelper(this, "onDeploy", {});
     }
 
-    async runLocalOnDeploy(): Promise<{
+    async onDeploy(): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onDeploy", {});
     }
 
-    async runLendOwnership(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr: string /* address */,
-        evers: string | number | bigint /* uint128 */,
-        dest: string /* address */,
-        lend_balance: string | number | bigint /* uint128 */,
-        lend_finish_time: number /* uint32 */,
-        deploy_init_cl: string /* cell */,
-        payload: string /* cell */,
-    }): Promise<{
+    async runLendOwnership(input: stTONsLendOwnershipInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "lendOwnership", input);
     }
 
-    async runLocalLendOwnership(input: {
-        _answer_id: number /* uint32 */,
-        answer_addr: string /* address */,
-        evers: string | number | bigint /* uint128 */,
-        dest: string /* address */,
-        lend_balance: string | number | bigint /* uint128 */,
-        lend_finish_time: number /* uint32 */,
-        deploy_init_cl: string /* cell */,
-        payload: string /* cell */,
-    }): Promise<{
+    async lendOwnership(input: stTONsLendOwnershipInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "lendOwnership", input);
     }
 
-    async runReturnOwnership(input: {
-        tokens: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runReturnOwnership(input: stTONsReturnOwnershipInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "returnOwnership", input);
     }
 
-    async runLocalReturnOwnership(input: {
-        tokens: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async returnOwnership(input: stTONsReturnOwnershipInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "returnOwnership", input);
     }
 
-    async runReturnStake(input: {
-        dst: string /* address */,
-        processing_evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runReturnStake(input: stTONsReturnStakeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "returnStake", input);
     }
 
-    async runLocalReturnStake(input: {
-        dst: string /* address */,
-        processing_evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async returnStake(input: stTONsReturnStakeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "returnStake", input);
     }
 
-    async runFinalize(input: {
-        dst: string /* address */,
-        ignore_errors: boolean /* bool */,
-    }): Promise<{
+    async runFinalize(input: stTONsFinalizeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "finalize", input);
     }
 
-    async runLocalFinalize(input: {
-        dst: string /* address */,
-        ignore_errors: boolean /* bool */,
-    }): Promise<{
+    async finalize(input: stTONsFinalizeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "finalize", input);
     }
 
-    async runReceiveStakeTransfer(input: {
-        source: string /* address */,
-        amount: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runReceiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "receiveStakeTransfer", input);
     }
 
-    async runLocalReceiveStakeTransfer(input: {
-        source: string /* address */,
-        amount: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async receiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "receiveStakeTransfer", input);
     }
 
-    async runReceiveAnswer(input: {
-        errcode: number /* uint32 */,
-        comment: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async runReceiveAnswer(input: stTONsReceiveAnswerInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "receiveAnswer", input);
     }
 
-    async runLocalReceiveAnswer(input: {
-        errcode: number /* uint32 */,
-        comment: string | number | bigint /* uint64 */,
-    }): Promise<{
+    async receiveAnswer(input: stTONsReceiveAnswerInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "receiveAnswer", input);
@@ -164,72 +181,28 @@ export class stTONsAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            owner_pubkey: string /* uint256 */,
-            owner_address: string /* address */,
-            depool: string /* address */,
-            depool_pubkey: string /* uint256 */,
-            balance: string /* uint128 */,
-            lend_ownership: {
-                lend_addr: string /* address */,
-                lend_balance: string /* uint128 */,
-                lend_finish_time: number /* uint32 */,
-            }[] /* tuple[] */,
-            lend_balance: string /* uint128 */,
-            transferring_stake_back: boolean /* bool */,
-            last_depool_error: number /* uint8 */,
-        }
+        output: stTONsGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            owner_pubkey: string /* uint256 */,
-            owner_address: string /* address */,
-            depool: string /* address */,
-            depool_pubkey: string /* uint256 */,
-            balance: string /* uint128 */,
-            lend_ownership: {
-                lend_addr: string /* address */,
-                lend_balance: string /* uint128 */,
-                lend_finish_time: number /* uint32 */,
-            }[] /* tuple[] */,
-            lend_balance: string /* uint128 */,
-            transferring_stake_back: boolean /* bool */,
-            last_depool_error: number /* uint8 */,
-        }
+        output: stTONsGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runCalcStTONsAddr(input: {
-        code: string /* cell */,
-        owner_pubkey: string | number | bigint /* uint256 */,
-        owner_address?: string /* optional(address) */,
-        depool: string /* address */,
-        depool_pubkey: string | number | bigint /* uint256 */,
-    }): Promise<{
+    async runCalcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: stTONsCalcStTONsAddrOutput,
     }> {
         return await runHelper(this, "calcStTONsAddr", input);
     }
 
-    async runLocalCalcStTONsAddr(input: {
-        code: string /* cell */,
-        owner_pubkey: string | number | bigint /* uint256 */,
-        owner_address?: string /* optional(address) */,
-        depool: string /* address */,
-        depool_pubkey: string | number | bigint /* uint256 */,
-    }): Promise<{
+    async calcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: stTONsCalcStTONsAddrOutput,
     }> {
         return await runLocalHelper(this, "calcStTONsAddr", input);
     }

@@ -9,6 +9,105 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type FlexOnDeployInput = {
+    flex_keep_evers: string | number | bigint /* uint128 */,
+    evers: {
+        deploy: string | number | bigint /* uint128 */,
+        setnext: string | number | bigint /* uint128 */,
+        pair_keep: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    old_flex?: string /* optional(address) */,
+};
+
+export type FlexAddXchgPairInput = {
+    _answer_id: number /* uint32 */,
+    evers: {
+        deploy: string | number | bigint /* uint128 */,
+        setnext: string | number | bigint /* uint128 */,
+        pair_keep: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    major_tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    minor_tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    min_amount: string | number | bigint /* uint128 */,
+    minmove: string | number | bigint /* uint128 */,
+    price_denum: string | number | bigint /* uint128 */,
+    notify_addr: string /* address */,
+};
+
+export type FlexAddXchgPairOutput = {
+    value0: string /* address */,
+};
+
+export type FlexUnlistXchgPairInput = {
+    pair: string /* address */,
+};
+
+export type FlexRequestPairsInput = {
+    _answer_id: number /* uint32 */,
+};
+
+export type FlexRequestPairsOutput = {
+    first_pair?: string /* optional(address) */,
+    last_pair?: string /* optional(address) */,
+};
+
+export type FlexGetConfigOutput = {
+    super_root: string /* address */,
+    ev_cfg: {
+        transfer_tip3: string /* uint128 */,
+        return_ownership: string /* uint128 */,
+        order_answer: string /* uint128 */,
+        process_queue: string /* uint128 */,
+        send_notify: string /* uint128 */,
+        dest_wallet_keep_evers: string /* uint128 */,
+    } /* tuple */,
+    deals_limit: number /* uint8 */,
+    xchg_pair_code: string /* cell */,
+    xchg_price_code: string /* cell */,
+};
+
+export type FlexGetDetailsOutput = {
+    xchg_pair_code: string /* cell */,
+    unsalted_price_code_hash: string /* uint256 */,
+    first_pair?: string /* optional(address) */,
+    last_pair?: string /* optional(address) */,
+    pairs_count: number /* uint32 */,
+};
+
+export type FlexGetXchgTradingPairInput = {
+    tip3_major_root: string /* address */,
+    tip3_minor_root: string /* address */,
+};
+
+export type FlexGetXchgTradingPairOutput = {
+    value0: string /* address */,
+};
+
+export type FlexCalcLendTokensForOrderInput = {
+    sell: boolean /* bool */,
+    major_tokens: string | number | bigint /* uint128 */,
+    price: {
+        num: string | number | bigint /* uint128 */,
+        denum: string | number | bigint /* uint128 */,
+    } /* tuple */,
+};
+
+export type FlexCalcLendTokensForOrderOutput = {
+    value0: string /* uint128 */,
+};
+
 
 export class FlexAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,260 +131,110 @@ export class FlexAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: {
-        flex_keep_evers: string | number | bigint /* uint128 */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            pair_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        old_flex?: string /* optional(address) */,
-    }): Promise<{
+    async runOnDeploy(input: FlexOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
 
-    async runLocalOnDeploy(input: {
-        flex_keep_evers: string | number | bigint /* uint128 */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            pair_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        old_flex?: string /* optional(address) */,
-    }): Promise<{
+    async onDeploy(input: FlexOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runAddXchgPair(input: {
-        _answer_id: number /* uint32 */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            pair_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        major_tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        minor_tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        min_amount: string | number | bigint /* uint128 */,
-        minmove: string | number | bigint /* uint128 */,
-        price_denum: string | number | bigint /* uint128 */,
-        notify_addr: string /* address */,
-    }): Promise<{
+    async runAddXchgPair(input: FlexAddXchgPairInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexAddXchgPairOutput,
     }> {
         return await runHelper(this, "addXchgPair", input);
     }
 
-    async runLocalAddXchgPair(input: {
-        _answer_id: number /* uint32 */,
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            pair_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        major_tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        minor_tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        min_amount: string | number | bigint /* uint128 */,
-        minmove: string | number | bigint /* uint128 */,
-        price_denum: string | number | bigint /* uint128 */,
-        notify_addr: string /* address */,
-    }): Promise<{
+    async addXchgPair(input: FlexAddXchgPairInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexAddXchgPairOutput,
     }> {
         return await runLocalHelper(this, "addXchgPair", input);
     }
 
-    async runUnlistXchgPair(input: {
-        pair: string /* address */,
-    }): Promise<{
+    async runUnlistXchgPair(input: FlexUnlistXchgPairInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "unlistXchgPair", input);
     }
 
-    async runLocalUnlistXchgPair(input: {
-        pair: string /* address */,
-    }): Promise<{
+    async unlistXchgPair(input: FlexUnlistXchgPairInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "unlistXchgPair", input);
     }
 
-    async runRequestPairs(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async runRequestPairs(input: FlexRequestPairsInput): Promise<{
         transaction: Transaction,
-        output: {
-            first_pair?: string /* optional(address) */,
-            last_pair?: string /* optional(address) */,
-        }
+        output: FlexRequestPairsOutput,
     }> {
         return await runHelper(this, "requestPairs", input);
     }
 
-    async runLocalRequestPairs(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async requestPairs(input: FlexRequestPairsInput): Promise<{
         transaction: Transaction,
-        output: {
-            first_pair?: string /* optional(address) */,
-            last_pair?: string /* optional(address) */,
-        }
+        output: FlexRequestPairsOutput,
     }> {
         return await runLocalHelper(this, "requestPairs", input);
     }
 
     async runGetConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            super_root: string /* address */,
-            ev_cfg: {
-                transfer_tip3: string /* uint128 */,
-                return_ownership: string /* uint128 */,
-                order_answer: string /* uint128 */,
-                process_queue: string /* uint128 */,
-                send_notify: string /* uint128 */,
-                dest_wallet_keep_evers: string /* uint128 */,
-            } /* tuple */,
-            deals_limit: number /* uint8 */,
-            xchg_pair_code: string /* cell */,
-            xchg_price_code: string /* cell */,
-        }
+        output: FlexGetConfigOutput,
     }> {
         return await runHelper(this, "getConfig", {});
     }
 
-    async runLocalGetConfig(): Promise<{
+    async getConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            super_root: string /* address */,
-            ev_cfg: {
-                transfer_tip3: string /* uint128 */,
-                return_ownership: string /* uint128 */,
-                order_answer: string /* uint128 */,
-                process_queue: string /* uint128 */,
-                send_notify: string /* uint128 */,
-                dest_wallet_keep_evers: string /* uint128 */,
-            } /* tuple */,
-            deals_limit: number /* uint8 */,
-            xchg_pair_code: string /* cell */,
-            xchg_price_code: string /* cell */,
-        }
+        output: FlexGetConfigOutput,
     }> {
         return await runLocalHelper(this, "getConfig", {});
     }
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            xchg_pair_code: string /* cell */,
-            unsalted_price_code_hash: string /* uint256 */,
-            first_pair?: string /* optional(address) */,
-            last_pair?: string /* optional(address) */,
-            pairs_count: number /* uint32 */,
-        }
+        output: FlexGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            xchg_pair_code: string /* cell */,
-            unsalted_price_code_hash: string /* uint256 */,
-            first_pair?: string /* optional(address) */,
-            last_pair?: string /* optional(address) */,
-            pairs_count: number /* uint32 */,
-        }
+        output: FlexGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runGetXchgTradingPair(input: {
-        tip3_major_root: string /* address */,
-        tip3_minor_root: string /* address */,
-    }): Promise<{
+    async runGetXchgTradingPair(input: FlexGetXchgTradingPairInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexGetXchgTradingPairOutput,
     }> {
         return await runHelper(this, "getXchgTradingPair", input);
     }
 
-    async runLocalGetXchgTradingPair(input: {
-        tip3_major_root: string /* address */,
-        tip3_minor_root: string /* address */,
-    }): Promise<{
+    async getXchgTradingPair(input: FlexGetXchgTradingPairInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: FlexGetXchgTradingPairOutput,
     }> {
         return await runLocalHelper(this, "getXchgTradingPair", input);
     }
 
-    async runCalcLendTokensForOrder(input: {
-        sell: boolean /* bool */,
-        major_tokens: string | number | bigint /* uint128 */,
-        price: {
-            num: string | number | bigint /* uint128 */,
-            denum: string | number | bigint /* uint128 */,
-        } /* tuple */,
-    }): Promise<{
+    async runCalcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: FlexCalcLendTokensForOrderOutput,
     }> {
         return await runHelper(this, "calcLendTokensForOrder", input);
     }
 
-    async runLocalCalcLendTokensForOrder(input: {
-        sell: boolean /* bool */,
-        major_tokens: string | number | bigint /* uint128 */,
-        price: {
-            num: string | number | bigint /* uint128 */,
-            denum: string | number | bigint /* uint128 */,
-        } /* tuple */,
-    }): Promise<{
+    async calcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: FlexCalcLendTokensForOrderOutput,
     }> {
         return await runLocalHelper(this, "calcLendTokensForOrder", input);
     }

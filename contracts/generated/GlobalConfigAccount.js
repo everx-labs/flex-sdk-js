@@ -28,7 +28,7 @@ class GlobalConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
         });
     }
-    runLocalOnDeploy(input) {
+    onDeploy(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
@@ -38,7 +38,7 @@ class GlobalConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
@@ -48,7 +48,7 @@ class GlobalConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getConfig", {});
         });
     }
-    runLocalGetConfig() {
+    getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getConfig", {});
         });

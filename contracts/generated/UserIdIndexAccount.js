@@ -28,7 +28,7 @@ class UserIdIndexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
         });
     }
-    runLocalOnDeploy(input) {
+    onDeploy(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
@@ -38,7 +38,7 @@ class UserIdIndexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "reLendPubkey", input);
         });
     }
-    runLocalReLendPubkey(input) {
+    reLendPubkey(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "reLendPubkey", input);
         });
@@ -48,7 +48,7 @@ class UserIdIndexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "remove", {});
         });
     }
-    runLocalRemove() {
+    remove() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "remove", {});
         });
@@ -58,7 +58,7 @@ class UserIdIndexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "requestLendPubkey", input);
         });
     }
-    runLocalRequestLendPubkey(input) {
+    requestLendPubkey(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "requestLendPubkey", input);
         });
@@ -68,7 +68,7 @@ class UserIdIndexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "transfer", input);
         });
     }
-    runLocalTransfer(input) {
+    transfer(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "transfer", input);
         });
@@ -78,7 +78,7 @@ class UserIdIndexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setRefillWallet", input);
         });
     }
-    runLocalSetRefillWallet(input) {
+    setRefillWallet(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setRefillWallet", input);
         });
@@ -88,7 +88,7 @@ class UserIdIndexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getConfig", {});
         });
     }
-    runLocalGetConfig() {
+    getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getConfig", {});
         });

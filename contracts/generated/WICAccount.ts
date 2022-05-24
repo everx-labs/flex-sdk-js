@@ -9,6 +9,47 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type WICOnDeployInput = {
+    keep_evers: string | number | bigint /* uint128 */,
+    old_wrappers_cfg?: string /* optional(address) */,
+    keep_wrapper?: string /* optional(address) */,
+    deployer: string /* address */,
+    type: number /* uint8 */,
+    init_args: string /* cell */,
+};
+
+export type WICSetNextInput = {
+    old_wrappers_cfg?: string /* optional(address) */,
+    next_symbol?: string /* optional(string) */,
+    next: string /* address */,
+};
+
+export type WICCloneUpgradeInput = {
+    evers: {
+        deploy: string | number | bigint /* uint128 */,
+        setnext: string | number | bigint /* uint128 */,
+        wic_keep: string | number | bigint /* uint128 */,
+    } /* tuple */,
+    first_clone?: string /* optional(address) */,
+    last_clone?: string /* optional(address) */,
+    prev_symbol?: string /* optional(string) */,
+    wic_count: number /* uint32 */,
+    token_version: number /* uint32 */,
+    new_wrappers_cfg: string /* address */,
+    wrapper_deployers: string[] /* address[] */,
+};
+
+export type WICGetDetailsOutput = {
+    symbol: string /* string */,
+    workchain_id: number /* int8 */,
+    deployer?: string /* optional(address) */,
+    wrapper?: string /* optional(address) */,
+    type?: number /* optional(uint8) */,
+    init_args?: string /* optional(cell) */,
+    next?: string /* optional(address) */,
+    unlisted: boolean /* bool */,
+};
+
 
 export class WICAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,85 +73,37 @@ export class WICAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: {
-        keep_evers: string | number | bigint /* uint128 */,
-        old_wrappers_cfg?: string /* optional(address) */,
-        keep_wrapper?: string /* optional(address) */,
-        deployer: string /* address */,
-        type: number /* uint8 */,
-        init_args: string /* cell */,
-    }): Promise<{
+    async runOnDeploy(input: WICOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
 
-    async runLocalOnDeploy(input: {
-        keep_evers: string | number | bigint /* uint128 */,
-        old_wrappers_cfg?: string /* optional(address) */,
-        keep_wrapper?: string /* optional(address) */,
-        deployer: string /* address */,
-        type: number /* uint8 */,
-        init_args: string /* cell */,
-    }): Promise<{
+    async onDeploy(input: WICOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runSetNext(input: {
-        old_wrappers_cfg?: string /* optional(address) */,
-        next_symbol?: string /* optional(string) */,
-        next: string /* address */,
-    }): Promise<{
+    async runSetNext(input: WICSetNextInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setNext", input);
     }
 
-    async runLocalSetNext(input: {
-        old_wrappers_cfg?: string /* optional(address) */,
-        next_symbol?: string /* optional(string) */,
-        next: string /* address */,
-    }): Promise<{
+    async setNext(input: WICSetNextInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setNext", input);
     }
 
-    async runCloneUpgrade(input: {
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        first_clone?: string /* optional(address) */,
-        last_clone?: string /* optional(address) */,
-        prev_symbol?: string /* optional(string) */,
-        wic_count: number /* uint32 */,
-        token_version: number /* uint32 */,
-        new_wrappers_cfg: string /* address */,
-        wrapper_deployers: string[] /* address[] */,
-    }): Promise<{
+    async runCloneUpgrade(input: WICCloneUpgradeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "cloneUpgrade", input);
     }
 
-    async runLocalCloneUpgrade(input: {
-        evers: {
-            deploy: string | number | bigint /* uint128 */,
-            setnext: string | number | bigint /* uint128 */,
-            wic_keep: string | number | bigint /* uint128 */,
-        } /* tuple */,
-        first_clone?: string /* optional(address) */,
-        last_clone?: string /* optional(address) */,
-        prev_symbol?: string /* optional(string) */,
-        wic_count: number /* uint32 */,
-        token_version: number /* uint32 */,
-        new_wrappers_cfg: string /* address */,
-        wrapper_deployers: string[] /* address[] */,
-    }): Promise<{
+    async cloneUpgrade(input: WICCloneUpgradeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "cloneUpgrade", input);
@@ -122,7 +115,7 @@ export class WICAccount extends Account {
         return await runHelper(this, "unlist", {});
     }
 
-    async runLocalUnlist(): Promise<{
+    async unlist(): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "unlist", {});
@@ -130,32 +123,14 @@ export class WICAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            symbol: string /* string */,
-            workchain_id: number /* int8 */,
-            deployer?: string /* optional(address) */,
-            wrapper?: string /* optional(address) */,
-            type?: number /* optional(uint8) */,
-            init_args?: string /* optional(cell) */,
-            next?: string /* optional(address) */,
-            unlisted: boolean /* bool */,
-        }
+        output: WICGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            symbol: string /* string */,
-            workchain_id: number /* int8 */,
-            deployer?: string /* optional(address) */,
-            wrapper?: string /* optional(address) */,
-            type?: number /* optional(uint8) */,
-            init_args?: string /* optional(cell) */,
-            next?: string /* optional(address) */,
-            unlisted: boolean /* bool */,
-        }
+        output: WICGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }

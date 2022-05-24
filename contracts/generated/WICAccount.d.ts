@@ -1,5 +1,42 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type WICOnDeployInput = {
+    keep_evers: string | number | bigint;
+    old_wrappers_cfg?: string;
+    keep_wrapper?: string;
+    deployer: string;
+    type: number;
+    init_args: string;
+};
+export declare type WICSetNextInput = {
+    old_wrappers_cfg?: string;
+    next_symbol?: string;
+    next: string;
+};
+export declare type WICCloneUpgradeInput = {
+    evers: {
+        deploy: string | number | bigint;
+        setnext: string | number | bigint;
+        wic_keep: string | number | bigint;
+    };
+    first_clone?: string;
+    last_clone?: string;
+    prev_symbol?: string;
+    wic_count: number;
+    token_version: number;
+    new_wrappers_cfg: string;
+    wrapper_deployers: string[];
+};
+export declare type WICGetDetailsOutput = {
+    symbol: string;
+    workchain_id: number;
+    deployer?: string;
+    wrapper?: string;
+    type?: number;
+    init_args?: string;
+    next?: string;
+    unlisted: boolean;
+};
 export declare class WICAccount extends Account {
     static package: ContractPackageEx;
     log: Log;
@@ -9,103 +46,37 @@ export declare class WICAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(input: {
-        keep_evers: string | number | bigint;
-        old_wrappers_cfg?: string;
-        keep_wrapper?: string;
-        deployer: string;
-        type: number;
-        init_args: string;
-    }): Promise<{
+    runOnDeploy(input: WICOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalOnDeploy(input: {
-        keep_evers: string | number | bigint;
-        old_wrappers_cfg?: string;
-        keep_wrapper?: string;
-        deployer: string;
-        type: number;
-        init_args: string;
-    }): Promise<{
+    onDeploy(input: WICOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
-    runSetNext(input: {
-        old_wrappers_cfg?: string;
-        next_symbol?: string;
-        next: string;
-    }): Promise<{
+    runSetNext(input: WICSetNextInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetNext(input: {
-        old_wrappers_cfg?: string;
-        next_symbol?: string;
-        next: string;
-    }): Promise<{
+    setNext(input: WICSetNextInput): Promise<{
         transaction: Transaction;
     }>;
-    runCloneUpgrade(input: {
-        evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            wic_keep: string | number | bigint;
-        };
-        first_clone?: string;
-        last_clone?: string;
-        prev_symbol?: string;
-        wic_count: number;
-        token_version: number;
-        new_wrappers_cfg: string;
-        wrapper_deployers: string[];
-    }): Promise<{
+    runCloneUpgrade(input: WICCloneUpgradeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalCloneUpgrade(input: {
-        evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            wic_keep: string | number | bigint;
-        };
-        first_clone?: string;
-        last_clone?: string;
-        prev_symbol?: string;
-        wic_count: number;
-        token_version: number;
-        new_wrappers_cfg: string;
-        wrapper_deployers: string[];
-    }): Promise<{
+    cloneUpgrade(input: WICCloneUpgradeInput): Promise<{
         transaction: Transaction;
     }>;
     runUnlist(): Promise<{
         transaction: Transaction;
     }>;
-    runLocalUnlist(): Promise<{
+    unlist(): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            symbol: string;
-            workchain_id: number;
-            deployer?: string;
-            wrapper?: string;
-            type?: number;
-            init_args?: string;
-            next?: string;
-            unlisted: boolean;
-        };
+        output: WICGetDetailsOutput;
     }>;
-    runLocalGetDetails(): Promise<{
+    getDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            symbol: string;
-            workchain_id: number;
-            deployer?: string;
-            wrapper?: string;
-            type?: number;
-            init_args?: string;
-            next?: string;
-            unlisted: boolean;
-        };
+        output: WICGetDetailsOutput;
     }>;
 }
 //# sourceMappingURL=WICAccount.d.ts.map

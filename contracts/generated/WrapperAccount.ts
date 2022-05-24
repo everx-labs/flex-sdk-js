@@ -9,6 +9,117 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type WrapperInitInput = {
+    _answer_id: number /* uint32 */,
+    external_wallet: string /* address */,
+    reserve_wallet_evers: string | number | bigint /* uint128 */,
+    internal_wallet_code: string /* cell */,
+};
+
+export type WrapperInitOutput = {
+    value0: boolean /* bool */,
+};
+
+export type WrapperDeployEmptyWalletInput = {
+    _answer_id: number /* uint32 */,
+    pubkey: string | number | bigint /* uint256 */,
+    owner?: string /* optional(address) */,
+    evers: string | number | bigint /* uint128 */,
+};
+
+export type WrapperDeployEmptyWalletOutput = {
+    value0: string /* address */,
+};
+
+export type WrapperOnTip3TransferInput = {
+    _answer_id: number /* uint32 */,
+    balance: string | number | bigint /* uint128 */,
+    new_tokens: string | number | bigint /* uint128 */,
+    evers_balance: string | number | bigint /* uint128 */,
+    tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    sender?: {
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+    } /* optional(tuple) */,
+    receiver: {
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+    } /* tuple */,
+    payload: string /* cell */,
+    answer_addr: string /* address */,
+};
+
+export type WrapperOnTip3TransferOutput = {
+    err_code: number /* uint32 */,
+    flex_wallet: string /* address */,
+};
+
+export type WrapperBurnInput = {
+    tokens: string | number | bigint /* uint128 */,
+    answer_addr: string /* address */,
+    sender_pubkey: string | number | bigint /* uint256 */,
+    sender_owner?: string /* optional(address) */,
+    out_pubkey: string | number | bigint /* uint256 */,
+    out_owner?: string /* optional(address) */,
+};
+
+export type WrapperTransferFromReserveWalletInput = {
+    answer_addr?: string /* optional(address) */,
+    to: string /* address */,
+    tokens: string | number | bigint /* uint128 */,
+};
+
+export type WrapperRequestTotalGrantedInput = {
+    _answer_id: number /* uint32 */,
+};
+
+export type WrapperRequestTotalGrantedOutput = {
+    value0: string /* uint128 */,
+};
+
+export type WrapperGetDetailsOutput = {
+    name: string /* string */,
+    symbol: string /* string */,
+    decimals: number /* uint8 */,
+    root_pubkey: string /* uint256 */,
+    total_granted: string /* uint128 */,
+    wallet_code: string /* cell */,
+    external_wallet?: string /* optional(address) */,
+    reserve_wallet: string /* address */,
+    super_root: string /* address */,
+};
+
+export type WrapperGetTip3ConfigOutput = {
+    name: string /* string */,
+    symbol: string /* string */,
+    decimals: number /* uint8 */,
+    root_pubkey: string /* uint256 */,
+    root_address: string /* address */,
+};
+
+export type WrapperHasInternalWalletCodeOutput = {
+    value0: boolean /* bool */,
+};
+
+export type WrapperGetWalletAddressInput = {
+    pubkey: string | number | bigint /* uint256 */,
+    owner?: string /* optional(address) */,
+};
+
+export type WrapperGetWalletAddressOutput = {
+    value0: string /* address */,
+};
+
+export type WrapperGetReserveWalletOutput = {
+    value0: string /* address */,
+};
+
 
 export class WrapperAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,310 +143,152 @@ export class WrapperAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runInit(input: {
-        _answer_id: number /* uint32 */,
-        external_wallet: string /* address */,
-        reserve_wallet_evers: string | number | bigint /* uint128 */,
-        internal_wallet_code: string /* cell */,
-    }): Promise<{
+    async runInit(input: WrapperInitInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: boolean /* bool */,
-        }
+        output: WrapperInitOutput,
     }> {
         return await runHelper(this, "init", input);
     }
 
-    async runLocalInit(input: {
-        _answer_id: number /* uint32 */,
-        external_wallet: string /* address */,
-        reserve_wallet_evers: string | number | bigint /* uint128 */,
-        internal_wallet_code: string /* cell */,
-    }): Promise<{
+    async init(input: WrapperInitInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: boolean /* bool */,
-        }
+        output: WrapperInitOutput,
     }> {
         return await runLocalHelper(this, "init", input);
     }
 
-    async runDeployEmptyWallet(input: {
-        _answer_id: number /* uint32 */,
-        pubkey: string | number | bigint /* uint256 */,
-        owner?: string /* optional(address) */,
-        evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runDeployEmptyWallet(input: WrapperDeployEmptyWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: WrapperDeployEmptyWalletOutput,
     }> {
         return await runHelper(this, "deployEmptyWallet", input);
     }
 
-    async runLocalDeployEmptyWallet(input: {
-        _answer_id: number /* uint32 */,
-        pubkey: string | number | bigint /* uint256 */,
-        owner?: string /* optional(address) */,
-        evers: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async deployEmptyWallet(input: WrapperDeployEmptyWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: WrapperDeployEmptyWalletOutput,
     }> {
         return await runLocalHelper(this, "deployEmptyWallet", input);
     }
 
-    async runOnTip3Transfer(input: {
-        _answer_id: number /* uint32 */,
-        balance: string | number | bigint /* uint128 */,
-        new_tokens: string | number | bigint /* uint128 */,
-        evers_balance: string | number | bigint /* uint128 */,
-        tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        sender?: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* optional(tuple) */,
-        receiver: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* tuple */,
-        payload: string /* cell */,
-        answer_addr: string /* address */,
-    }): Promise<{
+    async runOnTip3Transfer(input: WrapperOnTip3TransferInput): Promise<{
         transaction: Transaction,
-        output: {
-            err_code: number /* uint32 */,
-            flex_wallet: string /* address */,
-        }
+        output: WrapperOnTip3TransferOutput,
     }> {
         return await runHelper(this, "onTip3Transfer", input);
     }
 
-    async runLocalOnTip3Transfer(input: {
-        _answer_id: number /* uint32 */,
-        balance: string | number | bigint /* uint128 */,
-        new_tokens: string | number | bigint /* uint128 */,
-        evers_balance: string | number | bigint /* uint128 */,
-        tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        sender?: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* optional(tuple) */,
-        receiver: {
-            pubkey: string | number | bigint /* uint256 */,
-            owner?: string /* optional(address) */,
-        } /* tuple */,
-        payload: string /* cell */,
-        answer_addr: string /* address */,
-    }): Promise<{
+    async onTip3Transfer(input: WrapperOnTip3TransferInput): Promise<{
         transaction: Transaction,
-        output: {
-            err_code: number /* uint32 */,
-            flex_wallet: string /* address */,
-        }
+        output: WrapperOnTip3TransferOutput,
     }> {
         return await runLocalHelper(this, "onTip3Transfer", input);
     }
 
-    async runBurn(input: {
-        tokens: string | number | bigint /* uint128 */,
-        answer_addr: string /* address */,
-        sender_pubkey: string | number | bigint /* uint256 */,
-        sender_owner?: string /* optional(address) */,
-        out_pubkey: string | number | bigint /* uint256 */,
-        out_owner?: string /* optional(address) */,
-    }): Promise<{
+    async runBurn(input: WrapperBurnInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "burn", input);
     }
 
-    async runLocalBurn(input: {
-        tokens: string | number | bigint /* uint128 */,
-        answer_addr: string /* address */,
-        sender_pubkey: string | number | bigint /* uint256 */,
-        sender_owner?: string /* optional(address) */,
-        out_pubkey: string | number | bigint /* uint256 */,
-        out_owner?: string /* optional(address) */,
-    }): Promise<{
+    async burn(input: WrapperBurnInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "burn", input);
     }
 
-    async runTransferFromReserveWallet(input: {
-        answer_addr?: string /* optional(address) */,
-        to: string /* address */,
-        tokens: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async runTransferFromReserveWallet(input: WrapperTransferFromReserveWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transferFromReserveWallet", input);
     }
 
-    async runLocalTransferFromReserveWallet(input: {
-        answer_addr?: string /* optional(address) */,
-        to: string /* address */,
-        tokens: string | number | bigint /* uint128 */,
-    }): Promise<{
+    async transferFromReserveWallet(input: WrapperTransferFromReserveWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transferFromReserveWallet", input);
     }
 
-    async runRequestTotalGranted(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async runRequestTotalGranted(input: WrapperRequestTotalGrantedInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: WrapperRequestTotalGrantedOutput,
     }> {
         return await runHelper(this, "requestTotalGranted", input);
     }
 
-    async runLocalRequestTotalGranted(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async requestTotalGranted(input: WrapperRequestTotalGrantedInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* uint128 */,
-        }
+        output: WrapperRequestTotalGrantedOutput,
     }> {
         return await runLocalHelper(this, "requestTotalGranted", input);
     }
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string /* uint256 */,
-            total_granted: string /* uint128 */,
-            wallet_code: string /* cell */,
-            external_wallet?: string /* optional(address) */,
-            reserve_wallet: string /* address */,
-            super_root: string /* address */,
-        }
+        output: WrapperGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string /* uint256 */,
-            total_granted: string /* uint128 */,
-            wallet_code: string /* cell */,
-            external_wallet?: string /* optional(address) */,
-            reserve_wallet: string /* address */,
-            super_root: string /* address */,
-        }
+        output: WrapperGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
     async runGetTip3Config(): Promise<{
         transaction: Transaction,
-        output: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string /* uint256 */,
-            root_address: string /* address */,
-        }
+        output: WrapperGetTip3ConfigOutput,
     }> {
         return await runHelper(this, "getTip3Config", {});
     }
 
-    async runLocalGetTip3Config(): Promise<{
+    async getTip3Config(): Promise<{
         transaction: Transaction,
-        output: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string /* uint256 */,
-            root_address: string /* address */,
-        }
+        output: WrapperGetTip3ConfigOutput,
     }> {
         return await runLocalHelper(this, "getTip3Config", {});
     }
 
     async runHasInternalWalletCode(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: boolean /* bool */,
-        }
+        output: WrapperHasInternalWalletCodeOutput,
     }> {
         return await runHelper(this, "hasInternalWalletCode", {});
     }
 
-    async runLocalHasInternalWalletCode(): Promise<{
+    async hasInternalWalletCode(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: boolean /* bool */,
-        }
+        output: WrapperHasInternalWalletCodeOutput,
     }> {
         return await runLocalHelper(this, "hasInternalWalletCode", {});
     }
 
-    async runGetWalletAddress(input: {
-        pubkey: string | number | bigint /* uint256 */,
-        owner?: string /* optional(address) */,
-    }): Promise<{
+    async runGetWalletAddress(input: WrapperGetWalletAddressInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: WrapperGetWalletAddressOutput,
     }> {
         return await runHelper(this, "getWalletAddress", input);
     }
 
-    async runLocalGetWalletAddress(input: {
-        pubkey: string | number | bigint /* uint256 */,
-        owner?: string /* optional(address) */,
-    }): Promise<{
+    async getWalletAddress(input: WrapperGetWalletAddressInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: WrapperGetWalletAddressOutput,
     }> {
         return await runLocalHelper(this, "getWalletAddress", input);
     }
 
     async runGetReserveWallet(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: WrapperGetReserveWalletOutput,
     }> {
         return await runHelper(this, "getReserveWallet", {});
     }
 
-    async runLocalGetReserveWallet(): Promise<{
+    async getReserveWallet(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* address */,
-        }
+        output: WrapperGetReserveWalletOutput,
     }> {
         return await runLocalHelper(this, "getReserveWallet", {});
     }

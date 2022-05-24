@@ -1,5 +1,89 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type FlexTokenRootSetWalletCodeInput = {
+    _answer_id: number;
+    wallet_code: string;
+};
+export declare type FlexTokenRootSetWalletCodeOutput = {
+    value0: boolean;
+};
+export declare type FlexTokenRootDeployWalletInput = {
+    _answer_id: number;
+    pubkey: string | number | bigint;
+    owner?: string;
+    tokens: string | number | bigint;
+    evers: string | number | bigint;
+    notify?: string;
+};
+export declare type FlexTokenRootDeployWalletOutput = {
+    value0: string;
+};
+export declare type FlexTokenRootDeployEmptyWalletInput = {
+    _answer_id: number;
+    pubkey: string | number | bigint;
+    owner?: string;
+    evers: string | number | bigint;
+};
+export declare type FlexTokenRootDeployEmptyWalletOutput = {
+    value0: string;
+};
+export declare type FlexTokenRootGrantInput = {
+    _answer_id: number;
+    dest: string;
+    tokens: string | number | bigint;
+    evers: string | number | bigint;
+    notify?: string;
+};
+export declare type FlexTokenRootMintInput = {
+    _answer_id: number;
+    tokens: string | number | bigint;
+};
+export declare type FlexTokenRootMintOutput = {
+    value0: boolean;
+};
+export declare type FlexTokenRootRequestTotalGrantedInput = {
+    _answer_id: number;
+};
+export declare type FlexTokenRootRequestTotalGrantedOutput = {
+    value0: string;
+};
+export declare type FlexTokenRootGetNameOutput = {
+    value0: string;
+};
+export declare type FlexTokenRootGetSymbolOutput = {
+    value0: string;
+};
+export declare type FlexTokenRootGetDecimalsOutput = {
+    value0: number;
+};
+export declare type FlexTokenRootGetRootKeyOutput = {
+    value0: string;
+};
+export declare type FlexTokenRootGetRootOwnerOutput = {
+    value0?: string;
+};
+export declare type FlexTokenRootGetTotalSupplyOutput = {
+    value0: string;
+};
+export declare type FlexTokenRootGetTotalGrantedOutput = {
+    value0: string;
+};
+export declare type FlexTokenRootHasWalletCodeOutput = {
+    value0: boolean;
+};
+export declare type FlexTokenRootGetWalletCodeOutput = {
+    value0: string;
+};
+export declare type FlexTokenRootGetWalletAddressInput = {
+    pubkey: string | number | bigint;
+    owner?: string;
+};
+export declare type FlexTokenRootGetWalletAddressOutput = {
+    value0: string;
+};
+export declare type FlexTokenRootGetWalletCodeHashOutput = {
+    value0: string;
+};
 export declare class FlexTokenRootAccount extends Account {
     static package: ContractPackageEx;
     log: Log;
@@ -16,261 +100,139 @@ export declare class FlexTokenRootAccount extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runSetWalletCode(input: {
-        _answer_id: number;
-        wallet_code: string;
-    }): Promise<{
+    runSetWalletCode(input: FlexTokenRootSetWalletCodeInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: FlexTokenRootSetWalletCodeOutput;
     }>;
-    runLocalSetWalletCode(input: {
-        _answer_id: number;
-        wallet_code: string;
-    }): Promise<{
+    setWalletCode(input: FlexTokenRootSetWalletCodeInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: FlexTokenRootSetWalletCodeOutput;
     }>;
-    runDeployWallet(input: {
-        _answer_id: number;
-        pubkey: string | number | bigint;
-        owner?: string;
-        tokens: string | number | bigint;
-        evers: string | number | bigint;
-        notify?: string;
-    }): Promise<{
+    runDeployWallet(input: FlexTokenRootDeployWalletInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootDeployWalletOutput;
     }>;
-    runLocalDeployWallet(input: {
-        _answer_id: number;
-        pubkey: string | number | bigint;
-        owner?: string;
-        tokens: string | number | bigint;
-        evers: string | number | bigint;
-        notify?: string;
-    }): Promise<{
+    deployWallet(input: FlexTokenRootDeployWalletInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootDeployWalletOutput;
     }>;
-    runDeployEmptyWallet(input: {
-        _answer_id: number;
-        pubkey: string | number | bigint;
-        owner?: string;
-        evers: string | number | bigint;
-    }): Promise<{
+    runDeployEmptyWallet(input: FlexTokenRootDeployEmptyWalletInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootDeployEmptyWalletOutput;
     }>;
-    runLocalDeployEmptyWallet(input: {
-        _answer_id: number;
-        pubkey: string | number | bigint;
-        owner?: string;
-        evers: string | number | bigint;
-    }): Promise<{
+    deployEmptyWallet(input: FlexTokenRootDeployEmptyWalletInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootDeployEmptyWalletOutput;
     }>;
-    runGrant(input: {
-        _answer_id: number;
-        dest: string;
-        tokens: string | number | bigint;
-        evers: string | number | bigint;
-        notify?: string;
-    }): Promise<{
+    runGrant(input: FlexTokenRootGrantInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalGrant(input: {
-        _answer_id: number;
-        dest: string;
-        tokens: string | number | bigint;
-        evers: string | number | bigint;
-        notify?: string;
-    }): Promise<{
+    grant(input: FlexTokenRootGrantInput): Promise<{
         transaction: Transaction;
     }>;
-    runMint(input: {
-        _answer_id: number;
-        tokens: string | number | bigint;
-    }): Promise<{
+    runMint(input: FlexTokenRootMintInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: FlexTokenRootMintOutput;
     }>;
-    runLocalMint(input: {
-        _answer_id: number;
-        tokens: string | number | bigint;
-    }): Promise<{
+    mint(input: FlexTokenRootMintInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: FlexTokenRootMintOutput;
     }>;
-    runRequestTotalGranted(input: {
-        _answer_id: number;
-    }): Promise<{
+    runRequestTotalGranted(input: FlexTokenRootRequestTotalGrantedInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootRequestTotalGrantedOutput;
     }>;
-    runLocalRequestTotalGranted(input: {
-        _answer_id: number;
-    }): Promise<{
+    requestTotalGranted(input: FlexTokenRootRequestTotalGrantedInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootRequestTotalGrantedOutput;
     }>;
     runGetName(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetNameOutput;
     }>;
-    runLocalGetName(): Promise<{
+    getName(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetNameOutput;
     }>;
     runGetSymbol(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetSymbolOutput;
     }>;
-    runLocalGetSymbol(): Promise<{
+    getSymbol(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetSymbolOutput;
     }>;
     runGetDecimals(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: number;
-        };
+        output: FlexTokenRootGetDecimalsOutput;
     }>;
-    runLocalGetDecimals(): Promise<{
+    getDecimals(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: number;
-        };
+        output: FlexTokenRootGetDecimalsOutput;
     }>;
     runGetRootKey(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetRootKeyOutput;
     }>;
-    runLocalGetRootKey(): Promise<{
+    getRootKey(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetRootKeyOutput;
     }>;
     runGetRootOwner(): Promise<{
         transaction: Transaction;
-        output: {
-            value0?: string;
-        };
+        output: FlexTokenRootGetRootOwnerOutput;
     }>;
-    runLocalGetRootOwner(): Promise<{
+    getRootOwner(): Promise<{
         transaction: Transaction;
-        output: {
-            value0?: string;
-        };
+        output: FlexTokenRootGetRootOwnerOutput;
     }>;
     runGetTotalSupply(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetTotalSupplyOutput;
     }>;
-    runLocalGetTotalSupply(): Promise<{
+    getTotalSupply(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetTotalSupplyOutput;
     }>;
     runGetTotalGranted(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetTotalGrantedOutput;
     }>;
-    runLocalGetTotalGranted(): Promise<{
+    getTotalGranted(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetTotalGrantedOutput;
     }>;
     runHasWalletCode(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: FlexTokenRootHasWalletCodeOutput;
     }>;
-    runLocalHasWalletCode(): Promise<{
+    hasWalletCode(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: FlexTokenRootHasWalletCodeOutput;
     }>;
     runGetWalletCode(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetWalletCodeOutput;
     }>;
-    runLocalGetWalletCode(): Promise<{
+    getWalletCode(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetWalletCodeOutput;
     }>;
-    runGetWalletAddress(input: {
-        pubkey: string | number | bigint;
-        owner?: string;
-    }): Promise<{
+    runGetWalletAddress(input: FlexTokenRootGetWalletAddressInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetWalletAddressOutput;
     }>;
-    runLocalGetWalletAddress(input: {
-        pubkey: string | number | bigint;
-        owner?: string;
-    }): Promise<{
+    getWalletAddress(input: FlexTokenRootGetWalletAddressInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetWalletAddressOutput;
     }>;
     runGetWalletCodeHash(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetWalletCodeHashOutput;
     }>;
-    runLocalGetWalletCodeHash(): Promise<{
+    getWalletCodeHash(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: FlexTokenRootGetWalletCodeHashOutput;
     }>;
 }
 //# sourceMappingURL=FlexTokenRootAccount.d.ts.map

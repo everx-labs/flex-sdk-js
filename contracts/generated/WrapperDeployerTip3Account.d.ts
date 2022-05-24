@@ -1,5 +1,33 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type WrapperDeployerTip3SetWrapperCodeInput = {
+    code: string;
+};
+export declare type WrapperDeployerTip3SetExtWalletCodeInput = {
+    code: string;
+};
+export declare type WrapperDeployerTip3SetFlexWalletCodeInput = {
+    code: string;
+};
+export declare type WrapperDeployerTip3DeployInput = {
+    _answer_id: number;
+    init_args: string;
+};
+export declare type WrapperDeployerTip3DeployOutput = {
+    value0: string;
+};
+export declare type WrapperDeployerTip3GetArgsInput = {
+    tip3cfg: {
+        name: string;
+        symbol: string;
+        decimals: number;
+        root_pubkey: string | number | bigint;
+        root_address: string;
+    };
+};
+export declare type WrapperDeployerTip3GetArgsOutput = {
+    value0: string;
+};
 export declare class WrapperDeployerTip3Account extends Account {
     static package: ContractPackageEx;
     log: Log;
@@ -17,81 +45,39 @@ export declare class WrapperDeployerTip3Account extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runSetWrapperCode(input: {
-        code: string;
-    }): Promise<{
+    runSetWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetWrapperCode(input: {
-        code: string;
-    }): Promise<{
+    setWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runSetExtWalletCode(input: {
-        code: string;
-    }): Promise<{
+    runSetExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetExtWalletCode(input: {
-        code: string;
-    }): Promise<{
+    setExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runSetFlexWalletCode(input: {
-        code: string;
-    }): Promise<{
+    runSetFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetFlexWalletCode(input: {
-        code: string;
-    }): Promise<{
+    setFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runDeploy(input: {
-        _answer_id: number;
-        init_args: string;
-    }): Promise<{
+    runDeploy(input: WrapperDeployerTip3DeployInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperDeployerTip3DeployOutput;
     }>;
-    runLocalDeploy(input: {
-        _answer_id: number;
-        init_args: string;
-    }): Promise<{
+    deploy_(input: WrapperDeployerTip3DeployInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperDeployerTip3DeployOutput;
     }>;
-    runGetArgs(input: {
-        tip3cfg: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string | number | bigint;
-            root_address: string;
-        };
-    }): Promise<{
+    runGetArgs(input: WrapperDeployerTip3GetArgsInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperDeployerTip3GetArgsOutput;
     }>;
-    runLocalGetArgs(input: {
-        tip3cfg: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string | number | bigint;
-            root_address: string;
-        };
-    }): Promise<{
+    getArgs(input: WrapperDeployerTip3GetArgsInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperDeployerTip3GetArgsOutput;
     }>;
 }
 //# sourceMappingURL=WrapperDeployerTip3Account.d.ts.map

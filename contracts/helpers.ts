@@ -60,14 +60,14 @@ export async function runHelper<O>(
     transaction: Transaction,
     output: O,
 }> {
-    account.log?.processingStart(`Processing on Network ${account.constructor.name}.${fn}`);
+    account.log?.processingStart(`Run ${account.constructor.name}.${fn}`);
     try {
         const result = await account.run(fn, params);
         await account.client.net.query_transaction_tree({
             in_msg: result.transaction.in_msg,
             timeout: 60000 * 5,
         });
-        account.log?.verbose(`TRN: ${result.transaction.id}`);
+        account.log?.verbose(` TX: ${result.transaction.id}`);
         account.log?.processingDone();
         return {
             transaction: result.transaction,
@@ -85,7 +85,7 @@ export async function deployHelper(
 ): Promise<{
     transaction: Transaction,
 }> {
-    account.log?.processingStart(`Deploy to Network ${account.constructor.name}.${fn ?? ""}`);
+    account.log?.processingStart(`Deploy ${account.constructor.name}.${fn ?? ""}`);
     try {
         const result = await account.deploy({
             initFunctionName: fn,
@@ -109,7 +109,7 @@ export async function runLocalHelper<O>(
     output: O,
 }> {
     try {
-        account.log?.processingStart(`Executing on VM ${account.constructor.name}.${fn}`);
+        account.log?.processingStart(`RunLocal ${account.constructor.name}.${fn}`);
         const result = await account.runLocal(fn, params);
         account.log?.processingDone();
         return {
@@ -117,7 +117,7 @@ export async function runLocalHelper<O>(
             output: result.decoded?.output,
         };
     } catch (err: any) {
-        throw errorWith(err, "run", account, fn, params);
+        throw errorWith(err, "runLocal", account, fn, params);
     }
 }
 

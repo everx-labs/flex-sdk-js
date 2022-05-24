@@ -28,7 +28,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "transfer", input);
         });
     }
-    runLocalTransfer(input) {
+    transfer(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "transfer", input);
         });
@@ -38,7 +38,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "transferToRecipient", input);
         });
     }
-    runLocalTransferToRecipient(input) {
+    transferToRecipient(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "transferToRecipient", input);
         });
@@ -48,7 +48,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "balance", input);
         });
     }
-    runLocalBalance(input) {
+    balance(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "balance", input);
         });
@@ -58,7 +58,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "acceptMint", input);
         });
     }
-    runLocalAcceptMint(input) {
+    acceptMint(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "acceptMint", input);
         });
@@ -68,7 +68,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "acceptTransfer", input);
         });
     }
-    runLocalAcceptTransfer(input) {
+    acceptTransfer(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "acceptTransfer", input);
         });
@@ -78,7 +78,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "burn", input);
         });
     }
-    runLocalBurn(input) {
+    burn(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "burn", input);
         });
@@ -88,7 +88,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "unwrap", input);
         });
     }
-    runLocalUnwrap(input) {
+    unwrap(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "unwrap", input);
         });
@@ -98,7 +98,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "makeOrder", input);
         });
     }
-    runLocalMakeOrder(input) {
+    makeOrder(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "makeOrder", input);
         });
@@ -108,7 +108,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "cancelOrder", input);
         });
     }
-    runLocalCancelOrder(input) {
+    cancelOrder(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "cancelOrder", input);
         });
@@ -118,7 +118,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "returnOwnership", input);
         });
     }
-    runLocalReturnOwnership(input) {
+    returnOwnership(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "returnOwnership", input);
         });
@@ -128,7 +128,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "bind", input);
         });
     }
-    runLocalBind(input) {
+    bind(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "bind", input);
         });
@@ -138,7 +138,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "details", input);
         });
     }
-    runLocalDetails(input) {
+    details(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "details", input);
         });
@@ -148,7 +148,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
@@ -158,7 +158,7 @@ class FlexWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getBalance", {});
         });
     }
-    runLocalGetBalance() {
+    getBalance_() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getBalance", {});
         });

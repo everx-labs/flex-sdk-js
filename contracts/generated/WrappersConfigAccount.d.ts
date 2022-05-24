@@ -1,5 +1,70 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type WrappersConfigOnDeployInput = {
+    keep_evers: string | number | bigint;
+    evers?: {
+        deploy: string | number | bigint;
+        setnext: string | number | bigint;
+        wic_keep: string | number | bigint;
+    };
+    old_token_version?: number;
+    wrapper_deployers: string[];
+    first_wic?: string;
+    last_wic?: string;
+    wic_count: number;
+};
+export declare type WrappersConfigOnWICsClonedInput = {
+    first_wic?: string;
+    last_wic?: string;
+    wic_count: number;
+};
+export declare type WrappersConfigAddWrapperTypeInput = {
+    keep_evers: string | number | bigint;
+    type: number;
+    wrapper_deployer: string;
+};
+export declare type WrappersConfigAddWrapperInput = {
+    keep_evers: string | number | bigint;
+    evers: {
+        deploy: string | number | bigint;
+        setnext: string | number | bigint;
+        wic_keep: string | number | bigint;
+    };
+    symbol: string;
+    type: number;
+    init_args: string;
+};
+export declare type WrappersConfigUnlistWrapperInput = {
+    wic: string;
+};
+export declare type WrappersConfigCloneUpgradeInput = {
+    _answer_id: number;
+    answer_addr?: string;
+    keep_evers: string | number | bigint;
+    clone_deploy_evers: string | number | bigint;
+    evers: {
+        deploy: string | number | bigint;
+        setnext: string | number | bigint;
+        wic_keep: string | number | bigint;
+    };
+    new_token_version: number;
+    wrapper_deployers: string[];
+};
+export declare type WrappersConfigCloneUpgradeOutput = {
+    value0: string;
+};
+export declare type WrappersConfigGetDetailsOutput = {
+    token_version: number;
+    wrapper_deployers: string[];
+    first_wic?: string;
+    last_wic?: string;
+    wic_count: number;
+    salted_wic_hash: string;
+};
+export declare type WrappersConfigGetConfigOutput = {
+    super_root: string;
+    wic_code: string;
+};
 export declare class WrappersConfigAccount extends Account {
     static package: ContractPackageEx;
     log: Log;
@@ -9,171 +74,59 @@ export declare class WrappersConfigAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(input: {
-        keep_evers: string | number | bigint;
-        evers?: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            wic_keep: string | number | bigint;
-        };
-        old_token_version?: number;
-        wrapper_deployers: string[];
-        first_wic?: string;
-        last_wic?: string;
-        wic_count: number;
-    }): Promise<{
+    runOnDeploy(input: WrappersConfigOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalOnDeploy(input: {
-        keep_evers: string | number | bigint;
-        evers?: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            wic_keep: string | number | bigint;
-        };
-        old_token_version?: number;
-        wrapper_deployers: string[];
-        first_wic?: string;
-        last_wic?: string;
-        wic_count: number;
-    }): Promise<{
+    onDeploy(input: WrappersConfigOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
-    runOnWICsCloned(input: {
-        first_wic?: string;
-        last_wic?: string;
-        wic_count: number;
-    }): Promise<{
+    runOnWICsCloned(input: WrappersConfigOnWICsClonedInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalOnWICsCloned(input: {
-        first_wic?: string;
-        last_wic?: string;
-        wic_count: number;
-    }): Promise<{
+    onWICsCloned(input: WrappersConfigOnWICsClonedInput): Promise<{
         transaction: Transaction;
     }>;
-    runAddWrapperType(input: {
-        keep_evers: string | number | bigint;
-        type: number;
-        wrapper_deployer: string;
-    }): Promise<{
+    runAddWrapperType(input: WrappersConfigAddWrapperTypeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalAddWrapperType(input: {
-        keep_evers: string | number | bigint;
-        type: number;
-        wrapper_deployer: string;
-    }): Promise<{
+    addWrapperType(input: WrappersConfigAddWrapperTypeInput): Promise<{
         transaction: Transaction;
     }>;
-    runAddWrapper(input: {
-        keep_evers: string | number | bigint;
-        evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            wic_keep: string | number | bigint;
-        };
-        symbol: string;
-        type: number;
-        init_args: string;
-    }): Promise<{
+    runAddWrapper(input: WrappersConfigAddWrapperInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalAddWrapper(input: {
-        keep_evers: string | number | bigint;
-        evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            wic_keep: string | number | bigint;
-        };
-        symbol: string;
-        type: number;
-        init_args: string;
-    }): Promise<{
+    addWrapper(input: WrappersConfigAddWrapperInput): Promise<{
         transaction: Transaction;
     }>;
-    runUnlistWrapper(input: {
-        wic: string;
-    }): Promise<{
+    runUnlistWrapper(input: WrappersConfigUnlistWrapperInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalUnlistWrapper(input: {
-        wic: string;
-    }): Promise<{
+    unlistWrapper(input: WrappersConfigUnlistWrapperInput): Promise<{
         transaction: Transaction;
     }>;
-    runCloneUpgrade(input: {
-        _answer_id: number;
-        answer_addr?: string;
-        keep_evers: string | number | bigint;
-        clone_deploy_evers: string | number | bigint;
-        evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            wic_keep: string | number | bigint;
-        };
-        new_token_version: number;
-        wrapper_deployers: string[];
-    }): Promise<{
+    runCloneUpgrade(input: WrappersConfigCloneUpgradeInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrappersConfigCloneUpgradeOutput;
     }>;
-    runLocalCloneUpgrade(input: {
-        _answer_id: number;
-        answer_addr?: string;
-        keep_evers: string | number | bigint;
-        clone_deploy_evers: string | number | bigint;
-        evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            wic_keep: string | number | bigint;
-        };
-        new_token_version: number;
-        wrapper_deployers: string[];
-    }): Promise<{
+    cloneUpgrade(input: WrappersConfigCloneUpgradeInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrappersConfigCloneUpgradeOutput;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            token_version: number;
-            wrapper_deployers: string[];
-            first_wic?: string;
-            last_wic?: string;
-            wic_count: number;
-            salted_wic_hash: string;
-        };
+        output: WrappersConfigGetDetailsOutput;
     }>;
-    runLocalGetDetails(): Promise<{
+    getDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            token_version: number;
-            wrapper_deployers: string[];
-            first_wic?: string;
-            last_wic?: string;
-            wic_count: number;
-            salted_wic_hash: string;
-        };
+        output: WrappersConfigGetDetailsOutput;
     }>;
     runGetConfig(): Promise<{
         transaction: Transaction;
-        output: {
-            super_root: string;
-            wic_code: string;
-        };
+        output: WrappersConfigGetConfigOutput;
     }>;
-    runLocalGetConfig(): Promise<{
+    getConfig(): Promise<{
         transaction: Transaction;
-        output: {
-            super_root: string;
-            wic_code: string;
-        };
+        output: WrappersConfigGetConfigOutput;
     }>;
 }
 //# sourceMappingURL=WrappersConfigAccount.d.ts.map

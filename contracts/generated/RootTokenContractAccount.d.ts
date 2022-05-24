@@ -1,5 +1,89 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type RootTokenContractSetWalletCodeInput = {
+    _answer_id: number;
+    wallet_code: string;
+};
+export declare type RootTokenContractSetWalletCodeOutput = {
+    value0: boolean;
+};
+export declare type RootTokenContractDeployWalletInput = {
+    _answer_id: number;
+    pubkey: string | number | bigint;
+    owner?: string;
+    tokens: string | number | bigint;
+    evers: string | number | bigint;
+    notify?: string;
+};
+export declare type RootTokenContractDeployWalletOutput = {
+    value0: string;
+};
+export declare type RootTokenContractDeployEmptyWalletInput = {
+    _answer_id: number;
+    pubkey: string | number | bigint;
+    owner?: string;
+    evers: string | number | bigint;
+};
+export declare type RootTokenContractDeployEmptyWalletOutput = {
+    value0: string;
+};
+export declare type RootTokenContractGrantInput = {
+    _answer_id: number;
+    dest: string;
+    tokens: string | number | bigint;
+    evers: string | number | bigint;
+    notify?: string;
+};
+export declare type RootTokenContractMintInput = {
+    _answer_id: number;
+    tokens: string | number | bigint;
+};
+export declare type RootTokenContractMintOutput = {
+    value0: boolean;
+};
+export declare type RootTokenContractRequestTotalGrantedInput = {
+    _answer_id: number;
+};
+export declare type RootTokenContractRequestTotalGrantedOutput = {
+    value0: string;
+};
+export declare type RootTokenContractGetNameOutput = {
+    value0: string;
+};
+export declare type RootTokenContractGetSymbolOutput = {
+    value0: string;
+};
+export declare type RootTokenContractGetDecimalsOutput = {
+    value0: number;
+};
+export declare type RootTokenContractGetRootKeyOutput = {
+    value0: string;
+};
+export declare type RootTokenContractGetRootOwnerOutput = {
+    value0?: string;
+};
+export declare type RootTokenContractGetTotalSupplyOutput = {
+    value0: string;
+};
+export declare type RootTokenContractGetTotalGrantedOutput = {
+    value0: string;
+};
+export declare type RootTokenContractHasWalletCodeOutput = {
+    value0: boolean;
+};
+export declare type RootTokenContractGetWalletCodeOutput = {
+    value0: string;
+};
+export declare type RootTokenContractGetWalletAddressInput = {
+    pubkey: string | number | bigint;
+    owner?: string;
+};
+export declare type RootTokenContractGetWalletAddressOutput = {
+    value0: string;
+};
+export declare type RootTokenContractGetWalletCodeHashOutput = {
+    value0: string;
+};
 export declare class RootTokenContractAccount extends Account {
     static package: ContractPackageEx;
     log: Log;
@@ -16,261 +100,139 @@ export declare class RootTokenContractAccount extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runSetWalletCode(input: {
-        _answer_id: number;
-        wallet_code: string;
-    }): Promise<{
+    runSetWalletCode(input: RootTokenContractSetWalletCodeInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: RootTokenContractSetWalletCodeOutput;
     }>;
-    runLocalSetWalletCode(input: {
-        _answer_id: number;
-        wallet_code: string;
-    }): Promise<{
+    setWalletCode(input: RootTokenContractSetWalletCodeInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: RootTokenContractSetWalletCodeOutput;
     }>;
-    runDeployWallet(input: {
-        _answer_id: number;
-        pubkey: string | number | bigint;
-        owner?: string;
-        tokens: string | number | bigint;
-        evers: string | number | bigint;
-        notify?: string;
-    }): Promise<{
+    runDeployWallet(input: RootTokenContractDeployWalletInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractDeployWalletOutput;
     }>;
-    runLocalDeployWallet(input: {
-        _answer_id: number;
-        pubkey: string | number | bigint;
-        owner?: string;
-        tokens: string | number | bigint;
-        evers: string | number | bigint;
-        notify?: string;
-    }): Promise<{
+    deployWallet(input: RootTokenContractDeployWalletInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractDeployWalletOutput;
     }>;
-    runDeployEmptyWallet(input: {
-        _answer_id: number;
-        pubkey: string | number | bigint;
-        owner?: string;
-        evers: string | number | bigint;
-    }): Promise<{
+    runDeployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractDeployEmptyWalletOutput;
     }>;
-    runLocalDeployEmptyWallet(input: {
-        _answer_id: number;
-        pubkey: string | number | bigint;
-        owner?: string;
-        evers: string | number | bigint;
-    }): Promise<{
+    deployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractDeployEmptyWalletOutput;
     }>;
-    runGrant(input: {
-        _answer_id: number;
-        dest: string;
-        tokens: string | number | bigint;
-        evers: string | number | bigint;
-        notify?: string;
-    }): Promise<{
+    runGrant(input: RootTokenContractGrantInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalGrant(input: {
-        _answer_id: number;
-        dest: string;
-        tokens: string | number | bigint;
-        evers: string | number | bigint;
-        notify?: string;
-    }): Promise<{
+    grant(input: RootTokenContractGrantInput): Promise<{
         transaction: Transaction;
     }>;
-    runMint(input: {
-        _answer_id: number;
-        tokens: string | number | bigint;
-    }): Promise<{
+    runMint(input: RootTokenContractMintInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: RootTokenContractMintOutput;
     }>;
-    runLocalMint(input: {
-        _answer_id: number;
-        tokens: string | number | bigint;
-    }): Promise<{
+    mint(input: RootTokenContractMintInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: RootTokenContractMintOutput;
     }>;
-    runRequestTotalGranted(input: {
-        _answer_id: number;
-    }): Promise<{
+    runRequestTotalGranted(input: RootTokenContractRequestTotalGrantedInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractRequestTotalGrantedOutput;
     }>;
-    runLocalRequestTotalGranted(input: {
-        _answer_id: number;
-    }): Promise<{
+    requestTotalGranted(input: RootTokenContractRequestTotalGrantedInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractRequestTotalGrantedOutput;
     }>;
     runGetName(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetNameOutput;
     }>;
-    runLocalGetName(): Promise<{
+    getName(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetNameOutput;
     }>;
     runGetSymbol(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetSymbolOutput;
     }>;
-    runLocalGetSymbol(): Promise<{
+    getSymbol(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetSymbolOutput;
     }>;
     runGetDecimals(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: number;
-        };
+        output: RootTokenContractGetDecimalsOutput;
     }>;
-    runLocalGetDecimals(): Promise<{
+    getDecimals(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: number;
-        };
+        output: RootTokenContractGetDecimalsOutput;
     }>;
     runGetRootKey(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetRootKeyOutput;
     }>;
-    runLocalGetRootKey(): Promise<{
+    getRootKey(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetRootKeyOutput;
     }>;
     runGetRootOwner(): Promise<{
         transaction: Transaction;
-        output: {
-            value0?: string;
-        };
+        output: RootTokenContractGetRootOwnerOutput;
     }>;
-    runLocalGetRootOwner(): Promise<{
+    getRootOwner(): Promise<{
         transaction: Transaction;
-        output: {
-            value0?: string;
-        };
+        output: RootTokenContractGetRootOwnerOutput;
     }>;
     runGetTotalSupply(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetTotalSupplyOutput;
     }>;
-    runLocalGetTotalSupply(): Promise<{
+    getTotalSupply(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetTotalSupplyOutput;
     }>;
     runGetTotalGranted(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetTotalGrantedOutput;
     }>;
-    runLocalGetTotalGranted(): Promise<{
+    getTotalGranted(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetTotalGrantedOutput;
     }>;
     runHasWalletCode(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: RootTokenContractHasWalletCodeOutput;
     }>;
-    runLocalHasWalletCode(): Promise<{
+    hasWalletCode(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: RootTokenContractHasWalletCodeOutput;
     }>;
     runGetWalletCode(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetWalletCodeOutput;
     }>;
-    runLocalGetWalletCode(): Promise<{
+    getWalletCode(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetWalletCodeOutput;
     }>;
-    runGetWalletAddress(input: {
-        pubkey: string | number | bigint;
-        owner?: string;
-    }): Promise<{
+    runGetWalletAddress(input: RootTokenContractGetWalletAddressInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetWalletAddressOutput;
     }>;
-    runLocalGetWalletAddress(input: {
-        pubkey: string | number | bigint;
-        owner?: string;
-    }): Promise<{
+    getWalletAddress(input: RootTokenContractGetWalletAddressInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetWalletAddressOutput;
     }>;
     runGetWalletCodeHash(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetWalletCodeHashOutput;
     }>;
-    runLocalGetWalletCodeHash(): Promise<{
+    getWalletCodeHash(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: RootTokenContractGetWalletCodeHashOutput;
     }>;
 }
 //# sourceMappingURL=RootTokenContractAccount.d.ts.map

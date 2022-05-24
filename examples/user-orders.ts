@@ -3,7 +3,6 @@ import { libNode } from "@eversdk/lib-node";
 import { Flex } from "../flex";
 import { Trader } from "../flex/trader";
 import { Client } from "../flex/client";
-import { Market } from "../flex/market";
 
 TonClient.useBinaryLibrary(libNode);
 Flex.config = {
@@ -25,16 +24,8 @@ Flex.config = {
             walletSigner: "flex-wallet-1",
         });
 
-        const order = await trader.makeOrder({
-            sell: false,
-            market: new Market({
-                address: "0:f0bb8d8a4a1416a7b380cb217513395aea994487a2b3e80129c136184def8bb4",
-            }),
-            price: 1.23,
-            amount: 1,
-        });
-
-        console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
+        const orders = await trader.getOrders();
+        console.log("User orders:", orders);
 
         await Flex.default.close();
     } catch (err) {

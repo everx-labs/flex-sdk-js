@@ -28,7 +28,7 @@ class DePoolMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "sendOnTransfer", input);
         });
     }
-    runLocalSendOnTransfer(input) {
+    sendOnTransfer(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "sendOnTransfer", input);
         });
@@ -38,7 +38,7 @@ class DePoolMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "transferStake", input);
         });
     }
-    runLocalTransferStake(input) {
+    transferStake(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "transferStake", input);
         });
@@ -48,7 +48,7 @@ class DePoolMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });

@@ -9,6 +9,10 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type AuthIndexRemoveInput = {
+    dst: string /* address */,
+};
+
 
 export class AuthIndexAccount extends Account {
     static package: ContractPackageEx = {
@@ -38,23 +42,19 @@ export class AuthIndexAccount extends Account {
         return await runHelper(this, "onDeploy", {});
     }
 
-    async runLocalOnDeploy(): Promise<{
+    async onDeploy(): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onDeploy", {});
     }
 
-    async runRemove(input: {
-        dst: string /* address */,
-    }): Promise<{
+    async runRemove(input: AuthIndexRemoveInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "remove", input);
     }
 
-    async runLocalRemove(input: {
-        dst: string /* address */,
-    }): Promise<{
+    async remove(input: AuthIndexRemoveInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "remove", input);

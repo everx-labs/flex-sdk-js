@@ -28,7 +28,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setWalletCode", input);
         });
     }
-    runLocalSetWalletCode(input) {
+    setWalletCode(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setWalletCode", input);
         });
@@ -38,7 +38,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployWallet", input);
         });
     }
-    runLocalDeployWallet(input) {
+    deployWallet(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployWallet", input);
         });
@@ -48,7 +48,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployEmptyWallet", input);
         });
     }
-    runLocalDeployEmptyWallet(input) {
+    deployEmptyWallet(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployEmptyWallet", input);
         });
@@ -58,7 +58,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "grant", input);
         });
     }
-    runLocalGrant(input) {
+    grant(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "grant", input);
         });
@@ -68,7 +68,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "mint", input);
         });
     }
-    runLocalMint(input) {
+    mint(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "mint", input);
         });
@@ -78,7 +78,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "requestTotalGranted", input);
         });
     }
-    runLocalRequestTotalGranted(input) {
+    requestTotalGranted(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "requestTotalGranted", input);
         });
@@ -88,7 +88,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getName", {});
         });
     }
-    runLocalGetName() {
+    getName() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getName", {});
         });
@@ -98,7 +98,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getSymbol", {});
         });
     }
-    runLocalGetSymbol() {
+    getSymbol() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getSymbol", {});
         });
@@ -108,7 +108,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDecimals", {});
         });
     }
-    runLocalGetDecimals() {
+    getDecimals() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDecimals", {});
         });
@@ -118,7 +118,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getRootKey", {});
         });
     }
-    runLocalGetRootKey() {
+    getRootKey() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getRootKey", {});
         });
@@ -128,7 +128,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getRootOwner", {});
         });
     }
-    runLocalGetRootOwner() {
+    getRootOwner() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getRootOwner", {});
         });
@@ -138,7 +138,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getTotalSupply", {});
         });
     }
-    runLocalGetTotalSupply() {
+    getTotalSupply() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getTotalSupply", {});
         });
@@ -148,7 +148,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getTotalGranted", {});
         });
     }
-    runLocalGetTotalGranted() {
+    getTotalGranted() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getTotalGranted", {});
         });
@@ -158,7 +158,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "hasWalletCode", {});
         });
     }
-    runLocalHasWalletCode() {
+    hasWalletCode() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "hasWalletCode", {});
         });
@@ -168,7 +168,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getWalletCode", {});
         });
     }
-    runLocalGetWalletCode() {
+    getWalletCode() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getWalletCode", {});
         });
@@ -178,7 +178,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getWalletAddress", input);
         });
     }
-    runLocalGetWalletAddress(input) {
+    getWalletAddress(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getWalletAddress", input);
         });
@@ -188,7 +188,7 @@ class RootTokenContractAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getWalletCodeHash", {});
         });
     }
-    runLocalGetWalletCodeHash() {
+    getWalletCodeHash() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getWalletCodeHash", {});
         });

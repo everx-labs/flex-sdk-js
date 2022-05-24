@@ -28,7 +28,7 @@ class UserDataConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
         });
     }
-    runLocalOnDeploy(input) {
+    onDeploy(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
@@ -38,7 +38,7 @@ class UserDataConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployFlexClient", input);
         });
     }
-    runLocalDeployFlexClient(input) {
+    deployFlexClient(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployFlexClient", input);
         });
@@ -48,7 +48,7 @@ class UserDataConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "requestDetails", input);
         });
     }
-    runLocalRequestDetails(input) {
+    requestDetails(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "requestDetails", input);
         });
@@ -58,7 +58,7 @@ class UserDataConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getFlexClientAddr", input);
         });
     }
-    runLocalGetFlexClientAddr(input) {
+    getFlexClientAddr(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getFlexClientAddr", input);
         });
@@ -68,7 +68,7 @@ class UserDataConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
@@ -78,7 +78,7 @@ class UserDataConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getConfig", {});
         });
     }
-    runLocalGetConfig() {
+    getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getConfig", {});
         });

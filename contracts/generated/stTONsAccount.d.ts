@@ -1,5 +1,59 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type stTONsLendOwnershipInput = {
+    _answer_id: number;
+    answer_addr: string;
+    evers: string | number | bigint;
+    dest: string;
+    lend_balance: string | number | bigint;
+    lend_finish_time: number;
+    deploy_init_cl: string;
+    payload: string;
+};
+export declare type stTONsReturnOwnershipInput = {
+    tokens: string | number | bigint;
+};
+export declare type stTONsReturnStakeInput = {
+    dst: string;
+    processing_evers: string | number | bigint;
+};
+export declare type stTONsFinalizeInput = {
+    dst: string;
+    ignore_errors: boolean;
+};
+export declare type stTONsReceiveStakeTransferInput = {
+    source: string;
+    amount: string | number | bigint;
+};
+export declare type stTONsReceiveAnswerInput = {
+    errcode: number;
+    comment: string | number | bigint;
+};
+export declare type stTONsGetDetailsOutput = {
+    owner_pubkey: string;
+    owner_address: string;
+    depool: string;
+    depool_pubkey: string;
+    balance: string;
+    lend_ownership: {
+        lend_addr: string;
+        lend_balance: string;
+        lend_finish_time: number;
+    }[];
+    lend_balance: string;
+    transferring_stake_back: boolean;
+    last_depool_error: number;
+};
+export declare type stTONsCalcStTONsAddrInput = {
+    code: string;
+    owner_pubkey: string | number | bigint;
+    owner_address?: string;
+    depool: string;
+    depool_pubkey: string | number | bigint;
+};
+export declare type stTONsCalcStTONsAddrOutput = {
+    value0: string;
+};
 export declare class stTONsAccount extends Account {
     static package: ContractPackageEx;
     log: Log;
@@ -12,150 +66,60 @@ export declare class stTONsAccount extends Account {
     runOnDeploy(): Promise<{
         transaction: Transaction;
     }>;
-    runLocalOnDeploy(): Promise<{
+    onDeploy(): Promise<{
         transaction: Transaction;
     }>;
-    runLendOwnership(input: {
-        _answer_id: number;
-        answer_addr: string;
-        evers: string | number | bigint;
-        dest: string;
-        lend_balance: string | number | bigint;
-        lend_finish_time: number;
-        deploy_init_cl: string;
-        payload: string;
-    }): Promise<{
+    runLendOwnership(input: stTONsLendOwnershipInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalLendOwnership(input: {
-        _answer_id: number;
-        answer_addr: string;
-        evers: string | number | bigint;
-        dest: string;
-        lend_balance: string | number | bigint;
-        lend_finish_time: number;
-        deploy_init_cl: string;
-        payload: string;
-    }): Promise<{
+    lendOwnership(input: stTONsLendOwnershipInput): Promise<{
         transaction: Transaction;
     }>;
-    runReturnOwnership(input: {
-        tokens: string | number | bigint;
-    }): Promise<{
+    runReturnOwnership(input: stTONsReturnOwnershipInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalReturnOwnership(input: {
-        tokens: string | number | bigint;
-    }): Promise<{
+    returnOwnership(input: stTONsReturnOwnershipInput): Promise<{
         transaction: Transaction;
     }>;
-    runReturnStake(input: {
-        dst: string;
-        processing_evers: string | number | bigint;
-    }): Promise<{
+    runReturnStake(input: stTONsReturnStakeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalReturnStake(input: {
-        dst: string;
-        processing_evers: string | number | bigint;
-    }): Promise<{
+    returnStake(input: stTONsReturnStakeInput): Promise<{
         transaction: Transaction;
     }>;
-    runFinalize(input: {
-        dst: string;
-        ignore_errors: boolean;
-    }): Promise<{
+    runFinalize(input: stTONsFinalizeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalFinalize(input: {
-        dst: string;
-        ignore_errors: boolean;
-    }): Promise<{
+    finalize(input: stTONsFinalizeInput): Promise<{
         transaction: Transaction;
     }>;
-    runReceiveStakeTransfer(input: {
-        source: string;
-        amount: string | number | bigint;
-    }): Promise<{
+    runReceiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalReceiveStakeTransfer(input: {
-        source: string;
-        amount: string | number | bigint;
-    }): Promise<{
+    receiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<{
         transaction: Transaction;
     }>;
-    runReceiveAnswer(input: {
-        errcode: number;
-        comment: string | number | bigint;
-    }): Promise<{
+    runReceiveAnswer(input: stTONsReceiveAnswerInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalReceiveAnswer(input: {
-        errcode: number;
-        comment: string | number | bigint;
-    }): Promise<{
+    receiveAnswer(input: stTONsReceiveAnswerInput): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            owner_pubkey: string;
-            owner_address: string;
-            depool: string;
-            depool_pubkey: string;
-            balance: string;
-            lend_ownership: {
-                lend_addr: string;
-                lend_balance: string;
-                lend_finish_time: number;
-            }[];
-            lend_balance: string;
-            transferring_stake_back: boolean;
-            last_depool_error: number;
-        };
+        output: stTONsGetDetailsOutput;
     }>;
-    runLocalGetDetails(): Promise<{
+    getDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            owner_pubkey: string;
-            owner_address: string;
-            depool: string;
-            depool_pubkey: string;
-            balance: string;
-            lend_ownership: {
-                lend_addr: string;
-                lend_balance: string;
-                lend_finish_time: number;
-            }[];
-            lend_balance: string;
-            transferring_stake_back: boolean;
-            last_depool_error: number;
-        };
+        output: stTONsGetDetailsOutput;
     }>;
-    runCalcStTONsAddr(input: {
-        code: string;
-        owner_pubkey: string | number | bigint;
-        owner_address?: string;
-        depool: string;
-        depool_pubkey: string | number | bigint;
-    }): Promise<{
+    runCalcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: stTONsCalcStTONsAddrOutput;
     }>;
-    runLocalCalcStTONsAddr(input: {
-        code: string;
-        owner_pubkey: string | number | bigint;
-        owner_address?: string;
-        depool: string;
-        depool_pubkey: string | number | bigint;
-    }): Promise<{
+    calcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: stTONsCalcStTONsAddrOutput;
     }>;
 }
 //# sourceMappingURL=stTONsAccount.d.ts.map

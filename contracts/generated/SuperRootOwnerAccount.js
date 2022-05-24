@@ -28,7 +28,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setCode", input);
         });
     }
-    runLocalSetCode(input) {
+    setCode(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setCode", input);
         });
@@ -38,7 +38,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deploySuperRoot", input);
         });
     }
-    runLocalDeploySuperRoot(input) {
+    deploySuperRoot(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deploySuperRoot", input);
         });
@@ -48,7 +48,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "update", input);
         });
     }
-    runLocalUpdate(input) {
+    update(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "update", input);
         });
@@ -58,7 +58,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "release", input);
         });
     }
-    runLocalRelease(input) {
+    release(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "release", input);
         });
@@ -68,7 +68,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "addWrapperType", input);
         });
     }
-    runLocalAddWrapperType(input) {
+    addWrapperType(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "addWrapperType", input);
         });
@@ -78,7 +78,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "addWrapper", input);
         });
     }
-    runLocalAddWrapper(input) {
+    addWrapper(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "addWrapper", input);
         });
@@ -88,7 +88,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "addXchgPair", input);
         });
     }
-    runLocalAddXchgPair(input) {
+    addXchgPair(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "addXchgPair", input);
         });
@@ -98,7 +98,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "unlistWrapper", input);
         });
     }
-    runLocalUnlistWrapper(input) {
+    unlistWrapper(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "unlistWrapper", input);
         });
@@ -108,7 +108,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "unlistXchgPair", input);
         });
     }
-    runLocalUnlistXchgPair(input) {
+    unlistXchgPair(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "unlistXchgPair", input);
         });
@@ -118,7 +118,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployWrappersConfig", input);
         });
     }
-    runLocalDeployWrappersConfig(input) {
+    deployWrappersConfig(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployWrappersConfig", input);
         });
@@ -128,7 +128,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployFlex", input);
         });
     }
-    runLocalDeployFlex(input) {
+    deployFlex(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployFlex", input);
         });
@@ -138,7 +138,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployUserDataConfig", input);
         });
     }
-    runLocalDeployUserDataConfig(input) {
+    deployUserDataConfig(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployUserDataConfig", input);
         });
@@ -148,7 +148,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "cloneWrappersConfig", input);
         });
     }
-    runLocalCloneWrappersConfig(input) {
+    cloneWrappersConfig(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "cloneWrappersConfig", input);
         });
@@ -158,7 +158,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setFlags", input);
         });
     }
-    runLocalSetFlags(input) {
+    setFlags(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setFlags", input);
         });
@@ -168,7 +168,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setOwner", input);
         });
     }
-    runLocalSetOwner(input) {
+    setOwner(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setOwner", input);
         });
@@ -178,7 +178,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setUpdateTeam", input);
         });
     }
-    runLocalSetUpdateTeam(input) {
+    setUpdateTeam(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setUpdateTeam", input);
         });
@@ -188,7 +188,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setNextSuperRoot", input);
         });
     }
-    runLocalSetNextSuperRoot(input) {
+    setNextSuperRoot(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setNextSuperRoot", input);
         });
@@ -198,7 +198,7 @@ class SuperRootOwnerAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });

@@ -28,7 +28,7 @@ class WICAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
         });
     }
-    runLocalOnDeploy(input) {
+    onDeploy(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
@@ -38,7 +38,7 @@ class WICAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setNext", input);
         });
     }
-    runLocalSetNext(input) {
+    setNext(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setNext", input);
         });
@@ -48,7 +48,7 @@ class WICAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "cloneUpgrade", input);
         });
     }
-    runLocalCloneUpgrade(input) {
+    cloneUpgrade(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "cloneUpgrade", input);
         });
@@ -58,7 +58,7 @@ class WICAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "unlist", {});
         });
     }
-    runLocalUnlist() {
+    unlist() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "unlist", {});
         });
@@ -68,7 +68,7 @@ class WICAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });

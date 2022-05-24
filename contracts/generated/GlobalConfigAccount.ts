@@ -9,6 +9,30 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type GlobalConfigOnDeployInput = {
+    keep_evers: string | number | bigint /* uint128 */,
+    wrappers_cfg: string /* address */,
+    flex: string /* address */,
+    user_cfg: string /* address */,
+    description: string /* string */,
+};
+
+export type GlobalConfigGetDetailsOutput = {
+    version: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* tuple */,
+    wrappers_cfg: string /* address */,
+    flex: string /* address */,
+    user_cfg: string /* address */,
+    description: string /* string */,
+};
+
+export type GlobalConfigGetConfigOutput = {
+    super_root: string /* address */,
+};
+
 
 export class GlobalConfigAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,25 +56,13 @@ export class GlobalConfigAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: {
-        keep_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg: string /* address */,
-        flex: string /* address */,
-        user_cfg: string /* address */,
-        description: string /* string */,
-    }): Promise<{
+    async runOnDeploy(input: GlobalConfigOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
 
-    async runLocalOnDeploy(input: {
-        keep_evers: string | number | bigint /* uint128 */,
-        wrappers_cfg: string /* address */,
-        flex: string /* address */,
-        user_cfg: string /* address */,
-        description: string /* string */,
-    }): Promise<{
+    async onDeploy(input: GlobalConfigOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onDeploy", input);
@@ -58,52 +70,28 @@ export class GlobalConfigAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            version: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* tuple */,
-            wrappers_cfg: string /* address */,
-            flex: string /* address */,
-            user_cfg: string /* address */,
-            description: string /* string */,
-        }
+        output: GlobalConfigGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            version: {
-                wallet: number /* uint32 */,
-                exchange: number /* uint32 */,
-                user: number /* uint32 */,
-            } /* tuple */,
-            wrappers_cfg: string /* address */,
-            flex: string /* address */,
-            user_cfg: string /* address */,
-            description: string /* string */,
-        }
+        output: GlobalConfigGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
     async runGetConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            super_root: string /* address */,
-        }
+        output: GlobalConfigGetConfigOutput,
     }> {
         return await runHelper(this, "getConfig", {});
     }
 
-    async runLocalGetConfig(): Promise<{
+    async getConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            super_root: string /* address */,
-        }
+        output: GlobalConfigGetConfigOutput,
     }> {
         return await runLocalHelper(this, "getConfig", {});
     }

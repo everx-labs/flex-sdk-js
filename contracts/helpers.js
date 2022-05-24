@@ -41,14 +41,14 @@ function errorWith(err, method, account, fn, params) {
 function runHelper(account, fn, params) {
     var _b, _c, _d, _e;
     return __awaiter(this, void 0, void 0, function* () {
-        (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Processing on Network ${account.constructor.name}.${fn}`);
+        (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Run ${account.constructor.name}.${fn}`);
         try {
             const result = yield account.run(fn, params);
             yield account.client.net.query_transaction_tree({
                 in_msg: result.transaction.in_msg,
                 timeout: 60000 * 5,
             });
-            (_c = account.log) === null || _c === void 0 ? void 0 : _c.verbose(`TRN: ${result.transaction.id}`);
+            (_c = account.log) === null || _c === void 0 ? void 0 : _c.verbose(` TX: ${result.transaction.id}`);
             (_d = account.log) === null || _d === void 0 ? void 0 : _d.processingDone();
             return {
                 transaction: result.transaction,
@@ -64,7 +64,7 @@ exports.runHelper = runHelper;
 function deployHelper(account, fn, params) {
     var _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
-        (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Deploy to Network ${account.constructor.name}.${fn !== null && fn !== void 0 ? fn : ""}`);
+        (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Deploy ${account.constructor.name}.${fn !== null && fn !== void 0 ? fn : ""}`);
         try {
             const result = yield account.deploy({
                 initFunctionName: fn,
@@ -85,7 +85,7 @@ function runLocalHelper(account, fn, params) {
     var _b, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Executing on VM ${account.constructor.name}.${fn}`);
+            (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`RunLocal ${account.constructor.name}.${fn}`);
             const result = yield account.runLocal(fn, params);
             (_c = account.log) === null || _c === void 0 ? void 0 : _c.processingDone();
             return {
@@ -94,7 +94,7 @@ function runLocalHelper(account, fn, params) {
             };
         }
         catch (err) {
-            throw errorWith(err, "run", account, fn, params);
+            throw errorWith(err, "runLocal", account, fn, params);
         }
     });
 }

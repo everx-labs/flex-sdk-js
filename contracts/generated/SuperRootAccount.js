@@ -28,7 +28,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
         });
     }
-    runLocalOnDeploy(input) {
+    onDeploy(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
@@ -38,7 +38,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "update", input);
         });
     }
-    runLocalUpdate(input) {
+    update(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "update", input);
         });
@@ -48,7 +48,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "updateConfirmed", input);
         });
     }
-    runLocalUpdateConfirmed(input) {
+    updateConfirmed(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "updateConfirmed", input);
         });
@@ -58,7 +58,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "release", {});
         });
     }
-    runLocalRelease() {
+    release() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "release", {});
         });
@@ -68,7 +68,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "proxy", input);
         });
     }
-    runLocalProxy(input) {
+    proxy(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "proxy", input);
         });
@@ -78,7 +78,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployWrappersConfig", input);
         });
     }
-    runLocalDeployWrappersConfig(input) {
+    deployWrappersConfig(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployWrappersConfig", input);
         });
@@ -88,7 +88,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployFlex", input);
         });
     }
-    runLocalDeployFlex(input) {
+    deployFlex(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployFlex", input);
         });
@@ -98,7 +98,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "deployUserDataConfig", input);
         });
     }
-    runLocalDeployUserDataConfig(input) {
+    deployUserDataConfig(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "deployUserDataConfig", input);
         });
@@ -108,7 +108,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "cloneWrappersConfig", input);
         });
     }
-    runLocalCloneWrappersConfig(input) {
+    cloneWrappersConfig(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "cloneWrappersConfig", input);
         });
@@ -118,7 +118,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "transfer", input);
         });
     }
-    runLocalTransfer(input) {
+    transfer(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "transfer", input);
         });
@@ -128,7 +128,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "transferReserveTokens", input);
         });
     }
-    runLocalTransferReserveTokens(input) {
+    transferReserveTokens(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "transferReserveTokens", input);
         });
@@ -138,7 +138,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setFlags", input);
         });
     }
-    runLocalSetFlags(input) {
+    setFlags(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setFlags", input);
         });
@@ -148,7 +148,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setOwner", input);
         });
     }
-    runLocalSetOwner(input) {
+    setOwner(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setOwner", input);
         });
@@ -158,7 +158,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setUpdateTeam", input);
         });
     }
-    runLocalSetUpdateTeam(input) {
+    setUpdateTeam(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setUpdateTeam", input);
         });
@@ -168,7 +168,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "setNextSuperRoot", input);
         });
     }
-    runLocalSetNextSuperRoot(input) {
+    setNextSuperRoot(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "setNextSuperRoot", input);
         });
@@ -178,7 +178,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
@@ -188,7 +188,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getGlobalConfig", input);
         });
     }
-    runLocalGetGlobalConfig(input) {
+    getGlobalConfig(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getGlobalConfig", input);
         });
@@ -198,7 +198,7 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getCurrentGlobalConfig", {});
         });
     }
-    runLocalGetCurrentGlobalConfig() {
+    getCurrentGlobalConfig() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getCurrentGlobalConfig", {});
         });

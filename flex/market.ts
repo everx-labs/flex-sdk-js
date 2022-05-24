@@ -18,4 +18,12 @@ export class Market extends FlexBoundLazy<MarketOptions, MarketState> {
             }),
         };
     }
+
+    async getPair() {
+        return (await this.getState()).pair;
+    }
+
+    async getPairDetails() {
+        return (await (await this.getPair()).getDetails()).output;
+    }
 }

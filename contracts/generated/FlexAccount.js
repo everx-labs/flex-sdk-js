@@ -28,7 +28,7 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
         });
     }
-    runLocalOnDeploy(input) {
+    onDeploy(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
@@ -38,7 +38,7 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "addXchgPair", input);
         });
     }
-    runLocalAddXchgPair(input) {
+    addXchgPair(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "addXchgPair", input);
         });
@@ -48,7 +48,7 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "unlistXchgPair", input);
         });
     }
-    runLocalUnlistXchgPair(input) {
+    unlistXchgPair(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "unlistXchgPair", input);
         });
@@ -58,7 +58,7 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "requestPairs", input);
         });
     }
-    runLocalRequestPairs(input) {
+    requestPairs(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "requestPairs", input);
         });
@@ -68,7 +68,7 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getConfig", {});
         });
     }
-    runLocalGetConfig() {
+    getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getConfig", {});
         });
@@ -78,7 +78,7 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
@@ -88,7 +88,7 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getXchgTradingPair", input);
         });
     }
-    runLocalGetXchgTradingPair(input) {
+    getXchgTradingPair(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getXchgTradingPair", input);
         });
@@ -98,7 +98,7 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "calcLendTokensForOrder", input);
         });
     }
-    runLocalCalcLendTokensForOrder(input) {
+    calcLendTokensForOrder(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "calcLendTokensForOrder", input);
         });

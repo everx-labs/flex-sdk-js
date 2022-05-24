@@ -23,8 +23,8 @@ flex_1.Flex.config = {
     },
     globalConfig: "0:402f14b65b6b7af9752910e77eabf8f71240f6c190b5e4f1ab4d56c09954b723",
 };
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
+(() => __awaiter(void 0, void 0, void 0, function* () {
+    try {
         const everWallet = new ever_wallet_1.EverWallet({
             address: "0:b4da2773b3566c8799ff8292bb1058662d143556a7ac8a129c481a38657cbd33",
             signer: "msig",
@@ -42,14 +42,8 @@ function main() {
             refillWallet: 10e9,
             minRefill: 0.1e9,
         });
-        const { account: clientAccount } = yield client.getState();
-        flex_1.Flex.default.log.verbose(`Client: ${yield clientAccount.getAddress()}\n`);
-        flex_1.Flex.default.log.verbose(`User: ${yield userAccount.getAddress()}\n`);
-    });
-}
-(() => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield main();
+        console.log(`Client: ${yield (yield client.getState()).account.getAddress()}`);
+        console.log(`User: ${yield userAccount.getAddress()}`);
         yield flex_1.Flex.default.close();
     }
     catch (err) {

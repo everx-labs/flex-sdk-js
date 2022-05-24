@@ -9,6 +9,116 @@ import {
     ContractPackageEx, 
     Log, 
 } from "../helpers";
+export type XchgPairOnDeployInput = {
+    min_amount: string | number | bigint /* uint128 */,
+    minmove: string | number | bigint /* uint128 */,
+    price_denum: string | number | bigint /* uint128 */,
+    deploy_value: string | number | bigint /* uint128 */,
+    notify_addr: string /* address */,
+    major_tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    minor_tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+};
+
+export type XchgPairRequestDetailsInput = {
+    _answer_id: number /* uint32 */,
+};
+
+export type XchgPairRequestDetailsOutput = {
+    tip3_major_root: string /* address */,
+    tip3_minor_root: string /* address */,
+    min_amount: string /* uint128 */,
+    minmove: string /* uint128 */,
+    price_denum: string /* uint128 */,
+    notify_addr: string /* address */,
+    major_reserve_wallet: string /* address */,
+    minor_reserve_wallet: string /* address */,
+    major_tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    minor_tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    next?: string /* optional(address) */,
+    unlisted: boolean /* bool */,
+};
+
+export type XchgPairSetNextInput = {
+    next: string /* address */,
+};
+
+export type XchgPairGetDetailsOutput = {
+    tip3_major_root: string /* address */,
+    tip3_minor_root: string /* address */,
+    min_amount: string /* uint128 */,
+    minmove: string /* uint128 */,
+    price_denum: string /* uint128 */,
+    notify_addr: string /* address */,
+    major_reserve_wallet: string /* address */,
+    minor_reserve_wallet: string /* address */,
+    major_tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    minor_tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    next?: string /* optional(address) */,
+    unlisted: boolean /* bool */,
+};
+
+export type XchgPairGetConfigOutput = {
+    flex: string /* address */,
+    ev_cfg: {
+        transfer_tip3: string /* uint128 */,
+        return_ownership: string /* uint128 */,
+        order_answer: string /* uint128 */,
+        process_queue: string /* uint128 */,
+        send_notify: string /* uint128 */,
+        dest_wallet_keep_evers: string /* uint128 */,
+    } /* tuple */,
+    deals_limit: number /* uint8 */,
+    xchg_price_code: string /* cell */,
+};
+
+export type XchgPairGetPriceXchgCodeInput = {
+    salted: boolean /* bool */,
+};
+
+export type XchgPairGetPriceXchgCodeOutput = {
+    value0: string /* cell */,
+};
+
+export type XchgPairGetPriceXchgSaltOutput = {
+    value0: string /* cell */,
+};
+
 
 export class XchgPairAccount extends Account {
     static package: ContractPackageEx = {
@@ -32,137 +142,39 @@ export class XchgPairAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: {
-        min_amount: string | number | bigint /* uint128 */,
-        minmove: string | number | bigint /* uint128 */,
-        price_denum: string | number | bigint /* uint128 */,
-        deploy_value: string | number | bigint /* uint128 */,
-        notify_addr: string /* address */,
-        major_tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        minor_tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-    }): Promise<{
+    async runOnDeploy(input: XchgPairOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
 
-    async runLocalOnDeploy(input: {
-        min_amount: string | number | bigint /* uint128 */,
-        minmove: string | number | bigint /* uint128 */,
-        price_denum: string | number | bigint /* uint128 */,
-        deploy_value: string | number | bigint /* uint128 */,
-        notify_addr: string /* address */,
-        major_tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-        minor_tip3cfg: {
-            name: string /* string */,
-            symbol: string /* string */,
-            decimals: number /* uint8 */,
-            root_pubkey: string | number | bigint /* uint256 */,
-            root_address: string /* address */,
-        } /* tuple */,
-    }): Promise<{
+    async onDeploy(input: XchgPairOnDeployInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runRequestDetails(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async runRequestDetails(input: XchgPairRequestDetailsInput): Promise<{
         transaction: Transaction,
-        output: {
-            tip3_major_root: string /* address */,
-            tip3_minor_root: string /* address */,
-            min_amount: string /* uint128 */,
-            minmove: string /* uint128 */,
-            price_denum: string /* uint128 */,
-            notify_addr: string /* address */,
-            major_reserve_wallet: string /* address */,
-            minor_reserve_wallet: string /* address */,
-            major_tip3cfg: {
-                name: string /* string */,
-                symbol: string /* string */,
-                decimals: number /* uint8 */,
-                root_pubkey: string /* uint256 */,
-                root_address: string /* address */,
-            } /* tuple */,
-            minor_tip3cfg: {
-                name: string /* string */,
-                symbol: string /* string */,
-                decimals: number /* uint8 */,
-                root_pubkey: string /* uint256 */,
-                root_address: string /* address */,
-            } /* tuple */,
-            next?: string /* optional(address) */,
-            unlisted: boolean /* bool */,
-        }
+        output: XchgPairRequestDetailsOutput,
     }> {
         return await runHelper(this, "requestDetails", input);
     }
 
-    async runLocalRequestDetails(input: {
-        _answer_id: number /* uint32 */,
-    }): Promise<{
+    async requestDetails(input: XchgPairRequestDetailsInput): Promise<{
         transaction: Transaction,
-        output: {
-            tip3_major_root: string /* address */,
-            tip3_minor_root: string /* address */,
-            min_amount: string /* uint128 */,
-            minmove: string /* uint128 */,
-            price_denum: string /* uint128 */,
-            notify_addr: string /* address */,
-            major_reserve_wallet: string /* address */,
-            minor_reserve_wallet: string /* address */,
-            major_tip3cfg: {
-                name: string /* string */,
-                symbol: string /* string */,
-                decimals: number /* uint8 */,
-                root_pubkey: string /* uint256 */,
-                root_address: string /* address */,
-            } /* tuple */,
-            minor_tip3cfg: {
-                name: string /* string */,
-                symbol: string /* string */,
-                decimals: number /* uint8 */,
-                root_pubkey: string /* uint256 */,
-                root_address: string /* address */,
-            } /* tuple */,
-            next?: string /* optional(address) */,
-            unlisted: boolean /* bool */,
-        }
+        output: XchgPairRequestDetailsOutput,
     }> {
         return await runLocalHelper(this, "requestDetails", input);
     }
 
-    async runSetNext(input: {
-        next: string /* address */,
-    }): Promise<{
+    async runSetNext(input: XchgPairSetNextInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "setNext", input);
     }
 
-    async runLocalSetNext(input: {
-        next: string /* address */,
-    }): Promise<{
+    async setNext(input: XchgPairSetNextInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "setNext", input);
@@ -174,7 +186,7 @@ export class XchgPairAccount extends Account {
         return await runHelper(this, "unlist", {});
     }
 
-    async runLocalUnlist(): Promise<{
+    async unlist(): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "unlist", {});
@@ -182,142 +194,56 @@ export class XchgPairAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            tip3_major_root: string /* address */,
-            tip3_minor_root: string /* address */,
-            min_amount: string /* uint128 */,
-            minmove: string /* uint128 */,
-            price_denum: string /* uint128 */,
-            notify_addr: string /* address */,
-            major_reserve_wallet: string /* address */,
-            minor_reserve_wallet: string /* address */,
-            major_tip3cfg: {
-                name: string /* string */,
-                symbol: string /* string */,
-                decimals: number /* uint8 */,
-                root_pubkey: string /* uint256 */,
-                root_address: string /* address */,
-            } /* tuple */,
-            minor_tip3cfg: {
-                name: string /* string */,
-                symbol: string /* string */,
-                decimals: number /* uint8 */,
-                root_pubkey: string /* uint256 */,
-                root_address: string /* address */,
-            } /* tuple */,
-            next?: string /* optional(address) */,
-            unlisted: boolean /* bool */,
-        }
+        output: XchgPairGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            tip3_major_root: string /* address */,
-            tip3_minor_root: string /* address */,
-            min_amount: string /* uint128 */,
-            minmove: string /* uint128 */,
-            price_denum: string /* uint128 */,
-            notify_addr: string /* address */,
-            major_reserve_wallet: string /* address */,
-            minor_reserve_wallet: string /* address */,
-            major_tip3cfg: {
-                name: string /* string */,
-                symbol: string /* string */,
-                decimals: number /* uint8 */,
-                root_pubkey: string /* uint256 */,
-                root_address: string /* address */,
-            } /* tuple */,
-            minor_tip3cfg: {
-                name: string /* string */,
-                symbol: string /* string */,
-                decimals: number /* uint8 */,
-                root_pubkey: string /* uint256 */,
-                root_address: string /* address */,
-            } /* tuple */,
-            next?: string /* optional(address) */,
-            unlisted: boolean /* bool */,
-        }
+        output: XchgPairGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
     async runGetConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            flex: string /* address */,
-            ev_cfg: {
-                transfer_tip3: string /* uint128 */,
-                return_ownership: string /* uint128 */,
-                order_answer: string /* uint128 */,
-                process_queue: string /* uint128 */,
-                send_notify: string /* uint128 */,
-                dest_wallet_keep_evers: string /* uint128 */,
-            } /* tuple */,
-            deals_limit: number /* uint8 */,
-            xchg_price_code: string /* cell */,
-        }
+        output: XchgPairGetConfigOutput,
     }> {
         return await runHelper(this, "getConfig", {});
     }
 
-    async runLocalGetConfig(): Promise<{
+    async getConfig(): Promise<{
         transaction: Transaction,
-        output: {
-            flex: string /* address */,
-            ev_cfg: {
-                transfer_tip3: string /* uint128 */,
-                return_ownership: string /* uint128 */,
-                order_answer: string /* uint128 */,
-                process_queue: string /* uint128 */,
-                send_notify: string /* uint128 */,
-                dest_wallet_keep_evers: string /* uint128 */,
-            } /* tuple */,
-            deals_limit: number /* uint8 */,
-            xchg_price_code: string /* cell */,
-        }
+        output: XchgPairGetConfigOutput,
     }> {
         return await runLocalHelper(this, "getConfig", {});
     }
 
-    async runGetPriceXchgCode(input: {
-        salted: boolean /* bool */,
-    }): Promise<{
+    async runGetPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* cell */,
-        }
+        output: XchgPairGetPriceXchgCodeOutput,
     }> {
         return await runHelper(this, "getPriceXchgCode", input);
     }
 
-    async runLocalGetPriceXchgCode(input: {
-        salted: boolean /* bool */,
-    }): Promise<{
+    async getPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* cell */,
-        }
+        output: XchgPairGetPriceXchgCodeOutput,
     }> {
         return await runLocalHelper(this, "getPriceXchgCode", input);
     }
 
     async runGetPriceXchgSalt(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* cell */,
-        }
+        output: XchgPairGetPriceXchgSaltOutput,
     }> {
         return await runHelper(this, "getPriceXchgSalt", {});
     }
 
-    async runLocalGetPriceXchgSalt(): Promise<{
+    async getPriceXchgSalt(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string /* cell */,
-        }
+        output: XchgPairGetPriceXchgSaltOutput,
     }> {
         return await runLocalHelper(this, "getPriceXchgSalt", {});
     }

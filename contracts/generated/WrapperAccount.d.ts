@@ -1,5 +1,100 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type WrapperInitInput = {
+    _answer_id: number;
+    external_wallet: string;
+    reserve_wallet_evers: string | number | bigint;
+    internal_wallet_code: string;
+};
+export declare type WrapperInitOutput = {
+    value0: boolean;
+};
+export declare type WrapperDeployEmptyWalletInput = {
+    _answer_id: number;
+    pubkey: string | number | bigint;
+    owner?: string;
+    evers: string | number | bigint;
+};
+export declare type WrapperDeployEmptyWalletOutput = {
+    value0: string;
+};
+export declare type WrapperOnTip3TransferInput = {
+    _answer_id: number;
+    balance: string | number | bigint;
+    new_tokens: string | number | bigint;
+    evers_balance: string | number | bigint;
+    tip3cfg: {
+        name: string;
+        symbol: string;
+        decimals: number;
+        root_pubkey: string | number | bigint;
+        root_address: string;
+    };
+    sender?: {
+        pubkey: string | number | bigint;
+        owner?: string;
+    };
+    receiver: {
+        pubkey: string | number | bigint;
+        owner?: string;
+    };
+    payload: string;
+    answer_addr: string;
+};
+export declare type WrapperOnTip3TransferOutput = {
+    err_code: number;
+    flex_wallet: string;
+};
+export declare type WrapperBurnInput = {
+    tokens: string | number | bigint;
+    answer_addr: string;
+    sender_pubkey: string | number | bigint;
+    sender_owner?: string;
+    out_pubkey: string | number | bigint;
+    out_owner?: string;
+};
+export declare type WrapperTransferFromReserveWalletInput = {
+    answer_addr?: string;
+    to: string;
+    tokens: string | number | bigint;
+};
+export declare type WrapperRequestTotalGrantedInput = {
+    _answer_id: number;
+};
+export declare type WrapperRequestTotalGrantedOutput = {
+    value0: string;
+};
+export declare type WrapperGetDetailsOutput = {
+    name: string;
+    symbol: string;
+    decimals: number;
+    root_pubkey: string;
+    total_granted: string;
+    wallet_code: string;
+    external_wallet?: string;
+    reserve_wallet: string;
+    super_root: string;
+};
+export declare type WrapperGetTip3ConfigOutput = {
+    name: string;
+    symbol: string;
+    decimals: number;
+    root_pubkey: string;
+    root_address: string;
+};
+export declare type WrapperHasInternalWalletCodeOutput = {
+    value0: boolean;
+};
+export declare type WrapperGetWalletAddressInput = {
+    pubkey: string | number | bigint;
+    owner?: string;
+};
+export declare type WrapperGetWalletAddressOutput = {
+    value0: string;
+};
+export declare type WrapperGetReserveWalletOutput = {
+    value0: string;
+};
 export declare class WrapperAccount extends Account {
     static package: ContractPackageEx;
     log: Log;
@@ -9,247 +104,89 @@ export declare class WrapperAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runInit(input: {
-        _answer_id: number;
-        external_wallet: string;
-        reserve_wallet_evers: string | number | bigint;
-        internal_wallet_code: string;
-    }): Promise<{
+    runInit(input: WrapperInitInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: WrapperInitOutput;
     }>;
-    runLocalInit(input: {
-        _answer_id: number;
-        external_wallet: string;
-        reserve_wallet_evers: string | number | bigint;
-        internal_wallet_code: string;
-    }): Promise<{
+    init(input: WrapperInitInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: WrapperInitOutput;
     }>;
-    runDeployEmptyWallet(input: {
-        _answer_id: number;
-        pubkey: string | number | bigint;
-        owner?: string;
-        evers: string | number | bigint;
-    }): Promise<{
+    runDeployEmptyWallet(input: WrapperDeployEmptyWalletInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperDeployEmptyWalletOutput;
     }>;
-    runLocalDeployEmptyWallet(input: {
-        _answer_id: number;
-        pubkey: string | number | bigint;
-        owner?: string;
-        evers: string | number | bigint;
-    }): Promise<{
+    deployEmptyWallet(input: WrapperDeployEmptyWalletInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperDeployEmptyWalletOutput;
     }>;
-    runOnTip3Transfer(input: {
-        _answer_id: number;
-        balance: string | number | bigint;
-        new_tokens: string | number | bigint;
-        evers_balance: string | number | bigint;
-        tip3cfg: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string | number | bigint;
-            root_address: string;
-        };
-        sender?: {
-            pubkey: string | number | bigint;
-            owner?: string;
-        };
-        receiver: {
-            pubkey: string | number | bigint;
-            owner?: string;
-        };
-        payload: string;
-        answer_addr: string;
-    }): Promise<{
+    runOnTip3Transfer(input: WrapperOnTip3TransferInput): Promise<{
         transaction: Transaction;
-        output: {
-            err_code: number;
-            flex_wallet: string;
-        };
+        output: WrapperOnTip3TransferOutput;
     }>;
-    runLocalOnTip3Transfer(input: {
-        _answer_id: number;
-        balance: string | number | bigint;
-        new_tokens: string | number | bigint;
-        evers_balance: string | number | bigint;
-        tip3cfg: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string | number | bigint;
-            root_address: string;
-        };
-        sender?: {
-            pubkey: string | number | bigint;
-            owner?: string;
-        };
-        receiver: {
-            pubkey: string | number | bigint;
-            owner?: string;
-        };
-        payload: string;
-        answer_addr: string;
-    }): Promise<{
+    onTip3Transfer(input: WrapperOnTip3TransferInput): Promise<{
         transaction: Transaction;
-        output: {
-            err_code: number;
-            flex_wallet: string;
-        };
+        output: WrapperOnTip3TransferOutput;
     }>;
-    runBurn(input: {
-        tokens: string | number | bigint;
-        answer_addr: string;
-        sender_pubkey: string | number | bigint;
-        sender_owner?: string;
-        out_pubkey: string | number | bigint;
-        out_owner?: string;
-    }): Promise<{
+    runBurn(input: WrapperBurnInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalBurn(input: {
-        tokens: string | number | bigint;
-        answer_addr: string;
-        sender_pubkey: string | number | bigint;
-        sender_owner?: string;
-        out_pubkey: string | number | bigint;
-        out_owner?: string;
-    }): Promise<{
+    burn(input: WrapperBurnInput): Promise<{
         transaction: Transaction;
     }>;
-    runTransferFromReserveWallet(input: {
-        answer_addr?: string;
-        to: string;
-        tokens: string | number | bigint;
-    }): Promise<{
+    runTransferFromReserveWallet(input: WrapperTransferFromReserveWalletInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalTransferFromReserveWallet(input: {
-        answer_addr?: string;
-        to: string;
-        tokens: string | number | bigint;
-    }): Promise<{
+    transferFromReserveWallet(input: WrapperTransferFromReserveWalletInput): Promise<{
         transaction: Transaction;
     }>;
-    runRequestTotalGranted(input: {
-        _answer_id: number;
-    }): Promise<{
+    runRequestTotalGranted(input: WrapperRequestTotalGrantedInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperRequestTotalGrantedOutput;
     }>;
-    runLocalRequestTotalGranted(input: {
-        _answer_id: number;
-    }): Promise<{
+    requestTotalGranted(input: WrapperRequestTotalGrantedInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperRequestTotalGrantedOutput;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string;
-            total_granted: string;
-            wallet_code: string;
-            external_wallet?: string;
-            reserve_wallet: string;
-            super_root: string;
-        };
+        output: WrapperGetDetailsOutput;
     }>;
-    runLocalGetDetails(): Promise<{
+    getDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string;
-            total_granted: string;
-            wallet_code: string;
-            external_wallet?: string;
-            reserve_wallet: string;
-            super_root: string;
-        };
+        output: WrapperGetDetailsOutput;
     }>;
     runGetTip3Config(): Promise<{
         transaction: Transaction;
-        output: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string;
-            root_address: string;
-        };
+        output: WrapperGetTip3ConfigOutput;
     }>;
-    runLocalGetTip3Config(): Promise<{
+    getTip3Config(): Promise<{
         transaction: Transaction;
-        output: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string;
-            root_address: string;
-        };
+        output: WrapperGetTip3ConfigOutput;
     }>;
     runHasInternalWalletCode(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: WrapperHasInternalWalletCodeOutput;
     }>;
-    runLocalHasInternalWalletCode(): Promise<{
+    hasInternalWalletCode(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: boolean;
-        };
+        output: WrapperHasInternalWalletCodeOutput;
     }>;
-    runGetWalletAddress(input: {
-        pubkey: string | number | bigint;
-        owner?: string;
-    }): Promise<{
+    runGetWalletAddress(input: WrapperGetWalletAddressInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperGetWalletAddressOutput;
     }>;
-    runLocalGetWalletAddress(input: {
-        pubkey: string | number | bigint;
-        owner?: string;
-    }): Promise<{
+    getWalletAddress(input: WrapperGetWalletAddressInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperGetWalletAddressOutput;
     }>;
     runGetReserveWallet(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperGetReserveWalletOutput;
     }>;
-    runLocalGetReserveWallet(): Promise<{
+    getReserveWallet(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperGetReserveWalletOutput;
     }>;
 }
 //# sourceMappingURL=WrapperAccount.d.ts.map
