@@ -21,7 +21,7 @@ Flex.config = {
             endpoints: ["https://flex2.dev.tonlabs.io"],
         },
     },
-    globalConfig: "0:402f14b65b6b7af9752910e77eabf8f71240f6c190b5e4f1ab4d56c09954b723",
+    superRoot: "0:402f14b65b6b7af9752910e77eabf8f71240f6c190b5e4f1ab4d56c09954b723",
 };
 ```
 
