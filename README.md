@@ -92,22 +92,24 @@ const userAccount = await client.deployUser({
 If you have a FLEX wallet you can start make orders.
 
 ```ts
-const order = await Trading.makeOrder({
-    client: {
+const trader = new Trader({
+    client: new Client({
         address: "0:ae6cb924f28a5b95f61afd239ad7cf3920edcfadcda456afa3b2dea7c9da31a8",
-    },
-    wallet: {
-        address: "0:62fe1c8d300724cb154dd54f9d498c0b8baacdc8687feabf9251716a3c2aa7a2",
-        signer: "flex-wallet-1",
+    }),
+    userId: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
+    walletSigner: "flex-wallet-1",
+});
 
-    },
-    market: {
+const order = await trader.makeOrder({
+    sell: false,
+    market: new Market({
         address: "0:f0bb8d8a4a1416a7b380cb217513395aea994487a2b3e80129c136184def8bb4",
-    },
+    }),
     price: 1.23,
     amount: 1,
-    userId: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
 });
+
+console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
 ```
 
 # Examples
