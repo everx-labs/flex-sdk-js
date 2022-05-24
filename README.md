@@ -71,15 +71,23 @@ const client = await Client.deploy({
     signer: "flex-client-1",
 });
 
+
+// Client deploys Trader's contract (`userIdIndex` contract)
+
 await client.deployTrader({
+    // Trader ID
     id: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
     // Trader name
     name: "Trader Name",
-    // Trader's public key
+    // Trader's public key that will be used to validate `makeOrder` and `cancelOrder` operations
     pubkey: "2ada2e65ab8eeab09490e3521415f45b6e42df9c760a639bcf53957550b25a16",
+    // Full payment for Trader creation
     eversAll: 40e9,
+    // Payment for Auth Contract deploy, included into eversAll
     eversAuth: 1e9,
+    // When trader receives tokens the sum (refillWallet-wallet.eversBalance) is additionally sent to this wallet from `userIdIndex` contract
     refillWallet: 10e9,
+    // Minimal amount of EVERs the wallet receives from `userIdIndex` together with tokens when a trade happens
     minRefill: 0.1e9,
 });
 
