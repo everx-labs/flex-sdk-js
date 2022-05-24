@@ -71,10 +71,12 @@ const client = await Client.deploy({
     signer: "flex-client-1",
 });
 
-const userAccount = await client.deployUser({
-    id: 1,
-    name: "Client 1 User 1",
-    signer: "flex-user-1-1",
+await client.deployTrader({
+    id: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
+    // Trader name
+    name: "Trader Name",
+    // Trader's public key
+    pubkey: "2ada2e65ab8eeab09490e3521415f45b6e42df9c760a639bcf53957550b25a16",
     eversAll: 40e9,
     eversAuth: 1e9,
     refillWallet: 10e9,
