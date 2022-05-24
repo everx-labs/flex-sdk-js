@@ -75,10 +75,10 @@ const client = await Client.deploy({
 // Client deploys Trader's contract (`userIdIndex` contract)
 
 await client.deployTrader({
-    // Trader ID
+    // Trader's ID
     id: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
     // Trader name
-    name: "Trader Name",
+    name: "Trader's Name",
     // Trader's public key that will be used to validate `makeOrder` and `cancelOrder` operations
     pubkey: "2ada2e65ab8eeab09490e3521415f45b6e42df9c760a639bcf53957550b25a16",
     // Full payment for Trader creation
@@ -87,7 +87,7 @@ await client.deployTrader({
     eversAuth: 1e9,
     // When trader receives tokens the sum (refillWallet-wallet.eversBalance) is additionally sent to this wallet from `userIdIndex` contract
     refillWallet: 10e9,
-    // Minimal amount of EVERs the wallet receives from `userIdIndex` together with tokens when a trade happens
+    // Minimal amount of EVERs the wallet receives from `userIdIndex` contract when a trade happens (when the wallet receives tokens)  if the wallet's balance > refillWallet
     minRefill: 0.1e9,
 });
 
