@@ -25,18 +25,17 @@ Flex.config = {
 };
 ```
 
-Many functions of FLEX SDK accepts parameters named `signer`.
-Is a secret required to sign messages that will be sent to the accounts on the blockchain.
+Many functions of FLEX SDK accept parameters named `signer`.
+It is an object that has a secret, required to sign messages that will be sent to the blockchain accounts.
 
-`signer` parameters can be one of:
-
-- Instance of the `Signer` type from the `@eversdk/core` library.
+`signer` parameter can accept these values:
 
 - String containing the secret key of the key pair required to sign messages.
   Secret key must be represented as a hex string with exactly 64 characters.
-  FLEX SDK calculates the public part of the keypair from specified secret key.
+  
+- Instance of the [`Signer` type](https://docs.everos.dev/ever-sdk/reference/types-and-methods/mod_abi#signer) from the `@eversdk/core` library. 
 
-- Name of the signer in the `everdev` signer registry. 
+- Name of the signer in the [`everdev` signer registry](https://github.com/tonlabs/everdev/blob/main/docs/command-line-interface/signer-tool.md).
 
 
 # Exchange Maintenance
