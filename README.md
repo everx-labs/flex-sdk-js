@@ -106,8 +106,8 @@ const trader = new Trader({
     client: new Client({
         address: "0:ae6cb924f28a5b95f61afd239ad7cf3920edcfadcda456afa3b2dea7c9da31a8",
     }),
-    userId: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
-    walletSigner: "flex-wallet-1",
+    id: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
+    signer: "private-key",
 });
 
 const order = await trader.makeOrder({
