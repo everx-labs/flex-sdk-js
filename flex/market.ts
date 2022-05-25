@@ -96,13 +96,17 @@ export class Market extends FlexBoundLazy<MarketOptions, MarketState> {
         return result.market.orderBook;
     }
 
-    async queryPrice(): Promise<number> {
-        const result = await this.flex.query(`
+    async queryPrice(): Promise<number | null> {
+        try {
+            const result = await this.flex.query(`
             market(pairAddress: "${this.options.address}") {
                 price
             }
         `);
-        return result.market.price;
+            return result.market.price;
+        } catch {
+            return null;
+        }
     }
 
     static async queryMarkets(flex?: Flex): Promise<MarketInfo[]> {

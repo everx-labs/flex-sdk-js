@@ -1,13 +1,9 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type WrapperInitInput = {
-    _answer_id: number;
     external_wallet: string;
     reserve_wallet_evers: string | number | bigint;
     internal_wallet_code: string;
-};
-export declare type WrapperInitOutput = {
-    value0: boolean;
 };
 export declare type WrapperDeployEmptyWalletInput = {
     _answer_id: number;
@@ -64,6 +60,18 @@ export declare type WrapperRequestTotalGrantedInput = {
 export declare type WrapperRequestTotalGrantedOutput = {
     value0: string;
 };
+export declare type WrapperClonedInput = {
+    _answer_id: number;
+};
+export declare type WrapperClonedOutput = {
+    value0?: string;
+};
+export declare type WrapperSetClonedInput = {
+    cloned?: string;
+    wrappers_cfg: string;
+    wrappers_cfg_code_hash: string | number | bigint;
+    wrappers_cfg_code_depth: number;
+};
 export declare type WrapperGetDetailsOutput = {
     name: string;
     symbol: string;
@@ -74,6 +82,7 @@ export declare type WrapperGetDetailsOutput = {
     external_wallet?: string;
     reserve_wallet: string;
     super_root: string;
+    cloned?: string;
 };
 export declare type WrapperGetTip3ConfigOutput = {
     name: string;
@@ -95,6 +104,9 @@ export declare type WrapperGetWalletAddressOutput = {
 export declare type WrapperGetReserveWalletOutput = {
     value0: string;
 };
+export declare type WrapperGetTestValueOutput = {
+    value0: number;
+};
 export declare class WrapperAccount extends Account {
     static package: ContractPackageEx;
     log: Log;
@@ -106,11 +118,9 @@ export declare class WrapperAccount extends Account {
     }>;
     runInit(input: WrapperInitInput): Promise<{
         transaction: Transaction;
-        output: WrapperInitOutput;
     }>;
     init(input: WrapperInitInput): Promise<{
         transaction: Transaction;
-        output: WrapperInitOutput;
     }>;
     runDeployEmptyWallet(input: WrapperDeployEmptyWalletInput): Promise<{
         transaction: Transaction;
@@ -147,6 +157,20 @@ export declare class WrapperAccount extends Account {
     requestTotalGranted(input: WrapperRequestTotalGrantedInput): Promise<{
         transaction: Transaction;
         output: WrapperRequestTotalGrantedOutput;
+    }>;
+    runCloned(input: WrapperClonedInput): Promise<{
+        transaction: Transaction;
+        output: WrapperClonedOutput;
+    }>;
+    cloned(input: WrapperClonedInput): Promise<{
+        transaction: Transaction;
+        output: WrapperClonedOutput;
+    }>;
+    runSetCloned(input: WrapperSetClonedInput): Promise<{
+        transaction: Transaction;
+    }>;
+    setCloned(input: WrapperSetClonedInput): Promise<{
+        transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
@@ -187,6 +211,14 @@ export declare class WrapperAccount extends Account {
     getReserveWallet(): Promise<{
         transaction: Transaction;
         output: WrapperGetReserveWalletOutput;
+    }>;
+    runGetTestValue(): Promise<{
+        transaction: Transaction;
+        output: WrapperGetTestValueOutput;
+    }>;
+    getTestValue(): Promise<{
+        transaction: Transaction;
+        output: WrapperGetTestValueOutput;
     }>;
 }
 //# sourceMappingURL=WrapperAccount.d.ts.map

@@ -17,10 +17,10 @@ export declare type TraderDeployOptions = {
     id: string;
     name: string;
     pubkey: string;
-    refillWallet: string | number | bigint;
-    minRefill: string | number | bigint;
-    eversAuth: string | number | bigint;
-    eversAll: string | number | bigint;
+    eversAll?: string | number | bigint;
+    eversAuth?: string | number | bigint;
+    refillWallet?: string | number | bigint;
+    minRefill?: string | number | bigint;
 };
 export declare type WalletDeployOptions = {
     token: Token;

@@ -1,4 +1,5 @@
 export declare const CONFIG: {
+    endpoints: string[];
     superRoot: string;
     trader1: {
         client: string;

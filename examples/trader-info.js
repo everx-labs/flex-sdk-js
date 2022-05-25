@@ -12,17 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const trader_1 = require("../flex/trader");
 const examples_1 = require("./examples");
+const client_1 = require("../flex/client");
 (0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const client = new client_1.Client({ address: examples_1.CONFIG.trader1.client });
         const trader = new trader_1.Trader({
-            client: examples_1.CONFIG.trader1.client,
+            client,
             id: examples_1.CONFIG.trader1.id,
             signer: examples_1.CONFIG.trader1.signer,
         });
-        (0, examples_1.log)("Orders", yield trader.queryOrders());
-        (0, examples_1.log)("Trades", yield trader.queryTrades());
-        (0, examples_1.log)("Wallets", yield trader.queryWallets());
+        (0, examples_1.log)("Trader Orders", yield trader.queryOrders());
+        (0, examples_1.log)("Trader Trades", yield trader.queryTrades());
+        (0, examples_1.log)("Trader Wallets", yield trader.queryWallets());
+        (0, examples_1.log)("Client Wallets", yield client.queryWallets());
         yield flex_1.Flex.default.close();
     }
     catch (err) {

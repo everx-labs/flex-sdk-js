@@ -50,12 +50,17 @@ class Market extends flex_1.FlexBoundLazy {
     }
     queryPrice() {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.flex.query(`
+            try {
+                const result = yield this.flex.query(`
             market(pairAddress: "${this.options.address}") {
                 price
             }
         `);
-            return result.market.price;
+                return result.market.price;
+            }
+            catch (_a) {
+                return null;
+            }
         });
     }
     static queryMarkets(flex) {

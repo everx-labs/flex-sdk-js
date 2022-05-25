@@ -31,7 +31,7 @@ export declare class Market extends FlexBoundLazy<MarketOptions, MarketState> {
     protected createState(options: MarketOptions): Promise<MarketState>;
     static resolve(from: Market | MarketOptions | string, flex?: Flex): Market;
     queryOrderBook(): Promise<OrderBookInfo>;
-    queryPrice(): Promise<number>;
+    queryPrice(): Promise<number | null>;
     static queryMarkets(flex?: Flex): Promise<MarketInfo[]>;
     static queryFields(): string;
 }

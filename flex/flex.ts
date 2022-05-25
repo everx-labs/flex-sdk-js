@@ -8,10 +8,28 @@ import {
 import { Log } from "../contracts/helpers";
 import { SignerRegistry } from "../contracts/account-ex";
 
+export enum MakeOrderMode {
+    IOP = "IOP",
+    IOC = "IOC",
+    POST = "POST",
+}
+
 export type FlexConfig = {
     superRoot?: string,
     globalConfig?: string,
     client?: ClientConfig,
+    trader: {
+        deploy: {
+            eversAll: number,
+            eversAuth: number,
+            refillWallet: number,
+            minRefill: number,
+        },
+        order: {
+            evers: number,
+            mode: MakeOrderMode,
+        }
+    }
 }
 
 export type FlexState = {
@@ -20,6 +38,7 @@ export type FlexState = {
     flex: FlexAccount,
     userConfig: UserDataConfigAccount,
 }
+
 
 export class Flex {
     config: FlexConfig;
@@ -43,15 +62,16 @@ export class Flex {
         return this._default;
     }
 
-    static set config(config: FlexConfig) {
-        this._config = config;
+    static set config(config: Partial<FlexConfig>) {
+        this._config = {
+            ...Flex.defaultConfig(),
+            ...config,
+        };
     }
 
     static get config(): FlexConfig {
         if (!this._config) {
-            this._config = {
-                client: TonClient.defaultConfig,
-            };
+            this._config = Flex.defaultConfig();
         }
         return this._config;
     }
@@ -108,6 +128,24 @@ export class Flex {
 
     async close() {
         await this.client.close();
+    }
+
+    private static defaultConfig(): FlexConfig {
+        return {
+            client: TonClient.defaultConfig,
+            trader: {
+                deploy: {
+                    eversAll: 40e9,
+                    eversAuth: 1e9,
+                    refillWallet: 10e9,
+                    minRefill: 0.1e9,
+                },
+                order: {
+                    evers: 3e9,
+                    mode: MakeOrderMode.IOP,
+                },
+            },
+        };
     }
 }
 

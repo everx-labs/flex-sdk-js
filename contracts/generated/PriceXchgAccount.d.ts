@@ -36,6 +36,7 @@ export declare type PriceXchgCancelWalletOrderInput = {
     order_id?: string | number | bigint;
 };
 export declare type PriceXchgGetDetailsOutput = {
+    price_num: string;
     sells: {
         immediate_client: boolean;
         post_order: boolean;

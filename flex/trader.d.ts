@@ -1,6 +1,6 @@
 import { Market, MarketOptions } from "./market";
 import { Client, ClientOptions, WalletInfo } from "./client";
-import { Flex } from "./flex";
+import { Flex, MakeOrderMode } from "./flex";
 import { Signer } from "@eversdk/core";
 import { Token, TokenInfo } from "./token";
 export declare type TraderOptions = {
@@ -8,20 +8,20 @@ export declare type TraderOptions = {
     id: string;
     signer: Signer | string;
 };
-declare type OrderOperationOptions = {
+export declare type MakeOrderOptions = {
     market: Market | MarketOptions | string;
     sell: boolean;
-};
-declare type MakeOrderOptions = OrderOperationOptions & {
     amount: number;
     price: number;
     orderId?: number | string;
     evers?: bigint | number | string;
     finishTime?: number;
+    mode?: MakeOrderMode;
 };
-declare type CancelOrderOptions = OrderOperationOptions & {
+export declare type CancelOrderOptions = {
+    market: Market | MarketOptions | string;
     price: number;
-    orderId?: number | string;
+    orderId: number | string;
     evers?: bigint | number | string;
 };
 export declare enum TradeSide {
@@ -68,7 +68,7 @@ export declare class Trader {
     queryOrders(): Promise<OrderInfo[]>;
     queryTrades(): Promise<TradeInfo[]>;
     queryWallets(token?: Token | string): Promise<WalletInfo[]>;
+    private getPriceDetails;
     private getWallet;
 }
-export {};
 //# sourceMappingURL=trader.d.ts.map

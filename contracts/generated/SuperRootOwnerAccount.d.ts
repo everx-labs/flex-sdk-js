@@ -153,6 +153,18 @@ export declare type SuperRootOwnerSetFlagsInput = {
     abandon_ship?: boolean;
     update_started?: boolean;
 };
+export declare type SuperRootOwnerTransferInput = {
+    main_evers: string | number | bigint;
+    to: string;
+    evers: string | number | bigint;
+};
+export declare type SuperRootOwnerTransferReserveTokensInput = {
+    main_evers: string | number | bigint;
+    wrapper: string;
+    tokens: string | number | bigint;
+    to: string;
+    evers: string | number | bigint;
+};
 export declare type SuperRootOwnerSetOwnerInput = {
     main_evers: string | number | bigint;
     owner: string;
@@ -285,6 +297,18 @@ export declare class SuperRootOwnerAccount extends Account {
         transaction: Transaction;
     }>;
     setFlags(input: SuperRootOwnerSetFlagsInput): Promise<{
+        transaction: Transaction;
+    }>;
+    runTransfer(input: SuperRootOwnerTransferInput): Promise<{
+        transaction: Transaction;
+    }>;
+    transfer(input: SuperRootOwnerTransferInput): Promise<{
+        transaction: Transaction;
+    }>;
+    runTransferReserveTokens(input: SuperRootOwnerTransferReserveTokensInput): Promise<{
+        transaction: Transaction;
+    }>;
+    transferReserveTokens(input: SuperRootOwnerTransferReserveTokensInput): Promise<{
         transaction: Transaction;
     }>;
     runSetOwner(input: SuperRootOwnerSetOwnerInput): Promise<{

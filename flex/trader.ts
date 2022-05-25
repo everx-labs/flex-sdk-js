@@ -1,10 +1,11 @@
 import { Market, MarketOptions } from "./market";
 import { Client, ClientOptions, WalletInfo, walletInfoFromApi } from "./client";
-import { Flex } from "./flex";
+import { Flex, MakeOrderMode } from "./flex";
 import { Signer } from "@eversdk/core";
 import { amountToUnits, priceToUnits } from "../contracts/helpers";
-import { FlexWalletAccount, PriceXchgAccount, WrapperAccount } from "../contracts";
+import { FlexWalletAccount, PriceXchgAccount, WrapperAccount, XchgPairAccount } from "../contracts";
 import { Token, TokenInfo } from "./token";
+import { PriceXchgGetDetailsOutput } from "../contracts/generated/PriceXchgAccount";
 
 export type TraderOptions = {
     client: Client | ClientOptions | string,
@@ -12,22 +13,21 @@ export type TraderOptions = {
     signer: Signer | string,
 };
 
-type OrderOperationOptions = {
+export type MakeOrderOptions = {
     market: Market | MarketOptions | string,
     sell: boolean,
-}
-
-type MakeOrderOptions = OrderOperationOptions & {
     amount: number,
     price: number,
     orderId?: number | string,
     evers?: bigint | number | string,
     finishTime?: number;
+    mode?: MakeOrderMode,
 };
 
-type CancelOrderOptions = OrderOperationOptions & {
+export type CancelOrderOptions = {
+    market: Market | MarketOptions | string,
     price: number,
-    orderId?: number | string,
+    orderId: number | string,
     evers?: bigint | number | string,
 };
 
@@ -106,13 +106,14 @@ export class Trader {
     }
 
     async makeOrder(options: MakeOrderOptions): Promise<OrderInfo> {
+        const defaults = this.flex.config.trader.order;
         const market = Market.resolve(options.market);
         const pair = (await market.getState()).pair;
         const flex = (await this.flex.getState()).flex;
         const client = (await this.client.getState()).account;
 
         const pairDetails = (await pair.getDetails()).output;
-        const wallet = await this.getWallet(options);
+        const wallet = await this.getWallet(market, options.sell);
         const priceCode = (await pair.getPriceXchgCode({ salted: false })).output.value0;
         const priceSalt = (await pair.getPriceXchgSalt()).output.value0;
         const amount = amountToUnits(options.amount, pairDetails.major_tip3cfg.decimals);
@@ -127,9 +128,10 @@ export class Trader {
         })).output.value0;
         const finishTime = options.finishTime ?? Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
 
+        const mode = options.mode ?? defaults.mode;
         await wallet.runMakeOrder({
             _answer_id: 0,
-            evers: options.evers ?? 3e9,
+            evers: options.evers ?? defaults.evers,
             lend_balance,
             lend_finish_time: finishTime,
             price_num: price.num,
@@ -137,8 +139,8 @@ export class Trader {
             salt: priceSalt,
             args: {
                 sell: options.sell,
-                immediate_client: true,
-                post_order: true,
+                immediate_client: mode === MakeOrderMode.IOP || mode === MakeOrderMode.IOC,
+                post_order: mode === MakeOrderMode.IOP || mode === MakeOrderMode.POST,
                 amount,
                 client_addr: await client.getAddress(),
                 user_id: "0x" + this.id,
@@ -146,21 +148,8 @@ export class Trader {
             },
         });
 
-        const saltedPriceCode = (await pair.getPriceXchgCode({ salted: true })).output.value0;
-        const priceAddress = (await client.getPriceXchgAddress({
-            price_num: price.num,
-            salted_price_code: saltedPriceCode,
-        })).output.value0;
-        const priceAccount = new PriceXchgAccount({
-            client: this.flex.client,
-            log: this.flex.log,
-            address: priceAddress,
-
-        });
-        const priceDetails = (await priceAccount.getDetails()).output;
-        const order = (options.sell
-            ? (priceDetails.sells ?? [])
-            : (priceDetails.buys ?? [])).find(x => Number(x.order_id) === orderId);
+        const priceDetails = await this.getPriceDetails(pair, price.num);
+        const order = findOrder(orderId, options.sell ? priceDetails.sells : priceDetails.buys);
         if (!order) {
             throw Error("Make order failed: order isn't presented in price.");
         }
@@ -180,20 +169,23 @@ export class Trader {
 
     async cancelOrder(options: CancelOrderOptions): Promise<void> {
         const market = Market.resolve(options.market);
-        const wallet = await this.getWallet(options);
         const pair = (await market.getState()).pair;
         const pairDetails = (await pair.getDetails()).output;
-        const saltedPriceCode = (await pair.getPriceXchgCode({ salted: true })).output.value0;
         const price = priceToUnits(options.price, pairDetails.price_denum);
-        const priceAddress = (await (await this.client.getState()).account.getPriceXchgAddress({
-            price_num: price.num,
-            salted_price_code: saltedPriceCode,
-        })).output.value0;
-
+        const priceDetails = await this.getPriceDetails(pair, price.num);
+        let sell: boolean;
+        if (findOrder(options.orderId, priceDetails.sells)) {
+            sell = true;
+        } else if (findOrder(options.orderId, priceDetails.buys)) {
+            sell = false;
+        } else {
+            throw new Error(`Order ${options.orderId} not found in price ${priceDetails.address}.`);
+        }
+        const wallet = await this.getWallet(market, sell);
         await wallet.runCancelOrder({
             order_id: options.orderId,
-            sell: options.sell,
-            price: priceAddress,
+            sell,
+            price: priceDetails.address,
             evers: options.evers ?? 3e9,
         });
     }
@@ -258,14 +250,35 @@ export class Trader {
         return result.wallets.map(walletInfoFromApi);
     }
 
-    private async getWallet(options: OrderOperationOptions): Promise<FlexWalletAccount> {
-        const market = Market.resolve(options.market);
+    private async getPriceDetails(
+        pair: XchgPairAccount,
+        priceNum: string,
+    ): Promise<PriceXchgGetDetailsOutput & { address: string }> {
+        const saltedPriceCode = (await pair.getPriceXchgCode({ salted: true })).output.value0;
+        const address = (await (await this.client.getState()).account.getPriceXchgAddress({
+            price_num: priceNum,
+            salted_price_code: saltedPriceCode,
+        })).output.value0;
+        const priceAccount = new PriceXchgAccount({
+            client: this.flex.client,
+            log: this.flex.log,
+            address,
+
+        });
+        const details = (await priceAccount.getDetails()).output;
+        return {
+            address,
+            ...details,
+        };
+    }
+
+    private async getWallet(market: Market, sell: boolean): Promise<FlexWalletAccount> {
         const clientAddress = await (await this.client.getState()).account.getAddress();
         const pair = (await market.getState()).pair;
         const pairDetails = (await pair.getDetails()).output;
         const token = new WrapperAccount({
             client: this.flex.client,
-            address: options.sell
+            address: sell
                 ? pairDetails.major_tip3cfg.root_address
                 : pairDetails.minor_tip3cfg.root_address,
             log: this.flex.log,
@@ -284,3 +297,10 @@ export class Trader {
     }
 }
 
+function findOrder(id: number | string, orders: any[] | null | undefined): any | undefined {
+    if (!orders) {
+        return undefined;
+    }
+    const numId = Number(id);
+    return orders.find(x => Number(x.order_id) === numId);
+}

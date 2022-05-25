@@ -17,7 +17,7 @@ const examples_1 = require("./examples");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         (0, examples_1.log)("Tokens", yield token_1.Token.queryTokens());
-        (0, examples_1.log)("Markets:", yield market_1.Market.queryMarkets());
+        (0, examples_1.log)("Markets", yield market_1.Market.queryMarkets());
         const market = new market_1.Market({
             address: examples_1.CONFIG.market1,
         });

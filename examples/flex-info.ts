@@ -8,7 +8,7 @@ initExample();
 (async () => {
     try {
         log("Tokens", await Token.queryTokens());
-        log("Markets:", await Market.queryMarkets());
+        log("Markets", await Market.queryMarkets());
 
         const market = new Market({
             address: CONFIG.market1,

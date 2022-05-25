@@ -47,6 +47,18 @@ export declare type WrapperEverRequestTotalGrantedInput = {
 export declare type WrapperEverRequestTotalGrantedOutput = {
     value0: string;
 };
+export declare type WrapperEverClonedInput = {
+    _answer_id: number;
+};
+export declare type WrapperEverClonedOutput = {
+    value0?: string;
+};
+export declare type WrapperEverSetClonedInput = {
+    cloned?: string;
+    wrappers_cfg: string;
+    wrappers_cfg_code_hash: string | number | bigint;
+    wrappers_cfg_code_depth: number;
+};
 export declare type WrapperEverGetDetailsOutput = {
     name: string;
     symbol: string;
@@ -57,6 +69,7 @@ export declare type WrapperEverGetDetailsOutput = {
     external_wallet?: string;
     reserve_wallet: string;
     super_root: string;
+    cloned?: string;
 };
 export declare type WrapperEverGetTip3ConfigOutput = {
     name: string;
@@ -128,6 +141,20 @@ export declare class WrapperEverAccount extends Account {
     requestTotalGranted(input: WrapperEverRequestTotalGrantedInput): Promise<{
         transaction: Transaction;
         output: WrapperEverRequestTotalGrantedOutput;
+    }>;
+    runCloned(input: WrapperEverClonedInput): Promise<{
+        transaction: Transaction;
+        output: WrapperEverClonedOutput;
+    }>;
+    cloned(input: WrapperEverClonedInput): Promise<{
+        transaction: Transaction;
+        output: WrapperEverClonedOutput;
+    }>;
+    runSetCloned(input: WrapperEverSetClonedInput): Promise<{
+        transaction: Transaction;
+    }>;
+    setCloned(input: WrapperEverSetClonedInput): Promise<{
+        transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;

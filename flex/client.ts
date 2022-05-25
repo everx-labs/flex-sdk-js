@@ -24,10 +24,10 @@ export type TraderDeployOptions = {
     id: string,
     name: string,
     pubkey: string,
-    refillWallet: string | number | bigint;
-    minRefill: string | number | bigint;
-    eversAuth: string | number | bigint;
-    eversAll: string | number | bigint;
+    eversAll?: string | number | bigint;
+    eversAuth?: string | number | bigint;
+    refillWallet?: string | number | bigint;
+    minRefill?: string | number | bigint;
 }
 
 export type WalletDeployOptions = {
@@ -119,14 +119,15 @@ export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
             user_id: options.id,
         })).output.value0;
         if (!(await AccountEx.isActive(address, this.flex.client))) {
+            const config = this.flex.config.trader.deploy;
             await clientAccount.runDeployIndex({
                 user_id: options.id,
                 lend_pubkey: options.pubkey,
                 name: options.name,
-                evers_all: options.eversAll,
-                evers_to_auth_idx: options.eversAuth,
-                min_refill: options.minRefill,
-                refill_wallet: options.refillWallet,
+                evers_all: options.eversAll ?? config.eversAll,
+                evers_to_auth_idx: options.eversAuth ?? config.eversAuth,
+                refill_wallet: options.refillWallet ?? config.refillWallet,
+                min_refill: options.minRefill ?? config.minRefill,
             });
         }
     }

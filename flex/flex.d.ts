@@ -2,10 +2,27 @@ import { ClientConfig, TonClient } from "@eversdk/core";
 import { FlexAccount, GlobalConfigAccount, SuperRootAccount, UserDataConfigAccount } from "../contracts";
 import { Log } from "../contracts/helpers";
 import { SignerRegistry } from "../contracts/account-ex";
+export declare enum MakeOrderMode {
+    IOP = "IOP",
+    IOC = "IOC",
+    POST = "POST"
+}
 export declare type FlexConfig = {
     superRoot?: string;
     globalConfig?: string;
     client?: ClientConfig;
+    trader: {
+        deploy: {
+            eversAll: number;
+            eversAuth: number;
+            refillWallet: number;
+            minRefill: number;
+        };
+        order: {
+            evers: number;
+            mode: MakeOrderMode;
+        };
+    };
 };
 export declare type FlexState = {
     superRoot: SuperRootAccount;
@@ -23,12 +40,13 @@ export declare class Flex {
     private static _default;
     static set default(flex: Flex);
     static get default(): Flex;
-    static set config(config: FlexConfig);
+    static set config(config: Partial<FlexConfig>);
     static get config(): FlexConfig;
     constructor(config: FlexConfig);
     getState(): Promise<FlexState>;
     query(text: string): Promise<any>;
     close(): Promise<void>;
+    private static defaultConfig;
 }
 export declare abstract class FlexBoundLazy<O, S> {
     flex: Flex;

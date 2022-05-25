@@ -3,7 +3,8 @@ import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type WICOnDeployInput = {
     keep_evers: string | number | bigint;
     old_wrappers_cfg?: string;
-    keep_wrapper?: string;
+    old_wrapper?: string;
+    keep_wrapper: boolean;
     deployer: string;
     type: number;
     init_args: string;

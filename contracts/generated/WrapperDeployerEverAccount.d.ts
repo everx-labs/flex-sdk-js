@@ -12,6 +12,7 @@ export declare type WrapperDeployerEverSetFlexWalletCodeInput = {
 export declare type WrapperDeployerEverDeployInput = {
     _answer_id: number;
     init_args: string;
+    wic_unsalted_code: string;
 };
 export declare type WrapperDeployerEverDeployOutput = {
     value0: string;
