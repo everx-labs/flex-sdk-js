@@ -1,0 +1,106 @@
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>flex-sdk-js</title><meta name="description" content="Documentation for flex-sdk-js"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">flex-sdk-js</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>flex-sdk-js </h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#flex-sdk-js" id="flex-sdk-js" style="color: inherit; text-decoration: none;">
+  <h1>flex-sdk-js</h1>
+</a>
+<p>FLEX-SDK is a library with convenient facade over the FLEX smart contract system
+and can be used by FLEX maintainers, FLEX traders and other.</p>
+<p>The library is targeted to be used with Node.js applications.</p>
+
+<a href="#setup-library" id="setup-library" style="color: inherit; text-decoration: none;">
+  <h1>Setup Library</h1>
+</a>
+<p>Library setup is simple, it includes setup for the TonClient and configuration of the FLEX SDK:</p>
+<pre><code class="language-ts"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">TonClient</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;@eversdk/core&quot;</span><span class="hl-1">;</span><br/><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">libNode</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;@eversdk/lib-node&quot;</span><span class="hl-1">;</span><br/><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">Flex</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;../flex&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-2">TonClient</span><span class="hl-1">.</span><span class="hl-4">useBinaryLibrary</span><span class="hl-1">(</span><span class="hl-2">libNode</span><span class="hl-1">);</span><br/><span class="hl-2">Flex</span><span class="hl-1">.</span><span class="hl-2">config</span><span class="hl-1"> = {</span><br/><span class="hl-1">    </span><span class="hl-2">client:</span><span class="hl-1"> {</span><br/><span class="hl-1">        </span><span class="hl-2">network:</span><span class="hl-1"> {</span><br/><span class="hl-1">            </span><span class="hl-2">endpoints:</span><span class="hl-1"> [</span><span class="hl-3">&quot;https://flex2.dev.tonlabs.io&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">        },</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">    </span><span class="hl-2">superRoot:</span><span class="hl-1"> </span><span class="hl-3">&quot;0:402f14b65b6b7af9752910e77eabf8f71240f6c190b5e4f1ab4d56c09954b723&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">};</span>
+</code></pre>
+<p>Many functions of FLEX SDK accept parameters named <code>signer</code>.
+It is an object that has a secret, required to sign messages that will be sent to the blockchain accounts.</p>
+<p><code>signer</code> parameter can accept these values:</p>
+<ul>
+<li><p>String containing the secret key of the key pair required to sign messages.
+Secret key must be represented as a hex string with exactly 64 characters.</p>
+</li>
+<li><p>Instance of the <a href="https://docs.everos.dev/ever-sdk/reference/types-and-methods/mod_abi#signer"><code>Signer</code> type</a> from the <code>@eversdk/core</code> library. </p>
+</li>
+<li><p>Name of the signer in the <a href="https://github.com/tonlabs/everdev/blob/main/docs/command-line-interface/signer-tool.md"><code>everdev</code> signer registry</a>.</p>
+</li>
+</ul>
+
+<a href="#exchange-maintenance" id="exchange-maintenance" style="color: inherit; text-decoration: none;">
+  <h1>Exchange Maintenance</h1>
+</a>
+
+<a href="#super-root" id="super-root" style="color: inherit; text-decoration: none;">
+  <h2>Super Root</h2>
+</a>
+
+<a href="#global-config" id="global-config" style="color: inherit; text-decoration: none;">
+  <h2>Global Config</h2>
+</a>
+
+<a href="#tokens" id="tokens" style="color: inherit; text-decoration: none;">
+  <h2>Tokens</h2>
+</a>
+
+<a href="#pairs" id="pairs" style="color: inherit; text-decoration: none;">
+  <h2>Pairs</h2>
+</a>
+
+<a href="#migration" id="migration" style="color: inherit; text-decoration: none;">
+  <h2>Migration</h2>
+</a>
+
+<a href="#client-management" id="client-management" style="color: inherit; text-decoration: none;">
+  <h1>Client Management</h1>
+</a>
+<p>Before trading on FLEX you have to prepare some required FLEX actors: client and user.</p>
+
+<a href="#clients-and-users" id="clients-and-users" style="color: inherit; text-decoration: none;">
+  <h2>Clients and Users</h2>
+</a>
+<p>Client creation requires helper account with EVER balance that can send internal
+messages to other accounts. Good choice is a Multisig Wallet. </p>
+<pre><code class="language-ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">everWallet</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-4">EverWallet</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-2">address:</span><span class="hl-1"> </span><span class="hl-3">&quot;0:b4da2773b3566c8799ff8292bb1058662d143556a7ac8a129c481a38657cbd33&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">signer:</span><span class="hl-1"> </span><span class="hl-3">&quot;msig&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">client</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">Client</span><span class="hl-1">.</span><span class="hl-4">deploy</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-2">everWallet</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">signer:</span><span class="hl-1"> </span><span class="hl-3">&quot;flex-client-1&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">});</span><br/><br/><br/><span class="hl-7">// Client deploys Trader&#39;s contract (`userIdIndex` contract)</span><br/><br/><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-4">deployTrader</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-7">// Trader&#39;s ID</span><br/><span class="hl-1">    </span><span class="hl-2">id:</span><span class="hl-1"> </span><span class="hl-3">&quot;88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-7">// Trader name</span><br/><span class="hl-1">    </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">&quot;Trader&#39;s Name&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-7">// Trader&#39;s public key that will be used to validate `makeOrder` and `cancelOrder` operations</span><br/><span class="hl-1">    </span><span class="hl-2">pubkey:</span><span class="hl-1"> </span><span class="hl-3">&quot;2ada2e65ab8eeab09490e3521415f45b6e42df9c760a639bcf53957550b25a16&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-7">// Full payment for Trader creation</span><br/><span class="hl-1">    </span><span class="hl-2">eversAll:</span><span class="hl-1"> </span><span class="hl-8">40e9</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-7">// Payment for Auth Contract deploy, included into eversAll</span><br/><span class="hl-1">    </span><span class="hl-2">eversAuth:</span><span class="hl-1"> </span><span class="hl-8">1e9</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-7">// When trader receives tokens the sum (refillWallet-wallet.eversBalance) is additionally sent to this wallet from `userIdIndex` contract</span><br/><span class="hl-1">    </span><span class="hl-2">refillWallet:</span><span class="hl-1"> </span><span class="hl-8">10e9</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-7">// Minimal amount of EVERs the wallet receives from `userIdIndex` contract when a trade happens (when the wallet receives tokens)  if the wallet&#39;s balance &gt; refillWallet</span><br/><span class="hl-1">    </span><span class="hl-2">minRefill:</span><span class="hl-1"> </span><span class="hl-8">0.1e9</span><span class="hl-1">,</span><br/><span class="hl-1">});</span><br/>
+</code></pre>
+
+<a href="#flex-wallets" id="flex-wallets" style="color: inherit; text-decoration: none;">
+  <h2>FLEX Wallets</h2>
+</a>
+
+<a href="#trading" id="trading" style="color: inherit; text-decoration: none;">
+  <h1>Trading</h1>
+</a>
+
+<a href="#orders" id="orders" style="color: inherit; text-decoration: none;">
+  <h2>Orders</h2>
+</a>
+<p>If you have a FLEX wallet you can start make orders.</p>
+<pre><code class="language-ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">trader</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-4">Trader</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-2">client:</span><span class="hl-1"> </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-4">Client</span><span class="hl-1">({</span><br/><span class="hl-1">        </span><span class="hl-2">address:</span><span class="hl-1"> </span><span class="hl-3">&quot;0:ae6cb924f28a5b95f61afd239ad7cf3920edcfadcda456afa3b2dea7c9da31a8&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    }),</span><br/><span class="hl-1">    </span><span class="hl-2">id:</span><span class="hl-1"> </span><span class="hl-3">&quot;88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">signer:</span><span class="hl-1"> </span><span class="hl-3">&quot;private-key&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">order</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">trader</span><span class="hl-1">.</span><span class="hl-4">makeOrder</span><span class="hl-1">({</span><br/><span class="hl-1">    </span><span class="hl-2">sell:</span><span class="hl-1"> </span><span class="hl-5">false</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">market:</span><span class="hl-1"> </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-4">Market</span><span class="hl-1">({</span><br/><span class="hl-1">        </span><span class="hl-2">address:</span><span class="hl-1"> </span><span class="hl-3">&quot;0:f0bb8d8a4a1416a7b380cb217513395aea994487a2b3e80129c136184def8bb4&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">    }),</span><br/><span class="hl-1">    </span><span class="hl-2">price:</span><span class="hl-1"> </span><span class="hl-8">1.23</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-2">amount:</span><span class="hl-1"> </span><span class="hl-8">1</span><span class="hl-1">,</span><br/><span class="hl-1">});</span><br/><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-3">`Order: </span><span class="hl-5">${</span><span class="hl-9">JSON</span><span class="hl-10">.</span><span class="hl-4">stringify</span><span class="hl-10">(</span><span class="hl-2">order</span><span class="hl-10">, </span><span class="hl-5">undefined</span><span class="hl-10">, </span><span class="hl-3">&quot;    &quot;</span><span class="hl-10">)</span><span class="hl-5">}</span><span class="hl-11">\n</span><span class="hl-3">`</span><span class="hl-1">);</span>
+</code></pre>
+
+<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+  <h1>Examples</h1>
+</a>
+<p>You can examine the <code>examples</code> folder for a lot of examples. </p>
+
+<a href="#cli" id="cli" style="color: inherit; text-decoration: none;">
+  <h1>CLI</h1>
+</a>
+<p>The major part of library functionality is accessible via command line interface flex-cli.</p>
+<p>To use command line interface run command <code>npm run cli command [options] &lt;arguments&gt;</code>.</p>
+<p>You can get help on CLI running <code>npm run cli --help</code>.</p>
+
+<a href="#remarks-for-the-flex-sdk-developers" id="remarks-for-the-flex-sdk-developers" style="color: inherit; text-decoration: none;">
+  <h1>Remarks for the FLEX SDK Developers</h1>
+</a>
+<p>FLEX SDK contains folder <code>contracts</code> with TS wrappers of all contracts used in 
+FLEX contract system.</p>
+<p>To update FLEX contract wrappers you have to perform following steps:</p>
+<ul>
+<li>Clone <code>ton-contracts</code> repository aside of <code>flex-sdk-js</code> folder.</li>
+<li>Checkout <code>ton-contracts</code> repo on required branch.</li>
+<li>Run <code>npm run update-contracts</code> inside of <code>flex-sdk-js</code> folder.</li>
+</ul>
+<p>After that step the <code>flex-sdk-js</code> library can stop to compile.
+You have to perform changes in library code to reflect changes in 
+FLEX contract system if required.</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-enum"><a href="enums/MakeOrderMode.html" class="tsd-kind-icon">Make<wbr/>Order<wbr/>Mode</a></li><li class="tsd-kind-enum"><a href="enums/TradeLiquidity.html" class="tsd-kind-icon">Trade<wbr/>Liquidity</a></li><li class="tsd-kind-enum"><a href="enums/TradeSide.html" class="tsd-kind-icon">Trade<wbr/>Side</a></li><li class="tsd-kind-class"><a href="classes/Client.html" class="tsd-kind-icon">Client</a></li><li class="tsd-kind-class"><a href="classes/EverWallet.html" class="tsd-kind-icon">Ever<wbr/>Wallet</a></li><li class="tsd-kind-class"><a href="classes/Flex.html" class="tsd-kind-icon">Flex</a></li><li class="tsd-kind-class"><a href="classes/Market.html" class="tsd-kind-icon">Market</a></li><li class="tsd-kind-class"><a href="classes/SignerRegistry.html" class="tsd-kind-icon">Signer<wbr/>Registry</a></li><li class="tsd-kind-class"><a href="classes/Token.html" class="tsd-kind-icon">Token</a></li><li class="tsd-kind-class"><a href="classes/Trader.html" class="tsd-kind-icon">Trader</a></li><li class="tsd-kind-class"><a href="classes/Wallet.html" class="tsd-kind-icon">Wallet</a></li><li class="tsd-kind-type-alias"><a href="modules.html#CancelOrderOptions" class="tsd-kind-icon">Cancel<wbr/>Order<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#ClientDeployOptions" class="tsd-kind-icon">Client<wbr/>Deploy<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#ClientOptions" class="tsd-kind-icon">Client<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#EverWalletOptions" class="tsd-kind-icon">Ever<wbr/>Wallet<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#FlexConfig" class="tsd-kind-icon">Flex<wbr/>Config</a></li><li class="tsd-kind-type-alias"><a href="modules.html#MakeOrderOptions" class="tsd-kind-icon">Make<wbr/>Order<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#MarketInfo" class="tsd-kind-icon">Market<wbr/>Info</a></li><li class="tsd-kind-type-alias"><a href="modules.html#MarketOptions" class="tsd-kind-icon">Market<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#OrderBookInfo" class="tsd-kind-icon">Order<wbr/>Book<wbr/>Info</a></li><li class="tsd-kind-type-alias"><a href="modules.html#OrderBookItem" class="tsd-kind-icon">Order<wbr/>Book<wbr/>Item</a></li><li class="tsd-kind-type-alias"><a href="modules.html#OrderInfo" class="tsd-kind-icon">Order<wbr/>Info</a></li><li class="tsd-kind-type-alias"><a href="modules.html#SubmitTransactionOptions" class="tsd-kind-icon">Submit<wbr/>Transaction<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#TokenInfo" class="tsd-kind-icon">Token<wbr/>Info</a></li><li class="tsd-kind-type-alias"><a href="modules.html#TokenOptions" class="tsd-kind-icon">Token<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#TradeInfo" class="tsd-kind-icon">Trade<wbr/>Info</a></li><li class="tsd-kind-type-alias"><a href="modules.html#TraderDeployOptions" class="tsd-kind-icon">Trader<wbr/>Deploy<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#TraderOptions" class="tsd-kind-icon">Trader<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#WalletDeployOptions" class="tsd-kind-icon">Wallet<wbr/>Deploy<wbr/>Options</a></li><li class="tsd-kind-type-alias"><a href="modules.html#WalletInfo" class="tsd-kind-icon">Wallet<wbr/>Info</a></li><li class="tsd-kind-type-alias"><a href="modules.html#WalletOptions" class="tsd-kind-icon">Wallet<wbr/>Options</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>

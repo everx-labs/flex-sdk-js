@@ -32,6 +32,7 @@ export type FlexConfig = {
     }
 }
 
+/** @internal */
 export type FlexState = {
     superRoot: SuperRootAccount,
     globalConfig: GlobalConfigAccount,
@@ -44,6 +45,7 @@ export class Flex {
     config: FlexConfig;
     client: TonClient;
     signers: SignerRegistry;
+    /** @internal */
     log = Log.default;
 
     private _state: FlexState | undefined = undefined;
@@ -82,6 +84,7 @@ export class Flex {
         this.signers = new SignerRegistry(this.client);
     }
 
+    /** @internal */
     async getState(): Promise<FlexState> {
         if (!this._state) {
             const superRoot = new SuperRootAccount({
@@ -149,9 +152,13 @@ export class Flex {
     }
 }
 
+/** @internal */
 export abstract class FlexBoundLazy<O, S> {
+    /** @internal */
     flex: Flex;
+    /** @internal */
     log: Log;
+    /** @internal */
     readonly options: O;
 
     constructor(options: O, flex?: Flex) {
@@ -160,6 +167,7 @@ export abstract class FlexBoundLazy<O, S> {
         this.options = options;
     }
 
+    /** @internal */
     async getState(): Promise<S> {
         if (!this._state) {
             this._state = await this.createState(this.options);

@@ -11,7 +11,7 @@ type EverWalletState = {
     account: MultisigWalletAccount,
 }
 
-type SubmitTransactionOptions = {
+export type SubmitTransactionOptions = {
     dest: string,
     value: string | number | bigint,
     messageBody: {

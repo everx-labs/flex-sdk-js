@@ -72,6 +72,7 @@ export class Market extends FlexBoundLazy<MarketOptions, MarketState> {
         };
     }
 
+    /** @internal */
     static resolve(from: Market | MarketOptions | string, flex?: Flex): Market {
         return from instanceof Market
             ? from

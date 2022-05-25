@@ -4,6 +4,7 @@ import path from "path";
 import os from "os";
 import fs from "fs";
 
+/** @internal */
 export class AccountEx {
     static async isActive(address: string, useClient?: TonClient): Promise<boolean> {
         const client = useClient ?? TonClient.default;

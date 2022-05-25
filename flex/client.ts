@@ -75,6 +75,7 @@ export type WalletInfo = {
 
 export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
 
+    /** @internal */
     static resolve(from: Client | MarketOptions | string, flex?: Flex): Client {
         return from instanceof Client
             ? from
@@ -191,6 +192,7 @@ export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
     }
 }
 
+/** @internal */
 export function walletInfoFromApi(result: any): WalletInfo {
     return {
         address: result.address,
