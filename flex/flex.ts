@@ -9,9 +9,24 @@ import { Log } from "../contracts/helpers";
 import { SignerRegistry } from "../contracts/account-ex";
 
 export enum MakeOrderMode {
-    IOP = "IOP",
-    IOC = "IOC",
-    POST = "POST",
+    /**
+     * Immediate-or-post
+     * Simple order that will immediately execute (partially or fully)
+     * and place the left amount into the orderbook
+     */    
+     IOP = "IOP",
+     /**
+      * Immediate-or-cancel
+      * Order that will immediately execute (partially or fully)
+      * and return the left amount back to the Trader
+      */    
+     IOC = "IOC",
+     /**
+      * Post order
+      * Order that will execute only if there is no liquidity with this 
+      * price on the opposite side on the Market
+      */    
+     POST = "POST",
 }
 
 export type FlexConfig = {

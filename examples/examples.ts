@@ -16,7 +16,7 @@ export const CONFIG = {
     trader2: {
         client: "0:08bc2b9f2d9c9e407cd81bfdb6e474a08ba37189518533a879c5c3cfe4a129d8",
         id: "80b878022ea2393623073864e3fee84317d555c7a286d8f9d1d3afd092f45005",
-        signer: "flex-trader-2",
+        signer: "f85e8639a9eba941643a1e729b1168cd228009733a728d18a04335a2eaffda55",
         wallet: "0:2fadcd4588fd2f51ef89eca96426cdc09fdef3cfc622df81bdc5b451158aee0e",
     },
     market1: "0:5571d6cab32560ded545c80f8b29ea4c598856fd39bb80c6d195c15164eedc44",
