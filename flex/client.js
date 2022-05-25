@@ -61,15 +61,15 @@ class Client extends flex_1.FlexBoundLazy {
                 user_id: options.id,
             })).output.value0;
             if (!(yield account_ex_1.AccountEx.isActive(address, this.flex.client))) {
-                const config = this.flex.config.trader.deploy;
+                const defaults = this.flex.config.trader.deploy;
                 yield clientAccount.runDeployIndex({
                     user_id: options.id,
                     lend_pubkey: options.pubkey,
                     name: options.name,
-                    evers_all: (_a = options.eversAll) !== null && _a !== void 0 ? _a : config.eversAll,
-                    evers_to_auth_idx: (_b = options.eversAuth) !== null && _b !== void 0 ? _b : config.eversAuth,
-                    refill_wallet: (_c = options.refillWallet) !== null && _c !== void 0 ? _c : config.refillWallet,
-                    min_refill: (_d = options.minRefill) !== null && _d !== void 0 ? _d : config.minRefill,
+                    evers_all: (_a = options.eversAll) !== null && _a !== void 0 ? _a : defaults.eversAll,
+                    evers_to_auth_idx: (_b = options.eversAuth) !== null && _b !== void 0 ? _b : defaults.eversAuth,
+                    refill_wallet: (_c = options.refillWallet) !== null && _c !== void 0 ? _c : defaults.refillWallet,
+                    min_refill: (_d = options.minRefill) !== null && _d !== void 0 ? _d : defaults.minRefill,
                 });
             }
         });

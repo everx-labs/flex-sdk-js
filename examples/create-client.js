@@ -28,10 +28,6 @@ const examples_1 = require("./examples");
             id: examples_1.CONFIG.trader1.id,
             name: "Trader 1",
             pubkey: yield flex_1.Flex.default.signers.resolvePublicKey(examples_1.CONFIG.trader1.signer),
-            eversAll: 40e9,
-            eversAuth: 1e9,
-            refillWallet: 10e9,
-            minRefill: 0.1e9,
         });
         console.log(`Client: ${yield (yield client.getState()).account.getAddress()}`);
         yield flex_1.Flex.default.close();

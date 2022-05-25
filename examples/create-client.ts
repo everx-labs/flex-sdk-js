@@ -19,10 +19,6 @@ initExample();
             id: CONFIG.trader1.id,
             name: "Trader 1",
             pubkey: await Flex.default.signers.resolvePublicKey(CONFIG.trader1.signer),
-            eversAll: 40e9,
-            eversAuth: 1e9,
-            refillWallet: 10e9,
-            minRefill: 0.1e9,
         });
 
         console.log(`Client: ${await (await client.getState()).account.getAddress()}`);

@@ -120,15 +120,15 @@ export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
             user_id: options.id,
         })).output.value0;
         if (!(await AccountEx.isActive(address, this.flex.client))) {
-            const config = this.flex.config.trader.deploy;
+            const defaults = this.flex.config.trader.deploy;
             await clientAccount.runDeployIndex({
                 user_id: options.id,
                 lend_pubkey: options.pubkey,
                 name: options.name,
-                evers_all: options.eversAll ?? config.eversAll,
-                evers_to_auth_idx: options.eversAuth ?? config.eversAuth,
-                refill_wallet: options.refillWallet ?? config.refillWallet,
-                min_refill: options.minRefill ?? config.minRefill,
+                evers_all: options.eversAll ?? defaults.eversAll,
+                evers_to_auth_idx: options.eversAuth ?? defaults.eversAuth,
+                refill_wallet: options.refillWallet ?? defaults.refillWallet,
+                min_refill: options.minRefill ?? defaults.minRefill,
             });
         }
     }
