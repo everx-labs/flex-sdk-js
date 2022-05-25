@@ -16,10 +16,15 @@ export type TraderOptions = {
 export type MakeOrderOptions = {
     market: Market | MarketOptions | string,
     sell: boolean,
+    /// Amount of Major token to buy or sell
     amount: number,
+    /// Price of Major token
     price: number,
+    /// Optional, GUID may be used to process on Client side if needed
     orderId?: number | string,
+    /// Amount of native currency attached for processing fees
     evers?: bigint | number | string,
+    /// Order expiration time
     finishTime?: number;
     mode?: MakeOrderMode,
 };
@@ -42,13 +47,21 @@ export enum TradeLiquidity {
 }
 
 export type OrderInfo = {
+    /// Optional. May be assigned to some GUID if needed
     orderId: string,
+    /// Trader ID
     traderId: string,
+    /// Price of Major token
     price: number,
+    /// Amount that has been processed
     amountProcessed: number,
+    /// Amount left in the order
     amountLeft: number,
+    /// Trader's side in the order
     side: TradeSide,
+    /// Order expiration time
     finishTime: number,
+    /// Market of the order
     pair: {
         address: string,
     }
