@@ -21,22 +21,21 @@ Flex.config = {
             endpoints: ["https://flex2.dev.tonlabs.io"],
         },
     },
-    globalConfig: "0:402f14b65b6b7af9752910e77eabf8f71240f6c190b5e4f1ab4d56c09954b723",
+    superRoot: "0:402f14b65b6b7af9752910e77eabf8f71240f6c190b5e4f1ab4d56c09954b723",
 };
 ```
 
-Many functions of FLEX SDK accepts parameters named `signer`.
-Is a secret required to sign messages that will be sent to the accounts on the blockchain.
+Many functions of FLEX SDK accept parameters named `signer`.
+It is an object that has a secret, required to sign messages that will be sent to the blockchain accounts.
 
-`signer` parameters can be one of:
-
-- Instance of the `Signer` type from the `@eversdk/core` library.
+`signer` parameter can accept these values:
 
 - String containing the secret key of the key pair required to sign messages.
   Secret key must be represented as a hex string with exactly 64 characters.
-  FLEX SDK calculates the public part of the keypair from specified secret key.
+  
+- Instance of the [`Signer` type](https://docs.everos.dev/ever-sdk/reference/types-and-methods/mod_abi#signer) from the `@eversdk/core` library. 
 
-- Name of the signer in the `everdev` signer registry. 
+- Name of the signer in the [`everdev` signer registry](https://github.com/tonlabs/everdev/blob/main/docs/command-line-interface/signer-tool.md).
 
 
 # Exchange Maintenance
@@ -71,13 +70,23 @@ const client = await Client.deploy({
     signer: "flex-client-1",
 });
 
-const userAccount = await client.deployUser({
-    id: 1,
-    name: "Client 1 User 1",
-    signer: "flex-user-1-1",
+
+// Client deploys Trader's contract (`userIdIndex` contract)
+
+await client.deployTrader({
+    // Trader's ID
+    id: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
+    // Trader name
+    name: "Trader's Name",
+    // Trader's public key that will be used to validate `makeOrder` and `cancelOrder` operations
+    pubkey: "2ada2e65ab8eeab09490e3521415f45b6e42df9c760a639bcf53957550b25a16",
+    // Full payment for Trader creation
     eversAll: 40e9,
+    // Payment for Auth Contract deploy, included into eversAll
     eversAuth: 1e9,
+    // When trader receives tokens the sum (refillWallet-wallet.eversBalance) is additionally sent to this wallet from `userIdIndex` contract
     refillWallet: 10e9,
+    // Minimal amount of EVERs the wallet receives from `userIdIndex` contract when a trade happens (when the wallet receives tokens)  if the wallet's balance > refillWallet
     minRefill: 0.1e9,
 });
 
@@ -96,8 +105,8 @@ const trader = new Trader({
     client: new Client({
         address: "0:ae6cb924f28a5b95f61afd239ad7cf3920edcfadcda456afa3b2dea7c9da31a8",
     }),
-    userId: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
-    walletSigner: "flex-wallet-1",
+    id: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
+    signer: "private-key",
 });
 
 const order = await trader.makeOrder({
