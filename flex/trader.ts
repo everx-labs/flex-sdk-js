@@ -47,59 +47,61 @@ export enum TradeLiquidity {
 }
 
 export type OrderInfo = {
-    /// Optional. May be assigned to some GUID if needed
+    /** May be assigned to some GUID*/ 
     orderId: string,
-    /// Trader ID
+    /** Trader ID */
     traderId: string,
-    /// Price of Major token
+    /** Price of Major token */
     price: number,
-    /// Amount that has been processed
+    /** Amount that has been processed */
     amountProcessed: number,
-    /// Amount left in the order
+    /** Amount left in the order*/ 
     amountLeft: number,
-    /// Trader's side in the order
+    /** Trader's side in the order*/ 
     side: TradeSide,
-    /// Order expiration time
+    /** Order expiration time */ 
     finishTime: number,
-    /// Market of the order
+    /** Market of the order */ 
     pair: {
         address: string,
     }
 }
 
 export type TradeInfo = {
-    /// Flex market (pair)
+    /** Flex market (pair) */
     pair: { address: string },
 
-    /// Price of the major token
+    /** Price of the major token */
     price: number,
 
-    /// Amount of the major tokens
+    /** Amount of the major tokens */
     amount: number,
 
-    /// Trade time as a unix time stamp
+    /** Trade time as a unix time stamp */
     time: number,
 
-    /// Determines the type of the later order (taker) in trade.
+    /** Determines the type of the later order (taker) in trade. */
     side: TradeSide,
 
-    /// Determines the users position in trade. Maker or taker.
-    /// Maker is a trade counterparty whose order was earlier.
-    /// Taker is a counterparty with a later order.
+    /**
+     * Determines the users position in trade. Maker or taker.
+     * Maker is a trade counterparty whose order was earlier.
+     *Taker is a counterparty with a later order.
+    */
     liquidity: TradeLiquidity,
-
-    /// User fees for this trade. Measured in major tokens.
-    ///
-    /// If the user is a maker then fees is a value
-    /// received by user as a bonus for making order.
-    /// Note that in this case the fees is a negative value.
-    ///
-    /// If the user is a taker then fees is a value that
-    /// the user pays to the exchange and maker.
+    /**
+     * User fees for this trade. Measured in major tokens.
+     * If the user is a maker then fees is a value
+     * received by user as a bonus for making order.
+     * Note that in this case the fees is a negative value.
+     * 
+     * If the user is a taker then fees is a value that
+     * the user pays to the exchange and maker.
+    */
     fees: number,
 
 
-    /// User fees token.
+    /** User fees token. */
     feesToken: TokenInfo
 
     cursor: string
@@ -187,13 +189,12 @@ export class Trader {
         };
     }
     /**
-     * Creates an Order on Flex Dex Market 
+     * Cancels an Order on Flex Dex Market 
      * 
-     * @remarks
-     * JSON structure is compatible with GraphQL API message object
+     * @param {CancelOrderOptions} options
+     * Cancel order parameters
      * 
-     * @param {ParamsOfParse} params
-     * @returns ResultOfParse
+     * @returns void
      */
     async cancelOrder(options: CancelOrderOptions): Promise<void> {
         const market = Market.resolve(options.market);
@@ -218,6 +219,11 @@ export class Trader {
         });
     }
 
+    /**
+     * Gets the list of Trader's open orders.
+     * 
+     * @returns the list of open orders, including expired orders. 
+     */
     async queryOrders(): Promise<OrderInfo[]> {
         const result = await this.flex.query(`
             userOrders(userId:"0x${this.id}") {
@@ -232,7 +238,11 @@ export class Trader {
         `);
         return result.userOrders;
     }
-
+   /**
+     * Gets the list of Trader's executed trades.
+     * 
+     * @returns the list of executed trades. 
+     */
     async queryTrades(): Promise<TradeInfo[]> {
         const result = await this.flex.query(`
             userTrades(userId:"0x${this.id}") {
@@ -250,6 +260,15 @@ export class Trader {
         return result.userTrades;
     }
 
+    /**
+     * Gets the list of Trader's wallets
+     * optionally filtered by a token
+     * 
+     * @param {Token | string} token?
+     * Optional parameter with Token instance or token root address
+     * 
+     * @returns list of wallets
+     */
     async queryWallets(token?: Token | string): Promise<WalletInfo[]> {
         const tokenParam = token === undefined
             ? ""
