@@ -170,11 +170,13 @@ export class Trader {
             },
         });
 
-        const priceDetails = await this.getPriceDetails(pair, price.num);
-        const order = findOrder(orderId, options.sell ? priceDetails.sells : priceDetails.buys);
-        if (!order) {
-            throw Error("Make order failed: order isn't presented in price.");
-        }
+        // const priceDetails = await this.getPriceDetails(pair, price.num);
+        // const order = findOrder(orderId, options.sell ? priceDetails.sells : priceDetails.buys);
+        // if (!order) {
+        //     throw Error("Make order failed: order isn't presented in price.");
+        // }
+
+
         return {
             side: options.sell ? TradeSide.SELL : TradeSide.BUY,
             pair: {
