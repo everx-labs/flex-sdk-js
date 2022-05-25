@@ -10,23 +10,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
-const trader_1 = require("../flex/trader");
+const market_1 = require("../flex/market");
+const token_1 = require("../flex/token");
 const examples_1 = require("./examples");
 (0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const trader = new trader_1.Trader({
-            client: examples_1.CONFIG.trader1.client,
-            id: examples_1.CONFIG.trader1.id,
-            signer: examples_1.CONFIG.trader1.signer,
+        (0, examples_1.log)("Tokens", yield token_1.Token.queryTokens());
+        (0, examples_1.log)("Markets:", yield market_1.Market.queryMarkets());
+        const market = new market_1.Market({
+            address: examples_1.CONFIG.market1,
         });
-        const order = yield trader.makeOrder({
-            sell: false,
-            market: examples_1.CONFIG.market1,
-            price: 1.23,
-            amount: 1,
-        });
-        console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
+        (0, examples_1.log)("Market Order Book", yield market.queryOrderBook());
+        (0, examples_1.log)("Market Price", yield market.queryPrice());
         yield flex_1.Flex.default.close();
     }
     catch (err) {
@@ -34,4 +30,4 @@ const examples_1 = require("./examples");
         process.exit(1);
     }
 }))();
-//# sourceMappingURL=make-order.js.map
+//# sourceMappingURL=flex-info.js.map

@@ -47,6 +47,11 @@ class Flex {
         }
         return this._config;
     }
+    resolvePublicKey(signer) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.signerPublicKey(yield this.resolveSigner(signer));
+        });
+    }
     resolveSigner(signer) {
         return __awaiter(this, void 0, void 0, function* () {
             if (signer === undefined) {
@@ -136,6 +141,18 @@ class Flex {
             return this._state;
         });
     }
+    query(text) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.client.net.query({
+                query: `query {
+                flex {
+                    ${text}
+                }
+            }`,
+            });
+            return result.result.data.flex;
+        });
+    }
     close() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.client.close();
@@ -150,12 +167,12 @@ class FlexBoundLazy {
         this._state = undefined;
         this.flex = flex !== null && flex !== void 0 ? flex : Flex.default;
         this.log = this.flex.log;
-        this._options = options;
+        this.options = options;
     }
     getState() {
         return __awaiter(this, void 0, void 0, function* () {
             if (!this._state) {
-                this._state = yield this.createState(this._options);
+                this._state = yield this.createState(this.options);
             }
             return this._state;
         });

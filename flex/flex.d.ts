@@ -25,20 +25,22 @@ export declare class Flex {
     static set config(config: FlexConfig);
     static get config(): FlexConfig;
     constructor(config: FlexConfig);
+    resolvePublicKey(signer: Signer | string | undefined): Promise<string>;
     resolveSigner(signer: Signer | string | undefined): Promise<Signer>;
     signerFromSecret(secret: string): Promise<Signer>;
     signerFromName(name: string): Promise<Signer>;
     signerPublicKey(signer: Signer): Promise<string>;
     getState(): Promise<FlexState>;
+    query(text: string): Promise<any>;
     close(): Promise<void>;
 }
 export declare abstract class FlexBoundLazy<O, S> {
     flex: Flex;
     log: Log;
+    readonly options: O;
     constructor(options: O, flex?: Flex);
     getState(): Promise<S>;
     protected abstract createState(options: O): Promise<S>;
-    private readonly _options;
     private _state;
 }
 //# sourceMappingURL=flex.d.ts.map

@@ -63,6 +63,10 @@ export class Flex {
         this.client = new TonClient(config.client);
     }
 
+    async resolvePublicKey(signer: Signer | string | undefined): Promise<string> {
+        return await this.signerPublicKey(await this.resolveSigner(signer));
+    }
+
     async resolveSigner(signer: Signer | string | undefined): Promise<Signer> {
         if (signer === undefined) {
             return signerNone();
@@ -158,24 +162,37 @@ export class Flex {
         return this._state;
     }
 
+    async query(text: string): Promise<any> {
+        const result = await this.client.net.query({
+            query: `query {
+                flex {
+                    ${text}
+                }
+            }`,
+        });
+        return result.result.data.flex;
+    }
+
+
     async close() {
         await this.client.close();
     }
 }
 
 export abstract class FlexBoundLazy<O, S> {
-    public flex: Flex;
-    public log: Log;
+    flex: Flex;
+    log: Log;
+    readonly options: O;
 
     constructor(options: O, flex?: Flex) {
         this.flex = flex ?? Flex.default;
         this.log = this.flex.log;
-        this._options = options;
+        this.options = options;
     }
 
     async getState(): Promise<S> {
         if (!this._state) {
-            this._state = await this.createState(this._options);
+            this._state = await this.createState(this.options);
         }
         return this._state;
     }
@@ -186,7 +203,6 @@ export abstract class FlexBoundLazy<O, S> {
 
     // Internals
 
-    private readonly _options: O;
     private _state: S | undefined = undefined;
 }
 

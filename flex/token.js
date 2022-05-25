@@ -23,6 +23,29 @@ class Token extends flex_1.FlexBoundLazy {
             };
         });
     }
+    static queryTokens(flex) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield (flex !== null && flex !== void 0 ? flex : flex_1.Flex.default).query(`tokens { ${Token.queryFields()} }`)).tokens;
+        });
+    }
+    static queryFields() {
+        return `
+            address
+            ticker
+            name
+            decimals
+            totalAllocated
+            walletCodeHash
+            wrapperType
+            externalAddress
+            reserveWallet
+        `;
+    }
+    getAddress() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (yield this.getState()).wrapper.getAddress();
+        });
+    }
 }
 exports.Token = Token;
 //# sourceMappingURL=token.js.map

@@ -1,10 +1,10 @@
 import { Flex, FlexBoundLazy } from "./flex";
-import { FlexClientAccount, UserIdIndexAccount } from "../contracts";
+import { FlexClientAccount } from "../contracts";
 import { Signer } from "@eversdk/core";
 import { EverWallet } from "./ever-wallet";
-import { Token } from "./token";
+import { Token, TokenInfo } from "./token";
 import { Wallet } from "./wallet";
-import { Market } from "./market";
+import { MarketOptions } from "./market";
 export declare type ClientOptions = {
     address: string;
     signer?: Signer | string;
@@ -13,10 +13,10 @@ export declare type ClientDeployOptions = {
     everWallet: EverWallet;
     signer: Signer | string;
 };
-export declare type UserDeployOptions = {
-    id: number;
+export declare type TraderDeployOptions = {
+    id: string;
     name: string;
-    signer: Signer | string;
+    pubkey: string;
     refillWallet: string | number | bigint;
     minRefill: string | number | bigint;
     eversAuth: string | number | bigint;
@@ -26,41 +26,32 @@ export declare type WalletDeployOptions = {
     token: Token;
     signer?: Signer | string;
 };
-declare type TradingOptions = {
-    market: Market;
-    sell: boolean;
-    walletSigner: Signer | string;
-    userId: string;
-};
-declare type OrderOptions = TradingOptions & {
-    amount: number;
-    price: number;
-    orderId?: number | string;
-    evers?: bigint | number | string;
-    finishTime?: number;
-};
-declare type CancelOrderOptions = TradingOptions & {
-    price: number;
-    orderId?: number | string;
-    evers?: bigint | number | string;
-};
-export declare type OrderInfo = {
-    order_id: string;
-    [name: string]: unknown;
-};
 declare type ClientState = {
     account: FlexClientAccount;
 };
+export declare type WalletInfo = {
+    address: string;
+    clientAddress: string;
+    traderId: string;
+    traderPublicKey: string;
+    token: TokenInfo;
+    nativeCurrencyBalance: number;
+    totalBalance: number;
+    availableBalance: number;
+    balanceInOrders: number;
+    unsaltedPriceCodeHash: string;
+    cursor: string;
+};
 export declare class Client extends FlexBoundLazy<ClientOptions, ClientState> {
+    static resolve(from: Client | MarketOptions | string, flex?: Flex): Client;
     static deploy(options: ClientDeployOptions, bindFlex?: Flex): Promise<Client>;
-    deployUser(options: UserDeployOptions): Promise<UserIdIndexAccount>;
+    deployTrader(options: TraderDeployOptions): Promise<void>;
     deployWallet(options: WalletDeployOptions, useFlex?: Flex): Promise<Wallet>;
+    static mapWalletInfo(x: any): WalletInfo;
     protected createState(options: ClientOptions): Promise<ClientState>;
+    queryWallets(): Promise<WalletInfo[]>;
     getDetails(): Promise<any>;
     getAddress(): Promise<string>;
-    private getTradingWallet;
-    makeOrder(options: OrderOptions): Promise<OrderInfo>;
-    cancelOrder(options: CancelOrderOptions): Promise<void>;
 }
 export {};
 //# sourceMappingURL=client.d.ts.map

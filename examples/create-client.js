@@ -9,20 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const core_1 = require("@eversdk/core");
-const lib_node_1 = require("@eversdk/lib-node");
 const flex_1 = require("../flex");
 const client_1 = require("../flex/client");
 const ever_wallet_1 = require("../flex/ever-wallet");
-core_1.TonClient.useBinaryLibrary(lib_node_1.libNode);
-flex_1.Flex.config = {
-    client: {
-        network: {
-            endpoints: ["https://flex2.dev.tonlabs.io"],
-        },
-    },
-    globalConfig: "0:402f14b65b6b7af9752910e77eabf8f71240f6c190b5e4f1ab4d56c09954b723",
-};
+const examples_1 = require("./examples");
+(0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const everWallet = new ever_wallet_1.EverWallet({
@@ -33,17 +24,16 @@ flex_1.Flex.config = {
             everWallet,
             signer: "flex-client-1",
         });
-        const userAccount = yield client.deployUser({
-            id: 1,
-            name: "Client 1 User 1",
-            signer: "flex-user-1-1",
+        yield client.deployTrader({
+            id: examples_1.CONFIG.trader1.id,
+            name: "Trader 1",
+            pubkey: yield flex_1.Flex.default.resolvePublicKey(examples_1.CONFIG.trader1.signer),
             eversAll: 40e9,
             eversAuth: 1e9,
             refillWallet: 10e9,
             minRefill: 0.1e9,
         });
         console.log(`Client: ${yield (yield client.getState()).account.getAddress()}`);
-        console.log(`User: ${yield userAccount.getAddress()}`);
         yield flex_1.Flex.default.close();
     }
     catch (err) {

@@ -1,8 +1,13 @@
 import { Flex } from "../flex";
 import { Trader } from "../flex/trader";
-import { CONFIG, initExample } from "./examples";
+import {
+    CONFIG,
+    initExample,
+    log,
+} from "./examples";
 
 initExample();
+
 
 (async () => {
     try {
@@ -12,14 +17,9 @@ initExample();
             signer: CONFIG.trader1.signer,
         });
 
-        const order = await trader.makeOrder({
-            sell: false,
-            market: CONFIG.market1,
-            price: 1.23,
-            amount: 1,
-        });
-
-        console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
+        log("Orders", await trader.queryOrders());
+        log("Trades", await trader.queryTrades());
+        log("Wallets", await trader.queryWallets());
 
         await Flex.default.close();
     } catch (err) {

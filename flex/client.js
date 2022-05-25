@@ -13,9 +13,14 @@ exports.Client = void 0;
 const flex_1 = require("./flex");
 const contracts_1 = require("../contracts");
 const account_ex_1 = require("../contracts/account-ex");
+const token_1 = require("./token");
 const wallet_1 = require("./wallet");
-const helpers_1 = require("../contracts/helpers");
 class Client extends flex_1.FlexBoundLazy {
+    static resolve(from, flex) {
+        return from instanceof Client
+            ? from
+            : new Client(typeof from === "string" ? { address: from } : from, flex);
+    }
     static deploy(options, bindFlex) {
         return __awaiter(this, void 0, void 0, function* () {
             const { everWallet } = options;
@@ -48,10 +53,8 @@ class Client extends flex_1.FlexBoundLazy {
             }, flex);
         });
     }
-    deployUser(options) {
+    deployTrader(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const signer = yield this.flex.resolveSigner(options.signer);
-            const publicKey = `0x${yield this.flex.signerPublicKey(signer)}`;
             const { account: clientAccount } = yield this.getState();
             const address = (yield clientAccount.getUserIdIndex({
                 user_id: options.id,
@@ -59,7 +62,7 @@ class Client extends flex_1.FlexBoundLazy {
             if (!(yield account_ex_1.AccountEx.isActive(address, this.flex.client))) {
                 yield clientAccount.runDeployIndex({
                     user_id: options.id,
-                    lend_pubkey: publicKey,
+                    lend_pubkey: options.pubkey,
                     name: options.name,
                     evers_all: options.eversAll,
                     evers_to_auth_idx: options.eversAuth,
@@ -67,11 +70,6 @@ class Client extends flex_1.FlexBoundLazy {
                     refill_wallet: options.refillWallet,
                 });
             }
-            return new contracts_1.UserIdIndexAccount({
-                address,
-                signer,
-                log: this.log,
-            });
         });
     }
     deployWallet(options, useFlex) {
@@ -92,6 +90,21 @@ class Client extends flex_1.FlexBoundLazy {
             }, flex);
         });
     }
+    static mapWalletInfo(x) {
+        return {
+            address: x.address,
+            clientAddress: x.clientAddress,
+            traderId: x.userId,
+            traderPublicKey: x.dappPubkey,
+            token: x.token,
+            nativeCurrencyBalance: x.nativeCurrencyBalance,
+            totalBalance: x.totalBalance,
+            availableBalance: x.availableBalance,
+            balanceInOrders: x.balanceInOrders,
+            unsaltedPriceCodeHash: x.unsaltedPriceCodeHash,
+            cursor: x.cursor,
+        };
+    }
     createState(options) {
         return __awaiter(this, void 0, void 0, function* () {
             return {
@@ -103,6 +116,28 @@ class Client extends flex_1.FlexBoundLazy {
             };
         });
     }
+    queryWallets() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.flex.query(`
+            wallets(
+                clientAddress: "${this.options.address}"
+            ) {
+                address
+                clientAddress
+                userId
+                dappPubkey
+                token { ${token_1.Token.queryFields()} }
+                nativeCurrencyBalance
+                totalBalance
+                availableBalance
+                balanceInOrders
+                unsaltedPriceCodeHash
+                cursor
+            }
+        `);
+            return result.wallets.map(Client.mapWalletInfo);
+        });
+    }
     getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield (yield this.getState()).account.getDetails()).output;
@@ -111,109 +146,6 @@ class Client extends flex_1.FlexBoundLazy {
     getAddress() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (yield this.getState()).account.getAddress();
-        });
-    }
-    getTradingWallet(options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const clientAddress = yield this.getAddress();
-            const pairDetails = yield options.market.getPairDetails();
-            const token = new contracts_1.WrapperAccount({
-                client: this.flex.client,
-                address: options.sell
-                    ? pairDetails.major_tip3cfg.root_address
-                    : pairDetails.minor_tip3cfg.root_address,
-                log: this.log,
-            });
-            const walletSigner = yield this.flex.resolveSigner(options.walletSigner);
-            const walletAddress = (yield token.getWalletAddress({
-                pubkey: `0x${options.userId}`,
-                owner: clientAddress,
-            })).output.value0;
-            return new contracts_1.FlexWalletAccount({
-                client: this.flex.client,
-                address: walletAddress,
-                signer: walletSigner,
-                log: this.log,
-            });
-        });
-    }
-    makeOrder(options) {
-        var _a, _b;
-        return __awaiter(this, void 0, void 0, function* () {
-            const pair = yield options.market.getPair();
-            const flex = (yield this.flex.getState()).flex;
-            const client = (yield this.getState()).account;
-            const pairDetails = (yield pair.getDetails()).output;
-            const wallet = yield this.getTradingWallet(options);
-            const priceCode = (yield pair.getPriceXchgCode({ salted: false })).output.value0;
-            const priceSalt = (yield pair.getPriceXchgSalt()).output.value0;
-            const amount = (0, helpers_1.amountToUnits)(options.amount, pairDetails.major_tip3cfg.decimals);
-            const orderId = options.orderId !== undefined
-                ? options.orderId
-                : Math.floor(Date.now() / 1000);
-            const price = (0, helpers_1.priceToUnits)(options.price, pairDetails.price_denum);
-            const lend_balance = (yield flex.calcLendTokensForOrder({
-                sell: options.sell,
-                major_tokens: amount,
-                price,
-            })).output.value0;
-            const lend_finish_time = (_a = options.finishTime) !== null && _a !== void 0 ? _a : Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
-            yield wallet.runMakeOrder({
-                _answer_id: 0,
-                evers: (_b = options.evers) !== null && _b !== void 0 ? _b : 3e9,
-                lend_balance,
-                lend_finish_time,
-                price_num: price.num,
-                unsalted_price_code: priceCode,
-                salt: priceSalt,
-                args: {
-                    sell: options.sell,
-                    immediate_client: true,
-                    post_order: true,
-                    amount,
-                    client_addr: yield client.getAddress(),
-                    user_id: "0x" + options.userId,
-                    order_id: orderId,
-                },
-            });
-            const saltedPriceCode = (yield pair.getPriceXchgCode({ salted: true })).output.value0;
-            const priceAddress = (yield client.getPriceXchgAddress({
-                price_num: price.num,
-                salted_price_code: saltedPriceCode,
-            })).output.value0;
-            const priceAccount = new contracts_1.PriceXchgAccount({
-                client: this.flex.client,
-                log: this.log,
-                address: priceAddress,
-            });
-            const priceDetails = (yield priceAccount.getDetails()).output;
-            const order = (options.sell
-                ? priceDetails.sells
-                : priceDetails.buys).find(x => Number(x.order_id) === orderId);
-            if (!order) {
-                throw Error("Make order failed: order isn't presented in price.");
-            }
-            return order;
-        });
-    }
-    cancelOrder(options) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            const wallet = yield this.getTradingWallet(options);
-            const pairDetails = yield options.market.getPairDetails();
-            const pair = yield options.market.getPair();
-            const saltedPriceCode = (yield pair.getPriceXchgCode({ salted: true })).output.value0;
-            const price = (0, helpers_1.priceToUnits)(options.price, pairDetails.price_denum);
-            const priceAddress = (yield (yield this.getState()).account.getPriceXchgAddress({
-                price_num: price.num,
-                salted_price_code: saltedPriceCode,
-            })).output.value0;
-            yield wallet.runCancelOrder({
-                order_id: options.orderId,
-                sell: options.sell,
-                price: priceAddress,
-                evers: (_a = options.evers) !== null && _a !== void 0 ? _a : 3e9,
-            });
         });
     }
 }
