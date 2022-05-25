@@ -18,7 +18,7 @@ import { Flex } from "../flex";
 
 TonClient.useBinaryLibrary(libNode);
 Flex.config = {
-    client: {
+    web3: {
         network: {
             endpoints: ["https://flex2.dev.tonlabs.io"],
         },
@@ -56,15 +56,18 @@ It is an object that has a secret, required to sign messages that will be sent t
 
 Before trading on FLEX you have to prepare some required FLEX actors: client and user.
 
-## Clients and Users
+## Clients and Traders
 
-Client creation requires helper account with EVER balance that can send internal
-messages to other accounts. Good choice is a Multisig Wallet. 
+Client creation requires a wallet with EVER balance that will become an owner
+for Client contract used to perform management operations of Flex. 
+Good choice is a Multisig Wallet. 
+Owner contract means that only this contract can call functions of Client contract. 
+One of the management funcstions is deploy of a Trader's contract:
 
 ```ts
 const everWallet = new EverWallet({
     address: "0:b4da2773b3566c8799ff8292bb1058662d143556a7ac8a129c481a38657cbd33",
-    signer: "msig",
+    signer: "msig private key",
 });
 
 const client = await Client.deploy({
@@ -92,9 +95,11 @@ await client.deployTrader({
 
 ## Orders
 
-If you have a FLEX wallet you can start make orders.
+If you have a FLEX wallet with tokens you can start making orders.
 
 ```ts
+// Trader initialization, all the trader's wallets addresses are calculated  
+// and linked under the hood.
 const trader = new Trader({
     client: "0:ae6cb924f28a5b95f61afd239ad7cf3920edcfadcda456afa3b2dea7c9da31a8",
     id: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
