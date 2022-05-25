@@ -8,7 +8,7 @@ export declare type EverWalletOptions = {
 declare type EverWalletState = {
     account: MultisigWalletAccount;
 };
-declare type SubmitTransactionOptions = {
+export declare type SubmitTransactionOptions = {
     dest: string;
     value: string | number | bigint;
     messageBody: {

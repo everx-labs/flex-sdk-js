@@ -1,5 +1,4 @@
-import { Flex } from "../flex";
-import { Trader } from "../flex/trader";
+import { Flex, Trader } from "../flex";
 import { CONFIG, initExample } from "./examples";
 
 initExample();

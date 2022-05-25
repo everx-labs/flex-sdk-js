@@ -82,14 +82,6 @@ await client.deployTrader({
     name: "Trader's Name",
     // Trader's public key that will be used to validate `makeOrder` and `cancelOrder` operations
     pubkey: "2ada2e65ab8eeab09490e3521415f45b6e42df9c760a639bcf53957550b25a16",
-    // Full payment for Trader creation
-    eversAll: 40e9,
-    // Payment for Auth Contract deploy, included into eversAll
-    eversAuth: 1e9,
-    // When trader receives tokens the sum (refillWallet-wallet.eversBalance) is additionally sent to this wallet from `userIdIndex` contract
-    refillWallet: 10e9,
-    // Minimal amount of EVERs the wallet receives from `userIdIndex` contract when a trade happens (when the wallet receives tokens)  if the wallet's balance > refillWallet
-    minRefill: 0.1e9,
 });
 
 ```
@@ -104,18 +96,14 @@ If you have a FLEX wallet you can start make orders.
 
 ```ts
 const trader = new Trader({
-    client: new Client({
-        address: "0:ae6cb924f28a5b95f61afd239ad7cf3920edcfadcda456afa3b2dea7c9da31a8",
-    }),
+    client: "0:ae6cb924f28a5b95f61afd239ad7cf3920edcfadcda456afa3b2dea7c9da31a8",
     id: "88dfec98c82a5e34f3152be0525ec58544f9e1dcc9a88fde75f7b7eb4c31d4b5",
     signer: "private-key",
 });
 
 const order = await trader.makeOrder({
     sell: false,
-    market: new Market({
-        address: "0:f0bb8d8a4a1416a7b380cb217513395aea994487a2b3e80129c136184def8bb4",
-    }),
+    market: "0:f0bb8d8a4a1416a7b380cb217513395aea994487a2b3e80129c136184def8bb4",
     price: 1.23,
     amount: 1,
 });

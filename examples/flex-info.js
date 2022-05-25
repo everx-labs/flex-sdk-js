@@ -10,15 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
-const market_1 = require("../flex/market");
-const token_1 = require("../flex/token");
 const examples_1 = require("./examples");
 (0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        (0, examples_1.log)("Tokens", yield token_1.Token.queryTokens());
-        (0, examples_1.log)("Markets", yield market_1.Market.queryMarkets());
-        const market = new market_1.Market({
+        (0, examples_1.log)("Tokens", yield flex_1.Token.queryTokens());
+        (0, examples_1.log)("Markets", yield flex_1.Market.queryMarkets());
+        const market = new flex_1.Market({
             address: examples_1.CONFIG.market1,
         });
         (0, examples_1.log)("Market Order Book", yield market.queryOrderBook());
