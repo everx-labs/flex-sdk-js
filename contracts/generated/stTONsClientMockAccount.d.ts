@@ -1,82 +1,69 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type stTONsClientMockDeployStTONsInput = {
+    evers: string | number | bigint;
+    code: string;
+    owner_pubkey: string | number | bigint;
+    owner_address?: string;
+    depool: string;
+    depool_pubkey: string | number | bigint;
+};
+export declare type stTONsClientMockDeployStTONsOutput = {
+    value0: string;
+};
+export declare type stTONsClientMockReturnStakeInput = {
+    stTONsAddr: string;
+    dst: string;
+    processing_evers: string | number | bigint;
+    depool_processing_evers: string | number | bigint;
+};
+export declare type stTONsClientMockFinalizeInput = {
+    stTONsAddr: string;
+    dst: string;
+    processing_evers: string | number | bigint;
+    ignore_errors: boolean;
+};
+export declare type stTONsClientMockGetOwnerPubkeyOutput = {
+    value0: string;
+};
 export declare class stTONsClientMockAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(input: {
         owner_pubkey: string | number | bigint;
     }): Promise<{
         transaction: Transaction;
     }>;
-    runDeployStTONs(input: {
-        evers: string | number | bigint;
-        code: string;
-        owner_pubkey: string | number | bigint;
-        owner_address?: string;
-        depool: string;
-        depool_pubkey: string | number | bigint;
-    }): Promise<{
+    runDeployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: stTONsClientMockDeployStTONsOutput;
     }>;
-    runLocalDeployStTONs(input: {
-        evers: string | number | bigint;
-        code: string;
-        owner_pubkey: string | number | bigint;
-        owner_address?: string;
-        depool: string;
-        depool_pubkey: string | number | bigint;
-    }): Promise<{
+    deployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: stTONsClientMockDeployStTONsOutput;
     }>;
-    runReturnStake(input: {
-        stTONsAddr: string;
-        dst: string;
-        processing_evers: string | number | bigint;
-        depool_processing_evers: string | number | bigint;
-    }): Promise<{
+    runReturnStake(input: stTONsClientMockReturnStakeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalReturnStake(input: {
-        stTONsAddr: string;
-        dst: string;
-        processing_evers: string | number | bigint;
-        depool_processing_evers: string | number | bigint;
-    }): Promise<{
+    returnStake(input: stTONsClientMockReturnStakeInput): Promise<{
         transaction: Transaction;
     }>;
-    runFinalize(input: {
-        stTONsAddr: string;
-        dst: string;
-        processing_evers: string | number | bigint;
-        ignore_errors: boolean;
-    }): Promise<{
+    runFinalize(input: stTONsClientMockFinalizeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalFinalize(input: {
-        stTONsAddr: string;
-        dst: string;
-        processing_evers: string | number | bigint;
-        ignore_errors: boolean;
-    }): Promise<{
+    finalize(input: stTONsClientMockFinalizeInput): Promise<{
         transaction: Transaction;
     }>;
     runGetOwnerPubkey(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: stTONsClientMockGetOwnerPubkeyOutput;
     }>;
-    runLocalGetOwnerPubkey(): Promise<{
+    getOwnerPubkey(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: stTONsClientMockGetOwnerPubkeyOutput;
     }>;
 }
 //# sourceMappingURL=stTONsClientMockAccount.d.ts.map

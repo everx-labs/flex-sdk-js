@@ -1,270 +1,185 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type TONTokenWalletTransferInput = {
+    _answer_id: number;
+    answer_addr?: string;
+    to: string;
+    tokens: string | number | bigint;
+    evers: string | number | bigint;
+    return_ownership: string | number | bigint;
+    notify_payload?: string;
+};
+export declare type TONTokenWalletTransferToRecipientInput = {
+    _answer_id: number;
+    answer_addr?: string;
+    to: {
+        pubkey: string | number | bigint;
+        owner?: string;
+    };
+    tokens: string | number | bigint;
+    evers: string | number | bigint;
+    keep_evers: string | number | bigint;
+    deploy: boolean;
+    return_ownership: string | number | bigint;
+    notify_payload?: string;
+};
+export declare type TONTokenWalletBalanceInput = {
+    _answer_id: number;
+};
+export declare type TONTokenWalletBalanceOutput = {
+    value0: string;
+};
+export declare type TONTokenWalletAcceptMintInput = {
+    _value: string | number | bigint;
+    answer_addr: string;
+    keep_evers: string | number | bigint;
+    notify_payload?: string;
+};
+export declare type TONTokenWalletAcceptTransferInput = {
+    _value: string | number | bigint;
+    answer_addr: string;
+    keep_evers: string | number | bigint;
+    sender_pubkey: string | number | bigint;
+    sender_owner?: string;
+    payload?: string;
+};
+export declare type TONTokenWalletDestroyInput = {
+    dest: string;
+};
+export declare type TONTokenWalletDetailsInput = {
+    _answer_id: number;
+};
+export declare type TONTokenWalletDetailsOutput = {
+    name: string;
+    symbol: string;
+    decimals: number;
+    balance: string;
+    root_pubkey: string;
+    root_address: string;
+    wallet_pubkey: string;
+    owner_address?: string;
+    lend_pubkey?: string;
+    lend_owners: {
+        lend_key: {
+            dest: {
+                workchain_id: number;
+                address: string;
+            };
+        };
+        lend_balance: string;
+        lend_finish_time: number;
+    }[];
+    lend_balance: string;
+    binding?: {
+        flex: string;
+        unsalted_price_code_hash: string;
+    };
+    code_hash: string;
+    code_depth: number;
+    workchain_id: number;
+};
+export declare type TONTokenWalletGetDetailsOutput = {
+    name: string;
+    symbol: string;
+    decimals: number;
+    balance: string;
+    root_pubkey: string;
+    root_address: string;
+    wallet_pubkey: string;
+    owner_address?: string;
+    lend_pubkey?: string;
+    lend_owners: {
+        lend_key: {
+            dest: {
+                workchain_id: number;
+                address: string;
+            };
+        };
+        lend_balance: string;
+        lend_finish_time: number;
+    }[];
+    lend_balance: string;
+    binding?: {
+        flex: string;
+        unsalted_price_code_hash: string;
+    };
+    code_hash: string;
+    code_depth: number;
+    workchain_id: number;
+};
+export declare type TONTokenWalletGetBalanceOutput = {
+    value0: string;
+};
 export declare class TONTokenWalletAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runTransfer(input: {
-        _answer_id: number;
-        answer_addr?: string;
-        to: string;
-        tokens: string | number | bigint;
-        evers: string | number | bigint;
-        return_ownership: string | number | bigint;
-        notify_payload?: string;
-    }): Promise<{
+    runTransfer(input: TONTokenWalletTransferInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalTransfer(input: {
-        _answer_id: number;
-        answer_addr?: string;
-        to: string;
-        tokens: string | number | bigint;
-        evers: string | number | bigint;
-        return_ownership: string | number | bigint;
-        notify_payload?: string;
-    }): Promise<{
+    transfer(input: TONTokenWalletTransferInput): Promise<{
         transaction: Transaction;
     }>;
-    runTransferToRecipient(input: {
-        _answer_id: number;
-        answer_addr?: string;
-        to: {
-            pubkey: string | number | bigint;
-            owner?: string;
-        };
-        tokens: string | number | bigint;
-        evers: string | number | bigint;
-        keep_evers: string | number | bigint;
-        deploy: boolean;
-        return_ownership: string | number | bigint;
-        notify_payload?: string;
-    }): Promise<{
+    runTransferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalTransferToRecipient(input: {
-        _answer_id: number;
-        answer_addr?: string;
-        to: {
-            pubkey: string | number | bigint;
-            owner?: string;
-        };
-        tokens: string | number | bigint;
-        evers: string | number | bigint;
-        keep_evers: string | number | bigint;
-        deploy: boolean;
-        return_ownership: string | number | bigint;
-        notify_payload?: string;
-    }): Promise<{
+    transferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<{
         transaction: Transaction;
     }>;
-    runBalance(input: {
-        _answer_id: number;
-    }): Promise<{
+    runBalance(input: TONTokenWalletBalanceInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: TONTokenWalletBalanceOutput;
     }>;
-    runLocalBalance(input: {
-        _answer_id: number;
-    }): Promise<{
+    balance(input: TONTokenWalletBalanceInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: TONTokenWalletBalanceOutput;
     }>;
-    runAcceptMint(input: {
-        _value: string | number | bigint;
-        answer_addr: string;
-        keep_evers: string | number | bigint;
-        notify_payload?: string;
-    }): Promise<{
+    runAcceptMint(input: TONTokenWalletAcceptMintInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalAcceptMint(input: {
-        _value: string | number | bigint;
-        answer_addr: string;
-        keep_evers: string | number | bigint;
-        notify_payload?: string;
-    }): Promise<{
+    acceptMint(input: TONTokenWalletAcceptMintInput): Promise<{
         transaction: Transaction;
     }>;
-    runAcceptTransfer(input: {
-        _value: string | number | bigint;
-        answer_addr: string;
-        keep_evers: string | number | bigint;
-        sender_pubkey: string | number | bigint;
-        sender_owner?: string;
-        payload?: string;
-    }): Promise<{
+    runAcceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalAcceptTransfer(input: {
-        _value: string | number | bigint;
-        answer_addr: string;
-        keep_evers: string | number | bigint;
-        sender_pubkey: string | number | bigint;
-        sender_owner?: string;
-        payload?: string;
-    }): Promise<{
+    acceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<{
         transaction: Transaction;
     }>;
-    runDestroy(input: {
-        dest: string;
-    }): Promise<{
+    runDestroy(input: TONTokenWalletDestroyInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalDestroy(input: {
-        dest: string;
-    }): Promise<{
+    destroy(input: TONTokenWalletDestroyInput): Promise<{
         transaction: Transaction;
     }>;
-    runDetails(input: {
-        _answer_id: number;
-    }): Promise<{
+    runDetails(input: TONTokenWalletDetailsInput): Promise<{
         transaction: Transaction;
-        output: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            balance: string;
-            root_pubkey: string;
-            root_address: string;
-            wallet_pubkey: string;
-            owner_address?: string;
-            lend_pubkey?: string;
-            lend_owners: {
-                lend_key: {
-                    dest: {
-                        workchain_id: number;
-                        address: string;
-                    };
-                };
-                lend_balance: string;
-                lend_finish_time: number;
-            };
-            lend_balance: string;
-            binding?: {
-                flex: string;
-                unsalted_price_code_hash: string;
-            };
-            code_hash: string;
-            code_depth: number;
-            workchain_id: number;
-        };
+        output: TONTokenWalletDetailsOutput;
     }>;
-    runLocalDetails(input: {
-        _answer_id: number;
-    }): Promise<{
+    details(input: TONTokenWalletDetailsInput): Promise<{
         transaction: Transaction;
-        output: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            balance: string;
-            root_pubkey: string;
-            root_address: string;
-            wallet_pubkey: string;
-            owner_address?: string;
-            lend_pubkey?: string;
-            lend_owners: {
-                lend_key: {
-                    dest: {
-                        workchain_id: number;
-                        address: string;
-                    };
-                };
-                lend_balance: string;
-                lend_finish_time: number;
-            };
-            lend_balance: string;
-            binding?: {
-                flex: string;
-                unsalted_price_code_hash: string;
-            };
-            code_hash: string;
-            code_depth: number;
-            workchain_id: number;
-        };
+        output: TONTokenWalletDetailsOutput;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            balance: string;
-            root_pubkey: string;
-            root_address: string;
-            wallet_pubkey: string;
-            owner_address?: string;
-            lend_pubkey?: string;
-            lend_owners: {
-                lend_key: {
-                    dest: {
-                        workchain_id: number;
-                        address: string;
-                    };
-                };
-                lend_balance: string;
-                lend_finish_time: number;
-            };
-            lend_balance: string;
-            binding?: {
-                flex: string;
-                unsalted_price_code_hash: string;
-            };
-            code_hash: string;
-            code_depth: number;
-            workchain_id: number;
-        };
+        output: TONTokenWalletGetDetailsOutput;
     }>;
-    runLocalGetDetails(): Promise<{
+    getDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            balance: string;
-            root_pubkey: string;
-            root_address: string;
-            wallet_pubkey: string;
-            owner_address?: string;
-            lend_pubkey?: string;
-            lend_owners: {
-                lend_key: {
-                    dest: {
-                        workchain_id: number;
-                        address: string;
-                    };
-                };
-                lend_balance: string;
-                lend_finish_time: number;
-            };
-            lend_balance: string;
-            binding?: {
-                flex: string;
-                unsalted_price_code_hash: string;
-            };
-            code_hash: string;
-            code_depth: number;
-            workchain_id: number;
-        };
+        output: TONTokenWalletGetDetailsOutput;
     }>;
     runGetBalance(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: TONTokenWalletGetBalanceOutput;
     }>;
-    runLocalGetBalance(): Promise<{
+    getBalance_(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: TONTokenWalletGetBalanceOutput;
     }>;
 }
 //# sourceMappingURL=TONTokenWalletAccount.d.ts.map

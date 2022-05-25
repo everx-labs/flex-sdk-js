@@ -1,436 +1,341 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type SuperRootOwnerSetCodeInput = {
+    type: number;
+    code: string;
+};
+export declare type SuperRootOwnerDeploySuperRootInput = {
+    evers: string | number | bigint;
+    prev_super_root?: string;
+};
+export declare type SuperRootOwnerDeploySuperRootOutput = {
+    value0: string;
+};
+export declare type SuperRootOwnerUpdateInput = {
+    main_evers: string | number | bigint;
+    cfg_deploy_evers: string | number | bigint;
+    cfg_keep_evers: string | number | bigint;
+    version: {
+        wallet: number;
+        exchange: number;
+        user: number;
+    };
+    wrappers_cfg: string;
+    flex: string;
+    user_cfg: string;
+    description: string;
+};
+export declare type SuperRootOwnerReleaseInput = {
+    main_evers: string | number | bigint;
+};
+export declare type SuperRootOwnerAddWrapperTypeInput = {
+    main_evers: string | number | bigint;
+    wrappers_cfg_keep_evers: string | number | bigint;
+    wrappers_cfg: string;
+    type: number;
+    wrapper_deployer: string;
+};
+export declare type SuperRootOwnerAddWrapperInput = {
+    main_evers: string | number | bigint;
+    wrappers_cfg_keep_evers: string | number | bigint;
+    wrappers_cfg: string;
+    evers: {
+        deploy: string | number | bigint;
+        setnext: string | number | bigint;
+        wic_keep: string | number | bigint;
+    };
+    symbol: string;
+    type: number;
+    init_args: string;
+};
+export declare type SuperRootOwnerAddXchgPairInput = {
+    main_evers: string | number | bigint;
+    flex: string;
+    evers: {
+        deploy: string | number | bigint;
+        setnext: string | number | bigint;
+        pair_keep: string | number | bigint;
+    };
+    major_tip3cfg: {
+        name: string;
+        symbol: string;
+        decimals: number;
+        root_pubkey: string | number | bigint;
+        root_address: string;
+    };
+    minor_tip3cfg: {
+        name: string;
+        symbol: string;
+        decimals: number;
+        root_pubkey: string | number | bigint;
+        root_address: string;
+    };
+    min_amount: string | number | bigint;
+    minmove: string | number | bigint;
+    price_denum: string | number | bigint;
+    notify_addr: string;
+};
+export declare type SuperRootOwnerUnlistWrapperInput = {
+    main_evers: string | number | bigint;
+    wrappers_cfg: string;
+    wic: string;
+};
+export declare type SuperRootOwnerUnlistXchgPairInput = {
+    main_evers: string | number | bigint;
+    flex: string;
+    pair: string;
+};
+export declare type SuperRootOwnerDeployWrappersConfigInput = {
+    main_evers: string | number | bigint;
+    deploy_evers: string | number | bigint;
+    wrappers_cfg_keep_evers: string | number | bigint;
+    token_version: number;
+};
+export declare type SuperRootOwnerDeployWrappersConfigOutput = {
+    value0: string;
+};
+export declare type SuperRootOwnerDeployFlexInput = {
+    main_evers: string | number | bigint;
+    deploy_evers: string | number | bigint;
+    keep_evers: string | number | bigint;
+    evers: {
+        deploy: string | number | bigint;
+        setnext: string | number | bigint;
+        pair_keep: string | number | bigint;
+    };
+    old_flex?: string;
+    exchange_version: number;
+    ev_cfg: {
+        transfer_tip3: string | number | bigint;
+        return_ownership: string | number | bigint;
+        order_answer: string | number | bigint;
+        process_queue: string | number | bigint;
+        send_notify: string | number | bigint;
+        dest_wallet_keep_evers: string | number | bigint;
+    };
+    deals_limit: number;
+};
+export declare type SuperRootOwnerDeployFlexOutput = {
+    value0: string;
+};
+export declare type SuperRootOwnerDeployUserDataConfigInput = {
+    main_evers: string | number | bigint;
+    deploy_evers: string | number | bigint;
+    triplet: {
+        wallet: number;
+        exchange: number;
+        user: number;
+    };
+    flex: string;
+};
+export declare type SuperRootOwnerDeployUserDataConfigOutput = {
+    value0: string;
+};
+export declare type SuperRootOwnerCloneWrappersConfigInput = {
+    main_evers: string | number | bigint;
+    wrappers_cfg: string;
+    wrapper_cfg_keep_evers: string | number | bigint;
+    clone_deploy_evers: string | number | bigint;
+    wic_evers: {
+        deploy: string | number | bigint;
+        setnext: string | number | bigint;
+        wic_keep: string | number | bigint;
+    };
+    new_token_version: number;
+    wrapper_deployers: string[];
+};
+export declare type SuperRootOwnerCloneWrappersConfigOutput = {
+    value0: string;
+};
+export declare type SuperRootOwnerSetFlagsInput = {
+    main_evers: string | number | bigint;
+    stop_trade?: boolean;
+    abandon_ship?: boolean;
+    update_started?: boolean;
+};
+export declare type SuperRootOwnerTransferInput = {
+    main_evers: string | number | bigint;
+    to: string;
+    evers: string | number | bigint;
+};
+export declare type SuperRootOwnerTransferReserveTokensInput = {
+    main_evers: string | number | bigint;
+    wrapper: string;
+    tokens: string | number | bigint;
+    to: string;
+    evers: string | number | bigint;
+};
+export declare type SuperRootOwnerSetOwnerInput = {
+    main_evers: string | number | bigint;
+    owner: string;
+};
+export declare type SuperRootOwnerSetUpdateTeamInput = {
+    main_evers: string | number | bigint;
+    team?: string;
+};
+export declare type SuperRootOwnerSetNextSuperRootInput = {
+    main_evers: string | number | bigint;
+    next_super_root: string;
+};
+export declare type SuperRootOwnerGetDetailsOutput = {
+    initialized: boolean;
+    pubkey: string;
+    super_root?: string;
+    super_root_code?: string;
+    global_cfg_code?: string;
+    flex_client_stub?: string;
+    wrappers_cfg_code?: string;
+    wic_code?: string;
+    flex_code?: string;
+    pair_code?: string;
+    price_code?: string;
+    user_data_cfg_code?: string;
+    flex_client_code?: string;
+    auth_index_code?: string;
+    user_id_index_code?: string;
+};
 export declare class SuperRootOwnerAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(input: {
         pubkey: string | number | bigint;
     }): Promise<{
         transaction: Transaction;
     }>;
-    runSetCode(input: {
-        type: number;
-        code: string;
-    }): Promise<{
+    runSetCode(input: SuperRootOwnerSetCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetCode(input: {
-        type: number;
-        code: string;
-    }): Promise<{
+    setCode(input: SuperRootOwnerSetCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runDeploySuperRoot(input: {
-        evers: string | number | bigint;
-        prev_super_root?: string;
-    }): Promise<{
+    runDeploySuperRoot(input: SuperRootOwnerDeploySuperRootInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: SuperRootOwnerDeploySuperRootOutput;
     }>;
-    runLocalDeploySuperRoot(input: {
-        evers: string | number | bigint;
-        prev_super_root?: string;
-    }): Promise<{
+    deploySuperRoot(input: SuperRootOwnerDeploySuperRootInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: SuperRootOwnerDeploySuperRootOutput;
     }>;
-    runUpdate(input: {
-        main_evers: string | number | bigint;
-        cfg_deploy_evers: string | number | bigint;
-        cfg_keep_evers: string | number | bigint;
-        version: {
-            wallet: number;
-            exchange: number;
-            user: number;
-        };
-        wrappers_cfg: string;
-        flex: string;
-        user_cfg: string;
-        description: string;
-    }): Promise<{
+    runUpdate(input: SuperRootOwnerUpdateInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalUpdate(input: {
-        main_evers: string | number | bigint;
-        cfg_deploy_evers: string | number | bigint;
-        cfg_keep_evers: string | number | bigint;
-        version: {
-            wallet: number;
-            exchange: number;
-            user: number;
-        };
-        wrappers_cfg: string;
-        flex: string;
-        user_cfg: string;
-        description: string;
-    }): Promise<{
+    update(input: SuperRootOwnerUpdateInput): Promise<{
         transaction: Transaction;
     }>;
-    runRelease(input: {
-        main_evers: string | number | bigint;
-    }): Promise<{
+    runRelease(input: SuperRootOwnerReleaseInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalRelease(input: {
-        main_evers: string | number | bigint;
-    }): Promise<{
+    release(input: SuperRootOwnerReleaseInput): Promise<{
         transaction: Transaction;
     }>;
-    runAddWrapperType(input: {
-        main_evers: string | number | bigint;
-        wrappers_cfg_keep_evers: string | number | bigint;
-        wrappers_cfg: string;
-        type: number;
-        wrapper_deployer: string;
-    }): Promise<{
+    runAddWrapperType(input: SuperRootOwnerAddWrapperTypeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalAddWrapperType(input: {
-        main_evers: string | number | bigint;
-        wrappers_cfg_keep_evers: string | number | bigint;
-        wrappers_cfg: string;
-        type: number;
-        wrapper_deployer: string;
-    }): Promise<{
+    addWrapperType(input: SuperRootOwnerAddWrapperTypeInput): Promise<{
         transaction: Transaction;
     }>;
-    runAddWrapper(input: {
-        main_evers: string | number | bigint;
-        wrappers_cfg_keep_evers: string | number | bigint;
-        wrappers_cfg: string;
-        evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            wic_keep: string | number | bigint;
-        };
-        symbol: string;
-        type: number;
-        init_args: string;
-    }): Promise<{
+    runAddWrapper(input: SuperRootOwnerAddWrapperInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalAddWrapper(input: {
-        main_evers: string | number | bigint;
-        wrappers_cfg_keep_evers: string | number | bigint;
-        wrappers_cfg: string;
-        evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            wic_keep: string | number | bigint;
-        };
-        symbol: string;
-        type: number;
-        init_args: string;
-    }): Promise<{
+    addWrapper(input: SuperRootOwnerAddWrapperInput): Promise<{
         transaction: Transaction;
     }>;
-    runAddXchgPair(input: {
-        main_evers: string | number | bigint;
-        flex: string;
-        evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            pair_keep: string | number | bigint;
-        };
-        major_tip3cfg: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string | number | bigint;
-            root_address: string;
-        };
-        minor_tip3cfg: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string | number | bigint;
-            root_address: string;
-        };
-        min_amount: string | number | bigint;
-        minmove: string | number | bigint;
-        price_denum: string | number | bigint;
-        notify_addr: string;
-    }): Promise<{
+    runAddXchgPair(input: SuperRootOwnerAddXchgPairInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalAddXchgPair(input: {
-        main_evers: string | number | bigint;
-        flex: string;
-        evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            pair_keep: string | number | bigint;
-        };
-        major_tip3cfg: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string | number | bigint;
-            root_address: string;
-        };
-        minor_tip3cfg: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string | number | bigint;
-            root_address: string;
-        };
-        min_amount: string | number | bigint;
-        minmove: string | number | bigint;
-        price_denum: string | number | bigint;
-        notify_addr: string;
-    }): Promise<{
+    addXchgPair(input: SuperRootOwnerAddXchgPairInput): Promise<{
         transaction: Transaction;
     }>;
-    runUnlistWrapper(input: {
-        main_evers: string | number | bigint;
-        wrappers_cfg: string;
-        wic: string;
-    }): Promise<{
+    runUnlistWrapper(input: SuperRootOwnerUnlistWrapperInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalUnlistWrapper(input: {
-        main_evers: string | number | bigint;
-        wrappers_cfg: string;
-        wic: string;
-    }): Promise<{
+    unlistWrapper(input: SuperRootOwnerUnlistWrapperInput): Promise<{
         transaction: Transaction;
     }>;
-    runDeployWrappersConfig(input: {
-        main_evers: string | number | bigint;
-        deploy_evers: string | number | bigint;
-        wrappers_cfg_keep_evers: string | number | bigint;
-        token_version: number;
-    }): Promise<{
-        transaction: Transaction;
-        output: {
-            value0: string;
-        };
-    }>;
-    runLocalDeployWrappersConfig(input: {
-        main_evers: string | number | bigint;
-        deploy_evers: string | number | bigint;
-        wrappers_cfg_keep_evers: string | number | bigint;
-        token_version: number;
-    }): Promise<{
-        transaction: Transaction;
-        output: {
-            value0: string;
-        };
-    }>;
-    runDeployFlex(input: {
-        main_evers: string | number | bigint;
-        deploy_evers: string | number | bigint;
-        keep_evers: string | number | bigint;
-        evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            pair_keep: string | number | bigint;
-        };
-        old_flex?: string;
-        exchange_version: number;
-        ev_cfg: {
-            transfer_tip3: string | number | bigint;
-            return_ownership: string | number | bigint;
-            order_answer: string | number | bigint;
-            process_queue: string | number | bigint;
-            send_notify: string | number | bigint;
-            dest_wallet_keep_evers: string | number | bigint;
-        };
-        deals_limit: number;
-    }): Promise<{
-        transaction: Transaction;
-        output: {
-            value0: string;
-        };
-    }>;
-    runLocalDeployFlex(input: {
-        main_evers: string | number | bigint;
-        deploy_evers: string | number | bigint;
-        keep_evers: string | number | bigint;
-        evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            pair_keep: string | number | bigint;
-        };
-        old_flex?: string;
-        exchange_version: number;
-        ev_cfg: {
-            transfer_tip3: string | number | bigint;
-            return_ownership: string | number | bigint;
-            order_answer: string | number | bigint;
-            process_queue: string | number | bigint;
-            send_notify: string | number | bigint;
-            dest_wallet_keep_evers: string | number | bigint;
-        };
-        deals_limit: number;
-    }): Promise<{
-        transaction: Transaction;
-        output: {
-            value0: string;
-        };
-    }>;
-    runDeployUserDataConfig(input: {
-        main_evers: string | number | bigint;
-        deploy_evers: string | number | bigint;
-        triplet: {
-            wallet: number;
-            exchange: number;
-            user: number;
-        };
-        flex: string;
-    }): Promise<{
-        transaction: Transaction;
-        output: {
-            value0: string;
-        };
-    }>;
-    runLocalDeployUserDataConfig(input: {
-        main_evers: string | number | bigint;
-        deploy_evers: string | number | bigint;
-        triplet: {
-            wallet: number;
-            exchange: number;
-            user: number;
-        };
-        flex: string;
-    }): Promise<{
-        transaction: Transaction;
-        output: {
-            value0: string;
-        };
-    }>;
-    runCloneWrappersConfig(input: {
-        main_evers: string | number | bigint;
-        wrappers_cfg: string;
-        wrapper_cfg_keep_evers: string | number | bigint;
-        clone_deploy_evers: string | number | bigint;
-        wic_evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            wic_keep: string | number | bigint;
-        };
-        new_token_version: number;
-        wrapper_deployers: string;
-    }): Promise<{
-        transaction: Transaction;
-        output: {
-            value0: string;
-        };
-    }>;
-    runLocalCloneWrappersConfig(input: {
-        main_evers: string | number | bigint;
-        wrappers_cfg: string;
-        wrapper_cfg_keep_evers: string | number | bigint;
-        clone_deploy_evers: string | number | bigint;
-        wic_evers: {
-            deploy: string | number | bigint;
-            setnext: string | number | bigint;
-            wic_keep: string | number | bigint;
-        };
-        new_token_version: number;
-        wrapper_deployers: string;
-    }): Promise<{
-        transaction: Transaction;
-        output: {
-            value0: string;
-        };
-    }>;
-    runSetFlags(input: {
-        main_evers: string | number | bigint;
-        stop_trade?: boolean;
-        abandon_ship?: boolean;
-        update_started?: boolean;
-    }): Promise<{
+    runUnlistXchgPair(input: SuperRootOwnerUnlistXchgPairInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetFlags(input: {
-        main_evers: string | number | bigint;
-        stop_trade?: boolean;
-        abandon_ship?: boolean;
-        update_started?: boolean;
-    }): Promise<{
+    unlistXchgPair(input: SuperRootOwnerUnlistXchgPairInput): Promise<{
         transaction: Transaction;
     }>;
-    runSetOwner(input: {
-        main_evers: string | number | bigint;
-        owner: string;
-    }): Promise<{
+    runDeployWrappersConfig(input: SuperRootOwnerDeployWrappersConfigInput): Promise<{
+        transaction: Transaction;
+        output: SuperRootOwnerDeployWrappersConfigOutput;
+    }>;
+    deployWrappersConfig(input: SuperRootOwnerDeployWrappersConfigInput): Promise<{
+        transaction: Transaction;
+        output: SuperRootOwnerDeployWrappersConfigOutput;
+    }>;
+    runDeployFlex(input: SuperRootOwnerDeployFlexInput): Promise<{
+        transaction: Transaction;
+        output: SuperRootOwnerDeployFlexOutput;
+    }>;
+    deployFlex(input: SuperRootOwnerDeployFlexInput): Promise<{
+        transaction: Transaction;
+        output: SuperRootOwnerDeployFlexOutput;
+    }>;
+    runDeployUserDataConfig(input: SuperRootOwnerDeployUserDataConfigInput): Promise<{
+        transaction: Transaction;
+        output: SuperRootOwnerDeployUserDataConfigOutput;
+    }>;
+    deployUserDataConfig(input: SuperRootOwnerDeployUserDataConfigInput): Promise<{
+        transaction: Transaction;
+        output: SuperRootOwnerDeployUserDataConfigOutput;
+    }>;
+    runCloneWrappersConfig(input: SuperRootOwnerCloneWrappersConfigInput): Promise<{
+        transaction: Transaction;
+        output: SuperRootOwnerCloneWrappersConfigOutput;
+    }>;
+    cloneWrappersConfig(input: SuperRootOwnerCloneWrappersConfigInput): Promise<{
+        transaction: Transaction;
+        output: SuperRootOwnerCloneWrappersConfigOutput;
+    }>;
+    runSetFlags(input: SuperRootOwnerSetFlagsInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetOwner(input: {
-        main_evers: string | number | bigint;
-        owner: string;
-    }): Promise<{
+    setFlags(input: SuperRootOwnerSetFlagsInput): Promise<{
         transaction: Transaction;
     }>;
-    runSetUpdateTeam(input: {
-        main_evers: string | number | bigint;
-        team?: string;
-    }): Promise<{
+    runTransfer(input: SuperRootOwnerTransferInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetUpdateTeam(input: {
-        main_evers: string | number | bigint;
-        team?: string;
-    }): Promise<{
+    transfer(input: SuperRootOwnerTransferInput): Promise<{
         transaction: Transaction;
     }>;
-    runSetNextSuperRoot(input: {
-        main_evers: string | number | bigint;
-        next_super_root: string;
-    }): Promise<{
+    runTransferReserveTokens(input: SuperRootOwnerTransferReserveTokensInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetNextSuperRoot(input: {
-        main_evers: string | number | bigint;
-        next_super_root: string;
-    }): Promise<{
+    transferReserveTokens(input: SuperRootOwnerTransferReserveTokensInput): Promise<{
+        transaction: Transaction;
+    }>;
+    runSetOwner(input: SuperRootOwnerSetOwnerInput): Promise<{
+        transaction: Transaction;
+    }>;
+    setOwner(input: SuperRootOwnerSetOwnerInput): Promise<{
+        transaction: Transaction;
+    }>;
+    runSetUpdateTeam(input: SuperRootOwnerSetUpdateTeamInput): Promise<{
+        transaction: Transaction;
+    }>;
+    setUpdateTeam(input: SuperRootOwnerSetUpdateTeamInput): Promise<{
+        transaction: Transaction;
+    }>;
+    runSetNextSuperRoot(input: SuperRootOwnerSetNextSuperRootInput): Promise<{
+        transaction: Transaction;
+    }>;
+    setNextSuperRoot(input: SuperRootOwnerSetNextSuperRootInput): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            initialized: boolean;
-            pubkey: string;
-            super_root?: string;
-            super_root_code?: string;
-            global_cfg_code?: string;
-            flex_client_stub?: string;
-            wrappers_cfg_code?: string;
-            wic_code?: string;
-            flex_code?: string;
-            pair_code?: string;
-            price_code?: string;
-            user_data_cfg_code?: string;
-            flex_client_code?: string;
-            auth_index_code?: string;
-            user_id_index_code?: string;
-        };
+        output: SuperRootOwnerGetDetailsOutput;
     }>;
-    runLocalGetDetails(): Promise<{
+    getDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            initialized: boolean;
-            pubkey: string;
-            super_root?: string;
-            super_root_code?: string;
-            global_cfg_code?: string;
-            flex_client_stub?: string;
-            wrappers_cfg_code?: string;
-            wic_code?: string;
-            flex_code?: string;
-            pair_code?: string;
-            price_code?: string;
-            user_data_cfg_code?: string;
-            flex_client_code?: string;
-            auth_index_code?: string;
-            user_id_index_code?: string;
-        };
+        output: SuperRootOwnerGetDetailsOutput;
     }>;
 }
 //# sourceMappingURL=SuperRootOwnerAccount.d.ts.map

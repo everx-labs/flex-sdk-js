@@ -14,7 +14,9 @@ const appkit_1 = require("@eversdk/appkit");
 const helpers_1 = require("../helpers");
 class GlobalConfigAccount extends appkit_1.Account {
     constructor(options) {
+        var _a;
         super(GlobalConfigAccount.package, options);
+        this.log = (_a = options.log) !== null && _a !== void 0 ? _a : helpers_1.Log.default;
     }
     deployContract() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -26,7 +28,7 @@ class GlobalConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
         });
     }
-    runLocalOnDeploy(input) {
+    onDeploy(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
@@ -36,7 +38,7 @@ class GlobalConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
@@ -46,7 +48,7 @@ class GlobalConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getConfig", {});
         });
     }
-    runLocalGetConfig() {
+    getConfig() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getConfig", {});
         });

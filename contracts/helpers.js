@@ -8,44 +8,108 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.runLocalHelper = exports.deployHelper = exports.runHelper = void 0;
+exports.priceToUnits = exports.amountToUnits = exports.runLocalHelper = exports.deployHelper = exports.runHelper = exports.Log = void 0;
+class Log {
+    processingStart(title) {
+        this.verbose(`${title}...`);
+    }
+    processingDone() {
+        this.verbose(" ✓\n");
+    }
+}
+exports.Log = Log;
+_a = Log;
+Log.NULL = new class NullLog extends Log {
+    verbose(_text) {
+    }
+};
+Log.STDOUT = new class StdOutLog extends Log {
+    verbose(text) {
+        process.stdout.write(text);
+    }
+}();
+Log.default = _a.STDOUT;
+function errorWith(err, method, account, fn, params) {
+    err.data = Object.assign(Object.assign({}, err.data), { [method]: {
+            fn: `${account.constructor.name}.${fn}`,
+            params,
+        } });
+    return err;
+}
 function runHelper(account, fn, params) {
-    var _a;
+    var _b, _c, _d, _e;
     return __awaiter(this, void 0, void 0, function* () {
-        const result = yield account.run(fn, params);
-        yield account.client.net.query_transaction_tree({
-            in_msg: result.transaction.in_msg,
-            timeout: 60000 * 5,
-        });
-        return {
-            transaction: result.transaction,
-            output: (_a = result.decoded) === null || _a === void 0 ? void 0 : _a.output,
-        };
+        (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Run ${account.constructor.name}.${fn}`);
+        try {
+            const result = yield account.run(fn, params);
+            yield account.client.net.query_transaction_tree({
+                in_msg: result.transaction.in_msg,
+                timeout: 60000 * 5,
+            });
+            (_c = account.log) === null || _c === void 0 ? void 0 : _c.verbose(` TX: ${result.transaction.id}`);
+            (_d = account.log) === null || _d === void 0 ? void 0 : _d.processingDone();
+            return {
+                transaction: result.transaction,
+                output: (_e = result.decoded) === null || _e === void 0 ? void 0 : _e.output,
+            };
+        }
+        catch (err) {
+            throw errorWith(err, "run", account, fn, params);
+        }
     });
 }
 exports.runHelper = runHelper;
 function deployHelper(account, fn, params) {
+    var _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
-        const result = yield account.deploy({
-            initFunctionName: fn,
-            initInput: params,
-        });
-        return {
-            transaction: result.transaction,
-        };
+        (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Deploy ${account.constructor.name}.${fn !== null && fn !== void 0 ? fn : ""}`);
+        try {
+            const result = yield account.deploy({
+                initFunctionName: fn,
+                initInput: params,
+            });
+            (_c = account.log) === null || _c === void 0 ? void 0 : _c.processingDone();
+            return {
+                transaction: result.transaction,
+            };
+        }
+        catch (err) {
+            throw errorWith(err, "deploy", account, fn !== null && fn !== void 0 ? fn : "", params !== null && params !== void 0 ? params : {});
+        }
     });
 }
 exports.deployHelper = deployHelper;
-function runLocalHelper(account, fn, input) {
-    var _a;
+function runLocalHelper(account, fn, params) {
+    var _b, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
-        const result = yield account.runLocal(fn, input);
-        return {
-            transaction: result.transaction,
-            output: (_a = result.decoded) === null || _a === void 0 ? void 0 : _a.output,
-        };
+        try {
+            (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`RunLocal ${account.constructor.name}.${fn}`);
+            const result = yield account.runLocal(fn, params);
+            (_c = account.log) === null || _c === void 0 ? void 0 : _c.processingDone();
+            return {
+                transaction: result.transaction,
+                output: (_d = result.decoded) === null || _d === void 0 ? void 0 : _d.output,
+            };
+        }
+        catch (err) {
+            throw errorWith(err, "runLocal", account, fn, params);
+        }
     });
 }
 exports.runLocalHelper = runLocalHelper;
+function amountToUnits(tokens, decimals) {
+    return Math.floor(tokens * Math.pow(10, Number(decimals))).toString();
+}
+exports.amountToUnits = amountToUnits;
+function priceToUnits(price, denominator) {
+    const denom = Math.floor(Number(denominator));
+    const price_num = Math.floor(price * denom);
+    return {
+        num: price_num.toString(),
+        denum: denom.toString(),
+    };
+}
+exports.priceToUnits = priceToUnits;
 //# sourceMappingURL=helpers.js.map

@@ -9,41 +9,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const core_1 = require("@eversdk/core");
-const lib_node_1 = require("@eversdk/lib-node");
 const flex_1 = require("../flex");
-const wallet_1 = require("../flex/wallet");
-const market_1 = require("../flex/market");
-core_1.TonClient.useBinaryLibrary(lib_node_1.libNode);
-flex_1.Flex.config = {
-    client: {
-        network: {
-            endpoints: ["https://flex2.dev.tonlabs.io"],
-        },
-    },
-};
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const wallet = new wallet_1.Wallet({
-            address: "123",
-            signer: "123",
-        });
-        const market = new market_1.Market({
-            address: "1",
-        });
-        yield wallet.makeOrder({
-            market,
-            sell: true,
-            price: 1.23,
-            amount: 10000,
-            clientAddress: "1",
-            userId: "1",
-        });
-    });
-}
+const trader_1 = require("../flex/trader");
+const examples_1 = require("./examples");
+(0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield main();
+        const trader = new trader_1.Trader({
+            client: examples_1.CONFIG.trader1.client,
+            id: examples_1.CONFIG.trader1.id,
+            signer: examples_1.CONFIG.trader1.signer,
+        });
+        const order = yield trader.makeOrder({
+            sell: false,
+            market: examples_1.CONFIG.market1,
+            price: 1.23,
+            amount: 1,
+        });
+        console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
         yield flex_1.Flex.default.close();
     }
     catch (err) {

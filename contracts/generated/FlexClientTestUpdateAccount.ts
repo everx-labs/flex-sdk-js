@@ -1,7 +1,207 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { AbiContract } from "@eversdk/core";
-import { deployHelper, runHelper, runLocalHelper, Transaction, ContractPackageEx } from "../helpers";
+import { 
+    deployHelper,
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
+} from "../helpers";
+export type FlexClientTestUpdateDeployPriceXchgInput = {
+    sell: boolean /* bool */,
+    immediate_client: boolean /* bool */,
+    post_order: boolean /* bool */,
+    price_num: string | number | bigint /* uint128 */,
+    amount: string | number | bigint /* uint128 */,
+    lend_amount: string | number | bigint /* uint128 */,
+    lend_finish_time: number /* uint32 */,
+    evers: string | number | bigint /* uint128 */,
+    unsalted_price_code: string /* cell */,
+    price_salt: string /* cell */,
+    my_tip3_addr: string /* address */,
+    user_id: string | number | bigint /* uint256 */,
+    order_id: string | number | bigint /* uint256 */,
+};
+
+export type FlexClientTestUpdateDeployPriceXchgOutput = {
+    value0: string /* address */,
+};
+
+export type FlexClientTestUpdateCancelXchgOrderInput = {
+    sell: boolean /* bool */,
+    price_num: string | number | bigint /* uint128 */,
+    value: string | number | bigint /* uint128 */,
+    salted_price_code: string /* cell */,
+    user_id?: string | number | bigint /* optional(uint256) */,
+    order_id?: string | number | bigint /* optional(uint256) */,
+};
+
+export type FlexClientTestUpdateTransferInput = {
+    dest: string /* address */,
+    value: string | number | bigint /* uint128 */,
+    bounce: boolean /* bool */,
+};
+
+export type FlexClientTestUpdateTransferTokensInput = {
+    src: string /* address */,
+    dst: string /* address */,
+    tokens: string | number | bigint /* uint128 */,
+    evers: string | number | bigint /* uint128 */,
+};
+
+export type FlexClientTestUpdateDeployEmptyFlexWalletInput = {
+    pubkey: string | number | bigint /* uint256 */,
+    evers_to_wallet: string | number | bigint /* uint128 */,
+    tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    binding?: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string | number | bigint /* uint256 */,
+    } /* optional(tuple) */,
+    trader?: string | number | bigint /* optional(uint256) */,
+    flex_wallet_code: string /* cell */,
+};
+
+export type FlexClientTestUpdateDeployEmptyFlexWalletOutput = {
+    value0: string /* address */,
+};
+
+export type FlexClientTestUpdateDeployIndexInput = {
+    user_id: string | number | bigint /* uint256 */,
+    lend_pubkey: string | number | bigint /* uint256 */,
+    name: string /* string */,
+    evers_all: string | number | bigint /* uint128 */,
+    evers_to_auth_idx: string | number | bigint /* uint128 */,
+    refill_wallet: string | number | bigint /* uint128 */,
+    min_refill: string | number | bigint /* uint128 */,
+};
+
+export type FlexClientTestUpdateReLendIndexInput = {
+    user_id: string | number | bigint /* uint256 */,
+    new_lend_pubkey: string | number | bigint /* uint256 */,
+    wallets: string[] /* address[] */,
+    evers_relend_call: string | number | bigint /* uint128 */,
+    evers_each_wallet_call: string | number | bigint /* uint128 */,
+    evers_to_remove: string | number | bigint /* uint128 */,
+    evers_to_auth_idx: string | number | bigint /* uint128 */,
+};
+
+export type FlexClientTestUpdateDestroyIndexInput = {
+    user_id: string | number | bigint /* uint256 */,
+    evers: string | number | bigint /* uint128 */,
+};
+
+export type FlexClientTestUpdateBurnWalletInput = {
+    evers_value: string | number | bigint /* uint128 */,
+    out_pubkey: string | number | bigint /* uint256 */,
+    out_owner?: string /* optional(address) */,
+    my_tip3_addr: string /* address */,
+};
+
+export type FlexClientTestUpdateUnwrapWalletInput = {
+    evers_value: string | number | bigint /* uint128 */,
+    out_pubkey: string | number | bigint /* uint256 */,
+    out_owner?: string /* optional(address) */,
+    my_tip3_addr: string /* address */,
+    tokens: string | number | bigint /* uint128 */,
+};
+
+export type FlexClientTestUpdateBindWalletInput = {
+    evers: string | number | bigint /* uint128 */,
+    my_tip3_addr: string /* address */,
+    set_binding: boolean /* bool */,
+    binding?: {
+        flex: string /* address */,
+        unsalted_price_code_hash: string | number | bigint /* uint256 */,
+    } /* optional(tuple) */,
+    set_trader: boolean /* bool */,
+    trader?: string | number | bigint /* optional(uint256) */,
+};
+
+export type FlexClientTestUpdateOnTip3TransferInput = {
+    _answer_id: number /* uint32 */,
+    balance: string | number | bigint /* uint128 */,
+    new_tokens: string | number | bigint /* uint128 */,
+    evers_balance: string | number | bigint /* uint128 */,
+    tip3cfg: {
+        name: string /* string */,
+        symbol: string /* string */,
+        decimals: number /* uint8 */,
+        root_pubkey: string | number | bigint /* uint256 */,
+        root_address: string /* address */,
+    } /* tuple */,
+    sender?: {
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+    } /* optional(tuple) */,
+    receiver: {
+        pubkey: string | number | bigint /* uint256 */,
+        owner?: string /* optional(address) */,
+    } /* tuple */,
+    payload: string /* cell */,
+    answer_addr: string /* address */,
+};
+
+export type FlexClientTestUpdateUpgradeInput = {
+    request_evers: string | number | bigint /* uint128 */,
+    user_data_cfg: string /* address */,
+};
+
+export type FlexClientTestUpdateGetPayloadForDeployInternalWalletInput = {
+    owner_pubkey: string | number | bigint /* uint256 */,
+    owner_addr?: string /* optional(address) */,
+    evers: string | number | bigint /* uint128 */,
+    keep_evers: string | number | bigint /* uint128 */,
+};
+
+export type FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput = {
+    value0: string /* cell */,
+};
+
+export type FlexClientTestUpdateGetPriceXchgAddressInput = {
+    price_num: string | number | bigint /* uint128 */,
+    salted_price_code: string /* cell */,
+};
+
+export type FlexClientTestUpdateGetPriceXchgAddressOutput = {
+    value0: string /* address */,
+};
+
+export type FlexClientTestUpdateGetUserIdIndexInput = {
+    user_id: string | number | bigint /* uint256 */,
+};
+
+export type FlexClientTestUpdateGetUserIdIndexOutput = {
+    value0: string /* address */,
+};
+
+export type FlexClientTestUpdateGetDetailsOutput = {
+    owner: string /* uint256 */,
+    triplet: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* tuple */,
+    ex_triplet?: {
+        wallet: number /* uint32 */,
+        exchange: number /* uint32 */,
+        user: number /* uint32 */,
+    } /* optional(tuple) */,
+    auth_index_code: string /* cell */,
+    user_id_index_code: string /* cell */,
+};
+
+export type FlexClientTestUpdateGetTestValueOutput = {
+    value0: number /* uint32 */,
+};
+
 
 export class FlexClientTestUpdateAccount extends Account {
     static package: ContractPackageEx = {
@@ -10,9 +210,14 @@ export class FlexClientTestUpdateAccount extends Account {
         code: "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",
         codeHash: "64051f22d0837f1b5a93a87d6971f15013b6ceffa2b463e6b8ecc87accf674e2",
     };
-    
-    constructor(options: AccountOptions) {
+    log: Log;
+    constructor(
+        options: AccountOptions & {
+            log?: Log
+        }
+    ) {
         super(FlexClientTestUpdateAccount.package, options);
+        this.log = options.log ?? Log.default;
     }
     async deployContract(): Promise<{
         transaction: Transaction,
@@ -20,526 +225,232 @@ export class FlexClientTestUpdateAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runDeployPriceXchg(input: {
-        sell: boolean// bool,
-        immediate_client: boolean// bool,
-        post_order: boolean// bool,
-        price_num: string | number | bigint// uint128,
-        amount: string | number | bigint// uint128,
-        lend_amount: string | number | bigint// uint128,
-        lend_finish_time: number// uint32,
-        evers: string | number | bigint// uint128,
-        unsalted_price_code: string// cell,
-        price_salt: string// cell,
-        my_tip3_addr: string// address,
-        user_id: string | number | bigint// uint256,
-        order_id: string | number | bigint// uint256,
-    }): Promise<{
+    async runDeployPriceXchg(input: FlexClientTestUpdateDeployPriceXchgInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string// address,
-        }
+        output: FlexClientTestUpdateDeployPriceXchgOutput,
     }> {
         return await runHelper(this, "deployPriceXchg", input);
     }
 
-    async runLocalDeployPriceXchg(input: {
-        sell: boolean// bool,
-        immediate_client: boolean// bool,
-        post_order: boolean// bool,
-        price_num: string | number | bigint// uint128,
-        amount: string | number | bigint// uint128,
-        lend_amount: string | number | bigint// uint128,
-        lend_finish_time: number// uint32,
-        evers: string | number | bigint// uint128,
-        unsalted_price_code: string// cell,
-        price_salt: string// cell,
-        my_tip3_addr: string// address,
-        user_id: string | number | bigint// uint256,
-        order_id: string | number | bigint// uint256,
-    }): Promise<{
+    async deployPriceXchg(input: FlexClientTestUpdateDeployPriceXchgInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string// address,
-        }
+        output: FlexClientTestUpdateDeployPriceXchgOutput,
     }> {
         return await runLocalHelper(this, "deployPriceXchg", input);
     }
 
-    async runCancelXchgOrder(input: {
-        sell: boolean// bool,
-        price_num: string | number | bigint// uint128,
-        value: string | number | bigint// uint128,
-        salted_price_code: string// cell,
-        user_id?: string | number | bigint// optional(uint256),
-        order_id?: string | number | bigint// optional(uint256),
-    }): Promise<{
+    async runCancelXchgOrder(input: FlexClientTestUpdateCancelXchgOrderInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "cancelXchgOrder", input);
     }
 
-    async runLocalCancelXchgOrder(input: {
-        sell: boolean// bool,
-        price_num: string | number | bigint// uint128,
-        value: string | number | bigint// uint128,
-        salted_price_code: string// cell,
-        user_id?: string | number | bigint// optional(uint256),
-        order_id?: string | number | bigint// optional(uint256),
-    }): Promise<{
+    async cancelXchgOrder(input: FlexClientTestUpdateCancelXchgOrderInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "cancelXchgOrder", input);
     }
 
-    async runTransfer(input: {
-        dest: string// address,
-        value: string | number | bigint// uint128,
-        bounce: boolean// bool,
-    }): Promise<{
+    async runTransfer(input: FlexClientTestUpdateTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transfer", input);
     }
 
-    async runLocalTransfer(input: {
-        dest: string// address,
-        value: string | number | bigint// uint128,
-        bounce: boolean// bool,
-    }): Promise<{
+    async transfer(input: FlexClientTestUpdateTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transfer", input);
     }
 
-    async runTransferTokens(input: {
-        src: string// address,
-        dst: string// address,
-        tokens: string | number | bigint// uint128,
-        evers: string | number | bigint// uint128,
-    }): Promise<{
+    async runTransferTokens(input: FlexClientTestUpdateTransferTokensInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transferTokens", input);
     }
 
-    async runLocalTransferTokens(input: {
-        src: string// address,
-        dst: string// address,
-        tokens: string | number | bigint// uint128,
-        evers: string | number | bigint// uint128,
-    }): Promise<{
+    async transferTokens(input: FlexClientTestUpdateTransferTokensInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transferTokens", input);
     }
 
-    async runDeployEmptyFlexWallet(input: {
-        pubkey: string | number | bigint// uint256,
-        evers_to_wallet: string | number | bigint// uint128,
-        tip3cfg: {
-            name: string// string
-            symbol: string// string
-            decimals: number// uint8
-            root_pubkey: string | number | bigint// uint256
-            root_address: string// address
-        }// tuple,
-        binding?: {
-            flex: string// address
-            unsalted_price_code_hash: string | number | bigint// uint256
-        }// optional(tuple),
-        trader?: string | number | bigint// optional(uint256),
-        flex_wallet_code: string// cell,
-    }): Promise<{
+    async runDeployEmptyFlexWallet(input: FlexClientTestUpdateDeployEmptyFlexWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string// address,
-        }
+        output: FlexClientTestUpdateDeployEmptyFlexWalletOutput,
     }> {
         return await runHelper(this, "deployEmptyFlexWallet", input);
     }
 
-    async runLocalDeployEmptyFlexWallet(input: {
-        pubkey: string | number | bigint// uint256,
-        evers_to_wallet: string | number | bigint// uint128,
-        tip3cfg: {
-            name: string// string
-            symbol: string// string
-            decimals: number// uint8
-            root_pubkey: string | number | bigint// uint256
-            root_address: string// address
-        }// tuple,
-        binding?: {
-            flex: string// address
-            unsalted_price_code_hash: string | number | bigint// uint256
-        }// optional(tuple),
-        trader?: string | number | bigint// optional(uint256),
-        flex_wallet_code: string// cell,
-    }): Promise<{
+    async deployEmptyFlexWallet(input: FlexClientTestUpdateDeployEmptyFlexWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string// address,
-        }
+        output: FlexClientTestUpdateDeployEmptyFlexWalletOutput,
     }> {
         return await runLocalHelper(this, "deployEmptyFlexWallet", input);
     }
 
-    async runDeployIndex(input: {
-        user_id: string | number | bigint// uint256,
-        lend_pubkey: string | number | bigint// uint256,
-        name: string// string,
-        evers_all: string | number | bigint// uint128,
-        evers_to_auth_idx: string | number | bigint// uint128,
-        refill_wallet: string | number | bigint// uint128,
-        min_refill: string | number | bigint// uint128,
-    }): Promise<{
+    async runDeployIndex(input: FlexClientTestUpdateDeployIndexInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "deployIndex", input);
     }
 
-    async runLocalDeployIndex(input: {
-        user_id: string | number | bigint// uint256,
-        lend_pubkey: string | number | bigint// uint256,
-        name: string// string,
-        evers_all: string | number | bigint// uint128,
-        evers_to_auth_idx: string | number | bigint// uint128,
-        refill_wallet: string | number | bigint// uint128,
-        min_refill: string | number | bigint// uint128,
-    }): Promise<{
+    async deployIndex(input: FlexClientTestUpdateDeployIndexInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "deployIndex", input);
     }
 
-    async runReLendIndex(input: {
-        user_id: string | number | bigint// uint256,
-        new_lend_pubkey: string | number | bigint// uint256,
-        wallets: string// address[],
-        evers_relend_call: string | number | bigint// uint128,
-        evers_each_wallet_call: string | number | bigint// uint128,
-        evers_to_remove: string | number | bigint// uint128,
-        evers_to_auth_idx: string | number | bigint// uint128,
-    }): Promise<{
+    async runReLendIndex(input: FlexClientTestUpdateReLendIndexInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "reLendIndex", input);
     }
 
-    async runLocalReLendIndex(input: {
-        user_id: string | number | bigint// uint256,
-        new_lend_pubkey: string | number | bigint// uint256,
-        wallets: string// address[],
-        evers_relend_call: string | number | bigint// uint128,
-        evers_each_wallet_call: string | number | bigint// uint128,
-        evers_to_remove: string | number | bigint// uint128,
-        evers_to_auth_idx: string | number | bigint// uint128,
-    }): Promise<{
+    async reLendIndex(input: FlexClientTestUpdateReLendIndexInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "reLendIndex", input);
     }
 
-    async runDestroyIndex(input: {
-        user_id: string | number | bigint// uint256,
-        evers: string | number | bigint// uint128,
-    }): Promise<{
+    async runDestroyIndex(input: FlexClientTestUpdateDestroyIndexInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "destroyIndex", input);
     }
 
-    async runLocalDestroyIndex(input: {
-        user_id: string | number | bigint// uint256,
-        evers: string | number | bigint// uint128,
-    }): Promise<{
+    async destroyIndex(input: FlexClientTestUpdateDestroyIndexInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "destroyIndex", input);
     }
 
-    async runBurnWallet(input: {
-        evers_value: string | number | bigint// uint128,
-        out_pubkey: string | number | bigint// uint256,
-        out_owner?: string// optional(address),
-        my_tip3_addr: string// address,
-    }): Promise<{
+    async runBurnWallet(input: FlexClientTestUpdateBurnWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "burnWallet", input);
     }
 
-    async runLocalBurnWallet(input: {
-        evers_value: string | number | bigint// uint128,
-        out_pubkey: string | number | bigint// uint256,
-        out_owner?: string// optional(address),
-        my_tip3_addr: string// address,
-    }): Promise<{
+    async burnWallet(input: FlexClientTestUpdateBurnWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "burnWallet", input);
     }
 
-    async runUnwrapWallet(input: {
-        evers_value: string | number | bigint// uint128,
-        out_pubkey: string | number | bigint// uint256,
-        out_owner?: string// optional(address),
-        my_tip3_addr: string// address,
-        tokens: string | number | bigint// uint128,
-    }): Promise<{
+    async runUnwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "unwrapWallet", input);
     }
 
-    async runLocalUnwrapWallet(input: {
-        evers_value: string | number | bigint// uint128,
-        out_pubkey: string | number | bigint// uint256,
-        out_owner?: string// optional(address),
-        my_tip3_addr: string// address,
-        tokens: string | number | bigint// uint128,
-    }): Promise<{
+    async unwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "unwrapWallet", input);
     }
 
-    async runBindWallet(input: {
-        evers: string | number | bigint// uint128,
-        my_tip3_addr: string// address,
-        set_binding: boolean// bool,
-        binding?: {
-            flex: string// address
-            unsalted_price_code_hash: string | number | bigint// uint256
-        }// optional(tuple),
-        set_trader: boolean// bool,
-        trader?: string | number | bigint// optional(uint256),
-    }): Promise<{
+    async runBindWallet(input: FlexClientTestUpdateBindWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "bindWallet", input);
     }
 
-    async runLocalBindWallet(input: {
-        evers: string | number | bigint// uint128,
-        my_tip3_addr: string// address,
-        set_binding: boolean// bool,
-        binding?: {
-            flex: string// address
-            unsalted_price_code_hash: string | number | bigint// uint256
-        }// optional(tuple),
-        set_trader: boolean// bool,
-        trader?: string | number | bigint// optional(uint256),
-    }): Promise<{
+    async bindWallet(input: FlexClientTestUpdateBindWalletInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "bindWallet", input);
     }
 
-    async runOnTip3Transfer(input: {
-        _answer_id: number// uint32,
-        balance: string | number | bigint// uint128,
-        new_tokens: string | number | bigint// uint128,
-        evers_balance: string | number | bigint// uint128,
-        tip3cfg: {
-            name: string// string
-            symbol: string// string
-            decimals: number// uint8
-            root_pubkey: string | number | bigint// uint256
-            root_address: string// address
-        }// tuple,
-        sender?: {
-            pubkey: string | number | bigint// uint256
-            owner?: string// optional(address)
-        }// optional(tuple),
-        receiver: {
-            pubkey: string | number | bigint// uint256
-            owner?: string// optional(address)
-        }// tuple,
-        payload: string// cell,
-        answer_addr: string// address,
-    }): Promise<{
+    async runOnTip3Transfer(input: FlexClientTestUpdateOnTip3TransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "onTip3Transfer", input);
     }
 
-    async runLocalOnTip3Transfer(input: {
-        _answer_id: number// uint32,
-        balance: string | number | bigint// uint128,
-        new_tokens: string | number | bigint// uint128,
-        evers_balance: string | number | bigint// uint128,
-        tip3cfg: {
-            name: string// string
-            symbol: string// string
-            decimals: number// uint8
-            root_pubkey: string | number | bigint// uint256
-            root_address: string// address
-        }// tuple,
-        sender?: {
-            pubkey: string | number | bigint// uint256
-            owner?: string// optional(address)
-        }// optional(tuple),
-        receiver: {
-            pubkey: string | number | bigint// uint256
-            owner?: string// optional(address)
-        }// tuple,
-        payload: string// cell,
-        answer_addr: string// address,
-    }): Promise<{
+    async onTip3Transfer(input: FlexClientTestUpdateOnTip3TransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "onTip3Transfer", input);
     }
 
-    async runUpgrade(input: {
-        request_evers: string | number | bigint// uint128,
-        user_data_cfg: string// address,
-    }): Promise<{
+    async runUpgrade(input: FlexClientTestUpdateUpgradeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "upgrade", input);
     }
 
-    async runLocalUpgrade(input: {
-        request_evers: string | number | bigint// uint128,
-        user_data_cfg: string// address,
-    }): Promise<{
+    async upgrade(input: FlexClientTestUpdateUpgradeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "upgrade", input);
     }
 
-    async runGetPayloadForDeployInternalWallet(input: {
-        owner_pubkey: string | number | bigint// uint256,
-        owner_addr?: string// optional(address),
-        evers: string | number | bigint// uint128,
-        keep_evers: string | number | bigint// uint128,
-    }): Promise<{
+    async runGetPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string// cell,
-        }
+        output: FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput,
     }> {
         return await runHelper(this, "getPayloadForDeployInternalWallet", input);
     }
 
-    async runLocalGetPayloadForDeployInternalWallet(input: {
-        owner_pubkey: string | number | bigint// uint256,
-        owner_addr?: string// optional(address),
-        evers: string | number | bigint// uint128,
-        keep_evers: string | number | bigint// uint128,
-    }): Promise<{
+    async getPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string// cell,
-        }
+        output: FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput,
     }> {
         return await runLocalHelper(this, "getPayloadForDeployInternalWallet", input);
     }
 
-    async runGetPriceXchgAddress(input: {
-        price_num: string | number | bigint// uint128,
-        salted_price_code: string// cell,
-    }): Promise<{
+    async runGetPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string// address,
-        }
+        output: FlexClientTestUpdateGetPriceXchgAddressOutput,
     }> {
         return await runHelper(this, "getPriceXchgAddress", input);
     }
 
-    async runLocalGetPriceXchgAddress(input: {
-        price_num: string | number | bigint// uint128,
-        salted_price_code: string// cell,
-    }): Promise<{
+    async getPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string// address,
-        }
+        output: FlexClientTestUpdateGetPriceXchgAddressOutput,
     }> {
         return await runLocalHelper(this, "getPriceXchgAddress", input);
     }
 
-    async runGetUserIdIndex(input: {
-        user_id: string | number | bigint// uint256,
-    }): Promise<{
+    async runGetUserIdIndex(input: FlexClientTestUpdateGetUserIdIndexInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string// address,
-        }
+        output: FlexClientTestUpdateGetUserIdIndexOutput,
     }> {
         return await runHelper(this, "getUserIdIndex", input);
     }
 
-    async runLocalGetUserIdIndex(input: {
-        user_id: string | number | bigint// uint256,
-    }): Promise<{
+    async getUserIdIndex(input: FlexClientTestUpdateGetUserIdIndexInput): Promise<{
         transaction: Transaction,
-        output: {
-            value0: string// address,
-        }
+        output: FlexClientTestUpdateGetUserIdIndexOutput,
     }> {
         return await runLocalHelper(this, "getUserIdIndex", input);
     }
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            owner: string// uint256,
-            triplet: {
-                wallet: number// uint32
-                exchange: number// uint32
-                user: number// uint32
-            }// tuple,
-            ex_triplet?: {
-                wallet: number// uint32
-                exchange: number// uint32
-                user: number// uint32
-            }// optional(tuple),
-            auth_index_code: string// cell,
-            user_id_index_code: string// cell,
-        }
+        output: FlexClientTestUpdateGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            owner: string// uint256,
-            triplet: {
-                wallet: number// uint32
-                exchange: number// uint32
-                user: number// uint32
-            }// tuple,
-            ex_triplet?: {
-                wallet: number// uint32
-                exchange: number// uint32
-                user: number// uint32
-            }// optional(tuple),
-            auth_index_code: string// cell,
-            user_id_index_code: string// cell,
-        }
+        output: FlexClientTestUpdateGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
     async runGetTestValue(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: number// uint32,
-        }
+        output: FlexClientTestUpdateGetTestValueOutput,
     }> {
         return await runHelper(this, "getTestValue", {});
     }
 
-    async runLocalGetTestValue(): Promise<{
+    async getTestValue(): Promise<{
         transaction: Transaction,
-        output: {
-            value0: number// uint32,
-        }
+        output: FlexClientTestUpdateGetTestValueOutput,
     }> {
         return await runLocalHelper(this, "getTestValue", {});
     }

@@ -9,7 +9,14 @@ export function contractCodeHeader(options: { hasDeploy: boolean }): string {
     return `
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { AbiContract } from "@eversdk/core";
-import { ${options.hasDeploy ? "deployHelper, " : ""}runHelper, runLocalHelper, Transaction, ContractPackageEx } from "../helpers";
+import { 
+    ${options.hasDeploy ? "deployHelper," : ""}
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
+} from "../helpers";
 `;
 }
 
@@ -28,7 +35,13 @@ export async function genContractCode(client: TonClient, options: {
     } = options;
     const contractCode = (await client.boc.decode_tvc({ tvc })).code ?? "";
     const contractCodeHash = (await client.boc.get_boc_hash({ boc: contractCode })).hash;
-    let code =
+    let code = "";
+    for (const fn of abi.functions || []) {
+        if (fn.name !== "constructor") {
+            code += fnTypesCode(name, fn);
+        }
+    }
+    code +=
         `
 export class ${name}Account extends Account {
     static package: ContractPackageEx = {
@@ -37,15 +50,20 @@ export class ${name}Account extends Account {
         code: "${contractCode}",
         codeHash: "${contractCodeHash}",
     };
-    
-    constructor(options: AccountOptions) {
+    log: Log;
+    constructor(
+        options: AccountOptions & {
+            log?: Log
+        }
+    ) {
         super(${name}Account.package, options);
+        this.log = options.log ?? Log.default;
     }
 `;
     code += deployFnCode(abi);
     for (const fn of abi.functions || []) {
         if (fn.name !== "constructor") {
-            code += fnCode(fn);
+            code += fnCode(name, fn);
         }
     }
 
@@ -57,30 +75,85 @@ export class ${name}Account extends Account {
     };
 }
 
-function fnHeader(fn: AbiFunction, prefix: string): string {
-    const name = `${prefix}${fn.name[0].toUpperCase()}${fn.name.slice(1)}`;
+const RESERVED_FN_NAMES = new Set([
+    "contract",
+    "client",
+    "abi",
+    "signer",
+    "initData",
+    "useCachedState",
+    "address",
+    "syncLastTransLt",
+    "cachedBoc",
+    "subscriptions",
+    "getAddress",
+    "getParamsOfDeployMessage",
+    "calcDeployFees",
+    "deploy",
+    "deployLocal",
+    "calcRunFees",
+    "run",
+    "runLocal",
+    "boc",
+    "refresh",
+    "getAccount",
+    "subscribeAccount",
+    "subscribeTransactions",
+    "subscribeMessages",
+    "decodeMessage",
+    "decodeMessageBody",
+    "getBalance",
+    "subscribe",
+    "free",
+]);
+
+function fnName(fn: AbiFunction, prefix: string, suffix: string = ""): string {
+    const middle = prefix !== "" ? `${fn.name[0].toUpperCase()}${fn.name.slice(1)}` : fn.name;
+    const name = `${prefix}${middle}${suffix || ""}`;
+    return RESERVED_FN_NAMES.has(name) ? `${name}_` : name;
+}
+
+function fnTypeDecl(contractName: string, fn: AbiFunction, isInput: boolean): string {
+    const params = isInput ? fn.inputs : fn.outputs;
+    if (params.length === 0) {
+        return "";
+    }
+    const typeName = fnName(fn, contractName, isInput ? "Input" : "Output");
+    const decl = paramsDecl(
+        params,
+        "",
+        isInput,
+    );
+    return `export type ${typeName} = ${decl};\n\n`;
+}
+
+function fnTypesCode(contractName: string, fn: AbiFunction): string {
+    return fnTypeDecl(contractName, fn, true) + fnTypeDecl(contractName, fn, false);
+}
+
+
+function fnHeader(contractName: string, fn: AbiFunction, prefix: string): string {
+    const name = fnName(fn, prefix);
     let header = `    async ${name}(`;
     if (fn.inputs.length > 0) {
-        header += `input: ${paramsDecl(fn.inputs, "    ", true)}`;
+        header += `input: ${fnName(fn, contractName, "Input")}`;
     }
     header += "): Promise<{\n";
     header += "        transaction: Transaction,\n";
     if (fn.outputs.length > 0) {
-        header += "        output: ";
-        header += paramsDecl(fn.outputs, "        ", false);
-        header += "\n";
+        header += `        output: ${fnName(fn, contractName, "Output")},\n`;
     }
     header += "    }> {\n";
     return header;
 }
 
-function fnCode(fn: AbiFunction): string {
+function fnCode(contractName: string, fn: AbiFunction): string {
     const input = fn.inputs.length > 0 ? "input" : "{}";
-    let code = fnHeader(fn, "run");
+    let code = fnHeader(contractName, fn, "run");
     code += `        return await runHelper(this, "${fn.name}", ${input});\n`;
     code += `    }\n\n`;
 
-    code += fnHeader(fn, "runLocal");
+    code += fnHeader(contractName, fn, "");
     code += `        return await runLocalHelper(this, "${fn.name}", ${input});\n`;
     code += `    }\n\n`;
     return code;
@@ -143,7 +216,7 @@ function paramDecl(param: AbiParam, indent: string, isInput: boolean): string {
     case "tuple":
         decl += "{\n";
         for (const field of param.components ?? []) {
-            decl += `${indent}    ${paramDecl(field, indent + "    ", isInput)}\n`;
+            decl += `${indent}    ${paramDecl(field, indent + "    ", isInput)},\n`;
         }
         decl += `${indent}}`;
         break;
@@ -151,7 +224,10 @@ function paramDecl(param: AbiParam, indent: string, isInput: boolean): string {
         decl += type.name;
         break;
     }
-    decl += `// ${param.type}`;
+    if (type.array) {
+        decl += "[]";
+    }
+    decl += ` /* ${param.type} */`;
     return decl;
 }
 

@@ -14,7 +14,9 @@ const appkit_1 = require("@eversdk/appkit");
 const helpers_1 = require("../helpers");
 class AuthIndexAccount extends appkit_1.Account {
     constructor(options) {
+        var _a;
         super(AuthIndexAccount.package, options);
+        this.log = (_a = options.log) !== null && _a !== void 0 ? _a : helpers_1.Log.default;
     }
     deployContract() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -26,7 +28,7 @@ class AuthIndexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onDeploy", {});
         });
     }
-    runLocalOnDeploy() {
+    onDeploy() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", {});
         });
@@ -36,7 +38,7 @@ class AuthIndexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "remove", input);
         });
     }
-    runLocalRemove(input) {
+    remove(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "remove", input);
         });

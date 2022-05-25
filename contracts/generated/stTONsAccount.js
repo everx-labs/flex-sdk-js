@@ -14,7 +14,9 @@ const appkit_1 = require("@eversdk/appkit");
 const helpers_1 = require("../helpers");
 class stTONsAccount extends appkit_1.Account {
     constructor(options) {
+        var _a;
         super(stTONsAccount.package, options);
+        this.log = (_a = options.log) !== null && _a !== void 0 ? _a : helpers_1.Log.default;
     }
     deployContract() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -26,7 +28,7 @@ class stTONsAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "onDeploy", {});
         });
     }
-    runLocalOnDeploy() {
+    onDeploy() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", {});
         });
@@ -36,7 +38,7 @@ class stTONsAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "lendOwnership", input);
         });
     }
-    runLocalLendOwnership(input) {
+    lendOwnership(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "lendOwnership", input);
         });
@@ -46,7 +48,7 @@ class stTONsAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "returnOwnership", input);
         });
     }
-    runLocalReturnOwnership(input) {
+    returnOwnership(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "returnOwnership", input);
         });
@@ -56,7 +58,7 @@ class stTONsAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "returnStake", input);
         });
     }
-    runLocalReturnStake(input) {
+    returnStake(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "returnStake", input);
         });
@@ -66,7 +68,7 @@ class stTONsAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "finalize", input);
         });
     }
-    runLocalFinalize(input) {
+    finalize(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "finalize", input);
         });
@@ -76,7 +78,7 @@ class stTONsAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "receiveStakeTransfer", input);
         });
     }
-    runLocalReceiveStakeTransfer(input) {
+    receiveStakeTransfer(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "receiveStakeTransfer", input);
         });
@@ -86,7 +88,7 @@ class stTONsAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "receiveAnswer", input);
         });
     }
-    runLocalReceiveAnswer(input) {
+    receiveAnswer(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "receiveAnswer", input);
         });
@@ -96,7 +98,7 @@ class stTONsAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "getDetails", {});
         });
     }
-    runLocalGetDetails() {
+    getDetails() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
@@ -106,7 +108,7 @@ class stTONsAccount extends appkit_1.Account {
             return yield (0, helpers_1.runHelper)(this, "calcStTONsAddr", input);
         });
     }
-    runLocalCalcStTONsAddr(input) {
+    calcStTONsAddr(input) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, helpers_1.runLocalHelper)(this, "calcStTONsAddr", input);
         });

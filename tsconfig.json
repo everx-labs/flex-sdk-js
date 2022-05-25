@@ -38,5 +38,6 @@
 		"flex/*.ts",
 		"cli/*.ts",
 		"examples/*.ts",
+		"tests/*.ts",
 	]
 }

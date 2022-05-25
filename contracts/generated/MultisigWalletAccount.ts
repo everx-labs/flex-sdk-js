@@ -1,7 +1,248 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { AbiContract } from "@eversdk/core";
-import { deployHelper, runHelper, runLocalHelper, Transaction, ContractPackageEx } from "../helpers";
+import { 
+    deployHelper,
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
+} from "../helpers";
+export type MultisigWalletAcceptTransferInput = {
+    payload: string /* bytes */,
+};
+
+export type MultisigWalletSendTransactionInput = {
+    dest: string /* address */,
+    value: string | number | bigint /* uint128 */,
+    bounce: boolean /* bool */,
+    flags: number /* uint8 */,
+    payload: string /* cell */,
+};
+
+export type MultisigWalletSubmitTransactionInput = {
+    dest: string /* address */,
+    value: string | number | bigint /* uint128 */,
+    bounce: boolean /* bool */,
+    allBalance: boolean /* bool */,
+    payload: string /* cell */,
+};
+
+export type MultisigWalletSubmitTransactionOutput = {
+    transId: string /* uint64 */,
+};
+
+export type MultisigWalletConfirmTransactionInput = {
+    transactionId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletIsConfirmedInput = {
+    mask: number /* uint32 */,
+    index: number /* uint8 */,
+};
+
+export type MultisigWalletIsConfirmedOutput = {
+    confirmed: boolean /* bool */,
+};
+
+export type MultisigWalletGetParametersOutput = {
+    maxQueuedTransactions: number /* uint8 */,
+    maxQueuedLimits: number /* uint8 */,
+    maxCustodianCount: number /* uint8 */,
+    maxLimitPeriod: number /* uint32 */,
+    expirationTime: string /* uint64 */,
+    minValue: string /* uint128 */,
+    requiredTxnConfirms: number /* uint8 */,
+    requiredLimConfirms: number /* uint8 */,
+    requiredUpdConfirms: number /* uint8 */,
+};
+
+export type MultisigWalletGetTransactionInput = {
+    transactionId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletGetTransactionOutput = {
+    trans: {
+        id: string /* uint64 */,
+        confirmationsMask: number /* uint32 */,
+        signsRequired: number /* uint8 */,
+        signsReceived: number /* uint8 */,
+        creator: string /* uint256 */,
+        index: number /* uint8 */,
+        dest: string /* address */,
+        value: string /* uint128 */,
+        sendFlags: number /* uint16 */,
+        payload: string /* cell */,
+        bounce: boolean /* bool */,
+    } /* tuple */,
+};
+
+export type MultisigWalletGetTransactionsOutput = {
+    transactions: {
+        id: string /* uint64 */,
+        confirmationsMask: number /* uint32 */,
+        signsRequired: number /* uint8 */,
+        signsReceived: number /* uint8 */,
+        creator: string /* uint256 */,
+        index: number /* uint8 */,
+        dest: string /* address */,
+        value: string /* uint128 */,
+        sendFlags: number /* uint16 */,
+        payload: string /* cell */,
+        bounce: boolean /* bool */,
+    }[] /* tuple[] */,
+};
+
+export type MultisigWalletGetTransactionIdsOutput = {
+    ids: string[] /* uint64[] */,
+};
+
+export type MultisigWalletGetCustodiansOutput = {
+    custodians: {
+        index: number /* uint8 */,
+        pubkey: string /* uint256 */,
+    }[] /* tuple[] */,
+};
+
+export type MultisigWalletCreateLimitInput = {
+    value: string | number | bigint /* uint128 */,
+    period: number /* uint32 */,
+    required: number /* uint8 */,
+};
+
+export type MultisigWalletCreateLimitOutput = {
+    limitId: string /* uint64 */,
+};
+
+export type MultisigWalletConfirmLimitInput = {
+    limitId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletChangeLimitInput = {
+    limitId: string | number | bigint /* uint64 */,
+    value: string | number | bigint /* uint128 */,
+    period: number /* uint32 */,
+    required: number /* uint8 */,
+};
+
+export type MultisigWalletChangeLimitOutput = {
+    newLimitId: string /* uint64 */,
+};
+
+export type MultisigWalletDeleteLimitInput = {
+    limitId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletGetLimitsOutput = {
+    limits: {
+        id: string /* uint64 */,
+        value: string /* uint128 */,
+        period: number /* uint32 */,
+        required: number /* uint8 */,
+        spent: string /* uint256 */,
+        start: number /* uint32 */,
+        votes: number /* uint8 */,
+        deletionMask: number /* uint32 */,
+    }[] /* tuple[] */,
+};
+
+export type MultisigWalletGetPendingLimitInput = {
+    limitId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletGetPendingLimitOutput = {
+    limit: {
+        creator: string /* uint256 */,
+        index: number /* uint8 */,
+        confirmationsMask: number /* uint32 */,
+        signs: number /* uint8 */,
+        parentId: string /* uint64 */,
+        limit: {
+            id: string /* uint64 */,
+            value: string /* uint128 */,
+            period: number /* uint32 */,
+            required: number /* uint8 */,
+            spent: string /* uint256 */,
+            start: number /* uint32 */,
+            votes: number /* uint8 */,
+            deletionMask: number /* uint32 */,
+        } /* tuple */,
+    } /* tuple */,
+};
+
+export type MultisigWalletGetPendingLimitsOutput = {
+    pendingLimits: {
+        id: string /* uint64 */,
+        info: {
+            creator: string /* uint256 */,
+            index: number /* uint8 */,
+            confirmationsMask: number /* uint32 */,
+            signs: number /* uint8 */,
+            parentId: string /* uint64 */,
+            limit: {
+                id: string /* uint64 */,
+                value: string /* uint128 */,
+                period: number /* uint32 */,
+                required: number /* uint8 */,
+                spent: string /* uint256 */,
+                start: number /* uint32 */,
+                votes: number /* uint8 */,
+                deletionMask: number /* uint32 */,
+            } /* tuple */,
+        } /* tuple */,
+    }[] /* tuple[] */,
+};
+
+export type MultisigWalletGetLimitInput = {
+    limitId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletGetLimitOutput = {
+    limit: {
+        id: string /* uint64 */,
+        value: string /* uint128 */,
+        period: number /* uint32 */,
+        required: number /* uint8 */,
+        spent: string /* uint256 */,
+        start: number /* uint32 */,
+        votes: number /* uint8 */,
+        deletionMask: number /* uint32 */,
+    } /* tuple */,
+};
+
+export type MultisigWalletSubmitUpdateInput = {
+    codeHash: string | number | bigint /* uint256 */,
+    owners: string | number | bigint[] /* uint256[] */,
+    reqConfirms: number /* uint8 */,
+};
+
+export type MultisigWalletSubmitUpdateOutput = {
+    updateId: string /* uint64 */,
+};
+
+export type MultisigWalletConfirmUpdateInput = {
+    updateId: string | number | bigint /* uint64 */,
+};
+
+export type MultisigWalletExecuteUpdateInput = {
+    updateId: string | number | bigint /* uint64 */,
+    code: string /* cell */,
+};
+
+export type MultisigWalletGetUpdateRequestsOutput = {
+    updates: {
+        id: string /* uint64 */,
+        index: number /* uint8 */,
+        signs: number /* uint8 */,
+        confirmationsMask: number /* uint32 */,
+        creator: string /* uint256 */,
+        codeHash: string /* uint256 */,
+        custodians: string[] /* uint256[] */,
+        reqConfirms: number /* uint8 */,
+    }[] /* tuple[] */,
+};
+
 
 export class MultisigWalletAccount extends Account {
     static package: ContractPackageEx = {
@@ -10,374 +251,205 @@ export class MultisigWalletAccount extends Account {
         code: "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",
         codeHash: "719de81303b7e2cfa9aa24e810d5e1401560423b1a9d0b23d9514d745ed63c26",
     };
-    
-    constructor(options: AccountOptions) {
+    log: Log;
+    constructor(
+        options: AccountOptions & {
+            log?: Log
+        }
+    ) {
         super(MultisigWalletAccount.package, options);
+        this.log = options.log ?? Log.default;
     }
     async deployContract(input: {
-        owners: string | number | bigint// uint256[],
-        reqConfirms: number// uint8,
+        owners: string | number | bigint[] /* uint256[] */,
+        reqConfirms: number /* uint8 */,
     }): Promise<{
         transaction: Transaction,
     }> {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runAcceptTransfer(input: {
-        payload: string// bytes,
-    }): Promise<{
+    async runAcceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "acceptTransfer", input);
     }
 
-    async runLocalAcceptTransfer(input: {
-        payload: string// bytes,
-    }): Promise<{
+    async acceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "acceptTransfer", input);
     }
 
-    async runSendTransaction(input: {
-        dest: string// address,
-        value: string | number | bigint// uint128,
-        bounce: boolean// bool,
-        flags: number// uint8,
-        payload: string// cell,
-    }): Promise<{
+    async runSendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "sendTransaction", input);
     }
 
-    async runLocalSendTransaction(input: {
-        dest: string// address,
-        value: string | number | bigint// uint128,
-        bounce: boolean// bool,
-        flags: number// uint8,
-        payload: string// cell,
-    }): Promise<{
+    async sendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "sendTransaction", input);
     }
 
-    async runSubmitTransaction(input: {
-        dest: string// address,
-        value: string | number | bigint// uint128,
-        bounce: boolean// bool,
-        allBalance: boolean// bool,
-        payload: string// cell,
-    }): Promise<{
+    async runSubmitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
         transaction: Transaction,
-        output: {
-            transId: string// uint64,
-        }
+        output: MultisigWalletSubmitTransactionOutput,
     }> {
         return await runHelper(this, "submitTransaction", input);
     }
 
-    async runLocalSubmitTransaction(input: {
-        dest: string// address,
-        value: string | number | bigint// uint128,
-        bounce: boolean// bool,
-        allBalance: boolean// bool,
-        payload: string// cell,
-    }): Promise<{
+    async submitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
         transaction: Transaction,
-        output: {
-            transId: string// uint64,
-        }
+        output: MultisigWalletSubmitTransactionOutput,
     }> {
         return await runLocalHelper(this, "submitTransaction", input);
     }
 
-    async runConfirmTransaction(input: {
-        transactionId: string | number | bigint// uint64,
-    }): Promise<{
+    async runConfirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "confirmTransaction", input);
     }
 
-    async runLocalConfirmTransaction(input: {
-        transactionId: string | number | bigint// uint64,
-    }): Promise<{
+    async confirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "confirmTransaction", input);
     }
 
-    async runIsConfirmed(input: {
-        mask: number// uint32,
-        index: number// uint8,
-    }): Promise<{
+    async runIsConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
         transaction: Transaction,
-        output: {
-            confirmed: boolean// bool,
-        }
+        output: MultisigWalletIsConfirmedOutput,
     }> {
         return await runHelper(this, "isConfirmed", input);
     }
 
-    async runLocalIsConfirmed(input: {
-        mask: number// uint32,
-        index: number// uint8,
-    }): Promise<{
+    async isConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
         transaction: Transaction,
-        output: {
-            confirmed: boolean// bool,
-        }
+        output: MultisigWalletIsConfirmedOutput,
     }> {
         return await runLocalHelper(this, "isConfirmed", input);
     }
 
     async runGetParameters(): Promise<{
         transaction: Transaction,
-        output: {
-            maxQueuedTransactions: number// uint8,
-            maxQueuedLimits: number// uint8,
-            maxCustodianCount: number// uint8,
-            maxLimitPeriod: number// uint32,
-            expirationTime: string// uint64,
-            minValue: string// uint128,
-            requiredTxnConfirms: number// uint8,
-            requiredLimConfirms: number// uint8,
-            requiredUpdConfirms: number// uint8,
-        }
+        output: MultisigWalletGetParametersOutput,
     }> {
         return await runHelper(this, "getParameters", {});
     }
 
-    async runLocalGetParameters(): Promise<{
+    async getParameters(): Promise<{
         transaction: Transaction,
-        output: {
-            maxQueuedTransactions: number// uint8,
-            maxQueuedLimits: number// uint8,
-            maxCustodianCount: number// uint8,
-            maxLimitPeriod: number// uint32,
-            expirationTime: string// uint64,
-            minValue: string// uint128,
-            requiredTxnConfirms: number// uint8,
-            requiredLimConfirms: number// uint8,
-            requiredUpdConfirms: number// uint8,
-        }
+        output: MultisigWalletGetParametersOutput,
     }> {
         return await runLocalHelper(this, "getParameters", {});
     }
 
-    async runGetTransaction(input: {
-        transactionId: string | number | bigint// uint64,
-    }): Promise<{
+    async runGetTransaction(input: MultisigWalletGetTransactionInput): Promise<{
         transaction: Transaction,
-        output: {
-            trans: {
-                id: string// uint64
-                confirmationsMask: number// uint32
-                signsRequired: number// uint8
-                signsReceived: number// uint8
-                creator: string// uint256
-                index: number// uint8
-                dest: string// address
-                value: string// uint128
-                sendFlags: number// uint16
-                payload: string// cell
-                bounce: boolean// bool
-            }// tuple,
-        }
+        output: MultisigWalletGetTransactionOutput,
     }> {
         return await runHelper(this, "getTransaction", input);
     }
 
-    async runLocalGetTransaction(input: {
-        transactionId: string | number | bigint// uint64,
-    }): Promise<{
+    async getTransaction(input: MultisigWalletGetTransactionInput): Promise<{
         transaction: Transaction,
-        output: {
-            trans: {
-                id: string// uint64
-                confirmationsMask: number// uint32
-                signsRequired: number// uint8
-                signsReceived: number// uint8
-                creator: string// uint256
-                index: number// uint8
-                dest: string// address
-                value: string// uint128
-                sendFlags: number// uint16
-                payload: string// cell
-                bounce: boolean// bool
-            }// tuple,
-        }
+        output: MultisigWalletGetTransactionOutput,
     }> {
         return await runLocalHelper(this, "getTransaction", input);
     }
 
     async runGetTransactions(): Promise<{
         transaction: Transaction,
-        output: {
-            transactions: {
-                id: string// uint64
-                confirmationsMask: number// uint32
-                signsRequired: number// uint8
-                signsReceived: number// uint8
-                creator: string// uint256
-                index: number// uint8
-                dest: string// address
-                value: string// uint128
-                sendFlags: number// uint16
-                payload: string// cell
-                bounce: boolean// bool
-            }// tuple[],
-        }
+        output: MultisigWalletGetTransactionsOutput,
     }> {
         return await runHelper(this, "getTransactions", {});
     }
 
-    async runLocalGetTransactions(): Promise<{
+    async getTransactions(): Promise<{
         transaction: Transaction,
-        output: {
-            transactions: {
-                id: string// uint64
-                confirmationsMask: number// uint32
-                signsRequired: number// uint8
-                signsReceived: number// uint8
-                creator: string// uint256
-                index: number// uint8
-                dest: string// address
-                value: string// uint128
-                sendFlags: number// uint16
-                payload: string// cell
-                bounce: boolean// bool
-            }// tuple[],
-        }
+        output: MultisigWalletGetTransactionsOutput,
     }> {
         return await runLocalHelper(this, "getTransactions", {});
     }
 
     async runGetTransactionIds(): Promise<{
         transaction: Transaction,
-        output: {
-            ids: string// uint64[],
-        }
+        output: MultisigWalletGetTransactionIdsOutput,
     }> {
         return await runHelper(this, "getTransactionIds", {});
     }
 
-    async runLocalGetTransactionIds(): Promise<{
+    async getTransactionIds(): Promise<{
         transaction: Transaction,
-        output: {
-            ids: string// uint64[],
-        }
+        output: MultisigWalletGetTransactionIdsOutput,
     }> {
         return await runLocalHelper(this, "getTransactionIds", {});
     }
 
     async runGetCustodians(): Promise<{
         transaction: Transaction,
-        output: {
-            custodians: {
-                index: number// uint8
-                pubkey: string// uint256
-            }// tuple[],
-        }
+        output: MultisigWalletGetCustodiansOutput,
     }> {
         return await runHelper(this, "getCustodians", {});
     }
 
-    async runLocalGetCustodians(): Promise<{
+    async getCustodians(): Promise<{
         transaction: Transaction,
-        output: {
-            custodians: {
-                index: number// uint8
-                pubkey: string// uint256
-            }// tuple[],
-        }
+        output: MultisigWalletGetCustodiansOutput,
     }> {
         return await runLocalHelper(this, "getCustodians", {});
     }
 
-    async runCreateLimit(input: {
-        value: string | number | bigint// uint128,
-        period: number// uint32,
-        required: number// uint8,
-    }): Promise<{
+    async runCreateLimit(input: MultisigWalletCreateLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            limitId: string// uint64,
-        }
+        output: MultisigWalletCreateLimitOutput,
     }> {
         return await runHelper(this, "createLimit", input);
     }
 
-    async runLocalCreateLimit(input: {
-        value: string | number | bigint// uint128,
-        period: number// uint32,
-        required: number// uint8,
-    }): Promise<{
+    async createLimit(input: MultisigWalletCreateLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            limitId: string// uint64,
-        }
+        output: MultisigWalletCreateLimitOutput,
     }> {
         return await runLocalHelper(this, "createLimit", input);
     }
 
-    async runConfirmLimit(input: {
-        limitId: string | number | bigint// uint64,
-    }): Promise<{
+    async runConfirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "confirmLimit", input);
     }
 
-    async runLocalConfirmLimit(input: {
-        limitId: string | number | bigint// uint64,
-    }): Promise<{
+    async confirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "confirmLimit", input);
     }
 
-    async runChangeLimit(input: {
-        limitId: string | number | bigint// uint64,
-        value: string | number | bigint// uint128,
-        period: number// uint32,
-        required: number// uint8,
-    }): Promise<{
+    async runChangeLimit(input: MultisigWalletChangeLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            newLimitId: string// uint64,
-        }
+        output: MultisigWalletChangeLimitOutput,
     }> {
         return await runHelper(this, "changeLimit", input);
     }
 
-    async runLocalChangeLimit(input: {
-        limitId: string | number | bigint// uint64,
-        value: string | number | bigint// uint128,
-        period: number// uint32,
-        required: number// uint8,
-    }): Promise<{
+    async changeLimit(input: MultisigWalletChangeLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            newLimitId: string// uint64,
-        }
+        output: MultisigWalletChangeLimitOutput,
     }> {
         return await runLocalHelper(this, "changeLimit", input);
     }
 
-    async runDeleteLimit(input: {
-        limitId: string | number | bigint// uint64,
-    }): Promise<{
+    async runDeleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "deleteLimit", input);
     }
 
-    async runLocalDeleteLimit(input: {
-        limitId: string | number | bigint// uint64,
-    }): Promise<{
+    async deleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "deleteLimit", input);
@@ -385,245 +457,93 @@ export class MultisigWalletAccount extends Account {
 
     async runGetLimits(): Promise<{
         transaction: Transaction,
-        output: {
-            limits: {
-                id: string// uint64
-                value: string// uint128
-                period: number// uint32
-                required: number// uint8
-                spent: string// uint256
-                start: number// uint32
-                votes: number// uint8
-                deletionMask: number// uint32
-            }// tuple[],
-        }
+        output: MultisigWalletGetLimitsOutput,
     }> {
         return await runHelper(this, "getLimits", {});
     }
 
-    async runLocalGetLimits(): Promise<{
+    async getLimits(): Promise<{
         transaction: Transaction,
-        output: {
-            limits: {
-                id: string// uint64
-                value: string// uint128
-                period: number// uint32
-                required: number// uint8
-                spent: string// uint256
-                start: number// uint32
-                votes: number// uint8
-                deletionMask: number// uint32
-            }// tuple[],
-        }
+        output: MultisigWalletGetLimitsOutput,
     }> {
         return await runLocalHelper(this, "getLimits", {});
     }
 
-    async runGetPendingLimit(input: {
-        limitId: string | number | bigint// uint64,
-    }): Promise<{
+    async runGetPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            limit: {
-                creator: string// uint256
-                index: number// uint8
-                confirmationsMask: number// uint32
-                signs: number// uint8
-                parentId: string// uint64
-                limit: {
-                    id: string// uint64
-                    value: string// uint128
-                    period: number// uint32
-                    required: number// uint8
-                    spent: string// uint256
-                    start: number// uint32
-                    votes: number// uint8
-                    deletionMask: number// uint32
-                }// tuple
-            }// tuple,
-        }
+        output: MultisigWalletGetPendingLimitOutput,
     }> {
         return await runHelper(this, "getPendingLimit", input);
     }
 
-    async runLocalGetPendingLimit(input: {
-        limitId: string | number | bigint// uint64,
-    }): Promise<{
+    async getPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            limit: {
-                creator: string// uint256
-                index: number// uint8
-                confirmationsMask: number// uint32
-                signs: number// uint8
-                parentId: string// uint64
-                limit: {
-                    id: string// uint64
-                    value: string// uint128
-                    period: number// uint32
-                    required: number// uint8
-                    spent: string// uint256
-                    start: number// uint32
-                    votes: number// uint8
-                    deletionMask: number// uint32
-                }// tuple
-            }// tuple,
-        }
+        output: MultisigWalletGetPendingLimitOutput,
     }> {
         return await runLocalHelper(this, "getPendingLimit", input);
     }
 
     async runGetPendingLimits(): Promise<{
         transaction: Transaction,
-        output: {
-            pendingLimits: {
-                id: string// uint64
-                info: {
-                    creator: string// uint256
-                    index: number// uint8
-                    confirmationsMask: number// uint32
-                    signs: number// uint8
-                    parentId: string// uint64
-                    limit: {
-                        id: string// uint64
-                        value: string// uint128
-                        period: number// uint32
-                        required: number// uint8
-                        spent: string// uint256
-                        start: number// uint32
-                        votes: number// uint8
-                        deletionMask: number// uint32
-                    }// tuple
-                }// tuple
-            }// tuple[],
-        }
+        output: MultisigWalletGetPendingLimitsOutput,
     }> {
         return await runHelper(this, "getPendingLimits", {});
     }
 
-    async runLocalGetPendingLimits(): Promise<{
+    async getPendingLimits(): Promise<{
         transaction: Transaction,
-        output: {
-            pendingLimits: {
-                id: string// uint64
-                info: {
-                    creator: string// uint256
-                    index: number// uint8
-                    confirmationsMask: number// uint32
-                    signs: number// uint8
-                    parentId: string// uint64
-                    limit: {
-                        id: string// uint64
-                        value: string// uint128
-                        period: number// uint32
-                        required: number// uint8
-                        spent: string// uint256
-                        start: number// uint32
-                        votes: number// uint8
-                        deletionMask: number// uint32
-                    }// tuple
-                }// tuple
-            }// tuple[],
-        }
+        output: MultisigWalletGetPendingLimitsOutput,
     }> {
         return await runLocalHelper(this, "getPendingLimits", {});
     }
 
-    async runGetLimit(input: {
-        limitId: string | number | bigint// uint64,
-    }): Promise<{
+    async runGetLimit(input: MultisigWalletGetLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            limit: {
-                id: string// uint64
-                value: string// uint128
-                period: number// uint32
-                required: number// uint8
-                spent: string// uint256
-                start: number// uint32
-                votes: number// uint8
-                deletionMask: number// uint32
-            }// tuple,
-        }
+        output: MultisigWalletGetLimitOutput,
     }> {
         return await runHelper(this, "getLimit", input);
     }
 
-    async runLocalGetLimit(input: {
-        limitId: string | number | bigint// uint64,
-    }): Promise<{
+    async getLimit(input: MultisigWalletGetLimitInput): Promise<{
         transaction: Transaction,
-        output: {
-            limit: {
-                id: string// uint64
-                value: string// uint128
-                period: number// uint32
-                required: number// uint8
-                spent: string// uint256
-                start: number// uint32
-                votes: number// uint8
-                deletionMask: number// uint32
-            }// tuple,
-        }
+        output: MultisigWalletGetLimitOutput,
     }> {
         return await runLocalHelper(this, "getLimit", input);
     }
 
-    async runSubmitUpdate(input: {
-        codeHash: string | number | bigint// uint256,
-        owners: string | number | bigint// uint256[],
-        reqConfirms: number// uint8,
-    }): Promise<{
+    async runSubmitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
         transaction: Transaction,
-        output: {
-            updateId: string// uint64,
-        }
+        output: MultisigWalletSubmitUpdateOutput,
     }> {
         return await runHelper(this, "submitUpdate", input);
     }
 
-    async runLocalSubmitUpdate(input: {
-        codeHash: string | number | bigint// uint256,
-        owners: string | number | bigint// uint256[],
-        reqConfirms: number// uint8,
-    }): Promise<{
+    async submitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
         transaction: Transaction,
-        output: {
-            updateId: string// uint64,
-        }
+        output: MultisigWalletSubmitUpdateOutput,
     }> {
         return await runLocalHelper(this, "submitUpdate", input);
     }
 
-    async runConfirmUpdate(input: {
-        updateId: string | number | bigint// uint64,
-    }): Promise<{
+    async runConfirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "confirmUpdate", input);
     }
 
-    async runLocalConfirmUpdate(input: {
-        updateId: string | number | bigint// uint64,
-    }): Promise<{
+    async confirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "confirmUpdate", input);
     }
 
-    async runExecuteUpdate(input: {
-        updateId: string | number | bigint// uint64,
-        code: string// cell,
-    }): Promise<{
+    async runExecuteUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "executeUpdate", input);
     }
 
-    async runLocalExecuteUpdate(input: {
-        updateId: string | number | bigint// uint64,
-        code: string// cell,
-    }): Promise<{
+    async executeUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "executeUpdate", input);
@@ -631,36 +551,14 @@ export class MultisigWalletAccount extends Account {
 
     async runGetUpdateRequests(): Promise<{
         transaction: Transaction,
-        output: {
-            updates: {
-                id: string// uint64
-                index: number// uint8
-                signs: number// uint8
-                confirmationsMask: number// uint32
-                creator: string// uint256
-                codeHash: string// uint256
-                custodians: string// uint256[]
-                reqConfirms: number// uint8
-            }// tuple[],
-        }
+        output: MultisigWalletGetUpdateRequestsOutput,
     }> {
         return await runHelper(this, "getUpdateRequests", {});
     }
 
-    async runLocalGetUpdateRequests(): Promise<{
+    async getUpdateRequests(): Promise<{
         transaction: Transaction,
-        output: {
-            updates: {
-                id: string// uint64
-                index: number// uint8
-                signs: number// uint8
-                confirmationsMask: number// uint32
-                creator: string// uint256
-                codeHash: string// uint256
-                custodians: string// uint256[]
-                reqConfirms: number// uint8
-            }// tuple[],
-        }
+        output: MultisigWalletGetUpdateRequestsOutput,
     }> {
         return await runLocalHelper(this, "getUpdateRequests", {});
     }

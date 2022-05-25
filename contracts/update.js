@@ -38,7 +38,7 @@ function update(client, relPaths) {
             });
             const contracts = (0, codegen_1.contractCodeHeader)({ hasDeploy: gen.hasDeploy }) +
                 gen.code;
-            index += `export * from "./${sourceName}Account";\n`;
+            index += `export { ${sourceName}Account } from "./${sourceName}Account";\n`;
             fs_1.default.writeFileSync(path_1.default.resolve(__dirname, "generated", `${sourceName}Account.ts`), contracts, "utf8");
         }
         fs_1.default.writeFileSync(path_1.default.resolve(__dirname, "generated", `index.ts`), index, "utf8");

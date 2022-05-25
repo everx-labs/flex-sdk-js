@@ -1,242 +1,172 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type XchgPairOnDeployInput = {
+    min_amount: string | number | bigint;
+    minmove: string | number | bigint;
+    price_denum: string | number | bigint;
+    deploy_value: string | number | bigint;
+    notify_addr: string;
+    major_tip3cfg: {
+        name: string;
+        symbol: string;
+        decimals: number;
+        root_pubkey: string | number | bigint;
+        root_address: string;
+    };
+    minor_tip3cfg: {
+        name: string;
+        symbol: string;
+        decimals: number;
+        root_pubkey: string | number | bigint;
+        root_address: string;
+    };
+};
+export declare type XchgPairRequestDetailsInput = {
+    _answer_id: number;
+};
+export declare type XchgPairRequestDetailsOutput = {
+    tip3_major_root: string;
+    tip3_minor_root: string;
+    min_amount: string;
+    minmove: string;
+    price_denum: string;
+    notify_addr: string;
+    major_reserve_wallet: string;
+    minor_reserve_wallet: string;
+    major_tip3cfg: {
+        name: string;
+        symbol: string;
+        decimals: number;
+        root_pubkey: string;
+        root_address: string;
+    };
+    minor_tip3cfg: {
+        name: string;
+        symbol: string;
+        decimals: number;
+        root_pubkey: string;
+        root_address: string;
+    };
+    next?: string;
+    unlisted: boolean;
+};
+export declare type XchgPairSetNextInput = {
+    next: string;
+};
+export declare type XchgPairGetDetailsOutput = {
+    tip3_major_root: string;
+    tip3_minor_root: string;
+    min_amount: string;
+    minmove: string;
+    price_denum: string;
+    notify_addr: string;
+    major_reserve_wallet: string;
+    minor_reserve_wallet: string;
+    major_tip3cfg: {
+        name: string;
+        symbol: string;
+        decimals: number;
+        root_pubkey: string;
+        root_address: string;
+    };
+    minor_tip3cfg: {
+        name: string;
+        symbol: string;
+        decimals: number;
+        root_pubkey: string;
+        root_address: string;
+    };
+    next?: string;
+    unlisted: boolean;
+};
+export declare type XchgPairGetConfigOutput = {
+    flex: string;
+    ev_cfg: {
+        transfer_tip3: string;
+        return_ownership: string;
+        order_answer: string;
+        process_queue: string;
+        send_notify: string;
+        dest_wallet_keep_evers: string;
+    };
+    deals_limit: number;
+    xchg_price_code: string;
+};
+export declare type XchgPairGetPriceXchgCodeInput = {
+    salted: boolean;
+};
+export declare type XchgPairGetPriceXchgCodeOutput = {
+    value0: string;
+};
+export declare type XchgPairGetPriceXchgSaltOutput = {
+    value0: string;
+};
 export declare class XchgPairAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(input: {
-        min_amount: string | number | bigint;
-        minmove: string | number | bigint;
-        price_denum: string | number | bigint;
-        deploy_value: string | number | bigint;
-        notify_addr: string;
-        major_tip3cfg: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string | number | bigint;
-            root_address: string;
-        };
-        minor_tip3cfg: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string | number | bigint;
-            root_address: string;
-        };
-    }): Promise<{
+    runOnDeploy(input: XchgPairOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalOnDeploy(input: {
-        min_amount: string | number | bigint;
-        minmove: string | number | bigint;
-        price_denum: string | number | bigint;
-        deploy_value: string | number | bigint;
-        notify_addr: string;
-        major_tip3cfg: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string | number | bigint;
-            root_address: string;
-        };
-        minor_tip3cfg: {
-            name: string;
-            symbol: string;
-            decimals: number;
-            root_pubkey: string | number | bigint;
-            root_address: string;
-        };
-    }): Promise<{
+    onDeploy(input: XchgPairOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
-    runRequestDetails(input: {
-        _answer_id: number;
-    }): Promise<{
+    runRequestDetails(input: XchgPairRequestDetailsInput): Promise<{
         transaction: Transaction;
-        output: {
-            tip3_major_root: string;
-            tip3_minor_root: string;
-            min_amount: string;
-            minmove: string;
-            price_denum: string;
-            notify_addr: string;
-            major_reserve_wallet: string;
-            minor_reserve_wallet: string;
-            major_tip3cfg: {
-                name: string;
-                symbol: string;
-                decimals: number;
-                root_pubkey: string;
-                root_address: string;
-            };
-            minor_tip3cfg: {
-                name: string;
-                symbol: string;
-                decimals: number;
-                root_pubkey: string;
-                root_address: string;
-            };
-            next?: string;
-        };
+        output: XchgPairRequestDetailsOutput;
     }>;
-    runLocalRequestDetails(input: {
-        _answer_id: number;
-    }): Promise<{
+    requestDetails(input: XchgPairRequestDetailsInput): Promise<{
         transaction: Transaction;
-        output: {
-            tip3_major_root: string;
-            tip3_minor_root: string;
-            min_amount: string;
-            minmove: string;
-            price_denum: string;
-            notify_addr: string;
-            major_reserve_wallet: string;
-            minor_reserve_wallet: string;
-            major_tip3cfg: {
-                name: string;
-                symbol: string;
-                decimals: number;
-                root_pubkey: string;
-                root_address: string;
-            };
-            minor_tip3cfg: {
-                name: string;
-                symbol: string;
-                decimals: number;
-                root_pubkey: string;
-                root_address: string;
-            };
-            next?: string;
-        };
+        output: XchgPairRequestDetailsOutput;
     }>;
-    runSetNext(input: {
-        next: string;
-    }): Promise<{
+    runSetNext(input: XchgPairSetNextInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetNext(input: {
-        next: string;
-    }): Promise<{
+    setNext(input: XchgPairSetNextInput): Promise<{
+        transaction: Transaction;
+    }>;
+    runUnlist(): Promise<{
+        transaction: Transaction;
+    }>;
+    unlist(): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            tip3_major_root: string;
-            tip3_minor_root: string;
-            min_amount: string;
-            minmove: string;
-            price_denum: string;
-            notify_addr: string;
-            major_reserve_wallet: string;
-            minor_reserve_wallet: string;
-            major_tip3cfg: {
-                name: string;
-                symbol: string;
-                decimals: number;
-                root_pubkey: string;
-                root_address: string;
-            };
-            minor_tip3cfg: {
-                name: string;
-                symbol: string;
-                decimals: number;
-                root_pubkey: string;
-                root_address: string;
-            };
-            next?: string;
-        };
+        output: XchgPairGetDetailsOutput;
     }>;
-    runLocalGetDetails(): Promise<{
+    getDetails(): Promise<{
         transaction: Transaction;
-        output: {
-            tip3_major_root: string;
-            tip3_minor_root: string;
-            min_amount: string;
-            minmove: string;
-            price_denum: string;
-            notify_addr: string;
-            major_reserve_wallet: string;
-            minor_reserve_wallet: string;
-            major_tip3cfg: {
-                name: string;
-                symbol: string;
-                decimals: number;
-                root_pubkey: string;
-                root_address: string;
-            };
-            minor_tip3cfg: {
-                name: string;
-                symbol: string;
-                decimals: number;
-                root_pubkey: string;
-                root_address: string;
-            };
-            next?: string;
-        };
+        output: XchgPairGetDetailsOutput;
     }>;
     runGetConfig(): Promise<{
         transaction: Transaction;
-        output: {
-            flex: string;
-            ev_cfg: {
-                transfer_tip3: string;
-                return_ownership: string;
-                order_answer: string;
-                process_queue: string;
-                send_notify: string;
-                dest_wallet_keep_evers: string;
-            };
-            deals_limit: number;
-            xchg_price_code: string;
-        };
+        output: XchgPairGetConfigOutput;
     }>;
-    runLocalGetConfig(): Promise<{
+    getConfig(): Promise<{
         transaction: Transaction;
-        output: {
-            flex: string;
-            ev_cfg: {
-                transfer_tip3: string;
-                return_ownership: string;
-                order_answer: string;
-                process_queue: string;
-                send_notify: string;
-                dest_wallet_keep_evers: string;
-            };
-            deals_limit: number;
-            xchg_price_code: string;
-        };
+        output: XchgPairGetConfigOutput;
     }>;
-    runGetPriceXchgCode(input: {
-        salted: boolean;
-    }): Promise<{
+    runGetPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: XchgPairGetPriceXchgCodeOutput;
     }>;
-    runLocalGetPriceXchgCode(input: {
-        salted: boolean;
-    }): Promise<{
+    getPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: XchgPairGetPriceXchgCodeOutput;
     }>;
     runGetPriceXchgSalt(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: XchgPairGetPriceXchgSaltOutput;
     }>;
-    runLocalGetPriceXchgSalt(): Promise<{
+    getPriceXchgSalt(): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: XchgPairGetPriceXchgSaltOutput;
     }>;
 }
 //# sourceMappingURL=XchgPairAccount.d.ts.map

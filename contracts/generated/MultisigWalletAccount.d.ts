@@ -1,523 +1,382 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type MultisigWalletAcceptTransferInput = {
+    payload: string;
+};
+export declare type MultisigWalletSendTransactionInput = {
+    dest: string;
+    value: string | number | bigint;
+    bounce: boolean;
+    flags: number;
+    payload: string;
+};
+export declare type MultisigWalletSubmitTransactionInput = {
+    dest: string;
+    value: string | number | bigint;
+    bounce: boolean;
+    allBalance: boolean;
+    payload: string;
+};
+export declare type MultisigWalletSubmitTransactionOutput = {
+    transId: string;
+};
+export declare type MultisigWalletConfirmTransactionInput = {
+    transactionId: string | number | bigint;
+};
+export declare type MultisigWalletIsConfirmedInput = {
+    mask: number;
+    index: number;
+};
+export declare type MultisigWalletIsConfirmedOutput = {
+    confirmed: boolean;
+};
+export declare type MultisigWalletGetParametersOutput = {
+    maxQueuedTransactions: number;
+    maxQueuedLimits: number;
+    maxCustodianCount: number;
+    maxLimitPeriod: number;
+    expirationTime: string;
+    minValue: string;
+    requiredTxnConfirms: number;
+    requiredLimConfirms: number;
+    requiredUpdConfirms: number;
+};
+export declare type MultisigWalletGetTransactionInput = {
+    transactionId: string | number | bigint;
+};
+export declare type MultisigWalletGetTransactionOutput = {
+    trans: {
+        id: string;
+        confirmationsMask: number;
+        signsRequired: number;
+        signsReceived: number;
+        creator: string;
+        index: number;
+        dest: string;
+        value: string;
+        sendFlags: number;
+        payload: string;
+        bounce: boolean;
+    };
+};
+export declare type MultisigWalletGetTransactionsOutput = {
+    transactions: {
+        id: string;
+        confirmationsMask: number;
+        signsRequired: number;
+        signsReceived: number;
+        creator: string;
+        index: number;
+        dest: string;
+        value: string;
+        sendFlags: number;
+        payload: string;
+        bounce: boolean;
+    }[];
+};
+export declare type MultisigWalletGetTransactionIdsOutput = {
+    ids: string[];
+};
+export declare type MultisigWalletGetCustodiansOutput = {
+    custodians: {
+        index: number;
+        pubkey: string;
+    }[];
+};
+export declare type MultisigWalletCreateLimitInput = {
+    value: string | number | bigint;
+    period: number;
+    required: number;
+};
+export declare type MultisigWalletCreateLimitOutput = {
+    limitId: string;
+};
+export declare type MultisigWalletConfirmLimitInput = {
+    limitId: string | number | bigint;
+};
+export declare type MultisigWalletChangeLimitInput = {
+    limitId: string | number | bigint;
+    value: string | number | bigint;
+    period: number;
+    required: number;
+};
+export declare type MultisigWalletChangeLimitOutput = {
+    newLimitId: string;
+};
+export declare type MultisigWalletDeleteLimitInput = {
+    limitId: string | number | bigint;
+};
+export declare type MultisigWalletGetLimitsOutput = {
+    limits: {
+        id: string;
+        value: string;
+        period: number;
+        required: number;
+        spent: string;
+        start: number;
+        votes: number;
+        deletionMask: number;
+    }[];
+};
+export declare type MultisigWalletGetPendingLimitInput = {
+    limitId: string | number | bigint;
+};
+export declare type MultisigWalletGetPendingLimitOutput = {
+    limit: {
+        creator: string;
+        index: number;
+        confirmationsMask: number;
+        signs: number;
+        parentId: string;
+        limit: {
+            id: string;
+            value: string;
+            period: number;
+            required: number;
+            spent: string;
+            start: number;
+            votes: number;
+            deletionMask: number;
+        };
+    };
+};
+export declare type MultisigWalletGetPendingLimitsOutput = {
+    pendingLimits: {
+        id: string;
+        info: {
+            creator: string;
+            index: number;
+            confirmationsMask: number;
+            signs: number;
+            parentId: string;
+            limit: {
+                id: string;
+                value: string;
+                period: number;
+                required: number;
+                spent: string;
+                start: number;
+                votes: number;
+                deletionMask: number;
+            };
+        };
+    }[];
+};
+export declare type MultisigWalletGetLimitInput = {
+    limitId: string | number | bigint;
+};
+export declare type MultisigWalletGetLimitOutput = {
+    limit: {
+        id: string;
+        value: string;
+        period: number;
+        required: number;
+        spent: string;
+        start: number;
+        votes: number;
+        deletionMask: number;
+    };
+};
+export declare type MultisigWalletSubmitUpdateInput = {
+    codeHash: string | number | bigint;
+    owners: string | number | bigint[];
+    reqConfirms: number;
+};
+export declare type MultisigWalletSubmitUpdateOutput = {
+    updateId: string;
+};
+export declare type MultisigWalletConfirmUpdateInput = {
+    updateId: string | number | bigint;
+};
+export declare type MultisigWalletExecuteUpdateInput = {
+    updateId: string | number | bigint;
+    code: string;
+};
+export declare type MultisigWalletGetUpdateRequestsOutput = {
+    updates: {
+        id: string;
+        index: number;
+        signs: number;
+        confirmationsMask: number;
+        creator: string;
+        codeHash: string;
+        custodians: string[];
+        reqConfirms: number;
+    }[];
+};
 export declare class MultisigWalletAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(input: {
-        owners: string | number | bigint;
+        owners: string | number | bigint[];
         reqConfirms: number;
     }): Promise<{
         transaction: Transaction;
     }>;
-    runAcceptTransfer(input: {
-        payload: string;
-    }): Promise<{
+    runAcceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalAcceptTransfer(input: {
-        payload: string;
-    }): Promise<{
+    acceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
         transaction: Transaction;
     }>;
-    runSendTransaction(input: {
-        dest: string;
-        value: string | number | bigint;
-        bounce: boolean;
-        flags: number;
-        payload: string;
-    }): Promise<{
+    runSendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSendTransaction(input: {
-        dest: string;
-        value: string | number | bigint;
-        bounce: boolean;
-        flags: number;
-        payload: string;
-    }): Promise<{
+    sendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
         transaction: Transaction;
     }>;
-    runSubmitTransaction(input: {
-        dest: string;
-        value: string | number | bigint;
-        bounce: boolean;
-        allBalance: boolean;
-        payload: string;
-    }): Promise<{
+    runSubmitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
         transaction: Transaction;
-        output: {
-            transId: string;
-        };
+        output: MultisigWalletSubmitTransactionOutput;
     }>;
-    runLocalSubmitTransaction(input: {
-        dest: string;
-        value: string | number | bigint;
-        bounce: boolean;
-        allBalance: boolean;
-        payload: string;
-    }): Promise<{
+    submitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
         transaction: Transaction;
-        output: {
-            transId: string;
-        };
+        output: MultisigWalletSubmitTransactionOutput;
     }>;
-    runConfirmTransaction(input: {
-        transactionId: string | number | bigint;
-    }): Promise<{
+    runConfirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalConfirmTransaction(input: {
-        transactionId: string | number | bigint;
-    }): Promise<{
+    confirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
         transaction: Transaction;
     }>;
-    runIsConfirmed(input: {
-        mask: number;
-        index: number;
-    }): Promise<{
+    runIsConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
         transaction: Transaction;
-        output: {
-            confirmed: boolean;
-        };
+        output: MultisigWalletIsConfirmedOutput;
     }>;
-    runLocalIsConfirmed(input: {
-        mask: number;
-        index: number;
-    }): Promise<{
+    isConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
         transaction: Transaction;
-        output: {
-            confirmed: boolean;
-        };
+        output: MultisigWalletIsConfirmedOutput;
     }>;
     runGetParameters(): Promise<{
         transaction: Transaction;
-        output: {
-            maxQueuedTransactions: number;
-            maxQueuedLimits: number;
-            maxCustodianCount: number;
-            maxLimitPeriod: number;
-            expirationTime: string;
-            minValue: string;
-            requiredTxnConfirms: number;
-            requiredLimConfirms: number;
-            requiredUpdConfirms: number;
-        };
+        output: MultisigWalletGetParametersOutput;
     }>;
-    runLocalGetParameters(): Promise<{
+    getParameters(): Promise<{
         transaction: Transaction;
-        output: {
-            maxQueuedTransactions: number;
-            maxQueuedLimits: number;
-            maxCustodianCount: number;
-            maxLimitPeriod: number;
-            expirationTime: string;
-            minValue: string;
-            requiredTxnConfirms: number;
-            requiredLimConfirms: number;
-            requiredUpdConfirms: number;
-        };
+        output: MultisigWalletGetParametersOutput;
     }>;
-    runGetTransaction(input: {
-        transactionId: string | number | bigint;
-    }): Promise<{
+    runGetTransaction(input: MultisigWalletGetTransactionInput): Promise<{
         transaction: Transaction;
-        output: {
-            trans: {
-                id: string;
-                confirmationsMask: number;
-                signsRequired: number;
-                signsReceived: number;
-                creator: string;
-                index: number;
-                dest: string;
-                value: string;
-                sendFlags: number;
-                payload: string;
-                bounce: boolean;
-            };
-        };
+        output: MultisigWalletGetTransactionOutput;
     }>;
-    runLocalGetTransaction(input: {
-        transactionId: string | number | bigint;
-    }): Promise<{
+    getTransaction(input: MultisigWalletGetTransactionInput): Promise<{
         transaction: Transaction;
-        output: {
-            trans: {
-                id: string;
-                confirmationsMask: number;
-                signsRequired: number;
-                signsReceived: number;
-                creator: string;
-                index: number;
-                dest: string;
-                value: string;
-                sendFlags: number;
-                payload: string;
-                bounce: boolean;
-            };
-        };
+        output: MultisigWalletGetTransactionOutput;
     }>;
     runGetTransactions(): Promise<{
         transaction: Transaction;
-        output: {
-            transactions: {
-                id: string;
-                confirmationsMask: number;
-                signsRequired: number;
-                signsReceived: number;
-                creator: string;
-                index: number;
-                dest: string;
-                value: string;
-                sendFlags: number;
-                payload: string;
-                bounce: boolean;
-            };
-        };
+        output: MultisigWalletGetTransactionsOutput;
     }>;
-    runLocalGetTransactions(): Promise<{
+    getTransactions(): Promise<{
         transaction: Transaction;
-        output: {
-            transactions: {
-                id: string;
-                confirmationsMask: number;
-                signsRequired: number;
-                signsReceived: number;
-                creator: string;
-                index: number;
-                dest: string;
-                value: string;
-                sendFlags: number;
-                payload: string;
-                bounce: boolean;
-            };
-        };
+        output: MultisigWalletGetTransactionsOutput;
     }>;
     runGetTransactionIds(): Promise<{
         transaction: Transaction;
-        output: {
-            ids: string;
-        };
+        output: MultisigWalletGetTransactionIdsOutput;
     }>;
-    runLocalGetTransactionIds(): Promise<{
+    getTransactionIds(): Promise<{
         transaction: Transaction;
-        output: {
-            ids: string;
-        };
+        output: MultisigWalletGetTransactionIdsOutput;
     }>;
     runGetCustodians(): Promise<{
         transaction: Transaction;
-        output: {
-            custodians: {
-                index: number;
-                pubkey: string;
-            };
-        };
+        output: MultisigWalletGetCustodiansOutput;
     }>;
-    runLocalGetCustodians(): Promise<{
+    getCustodians(): Promise<{
         transaction: Transaction;
-        output: {
-            custodians: {
-                index: number;
-                pubkey: string;
-            };
-        };
+        output: MultisigWalletGetCustodiansOutput;
     }>;
-    runCreateLimit(input: {
-        value: string | number | bigint;
-        period: number;
-        required: number;
-    }): Promise<{
+    runCreateLimit(input: MultisigWalletCreateLimitInput): Promise<{
         transaction: Transaction;
-        output: {
-            limitId: string;
-        };
+        output: MultisigWalletCreateLimitOutput;
     }>;
-    runLocalCreateLimit(input: {
-        value: string | number | bigint;
-        period: number;
-        required: number;
-    }): Promise<{
+    createLimit(input: MultisigWalletCreateLimitInput): Promise<{
         transaction: Transaction;
-        output: {
-            limitId: string;
-        };
+        output: MultisigWalletCreateLimitOutput;
     }>;
-    runConfirmLimit(input: {
-        limitId: string | number | bigint;
-    }): Promise<{
+    runConfirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalConfirmLimit(input: {
-        limitId: string | number | bigint;
-    }): Promise<{
+    confirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
         transaction: Transaction;
     }>;
-    runChangeLimit(input: {
-        limitId: string | number | bigint;
-        value: string | number | bigint;
-        period: number;
-        required: number;
-    }): Promise<{
+    runChangeLimit(input: MultisigWalletChangeLimitInput): Promise<{
         transaction: Transaction;
-        output: {
-            newLimitId: string;
-        };
+        output: MultisigWalletChangeLimitOutput;
     }>;
-    runLocalChangeLimit(input: {
-        limitId: string | number | bigint;
-        value: string | number | bigint;
-        period: number;
-        required: number;
-    }): Promise<{
+    changeLimit(input: MultisigWalletChangeLimitInput): Promise<{
         transaction: Transaction;
-        output: {
-            newLimitId: string;
-        };
+        output: MultisigWalletChangeLimitOutput;
     }>;
-    runDeleteLimit(input: {
-        limitId: string | number | bigint;
-    }): Promise<{
+    runDeleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalDeleteLimit(input: {
-        limitId: string | number | bigint;
-    }): Promise<{
+    deleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
         transaction: Transaction;
     }>;
     runGetLimits(): Promise<{
         transaction: Transaction;
-        output: {
-            limits: {
-                id: string;
-                value: string;
-                period: number;
-                required: number;
-                spent: string;
-                start: number;
-                votes: number;
-                deletionMask: number;
-            };
-        };
+        output: MultisigWalletGetLimitsOutput;
     }>;
-    runLocalGetLimits(): Promise<{
+    getLimits(): Promise<{
         transaction: Transaction;
-        output: {
-            limits: {
-                id: string;
-                value: string;
-                period: number;
-                required: number;
-                spent: string;
-                start: number;
-                votes: number;
-                deletionMask: number;
-            };
-        };
+        output: MultisigWalletGetLimitsOutput;
     }>;
-    runGetPendingLimit(input: {
-        limitId: string | number | bigint;
-    }): Promise<{
+    runGetPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
         transaction: Transaction;
-        output: {
-            limit: {
-                creator: string;
-                index: number;
-                confirmationsMask: number;
-                signs: number;
-                parentId: string;
-                limit: {
-                    id: string;
-                    value: string;
-                    period: number;
-                    required: number;
-                    spent: string;
-                    start: number;
-                    votes: number;
-                    deletionMask: number;
-                };
-            };
-        };
+        output: MultisigWalletGetPendingLimitOutput;
     }>;
-    runLocalGetPendingLimit(input: {
-        limitId: string | number | bigint;
-    }): Promise<{
+    getPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
         transaction: Transaction;
-        output: {
-            limit: {
-                creator: string;
-                index: number;
-                confirmationsMask: number;
-                signs: number;
-                parentId: string;
-                limit: {
-                    id: string;
-                    value: string;
-                    period: number;
-                    required: number;
-                    spent: string;
-                    start: number;
-                    votes: number;
-                    deletionMask: number;
-                };
-            };
-        };
+        output: MultisigWalletGetPendingLimitOutput;
     }>;
     runGetPendingLimits(): Promise<{
         transaction: Transaction;
-        output: {
-            pendingLimits: {
-                id: string;
-                info: {
-                    creator: string;
-                    index: number;
-                    confirmationsMask: number;
-                    signs: number;
-                    parentId: string;
-                    limit: {
-                        id: string;
-                        value: string;
-                        period: number;
-                        required: number;
-                        spent: string;
-                        start: number;
-                        votes: number;
-                        deletionMask: number;
-                    };
-                };
-            };
-        };
+        output: MultisigWalletGetPendingLimitsOutput;
     }>;
-    runLocalGetPendingLimits(): Promise<{
+    getPendingLimits(): Promise<{
         transaction: Transaction;
-        output: {
-            pendingLimits: {
-                id: string;
-                info: {
-                    creator: string;
-                    index: number;
-                    confirmationsMask: number;
-                    signs: number;
-                    parentId: string;
-                    limit: {
-                        id: string;
-                        value: string;
-                        period: number;
-                        required: number;
-                        spent: string;
-                        start: number;
-                        votes: number;
-                        deletionMask: number;
-                    };
-                };
-            };
-        };
+        output: MultisigWalletGetPendingLimitsOutput;
     }>;
-    runGetLimit(input: {
-        limitId: string | number | bigint;
-    }): Promise<{
+    runGetLimit(input: MultisigWalletGetLimitInput): Promise<{
         transaction: Transaction;
-        output: {
-            limit: {
-                id: string;
-                value: string;
-                period: number;
-                required: number;
-                spent: string;
-                start: number;
-                votes: number;
-                deletionMask: number;
-            };
-        };
+        output: MultisigWalletGetLimitOutput;
     }>;
-    runLocalGetLimit(input: {
-        limitId: string | number | bigint;
-    }): Promise<{
+    getLimit(input: MultisigWalletGetLimitInput): Promise<{
         transaction: Transaction;
-        output: {
-            limit: {
-                id: string;
-                value: string;
-                period: number;
-                required: number;
-                spent: string;
-                start: number;
-                votes: number;
-                deletionMask: number;
-            };
-        };
+        output: MultisigWalletGetLimitOutput;
     }>;
-    runSubmitUpdate(input: {
-        codeHash: string | number | bigint;
-        owners: string | number | bigint;
-        reqConfirms: number;
-    }): Promise<{
+    runSubmitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
         transaction: Transaction;
-        output: {
-            updateId: string;
-        };
+        output: MultisigWalletSubmitUpdateOutput;
     }>;
-    runLocalSubmitUpdate(input: {
-        codeHash: string | number | bigint;
-        owners: string | number | bigint;
-        reqConfirms: number;
-    }): Promise<{
+    submitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
         transaction: Transaction;
-        output: {
-            updateId: string;
-        };
+        output: MultisigWalletSubmitUpdateOutput;
     }>;
-    runConfirmUpdate(input: {
-        updateId: string | number | bigint;
-    }): Promise<{
+    runConfirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalConfirmUpdate(input: {
-        updateId: string | number | bigint;
-    }): Promise<{
+    confirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
         transaction: Transaction;
     }>;
-    runExecuteUpdate(input: {
-        updateId: string | number | bigint;
-        code: string;
-    }): Promise<{
+    runExecuteUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalExecuteUpdate(input: {
-        updateId: string | number | bigint;
-        code: string;
-    }): Promise<{
+    executeUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
         transaction: Transaction;
     }>;
     runGetUpdateRequests(): Promise<{
         transaction: Transaction;
-        output: {
-            updates: {
-                id: string;
-                index: number;
-                signs: number;
-                confirmationsMask: number;
-                creator: string;
-                codeHash: string;
-                custodians: string;
-                reqConfirms: number;
-            };
-        };
+        output: MultisigWalletGetUpdateRequestsOutput;
     }>;
-    runLocalGetUpdateRequests(): Promise<{
+    getUpdateRequests(): Promise<{
         transaction: Transaction;
-        output: {
-            updates: {
-                id: string;
-                index: number;
-                signs: number;
-                confirmationsMask: number;
-                creator: string;
-                codeHash: string;
-                custodians: string;
-                reqConfirms: number;
-            };
-        };
+        output: MultisigWalletGetUpdateRequestsOutput;
     }>;
 }
 //# sourceMappingURL=MultisigWalletAccount.d.ts.map

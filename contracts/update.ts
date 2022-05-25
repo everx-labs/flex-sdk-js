@@ -32,7 +32,7 @@ async function update(client: TonClient, relPaths: string[]) {
         });
         const contracts = contractCodeHeader({ hasDeploy: gen.hasDeploy }) +
             gen.code;
-        index += `export * from "./${sourceName}Account";\n`;
+        index += `export { ${sourceName}Account } from "./${sourceName}Account";\n`;
         fs.writeFileSync(
             path.resolve(__dirname, "generated", `${sourceName}Account.ts`),
             contracts,

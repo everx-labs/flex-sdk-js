@@ -1,7 +1,41 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { AbiContract } from "@eversdk/core";
-import { deployHelper, runHelper, runLocalHelper, Transaction, ContractPackageEx } from "../helpers";
+import { 
+    deployHelper,
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
+} from "../helpers";
+export type DePoolMockSendOnTransferInput = {
+    dst: string /* address */,
+    src: string /* address */,
+    amount: string | number | bigint /* uint128 */,
+};
+
+export type DePoolMockTransferStakeInput = {
+    destination: string /* address */,
+    amount: string | number | bigint /* uint64 */,
+};
+
+export type DePoolMockGetDetailsOutput = {
+    owner_pubkey: string /* uint256 */,
+    fwd_records: {
+        dst: string /* address */,
+        src: string /* address */,
+        amount: string /* uint128 */,
+        timestamp: string /* uint64 */,
+    }[] /* tuple[] */,
+    bck_records: {
+        dst: string /* address */,
+        src: string /* address */,
+        amount: string /* uint128 */,
+        timestamp: string /* uint64 */,
+    }[] /* tuple[] */,
+};
+
 
 export class DePoolMockAccount extends Account {
     static package: ContractPackageEx = {
@@ -10,51 +44,42 @@ export class DePoolMockAccount extends Account {
         code: "te6ccgECEgEAA2AAAij/ACDBAfSkIFiS9KDgXwKKIO1T2QMBAQr0pCD0oQIAAAIBIA8EAgL9DQUCASAOBgE1I6AAdMAmXBwJAFVEVUC2SIB4YECANcYcSTZgBwEujoAi0wCZcHAkVREBVRHZIgHh0/9xJNkIAv5t7UAHwwAD0z/TH9MfkwHtUIIQHEYdICMBuY6A4QLAFPKp7UTQ0wAB8n9w+GTTP9P/0x/0BIAUYdDTAcgCwAID0x8E8rBzIwHPCwFwJAHPCwHJ0AHOAvpAgBRQJM6AFBXPCx8Yy/8Wyx9xE88LYVBC9AAUyx8B9AQwAfQAyVACCgkAHszJcPsAVSBVdFU9Xw8B2QH6ghA8keHFIwG5jlaCEDyR4cUTuvKpBvKoBKPy4ERbB/kBQIP5EPKo7UTQ0wAw8r74AHD4ZNXT/9HIcM8LQMv/cM8LHyUB9ABwzwsfFfQAye1UghA8keHFWVUDVSVfBlUB2eGCEBxGHSCCEBxGHSAUuvKpB/KoBaPy4EQK+QELAf5UELb5EPKo7UTQ0wAB8n/TP1MSvgHT/9Mf9AQFwwBQBLAE0x/0BDAF8nz4I4ED6CGogggbd0CgJwG5cFRBmeMEB/K8cPhkCNX6QNX6QNN/0VLougLRAfLgZPgAyFMgzlIizicBy38cyz/JUAvMJKQByYAgAVUFVQdVAvQXyHYhDADIAc8LA3AiAc8LAcnQAc4UzoIImJaA+gIZ9ACCECPEdx0TzwsfcBP6AlCSznAS+gIEzwt/cRTPC2EDyVADzMlx+wDIcM8LABTLPxfL/xTLHxL0AMsf9ADJ7VRVIFU1XwdZAVUB2QIBIA4OAAU8jaABAt8QAf5tAtDTAO1AAvJwINYB0wAw8ncwAtMfghBoEL9OErryqe1E0NMAAfJ/cPhkA9MA0wDTAPpAyFMgzgnTPwj6QNM/MAPOUCrLf/gjA/pACdP/UFPLP8lQC8zJAdMf9ATTH/QEgCBVBSRVA1UC9BcL+gDtR28QbxdvEBKicvsCyAOkEQDSdiQBzwsDcCUBzwsBydABzhnOcPoCH/QAgnA/EJ5EAAAAAAAAAAAAAAAAE88Lf3AT+gICyXAT+gJxzwthEszJgQCA+wDIcM8LABTLPxTL/8sfEvQAEssfFfQAye1UXwTtUIIQaBC/TgJb",
         codeHash: "8dd1d0cc0c2b69dcaf63e1c3c510a2a810aa8690acc0a8148eb3cd836390c374",
     };
-    
-    constructor(options: AccountOptions) {
+    log: Log;
+    constructor(
+        options: AccountOptions & {
+            log?: Log
+        }
+    ) {
         super(DePoolMockAccount.package, options);
+        this.log = options.log ?? Log.default;
     }
     async deployContract(input: {
-        owner_pubkey: string | number | bigint// uint256,
+        owner_pubkey: string | number | bigint /* uint256 */,
     }): Promise<{
         transaction: Transaction,
     }> {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSendOnTransfer(input: {
-        dst: string// address,
-        src: string// address,
-        amount: string | number | bigint// uint128,
-    }): Promise<{
+    async runSendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "sendOnTransfer", input);
     }
 
-    async runLocalSendOnTransfer(input: {
-        dst: string// address,
-        src: string// address,
-        amount: string | number | bigint// uint128,
-    }): Promise<{
+    async sendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "sendOnTransfer", input);
     }
 
-    async runTransferStake(input: {
-        destination: string// address,
-        amount: string | number | bigint// uint64,
-    }): Promise<{
+    async runTransferStake(input: DePoolMockTransferStakeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runHelper(this, "transferStake", input);
     }
 
-    async runLocalTransferStake(input: {
-        destination: string// address,
-        amount: string | number | bigint// uint64,
-    }): Promise<{
+    async transferStake(input: DePoolMockTransferStakeInput): Promise<{
         transaction: Transaction,
     }> {
         return await runLocalHelper(this, "transferStake", input);
@@ -62,42 +87,14 @@ export class DePoolMockAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            owner_pubkey: string// uint256,
-            fwd_records: {
-                dst: string// address
-                src: string// address
-                amount: string// uint128
-                timestamp: string// uint64
-            }// tuple[],
-            bck_records: {
-                dst: string// address
-                src: string// address
-                amount: string// uint128
-                timestamp: string// uint64
-            }// tuple[],
-        }
+        output: DePoolMockGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
     }
 
-    async runLocalGetDetails(): Promise<{
+    async getDetails(): Promise<{
         transaction: Transaction,
-        output: {
-            owner_pubkey: string// uint256,
-            fwd_records: {
-                dst: string// address
-                src: string// address
-                amount: string// uint128
-                timestamp: string// uint64
-            }// tuple[],
-            bck_records: {
-                dst: string// address
-                src: string// address
-                amount: string// uint128
-                timestamp: string// uint64
-            }// tuple[],
-        }
+        output: DePoolMockGetDetailsOutput,
     }> {
         return await runLocalHelper(this, "getDetails", {});
     }

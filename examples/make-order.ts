@@ -1,39 +1,26 @@
-import { TonClient } from "@eversdk/core";
-import { libNode } from "@eversdk/lib-node";
 import { Flex } from "../flex";
-import { Wallet } from "../flex/wallet";
-import { Market } from "../flex/market";
+import { Trader } from "../flex/trader";
+import { CONFIG, initExample } from "./examples";
 
-TonClient.useBinaryLibrary(libNode);
-Flex.config = {
-    client: {
-        network: {
-            endpoints: ["https://flex2.dev.tonlabs.io"],
-        },
-    },
-};
-
-async function main() {
-    const wallet = new Wallet({
-        address: "123",
-        signer: "123",
-    });
-    const market = new Market({
-        address: "1",
-    });
-    await wallet.makeOrder({
-        market,
-        sell: true,
-        price: 1.23,
-        amount: 10000,
-        clientAddress: "1",
-        userId: "1",
-    });
-}
+initExample();
 
 (async () => {
     try {
-        await main();
+        const trader = new Trader({
+            client: CONFIG.trader1.client,
+            id: CONFIG.trader1.id,
+            signer: CONFIG.trader1.signer,
+        });
+
+        const order = await trader.makeOrder({
+            sell: false,
+            market: CONFIG.market1,
+            price: 1.23,
+            amount: 1,
+        });
+
+        console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
+
         await Flex.default.close();
     } catch (err) {
         console.error(err);

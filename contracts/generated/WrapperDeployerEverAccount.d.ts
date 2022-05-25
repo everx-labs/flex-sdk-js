@@ -1,8 +1,28 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { Transaction, ContractPackageEx } from "../helpers";
+import { Transaction, ContractPackageEx, Log } from "../helpers";
+export declare type WrapperDeployerEverSetWrapperEverCodeInput = {
+    code: string;
+};
+export declare type WrapperDeployerEverSetExtWalletCodeInput = {
+    code: string;
+};
+export declare type WrapperDeployerEverSetFlexWalletCodeInput = {
+    code: string;
+};
+export declare type WrapperDeployerEverDeployInput = {
+    _answer_id: number;
+    init_args: string;
+    wic_unsalted_code: string;
+};
+export declare type WrapperDeployerEverDeployOutput = {
+    value0: string;
+};
 export declare class WrapperDeployerEverAccount extends Account {
     static package: ContractPackageEx;
-    constructor(options: AccountOptions);
+    log: Log;
+    constructor(options: AccountOptions & {
+        log?: Log;
+    });
     deployContract(input: {
         pubkey: string | number | bigint;
         wrapper_pubkey: string | number | bigint;
@@ -13,53 +33,31 @@ export declare class WrapperDeployerEverAccount extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runSetWrapperEverCode(input: {
-        code: string;
-    }): Promise<{
+    runSetWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetWrapperEverCode(input: {
-        code: string;
-    }): Promise<{
+    setWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runSetExtWalletCode(input: {
-        code: string;
-    }): Promise<{
+    runSetExtWalletCode(input: WrapperDeployerEverSetExtWalletCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetExtWalletCode(input: {
-        code: string;
-    }): Promise<{
+    setExtWalletCode(input: WrapperDeployerEverSetExtWalletCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runSetFlexWalletCode(input: {
-        code: string;
-    }): Promise<{
+    runSetFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runLocalSetFlexWalletCode(input: {
-        code: string;
-    }): Promise<{
+    setFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput): Promise<{
         transaction: Transaction;
     }>;
-    runDeploy(input: {
-        _answer_id: number;
-        init_args: string;
-    }): Promise<{
+    runDeploy(input: WrapperDeployerEverDeployInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperDeployerEverDeployOutput;
     }>;
-    runLocalDeploy(input: {
-        _answer_id: number;
-        init_args: string;
-    }): Promise<{
+    deploy_(input: WrapperDeployerEverDeployInput): Promise<{
         transaction: Transaction;
-        output: {
-            value0: string;
-        };
+        output: WrapperDeployerEverDeployOutput;
     }>;
 }
 //# sourceMappingURL=WrapperDeployerEverAccount.d.ts.map
