@@ -6,9 +6,9 @@ import fs from "fs";
 
 /** @internal */
 export class AccountEx {
-    static async isActive(address: string, useClient?: TonClient): Promise<boolean> {
-        const client = useClient ?? TonClient.default;
-        const accounts = (await client.net.query_collection({
+    static async isActive(address: string, useWeb3?: TonClient): Promise<boolean> {
+        const web3 = useWeb3 ?? TonClient.default;
+        const accounts = (await web3.net.query_collection({
             collection: "accounts",
             filter: { id: { eq: address } },
             result: "acc_type",
@@ -21,7 +21,7 @@ export class AccountEx {
 export class SignerRegistry {
     signers = new Map<string, Signer>();
 
-    constructor(public client: TonClient) {
+    constructor(public web3: TonClient) {
     }
 
     async resolve(signer: Signer | string | undefined): Promise<Signer> {
@@ -50,14 +50,14 @@ export class SignerRegistry {
         case "Keys":
             return signer.keys.public;
         case "SigningBox":
-            return (await this.client.crypto.signing_box_get_public_key({ handle: signer.handle })).pubkey;
+            return (await this.web3.crypto.signing_box_get_public_key({ handle: signer.handle })).pubkey;
         default:
             return "";
         }
     }
 
     private async fromSecret(secret: string): Promise<Signer> {
-        const keys = await this.client.crypto.nacl_sign_keypair_from_secret_key({
+        const keys = await this.web3.crypto.nacl_sign_keypair_from_secret_key({
             secret,
         });
         keys.secret = keys.secret.substring(0, 64);

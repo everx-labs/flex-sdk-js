@@ -11,62 +11,65 @@ import { SignerRegistry } from "../contracts/account-ex";
 export enum MakeOrderMode {
     /**
      * Immediate-or-post
+     *
      * Simple order that will immediately execute (partially or fully)
      * and place the left amount into the orderbook
-     */    
+     */
      IOP = "IOP",
      /**
       * Immediate-or-cancel
+      *
       * Order that will immediately execute (partially or fully)
       * and return the left amount back to the Trader wallet
-      */    
+      */
      IOC = "IOC",
      /**
       * Post order
-      * Order that will be created only if there is no liquidity with this 
+      *
+      * Order that will be created only if there is no liquidity with this
       * price on the opposite side on the Market
-      */    
+      */
      POST = "POST",
 }
 
 export type FlexConfig = {
     superRoot?: string,
     globalConfig?: string,
-    client?: ClientConfig,
+    web3?: ClientConfig,
     trader: {
         deploy: {
             /**
              * Full payment for Trader creation.
-             * 
+             *
              * @remarks
              * Must be specified in nanotokens, i.e. 1e9. Default value is 40e9.
              */
             eversAll: number,
             /**
-             * Payment for Auth Contract deploy. Included into eversAll. 
-             * 
+             * Payment for Auth Contract deploy. Included into eversAll.
+             *
              * @remarks
              * Must be specified in nanotokens, i.e. 1e9. Default value is 1e9.
-             */            
+             */
             eversAuth: number,
             /**
-             * When trader receives tokens the sum (refillWallet-wallet.eversBalance) 
+             * When trader receives tokens the sum (refillWallet-wallet.eversBalance)
              * is additionally sent to this wallet from `userIdIndex` contract.
              * Included into eversAll.
-             * 
+             *
              * @remarks
              * Must be specified in nanotokens, i.e. 1e9. Default value is 10e9.
-             */            
+             */
             refillWallet: number,
             /**
-             * Minimal amount of EVERs the wallet receives from `userIdIndex` 
-             * contract when a trade happens (when the wallet receives tokens)  
+             * Minimal amount of EVERs the wallet receives from `userIdIndex`
+             * contract when a trade happens (when the wallet receives tokens)
              * if the wallet's balance > refillWallet.
              * Included into eversAll
-             * 
+             *
              * @remarks
              * Must be specified in nanotokens, i.e. 1e9. Default value is 0.1e9.
-             */            
+             */
             minRefill: number,
         },
         order: {
@@ -79,7 +82,7 @@ export type FlexConfig = {
 /** @internal */
 export type FlexState = {
     superRoot: SuperRootAccount,
-    globalConfig: GlobalConfigAccount, 
+    globalConfig: GlobalConfigAccount,
     flex: FlexAccount,
     userConfig: UserDataConfigAccount,
 }
@@ -88,16 +91,16 @@ export type FlexState = {
 export class Flex {
     /**
      * Configuration of Flex Dex
-     */    
+     */
     config: FlexConfig;
     /**
      * Web3 instance
-     */    
-    client: TonClient;
+     */
+    web3: TonClient;
     /**
      * Secrets used to sign messages sent to Flex Dex
-     * 
-     */        
+     *
+     */
     signers: SignerRegistry;
     /** @internal */
     log = Log.default;
@@ -134,31 +137,31 @@ export class Flex {
 
     constructor(config: FlexConfig) {
         this.config = config;
-        this.client = new TonClient(config.client);
-        this.signers = new SignerRegistry(this.client);
+        this.web3 = new TonClient(config.web3);
+        this.signers = new SignerRegistry(this.web3);
     }
 
     /** @internal */
     async getState(): Promise<FlexState> {
         if (!this._state) {
             const superRoot = new SuperRootAccount({
-                client: this.client,
+                client: this.web3,
                 address: this.config.superRoot,
             });
             const globalConfigAddress =
                 this.config.globalConfig
                 ?? (await superRoot.getCurrentGlobalConfig()).output.value0;
             const globalConfig = new GlobalConfigAccount({
-                client: this.client,
+                client: this.web3,
                 address: globalConfigAddress,
             });
             const globalConfigDetails = (await globalConfig.getDetails()).output;
             const flex = new FlexAccount({
-                client: this.client,
+                client: this.web3,
                 address: globalConfigDetails.flex,
             });
             const userConfig = new UserDataConfigAccount({
-                client: this.client,
+                client: this.web3,
                 address: globalConfigDetails.user_cfg,
             });
             this._state = {
@@ -172,7 +175,7 @@ export class Flex {
     }
 
     async query(text: string): Promise<any> {
-        const result = await this.client.net.query({
+        const result = await this.web3.net.query({
             query: `query {
                 flex {
                     ${text}
@@ -188,12 +191,12 @@ export class Flex {
      * otherwise the node.js process will not stop.
      */
     async close() {
-        await this.client.close();
+        await this.web3.close();
     }
 
     private static defaultConfig(): FlexConfig {
         return {
-            client: TonClient.defaultConfig,
+            web3: TonClient.defaultConfig,
             trader: {
                 deploy: {
                     eversAll: 40e9,

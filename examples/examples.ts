@@ -26,7 +26,7 @@ export const CONFIG = {
 
 export function initExample() {
     Flex.config = {
-        client: {
+        web3: {
             network: {
                 endpoints: CONFIG.endpoints,
             },

@@ -25,8 +25,8 @@ class Flex {
         this.log = helpers_1.Log.default;
         this._state = undefined;
         this.config = config;
-        this.client = new core_1.TonClient(config.client);
-        this.signers = new account_ex_1.SignerRegistry(this.client);
+        this.web3 = new core_1.TonClient(config.web3);
+        this.signers = new account_ex_1.SignerRegistry(this.web3);
     }
     static set default(flex) {
         this._default = flex;
@@ -51,21 +51,21 @@ class Flex {
         return __awaiter(this, void 0, void 0, function* () {
             if (!this._state) {
                 const superRoot = new contracts_1.SuperRootAccount({
-                    client: this.client,
+                    client: this.web3,
                     address: this.config.superRoot,
                 });
                 const globalConfigAddress = (_a = this.config.globalConfig) !== null && _a !== void 0 ? _a : (yield superRoot.getCurrentGlobalConfig()).output.value0;
                 const globalConfig = new contracts_1.GlobalConfigAccount({
-                    client: this.client,
+                    client: this.web3,
                     address: globalConfigAddress,
                 });
                 const globalConfigDetails = (yield globalConfig.getDetails()).output;
                 const flex = new contracts_1.FlexAccount({
-                    client: this.client,
+                    client: this.web3,
                     address: globalConfigDetails.flex,
                 });
                 const userConfig = new contracts_1.UserDataConfigAccount({
-                    client: this.client,
+                    client: this.web3,
                     address: globalConfigDetails.user_cfg,
                 });
                 this._state = {
@@ -80,7 +80,7 @@ class Flex {
     }
     query(text) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.client.net.query({
+            const result = yield this.web3.net.query({
                 query: `query {
                 flex {
                     ${text}
@@ -92,12 +92,12 @@ class Flex {
     }
     close() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.client.close();
+            yield this.web3.close();
         });
     }
     static defaultConfig() {
         return {
-            client: core_1.TonClient.defaultConfig,
+            web3: core_1.TonClient.defaultConfig,
             trader: {
                 deploy: {
                     eversAll: 40e9,

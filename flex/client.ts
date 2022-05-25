@@ -93,7 +93,7 @@ export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
             pubkey,
         })).output.value0;
 
-        const isActive = await AccountEx.isActive(address, flex.client);
+        const isActive = await AccountEx.isActive(address, flex.web3);
         if (!isActive) {
             await everWallet.transfer({
                 dest: await userConfig.getAddress(),
@@ -119,7 +119,7 @@ export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
         const address = (await clientAccount.getUserIdIndex({
             user_id: options.id,
         })).output.value0;
-        if (!(await AccountEx.isActive(address, this.flex.client))) {
+        if (!(await AccountEx.isActive(address, this.flex.web3))) {
             const defaults = this.flex.config.trader.deploy;
             await clientAccount.runDeployIndex({
                 user_id: options.id,
@@ -163,7 +163,7 @@ export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
     protected async createState(options: ClientOptions): Promise<ClientState> {
         return {
             account: new FlexClientAccount({
-                client: this.flex.client,
+                client: this.flex.web3,
                 address: options.address,
                 signer: await this.flex.signers.resolve(options.signer),
             }),

@@ -1,11 +1,11 @@
 import { Signer, TonClient } from "@eversdk/core";
 export declare class AccountEx {
-    static isActive(address: string, useClient?: TonClient): Promise<boolean>;
+    static isActive(address: string, useWeb3?: TonClient): Promise<boolean>;
 }
 export declare class SignerRegistry {
-    client: TonClient;
+    web3: TonClient;
     signers: Map<string, Signer>;
-    constructor(client: TonClient);
+    constructor(web3: TonClient);
     resolve(signer: Signer | string | undefined): Promise<Signer>;
     resolvePublicKey(signer: Signer | string | undefined): Promise<string>;
     publicKey(signer: Signer): Promise<string>;

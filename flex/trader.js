@@ -192,7 +192,7 @@ class Trader {
                 salted_price_code: saltedPriceCode,
             })).output.value0;
             const priceAccount = new contracts_1.PriceXchgAccount({
-                client: this.flex.client,
+                client: this.flex.web3,
                 log: this.flex.log,
                 address,
             });
@@ -206,7 +206,7 @@ class Trader {
             const pair = (yield market.getState()).pair;
             const pairDetails = (yield pair.getDetails()).output;
             const token = new contracts_1.WrapperAccount({
-                client: this.flex.client,
+                client: this.flex.web3,
                 address: sell
                     ? pairDetails.major_tip3cfg.root_address
                     : pairDetails.minor_tip3cfg.root_address,
@@ -218,7 +218,7 @@ class Trader {
                 owner: clientAddress,
             })).output.value0;
             return new contracts_1.FlexWalletAccount({
-                client: this.flex.client,
+                client: this.flex.web3,
                 address,
                 signer,
                 log: this.flex.log,

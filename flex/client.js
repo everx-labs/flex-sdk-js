@@ -32,7 +32,7 @@ class Client extends flex_1.FlexBoundLazy {
             const address = (yield userConfig.getFlexClientAddr({
                 pubkey,
             })).output.value0;
-            const isActive = yield account_ex_1.AccountEx.isActive(address, flex.client);
+            const isActive = yield account_ex_1.AccountEx.isActive(address, flex.web3);
             if (!isActive) {
                 yield everWallet.transfer({
                     dest: yield userConfig.getAddress(),
@@ -60,7 +60,7 @@ class Client extends flex_1.FlexBoundLazy {
             const address = (yield clientAccount.getUserIdIndex({
                 user_id: options.id,
             })).output.value0;
-            if (!(yield account_ex_1.AccountEx.isActive(address, this.flex.client))) {
+            if (!(yield account_ex_1.AccountEx.isActive(address, this.flex.web3))) {
                 const defaults = this.flex.config.trader.deploy;
                 yield clientAccount.runDeployIndex({
                     user_id: options.id,
@@ -96,7 +96,7 @@ class Client extends flex_1.FlexBoundLazy {
         return __awaiter(this, void 0, void 0, function* () {
             return {
                 account: new contracts_1.FlexClientAccount({
-                    client: this.flex.client,
+                    client: this.flex.web3,
                     address: options.address,
                     signer: yield this.flex.signers.resolve(options.signer),
                 }),

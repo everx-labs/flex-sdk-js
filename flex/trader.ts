@@ -47,7 +47,7 @@ export enum TradeLiquidity {
 }
 
 export type OrderInfo = {
-    /** May be assigned to some GUID*/ 
+    /** May be assigned to some GUID*/
     orderId: string,
     /** Trader ID */
     traderId: string,
@@ -55,13 +55,13 @@ export type OrderInfo = {
     price: number,
     /** Amount that has been processed */
     amountProcessed: number,
-    /** Amount left in the order*/ 
+    /** Amount left in the order*/
     amountLeft: number,
-    /** Trader's side in the order*/ 
+    /** Trader's side in the order*/
     side: TradeSide,
-    /** Order expiration time */ 
+    /** Order expiration time */
     finishTime: number,
-    /** Market of the order */ 
+    /** Market of the order */
     pair: {
         address: string,
     }
@@ -94,7 +94,7 @@ export type TradeInfo = {
      * If the user is a maker then fees is a value
      * received by user as a bonus for making order.
      * Note that in this case the fees is a negative value.
-     * 
+     *
      * If the user is a taker then fees is a value that
      * the user pays to the exchange and maker.
     */
@@ -120,11 +120,11 @@ export class Trader {
         this.signer = options.signer;
     }
     /**
-     * Creates an Order on Flex Dex Market 
-     * 
+     * Creates an Order on Flex Dex Market
+     *
      * @param {MakeOrderOptions} options
      * Order parameters
-     * 
+     *
      * @returns OrderInfo
      */
     async makeOrder(options: MakeOrderOptions): Promise<OrderInfo> {
@@ -189,11 +189,11 @@ export class Trader {
         };
     }
     /**
-     * Cancels an Order on Flex Dex Market 
-     * 
+     * Cancels an Order on Flex Dex Market
+     *
      * @param {CancelOrderOptions} options
      * Cancel order parameters
-     * 
+     *
      * @returns void
      */
     async cancelOrder(options: CancelOrderOptions): Promise<void> {
@@ -221,8 +221,8 @@ export class Trader {
 
     /**
      * Gets the list of Trader's open orders.
-     * 
-     * @returns the list of open orders, including expired orders. 
+     *
+     * @returns the list of open orders, including expired orders.
      */
     async queryOrders(): Promise<OrderInfo[]> {
         const result = await this.flex.query(`
@@ -240,8 +240,8 @@ export class Trader {
     }
    /**
      * Gets the list of Trader's executed trades.
-     * 
-     * @returns the list of executed trades. 
+     *
+     * @returns the list of executed trades.
      */
     async queryTrades(): Promise<TradeInfo[]> {
         const result = await this.flex.query(`
@@ -263,10 +263,10 @@ export class Trader {
     /**
      * Gets the list of Trader's wallets
      * optionally filtered by a token
-     * 
+     *
      * @param {Token | string} token?
      * Optional parameter with Token instance or token root address
-     * 
+     *
      * @returns list of wallets
      */
     async queryWallets(token?: Token | string): Promise<WalletInfo[]> {
@@ -307,7 +307,7 @@ export class Trader {
             salted_price_code: saltedPriceCode,
         })).output.value0;
         const priceAccount = new PriceXchgAccount({
-            client: this.flex.client,
+            client: this.flex.web3,
             log: this.flex.log,
             address,
 
@@ -324,7 +324,7 @@ export class Trader {
         const pair = (await market.getState()).pair;
         const pairDetails = (await pair.getDetails()).output;
         const token = new WrapperAccount({
-            client: this.flex.client,
+            client: this.flex.web3,
             address: sell
                 ? pairDetails.major_tip3cfg.root_address
                 : pairDetails.minor_tip3cfg.root_address,
@@ -336,7 +336,7 @@ export class Trader {
             owner: clientAddress,
         })).output.value0;
         return new FlexWalletAccount({
-            client: this.flex.client,
+            client: this.flex.web3,
             address,
             signer,
             log: this.flex.log,

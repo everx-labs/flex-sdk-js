@@ -10,7 +10,7 @@ export declare enum MakeOrderMode {
 export declare type FlexConfig = {
     superRoot?: string;
     globalConfig?: string;
-    client?: ClientConfig;
+    web3?: ClientConfig;
     trader: {
         deploy: {
             eversAll: number;
@@ -32,7 +32,7 @@ export declare type FlexState = {
 };
 export declare class Flex {
     config: FlexConfig;
-    client: TonClient;
+    web3: TonClient;
     signers: SignerRegistry;
     log: Log;
     private _state;

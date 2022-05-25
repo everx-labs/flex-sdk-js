@@ -17,7 +17,7 @@ class Token extends flex_1.FlexBoundLazy {
         return __awaiter(this, void 0, void 0, function* () {
             return {
                 wrapper: new contracts_1.WrapperAccount({
-                    client: this.flex.client,
+                    client: this.flex.web3,
                     address: options.address,
                 }),
             };
