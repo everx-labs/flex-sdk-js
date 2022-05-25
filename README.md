@@ -1,13 +1,15 @@
 # flex-sdk-js
 
 FLEX-SDK is a library with convenient facade over the FLEX smart contract system
-and can be used by FLEX maintainers, FLEX traders and other.
+and can be used by FLEX maintainers, FLEX traders and others.
 
 The library is targeted to be used with Node.js applications.
 
+Read the full Flex documentation here https://docs.everos.dev/flex
+
 # Setup Library
 
-Library setup is simple, it includes setup for the TonClient and configuration of the FLEX SDK:
+Library setup is simple, it includes setup for the Everscale client and configuration of the FLEX SDK:
 
 ```ts
 import { TonClient } from "@eversdk/core";
@@ -21,7 +23,7 @@ Flex.config = {
             endpoints: ["https://flex2.dev.tonlabs.io"],
         },
     },
-    superRoot: "0:402f14b65b6b7af9752910e77eabf8f71240f6c190b5e4f1ab4d56c09954b723",
+    superRoot: "0:ed1741f19f7c2f870e96bca16c45283721f023235dc6896c765407e9127bb073",
 };
 ```
 
