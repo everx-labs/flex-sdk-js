@@ -35,9 +35,38 @@ export type FlexConfig = {
     client?: ClientConfig,
     trader: {
         deploy: {
+            /**
+             * Full payment for Trader creation.
+             * 
+             * @remarks
+             * Must be specified in nanotokens, i.e. 1e9. Default value is 40e9.
+             */
             eversAll: number,
+            /**
+             * Payment for Auth Contract deploy. Included into eversAll. 
+             * 
+             * @remarks
+             * Must be specified in nanotokens, i.e. 1e9. Default value is 1e9.
+             */            
             eversAuth: number,
+            /**
+             * When trader receives tokens the sum (refillWallet-wallet.eversBalance) 
+             * is additionally sent to this wallet from `userIdIndex` contract.
+             * Included into eversAll.
+             * 
+             * @remarks
+             * Must be specified in nanotokens, i.e. 1e9. Default value is 10e9.
+             */            
             refillWallet: number,
+            /**
+             * Minimal amount of EVERs the wallet receives from `userIdIndex` 
+             * contract when a trade happens (when the wallet receives tokens)  
+             * if the wallet's balance > refillWallet.
+             * Included into eversAll
+             * 
+             * @remarks
+             * Must be specified in nanotokens, i.e. 1e9. Default value is 0.1e9.
+             */            
             minRefill: number,
         },
         order: {
@@ -50,7 +79,7 @@ export type FlexConfig = {
 /** @internal */
 export type FlexState = {
     superRoot: SuperRootAccount,
-    globalConfig: GlobalConfigAccount,
+    globalConfig: GlobalConfigAccount, 
     flex: FlexAccount,
     userConfig: UserDataConfigAccount,
 }
