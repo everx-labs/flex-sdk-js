@@ -1,6 +1,6 @@
 import { Flex } from "../flex";
-import { Client } from "../flex/client";
-import { EverWallet } from "../flex/ever-wallet";
+import { Client } from "../flex";
+import { EverWallet } from "../flex";
 import { CONFIG, initExample } from "./examples";
 
 initExample();

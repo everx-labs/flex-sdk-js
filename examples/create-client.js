@@ -10,17 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
-const client_1 = require("../flex/client");
-const ever_wallet_1 = require("../flex/ever-wallet");
+const flex_2 = require("../flex");
+const flex_3 = require("../flex");
 const examples_1 = require("./examples");
 (0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const everWallet = new ever_wallet_1.EverWallet({
+        const everWallet = new flex_3.EverWallet({
             address: "0:b4da2773b3566c8799ff8292bb1058662d143556a7ac8a129c481a38657cbd33",
             signer: "msig",
         });
-        const client = yield client_1.Client.deploy({
+        const client = yield flex_2.Client.deploy({
             everWallet,
             signer: "flex-client-1",
         });

@@ -1,6 +1,4 @@
-import { Flex } from "../flex";
-import { Market } from "../flex/market";
-import { Token } from "../flex/token";
+import { Flex, Market, Token } from "../flex";
 import { CONFIG, initExample, log } from "./examples";
 
 initExample();
