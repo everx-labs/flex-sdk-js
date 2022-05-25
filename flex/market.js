@@ -18,7 +18,7 @@ class Market extends flex_1.FlexBoundLazy {
         return __awaiter(this, void 0, void 0, function* () {
             return {
                 pair: new contracts_1.XchgPairAccount({
-                    client: this.flex.client,
+                    client: this.flex.web3,
                     address: options.address,
                 }),
             };

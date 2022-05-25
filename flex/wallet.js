@@ -17,7 +17,7 @@ class Wallet extends flex_1.FlexBoundLazy {
         return __awaiter(this, void 0, void 0, function* () {
             return {
                 account: new contracts_1.FlexWalletAccount({
-                    client: this.flex.client,
+                    client: this.flex.web3,
                     address: options.address,
                     signer: yield this.flex.signers.resolve(options.signer),
                 }),

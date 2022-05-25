@@ -30,7 +30,7 @@ export class EverWallet extends FlexBoundLazy<EverWalletOptions, EverWalletState
         return {
             account: new MultisigWalletAccount({
                 log: this.log,
-                client: this.flex.client,
+                client: this.flex.web3,
                 address: options.address,
                 signer: await this.flex.signers.resolve(options.signer),
             }),
@@ -39,7 +39,7 @@ export class EverWallet extends FlexBoundLazy<EverWalletOptions, EverWalletState
 
     async transfer(options: SubmitTransactionOptions) {
         const { account } = await this.getState();
-        const payload = (await this.flex.client.abi.encode_message_body({
+        const payload = (await this.flex.web3.abi.encode_message_body({
             abi: abiContract(options.messageBody.abi),
             call_set: {
                 function_name: options.messageBody.fn,

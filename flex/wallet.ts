@@ -16,7 +16,7 @@ export class Wallet extends FlexBoundLazy<WalletOptions, WalletState> {
     protected async createState(options: WalletOptions): Promise<WalletState> {
         return {
             account: new FlexWalletAccount({
-                client: this.flex.client,
+                client: this.flex.web3,
                 address: options.address,
                 signer: await this.flex.signers.resolve(options.signer),
             }),

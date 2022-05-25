@@ -66,7 +66,7 @@ export class Market extends FlexBoundLazy<MarketOptions, MarketState> {
     protected async createState(options: MarketOptions): Promise<MarketState> {
         return {
             pair: new XchgPairAccount({
-                client: this.flex.client,
+                client: this.flex.web3,
                 address: options.address,
             }),
         };

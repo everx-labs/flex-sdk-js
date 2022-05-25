@@ -22,7 +22,7 @@ class EverWallet extends flex_1.FlexBoundLazy {
             return {
                 account: new contracts_1.MultisigWalletAccount({
                     log: this.log,
-                    client: this.flex.client,
+                    client: this.flex.web3,
                     address: options.address,
                     signer: yield this.flex.signers.resolve(options.signer),
                 }),
@@ -32,7 +32,7 @@ class EverWallet extends flex_1.FlexBoundLazy {
     transfer(options) {
         return __awaiter(this, void 0, void 0, function* () {
             const { account } = yield this.getState();
-            const payload = (yield this.flex.client.abi.encode_message_body({
+            const payload = (yield this.flex.web3.abi.encode_message_body({
                 abi: (0, core_1.abiContract)(options.messageBody.abi),
                 call_set: {
                     function_name: options.messageBody.fn,

@@ -20,7 +20,7 @@ import {
 `;
 }
 
-export async function genContractCode(client: TonClient, options: {
+export async function genContractCode(web3: TonClient, options: {
     name: string,
     abi: AbiContract,
     tvc: string,
@@ -33,8 +33,8 @@ export async function genContractCode(client: TonClient, options: {
         abi,
         tvc,
     } = options;
-    const contractCode = (await client.boc.decode_tvc({ tvc })).code ?? "";
-    const contractCodeHash = (await client.boc.get_boc_hash({ boc: contractCode })).hash;
+    const contractCode = (await web3.boc.decode_tvc({ tvc })).code ?? "";
+    const contractCodeHash = (await web3.boc.get_boc_hash({ boc: contractCode })).hash;
     let code = "";
     for (const fn of abi.functions || []) {
         if (fn.name !== "constructor") {

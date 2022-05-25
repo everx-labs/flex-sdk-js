@@ -25,12 +25,12 @@ import {
 `;
 }
 exports.contractCodeHeader = contractCodeHeader;
-function genContractCode(client, options) {
+function genContractCode(web3, options) {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
         const { name, abi, tvc, } = options;
-        const contractCode = (_a = (yield client.boc.decode_tvc({ tvc })).code) !== null && _a !== void 0 ? _a : "";
-        const contractCodeHash = (yield client.boc.get_boc_hash({ boc: contractCode })).hash;
+        const contractCode = (_a = (yield web3.boc.decode_tvc({ tvc })).code) !== null && _a !== void 0 ? _a : "";
+        const contractCodeHash = (yield web3.boc.get_boc_hash({ boc: contractCode })).hash;
         let code = "";
         for (const fn of abi.functions || []) {
             if (fn.name !== "constructor") {

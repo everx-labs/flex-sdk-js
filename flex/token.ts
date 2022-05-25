@@ -44,7 +44,7 @@ export class Token extends FlexBoundLazy<TokenOptions, TokenState> {
     protected async createState(options: TokenOptions): Promise<TokenState> {
         return {
             wrapper: new WrapperAccount({
-                client: this.flex.client,
+                client: this.flex.web3,
                 address: options.address,
             }),
         };

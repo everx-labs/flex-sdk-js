@@ -19,10 +19,10 @@ const path_1 = __importDefault(require("path"));
 const os_1 = __importDefault(require("os"));
 const fs_1 = __importDefault(require("fs"));
 class AccountEx {
-    static isActive(address, useClient) {
+    static isActive(address, useWeb3) {
         return __awaiter(this, void 0, void 0, function* () {
-            const client = useClient !== null && useClient !== void 0 ? useClient : core_1.TonClient.default;
-            const accounts = (yield client.net.query_collection({
+            const web3 = useWeb3 !== null && useWeb3 !== void 0 ? useWeb3 : core_1.TonClient.default;
+            const accounts = (yield web3.net.query_collection({
                 collection: "accounts",
                 filter: { id: { eq: address } },
                 result: "acc_type",
@@ -34,8 +34,8 @@ class AccountEx {
 }
 exports.AccountEx = AccountEx;
 class SignerRegistry {
-    constructor(client) {
-        this.client = client;
+    constructor(web3) {
+        this.web3 = web3;
         this.signers = new Map();
     }
     resolve(signer) {
@@ -67,7 +67,7 @@ class SignerRegistry {
                 case "Keys":
                     return signer.keys.public;
                 case "SigningBox":
-                    return (yield this.client.crypto.signing_box_get_public_key({ handle: signer.handle })).pubkey;
+                    return (yield this.web3.crypto.signing_box_get_public_key({ handle: signer.handle })).pubkey;
                 default:
                     return "";
             }
@@ -75,7 +75,7 @@ class SignerRegistry {
     }
     fromSecret(secret) {
         return __awaiter(this, void 0, void 0, function* () {
-            const keys = yield this.client.crypto.nacl_sign_keypair_from_secret_key({
+            const keys = yield this.web3.crypto.nacl_sign_keypair_from_secret_key({
                 secret,
             });
             keys.secret = keys.secret.substring(0, 64);
