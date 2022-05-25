@@ -18,7 +18,7 @@ initExample();
         await client.deployTrader({
             id: CONFIG.trader1.id,
             name: "Trader 1",
-            pubkey: await Flex.default.resolvePublicKey(CONFIG.trader1.signer),
+            pubkey: await Flex.default.signers.resolvePublicKey(CONFIG.trader1.signer),
             eversAll: 40e9,
             eversAuth: 1e9,
             refillWallet: 10e9,

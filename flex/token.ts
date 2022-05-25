@@ -67,8 +67,4 @@ export class Token extends FlexBoundLazy<TokenOptions, TokenState> {
             reserveWallet
         `;
     }
-
-    async getAddress() {
-        return await (await this.getState()).wrapper.getAddress();
-    }
 }

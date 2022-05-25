@@ -32,7 +32,7 @@ export class EverWallet extends FlexBoundLazy<EverWalletOptions, EverWalletState
                 log: this.log,
                 client: this.flex.client,
                 address: options.address,
-                signer: await this.flex.resolveSigner(options.signer),
+                signer: await this.flex.signers.resolve(options.signer),
             }),
         };
     }

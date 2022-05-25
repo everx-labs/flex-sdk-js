@@ -23,7 +23,6 @@ export declare class Token extends FlexBoundLazy<TokenOptions, TokenState> {
     protected createState(options: TokenOptions): Promise<TokenState>;
     static queryTokens(flex?: Flex): Promise<TokenInfo[]>;
     static queryFields(): string;
-    getAddress(): Promise<string>;
 }
 export {};
 //# sourceMappingURL=token.d.ts.map

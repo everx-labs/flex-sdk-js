@@ -1,6 +1,7 @@
-import { ClientConfig, Signer, TonClient } from "@eversdk/core";
+import { ClientConfig, TonClient } from "@eversdk/core";
 import { FlexAccount, GlobalConfigAccount, SuperRootAccount, UserDataConfigAccount } from "../contracts";
 import { Log } from "../contracts/helpers";
+import { SignerRegistry } from "../contracts/account-ex";
 export declare type FlexConfig = {
     superRoot?: string;
     globalConfig?: string;
@@ -15,7 +16,7 @@ export declare type FlexState = {
 export declare class Flex {
     config: FlexConfig;
     client: TonClient;
-    signers: Map<string, Signer>;
+    signers: SignerRegistry;
     log: Log;
     private _state;
     private static _config;
@@ -25,11 +26,6 @@ export declare class Flex {
     static set config(config: FlexConfig);
     static get config(): FlexConfig;
     constructor(config: FlexConfig);
-    resolvePublicKey(signer: Signer | string | undefined): Promise<string>;
-    resolveSigner(signer: Signer | string | undefined): Promise<Signer>;
-    signerFromSecret(secret: string): Promise<Signer>;
-    signerFromName(name: string): Promise<Signer>;
-    signerPublicKey(signer: Signer): Promise<string>;
     getState(): Promise<FlexState>;
     query(text: string): Promise<any>;
     close(): Promise<void>;

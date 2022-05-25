@@ -84,8 +84,8 @@ export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
     static async deploy(options: ClientDeployOptions, bindFlex?: Flex): Promise<Client> {
         const { everWallet } = options;
         const flex = bindFlex ?? Flex.default;
-        const signer = await flex.resolveSigner(options.signer);
-        const publicKey = await flex.signerPublicKey(signer);
+        const signer = await flex.signers.resolve(options.signer);
+        const publicKey = await flex.signers.publicKey(signer);
         const { userConfig } = await flex.getState();
         const pubkey = `0x${publicKey}`;
         const address = (await userConfig.getFlexClientAddr({
@@ -133,8 +133,8 @@ export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
 
     async deployWallet(options: WalletDeployOptions, useFlex?: Flex): Promise<Wallet> {
         const flex = useFlex ?? Flex.default;
-        const signer = await flex.resolveSigner(options.signer);
-        const publicKey = await flex.signerPublicKey(signer);
+        const signer = await flex.signers.resolve(options.signer);
+        const publicKey = await flex.signers.publicKey(signer);
         const { account: clientAccount } = await this.getState();
         const clientAddress = await clientAccount.getAddress();
         // const payload = await clientAccount.runLocalGetPayloadForDeployInternalWallet({
@@ -158,28 +158,12 @@ export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
         }, flex);
     }
 
-    static mapWalletInfo(x: any): WalletInfo {
-        return {
-            address: x.address,
-            clientAddress: x.clientAddress,
-            traderId: x.userId,
-            traderPublicKey: x.dappPubkey,
-            token: x.token,
-            nativeCurrencyBalance: x.nativeCurrencyBalance,
-            totalBalance: x.totalBalance,
-            availableBalance: x.availableBalance,
-            balanceInOrders: x.balanceInOrders,
-            unsaltedPriceCodeHash: x.unsaltedPriceCodeHash,
-            cursor: x.cursor,
-        };
-    }
-
     protected async createState(options: ClientOptions): Promise<ClientState> {
         return {
             account: new FlexClientAccount({
                 client: this.flex.client,
                 address: options.address,
-                signer: await this.flex.resolveSigner(options.signer),
+                signer: await this.flex.signers.resolve(options.signer),
             }),
         };
     }
@@ -202,15 +186,22 @@ export class Client extends FlexBoundLazy<ClientOptions, ClientState> {
                 cursor
             }
         `);
-        return result.wallets.map(Client.mapWalletInfo);
+        return result.wallets.map(walletInfoFromApi);
     }
+}
 
-    async getDetails(): Promise<any> {
-        return (await (await this.getState()).account.getDetails()).output;
-    }
-
-    async getAddress(): Promise<string> {
-        return await (await this.getState()).account.getAddress();
-    }
-
+export function walletInfoFromApi(result: any): WalletInfo {
+    return {
+        address: result.address,
+        clientAddress: result.clientAddress,
+        traderId: result.userId,
+        traderPublicKey: result.dappPubkey,
+        token: result.token,
+        nativeCurrencyBalance: result.nativeCurrencyBalance,
+        totalBalance: result.totalBalance,
+        availableBalance: result.availableBalance,
+        balanceInOrders: result.balanceInOrders,
+        unsaltedPriceCodeHash: result.unsaltedPriceCodeHash,
+        cursor: result.cursor,
+    };
 }

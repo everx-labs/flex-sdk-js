@@ -30,8 +30,6 @@ export declare type OrderBookItem = {
 export declare class Market extends FlexBoundLazy<MarketOptions, MarketState> {
     protected createState(options: MarketOptions): Promise<MarketState>;
     static resolve(from: Market | MarketOptions | string, flex?: Flex): Market;
-    getPair(): Promise<XchgPairAccount>;
-    getPairDetails(): Promise<import("../contracts/generated/XchgPairAccount").XchgPairGetDetailsOutput>;
     queryOrderBook(): Promise<OrderBookInfo>;
     queryPrice(): Promise<number>;
     static queryMarkets(flex?: Flex): Promise<MarketInfo[]>;

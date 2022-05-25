@@ -1,5 +1,5 @@
 import { Market, MarketOptions } from "./market";
-import { Client, ClientOptions, WalletInfo } from "./client";
+import { Client, ClientOptions, WalletInfo, walletInfoFromApi } from "./client";
 import { Flex } from "./flex";
 import { Signer } from "@eversdk/core";
 import { amountToUnits, priceToUnits } from "../contracts/helpers";
@@ -107,7 +107,7 @@ export class Trader {
 
     async makeOrder(options: MakeOrderOptions): Promise<OrderInfo> {
         const market = Market.resolve(options.market);
-        const pair = await market.getPair();
+        const pair = (await market.getState()).pair;
         const flex = (await this.flex.getState()).flex;
         const client = (await this.client.getState()).account;
 
@@ -159,8 +159,8 @@ export class Trader {
         });
         const priceDetails = (await priceAccount.getDetails()).output;
         const order = (options.sell
-            ? priceDetails.sells
-            : priceDetails.buys).find(x => Number(x.order_id) === orderId);
+            ? (priceDetails.sells ?? [])
+            : (priceDetails.buys ?? [])).find(x => Number(x.order_id) === orderId);
         if (!order) {
             throw Error("Make order failed: order isn't presented in price.");
         }
@@ -181,8 +181,8 @@ export class Trader {
     async cancelOrder(options: CancelOrderOptions): Promise<void> {
         const market = Market.resolve(options.market);
         const wallet = await this.getWallet(options);
-        const pairDetails = await market.getPairDetails();
-        const pair = await market.getPair();
+        const pair = (await market.getState()).pair;
+        const pairDetails = (await pair.getDetails()).output;
         const saltedPriceCode = (await pair.getPriceXchgCode({ salted: true })).output.value0;
         const price = priceToUnits(options.price, pairDetails.price_denum);
         const priceAddress = (await (await this.client.getState()).account.getPriceXchgAddress({
@@ -233,7 +233,9 @@ export class Trader {
     async queryWallets(token?: Token | string): Promise<WalletInfo[]> {
         const tokenParam = token === undefined
             ? ""
-            : `token: "${typeof token === "string" ? token : await token.getAddress()}",`;
+            : `token: "${typeof token === "string"
+                ? token
+                : await (await token.getState()).wrapper.getAddress()}",`;
         const result = await this.flex.query(`
             wallets(
                 clientAddress: "${this.client.options.address}",
@@ -253,13 +255,14 @@ export class Trader {
                 cursor
             }
         `);
-        return result.wallets.map(Client.mapWalletInfo);
+        return result.wallets.map(walletInfoFromApi);
     }
 
     private async getWallet(options: OrderOperationOptions): Promise<FlexWalletAccount> {
         const market = Market.resolve(options.market);
-        const clientAddress = await this.client.getAddress();
-        const pairDetails = await market.getPairDetails();
+        const clientAddress = await (await this.client.getState()).account.getAddress();
+        const pair = (await market.getState()).pair;
+        const pairDetails = (await pair.getDetails()).output;
         const token = new WrapperAccount({
             client: this.flex.client,
             address: options.sell
@@ -267,7 +270,7 @@ export class Trader {
                 : pairDetails.minor_tip3cfg.root_address,
             log: this.flex.log,
         });
-        const signer = await this.flex.resolveSigner(this.signer);
+        const signer = await this.flex.signers.resolve(this.signer);
         const address = (await token.getWalletAddress({
             pubkey: `0x${this.id}`,
             owner: clientAddress,

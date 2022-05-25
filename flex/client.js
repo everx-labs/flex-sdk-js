@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Client = void 0;
+exports.walletInfoFromApi = exports.Client = void 0;
 const flex_1 = require("./flex");
 const contracts_1 = require("../contracts");
 const account_ex_1 = require("../contracts/account-ex");
@@ -25,8 +25,8 @@ class Client extends flex_1.FlexBoundLazy {
         return __awaiter(this, void 0, void 0, function* () {
             const { everWallet } = options;
             const flex = bindFlex !== null && bindFlex !== void 0 ? bindFlex : flex_1.Flex.default;
-            const signer = yield flex.resolveSigner(options.signer);
-            const publicKey = yield flex.signerPublicKey(signer);
+            const signer = yield flex.signers.resolve(options.signer);
+            const publicKey = yield flex.signers.publicKey(signer);
             const { userConfig } = yield flex.getState();
             const pubkey = `0x${publicKey}`;
             const address = (yield userConfig.getFlexClientAddr({
@@ -75,8 +75,8 @@ class Client extends flex_1.FlexBoundLazy {
     deployWallet(options, useFlex) {
         return __awaiter(this, void 0, void 0, function* () {
             const flex = useFlex !== null && useFlex !== void 0 ? useFlex : flex_1.Flex.default;
-            const signer = yield flex.resolveSigner(options.signer);
-            const publicKey = yield flex.signerPublicKey(signer);
+            const signer = yield flex.signers.resolve(options.signer);
+            const publicKey = yield flex.signers.publicKey(signer);
             const { account: clientAccount } = yield this.getState();
             const clientAddress = yield clientAccount.getAddress();
             const { wrapper } = yield options.token.getState();
@@ -90,28 +90,13 @@ class Client extends flex_1.FlexBoundLazy {
             }, flex);
         });
     }
-    static mapWalletInfo(x) {
-        return {
-            address: x.address,
-            clientAddress: x.clientAddress,
-            traderId: x.userId,
-            traderPublicKey: x.dappPubkey,
-            token: x.token,
-            nativeCurrencyBalance: x.nativeCurrencyBalance,
-            totalBalance: x.totalBalance,
-            availableBalance: x.availableBalance,
-            balanceInOrders: x.balanceInOrders,
-            unsaltedPriceCodeHash: x.unsaltedPriceCodeHash,
-            cursor: x.cursor,
-        };
-    }
     createState(options) {
         return __awaiter(this, void 0, void 0, function* () {
             return {
                 account: new contracts_1.FlexClientAccount({
                     client: this.flex.client,
                     address: options.address,
-                    signer: yield this.flex.resolveSigner(options.signer),
+                    signer: yield this.flex.signers.resolve(options.signer),
                 }),
             };
         });
@@ -135,19 +120,25 @@ class Client extends flex_1.FlexBoundLazy {
                 cursor
             }
         `);
-            return result.wallets.map(Client.mapWalletInfo);
-        });
-    }
-    getDetails() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield (yield this.getState()).account.getDetails()).output;
-        });
-    }
-    getAddress() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield (yield this.getState()).account.getAddress();
+            return result.wallets.map(walletInfoFromApi);
         });
     }
 }
 exports.Client = Client;
+function walletInfoFromApi(result) {
+    return {
+        address: result.address,
+        clientAddress: result.clientAddress,
+        traderId: result.userId,
+        traderPublicKey: result.dappPubkey,
+        token: result.token,
+        nativeCurrencyBalance: result.nativeCurrencyBalance,
+        totalBalance: result.totalBalance,
+        availableBalance: result.availableBalance,
+        balanceInOrders: result.balanceInOrders,
+        unsaltedPriceCodeHash: result.unsaltedPriceCodeHash,
+        cursor: result.cursor,
+    };
+}
+exports.walletInfoFromApi = walletInfoFromApi;
 //# sourceMappingURL=client.js.map

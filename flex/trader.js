@@ -34,10 +34,10 @@ class Trader {
         this.signer = options.signer;
     }
     makeOrder(options) {
-        var _a, _b;
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function* () {
             const market = market_1.Market.resolve(options.market);
-            const pair = yield market.getPair();
+            const pair = (yield market.getState()).pair;
             const flex = (yield this.flex.getState()).flex;
             const client = (yield this.client.getState()).account;
             const pairDetails = (yield pair.getDetails()).output;
@@ -85,8 +85,8 @@ class Trader {
             });
             const priceDetails = (yield priceAccount.getDetails()).output;
             const order = (options.sell
-                ? priceDetails.sells
-                : priceDetails.buys).find(x => Number(x.order_id) === orderId);
+                ? ((_c = priceDetails.sells) !== null && _c !== void 0 ? _c : [])
+                : ((_d = priceDetails.buys) !== null && _d !== void 0 ? _d : [])).find(x => Number(x.order_id) === orderId);
             if (!order) {
                 throw Error("Make order failed: order isn't presented in price.");
             }
@@ -109,8 +109,8 @@ class Trader {
         return __awaiter(this, void 0, void 0, function* () {
             const market = market_1.Market.resolve(options.market);
             const wallet = yield this.getWallet(options);
-            const pairDetails = yield market.getPairDetails();
-            const pair = yield market.getPair();
+            const pair = (yield market.getState()).pair;
+            const pairDetails = (yield pair.getDetails()).output;
             const saltedPriceCode = (yield pair.getPriceXchgCode({ salted: true })).output.value0;
             const price = (0, helpers_1.priceToUnits)(options.price, pairDetails.price_denum);
             const priceAddress = (yield (yield this.client.getState()).account.getPriceXchgAddress({
@@ -163,7 +163,9 @@ class Trader {
         return __awaiter(this, void 0, void 0, function* () {
             const tokenParam = token === undefined
                 ? ""
-                : `token: "${typeof token === "string" ? token : yield token.getAddress()}",`;
+                : `token: "${typeof token === "string"
+                    ? token
+                    : yield (yield token.getState()).wrapper.getAddress()}",`;
             const result = yield this.flex.query(`
             wallets(
                 clientAddress: "${this.client.options.address}",
@@ -183,14 +185,15 @@ class Trader {
                 cursor
             }
         `);
-            return result.wallets.map(client_1.Client.mapWalletInfo);
+            return result.wallets.map(client_1.walletInfoFromApi);
         });
     }
     getWallet(options) {
         return __awaiter(this, void 0, void 0, function* () {
             const market = market_1.Market.resolve(options.market);
-            const clientAddress = yield this.client.getAddress();
-            const pairDetails = yield market.getPairDetails();
+            const clientAddress = yield (yield this.client.getState()).account.getAddress();
+            const pair = (yield market.getState()).pair;
+            const pairDetails = (yield pair.getDetails()).output;
             const token = new contracts_1.WrapperAccount({
                 client: this.flex.client,
                 address: options.sell
@@ -198,7 +201,7 @@ class Trader {
                     : pairDetails.minor_tip3cfg.root_address,
                 log: this.flex.log,
             });
-            const signer = yield this.flex.resolveSigner(this.signer);
+            const signer = yield this.flex.signers.resolve(this.signer);
             const address = (yield token.getWalletAddress({
                 pubkey: `0x${this.id}`,
                 owner: clientAddress,

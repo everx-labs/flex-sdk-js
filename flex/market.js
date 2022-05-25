@@ -29,16 +29,6 @@ class Market extends flex_1.FlexBoundLazy {
             ? from
             : new Market(typeof from === "string" ? { address: from } : from, flex);
     }
-    getPair() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.getState()).pair;
-        });
-    }
-    getPairDetails() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield (yield this.getPair()).getDetails()).output;
-        });
-    }
     queryOrderBook() {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield this.flex.query(`

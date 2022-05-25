@@ -78,14 +78,6 @@ export class Market extends FlexBoundLazy<MarketOptions, MarketState> {
             : new Market(typeof from === "string" ? { address: from } : from, flex);
     }
 
-    async getPair() {
-        return (await this.getState()).pair;
-    }
-
-    async getPairDetails() {
-        return (await (await this.getPair()).getDetails()).output;
-    }
-
     async queryOrderBook(): Promise<OrderBookInfo> {
         const result = await this.flex.query(`
             market(pairAddress: "${this.options.address}") {

@@ -41,11 +41,6 @@ class Token extends flex_1.FlexBoundLazy {
             reserveWallet
         `;
     }
-    getAddress() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield (yield this.getState()).wrapper.getAddress();
-        });
-    }
 }
 exports.Token = Token;
 //# sourceMappingURL=token.js.map

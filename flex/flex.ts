@@ -1,14 +1,12 @@
-import { ClientConfig, KeyPair, Signer, signerKeys, signerNone, TonClient } from "@eversdk/core";
+import { ClientConfig, TonClient } from "@eversdk/core";
 import {
     FlexAccount,
     GlobalConfigAccount,
     SuperRootAccount,
     UserDataConfigAccount,
 } from "../contracts";
-import path from "path";
-import os from "os";
-import fs from "fs";
 import { Log } from "../contracts/helpers";
+import { SignerRegistry } from "../contracts/account-ex";
 
 export type FlexConfig = {
     superRoot?: string,
@@ -26,7 +24,7 @@ export type FlexState = {
 export class Flex {
     config: FlexConfig;
     client: TonClient;
-    signers = new Map<string, Signer>();
+    signers: SignerRegistry;
     log = Log.default;
 
     private _state: FlexState | undefined = undefined;
@@ -61,73 +59,7 @@ export class Flex {
     constructor(config: FlexConfig) {
         this.config = config;
         this.client = new TonClient(config.client);
-    }
-
-    async resolvePublicKey(signer: Signer | string | undefined): Promise<string> {
-        return await this.signerPublicKey(await this.resolveSigner(signer));
-    }
-
-    async resolveSigner(signer: Signer | string | undefined): Promise<Signer> {
-        if (signer === undefined) {
-            return signerNone();
-        }
-        if (typeof signer === "string") {
-            try {
-                return await this.signerFromSecret(signer);
-            } catch {
-                return await this.signerFromName(signer);
-            }
-        }
-        return signer;
-
-    }
-
-    async signerFromSecret(secret: string): Promise<Signer> {
-        const keys = await this.client.crypto.nacl_sign_keypair_from_secret_key({
-            secret,
-        });
-        keys.secret = keys.secret.substring(0, 64);
-        return signerKeys(keys);
-    }
-
-    async signerFromName(name: string): Promise<Signer> {
-        const signer = this.signers.get(name);
-        if (signer) {
-            return signer;
-        }
-        const everdevSignerRegistryPath = path.resolve(
-            os.homedir(),
-            ".everdev",
-            "signer",
-            "registry.json",
-        );
-        if (fs.existsSync(everdevSignerRegistryPath)) {
-            const registry = JSON.parse(fs.readFileSync(
-                everdevSignerRegistryPath,
-                "utf8",
-            )) as EverdevSignerRegistry;
-            const item = registry.items.find(x => x.name === name);
-            if (item) {
-                return signerKeys(item.keys);
-            }
-        }
-        throw new Error(
-            `Invalid signer: "${name}".
-             You must use one of: \`secret key\`, \`everdev\` signer name or \`Flex.signers\` name.`,
-        );
-    }
-
-    async signerPublicKey(signer: Signer): Promise<string> {
-        switch (signer.type) {
-        case "External":
-            return signer.public_key;
-        case "Keys":
-            return signer.keys.public;
-        case "SigningBox":
-            return (await this.client.crypto.signing_box_get_public_key({ handle: signer.handle })).pubkey;
-        default:
-            return "";
-        }
+        this.signers = new SignerRegistry(this.client);
     }
 
     async getState(): Promise<FlexState> {
@@ -206,9 +138,3 @@ export abstract class FlexBoundLazy<O, S> {
     private _state: S | undefined = undefined;
 }
 
-type EverdevSignerRegistry = {
-    items: {
-        name: string,
-        keys: KeyPair,
-    }[]
-};

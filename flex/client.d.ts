@@ -47,11 +47,9 @@ export declare class Client extends FlexBoundLazy<ClientOptions, ClientState> {
     static deploy(options: ClientDeployOptions, bindFlex?: Flex): Promise<Client>;
     deployTrader(options: TraderDeployOptions): Promise<void>;
     deployWallet(options: WalletDeployOptions, useFlex?: Flex): Promise<Wallet>;
-    static mapWalletInfo(x: any): WalletInfo;
     protected createState(options: ClientOptions): Promise<ClientState>;
     queryWallets(): Promise<WalletInfo[]>;
-    getDetails(): Promise<any>;
-    getAddress(): Promise<string>;
 }
+export declare function walletInfoFromApi(result: any): WalletInfo;
 export {};
 //# sourceMappingURL=client.d.ts.map

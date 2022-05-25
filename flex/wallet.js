@@ -19,7 +19,7 @@ class Wallet extends flex_1.FlexBoundLazy {
                 account: new contracts_1.FlexWalletAccount({
                     client: this.flex.client,
                     address: options.address,
-                    signer: yield this.flex.resolveSigner(options.signer),
+                    signer: yield this.flex.signers.resolve(options.signer),
                 }),
             };
         });

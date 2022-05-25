@@ -24,7 +24,7 @@ class EverWallet extends flex_1.FlexBoundLazy {
                     log: this.log,
                     client: this.flex.client,
                     address: options.address,
-                    signer: yield this.flex.resolveSigner(options.signer),
+                    signer: yield this.flex.signers.resolve(options.signer),
                 }),
             };
         });
