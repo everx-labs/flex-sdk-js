@@ -117,7 +117,14 @@ export class Trader {
         this.id = options.id;
         this.signer = options.signer;
     }
-
+    /**
+     * Creates an Order on Flex Dex Market 
+     * 
+     * @param {MakeOrderOptions} options
+     * Order parameters
+     * 
+     * @returns OrderInfo
+     */
     async makeOrder(options: MakeOrderOptions): Promise<OrderInfo> {
         const defaults = this.flex.config.trader.order;
         const market = Market.resolve(options.market);
@@ -179,7 +186,15 @@ export class Trader {
             amountLeft: 0,
         };
     }
-
+    /**
+     * Creates an Order on Flex Dex Market 
+     * 
+     * @remarks
+     * JSON structure is compatible with GraphQL API message object
+     * 
+     * @param {ParamsOfParse} params
+     * @returns ResultOfParse
+     */
     async cancelOrder(options: CancelOrderOptions): Promise<void> {
         const market = Market.resolve(options.market);
         const pair = (await market.getState()).pair;

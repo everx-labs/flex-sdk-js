@@ -18,12 +18,12 @@ export enum MakeOrderMode {
      /**
       * Immediate-or-cancel
       * Order that will immediately execute (partially or fully)
-      * and return the left amount back to the Trader
+      * and return the left amount back to the Trader wallet
       */    
      IOC = "IOC",
      /**
       * Post order
-      * Order that will execute only if there is no liquidity with this 
+      * Order that will be created only if there is no liquidity with this 
       * price on the opposite side on the Market
       */    
      POST = "POST",
@@ -86,8 +86,18 @@ export type FlexState = {
 
 
 export class Flex {
+    /**
+     * Configuration of Flex Dex
+     */    
     config: FlexConfig;
+    /**
+     * Web3 instance
+     */    
     client: TonClient;
+    /**
+     * Secrets used to sign messages sent to Flex Dex
+     * 
+     */        
     signers: SignerRegistry;
     /** @internal */
     log = Log.default;
@@ -172,7 +182,11 @@ export class Flex {
         return result.result.data.flex;
     }
 
-
+    /**
+     * Closes all Node.js tasks that were initiated and consumed by web3 instance
+     * Use this function in the closing part of your application
+     * otherwise the node.js process will not stop.
+     */
     async close() {
         await this.client.close();
     }
