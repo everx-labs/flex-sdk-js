@@ -15,7 +15,7 @@ initExample();
             sell: true,
             market: CONFIG.market1,
             price: 40,
-            amount: 1,
+            amount: 0.5,
         });
 
         console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);

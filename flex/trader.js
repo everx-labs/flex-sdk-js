@@ -57,6 +57,10 @@ class Trader {
                 price,
             })).output.value0;
             const finishTime = (_a = options.finishTime) !== null && _a !== void 0 ? _a : Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
+            const minAmount = Number(pairDetails.min_amount) / Math.pow(10, Number(pairDetails.major_tip3cfg.decimals));
+            if (options.amount < minAmount) {
+                throw new Error(`Specified amount ${options.amount} is less that market min amount ${minAmount}`);
+            }
             const mode = (_b = options.mode) !== null && _b !== void 0 ? _b : defaults.mode;
             try {
                 const result = yield wallet.runMakeOrder({

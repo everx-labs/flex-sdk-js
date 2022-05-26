@@ -23,7 +23,7 @@ const examples_1 = require("./examples");
             sell: true,
             market: examples_1.CONFIG.market1,
             price: 40,
-            amount: 1,
+            amount: 0.5,
         });
         console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
         yield flex_1.Flex.default.close();

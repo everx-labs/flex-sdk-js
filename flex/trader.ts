@@ -151,6 +151,10 @@ export class Trader {
         })).output.value0;
         const finishTime = options.finishTime ?? Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
 
+        const minAmount = Number(pairDetails.min_amount) / Math.pow(10, Number(pairDetails.major_tip3cfg.decimals));
+        if (options.amount < minAmount) {
+            throw new Error(`Specified amount ${options.amount} is less that market min amount ${minAmount}`);
+        }
         const mode = options.mode ?? defaults.mode;
         try {
             const result = await wallet.runMakeOrder({
