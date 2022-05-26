@@ -65,10 +65,12 @@ export declare type WrapperClonedInput = {
     _answer_id: number;
 };
 export declare type WrapperClonedOutput = {
-    value0?: string;
+    first?: string;
+    second: string;
 };
 export declare type WrapperSetClonedInput = {
     cloned?: string;
+    cloned_pubkey: string | number | bigint;
     wrappers_cfg: string;
     wrappers_cfg_code_hash: string | number | bigint;
     wrappers_cfg_code_depth: number;

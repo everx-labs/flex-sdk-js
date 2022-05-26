@@ -16,7 +16,8 @@ export declare type WrapperDeployerTip3DeployInput = {
     wic_unsalted_code: string;
 };
 export declare type WrapperDeployerTip3DeployOutput = {
-    value0: string;
+    first: string;
+    second: string;
 };
 export declare type WrapperDeployerTip3GetArgsInput = {
     tip3cfg: {

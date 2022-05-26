@@ -16,7 +16,8 @@ export declare type WrapperDeployerEverDeployInput = {
     wic_unsalted_code: string;
 };
 export declare type WrapperDeployerEverDeployOutput = {
-    value0: string;
+    first: string;
+    second: string;
 };
 export declare class WrapperDeployerEverAccount extends Account {
     static package: ContractPackageEx;

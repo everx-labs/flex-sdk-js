@@ -67,9 +67,15 @@ export declare type FlexClientDeployIndexInput = {
     refill_wallet: string | number | bigint;
     min_refill: string | number | bigint;
 };
-export declare type FlexClientReLendIndexInput = {
+export declare type FlexClientReBindWalletsInput = {
     user_id: string | number | bigint;
-    new_lend_pubkey: string | number | bigint;
+    set_binding: boolean;
+    binding?: {
+        flex: string;
+        unsalted_price_code_hash: string | number | bigint;
+    };
+    set_trader: boolean;
+    trader?: string | number | bigint;
     wallets: string[];
     evers_relend_call: string | number | bigint;
     evers_each_wallet_call: string | number | bigint;
@@ -223,11 +229,11 @@ export declare class FlexClientAccount extends Account {
     deployIndex(input: FlexClientDeployIndexInput): Promise<{
         transaction: Transaction;
     }>;
-    runReLendIndex(input: FlexClientReLendIndexInput): Promise<{
+    runReBindWallets(input: FlexClientReBindWalletsInput): Promise<{
         transaction: Transaction;
         transactionTree: ResultOfQueryTransactionTree;
     }>;
-    reLendIndex(input: FlexClientReLendIndexInput): Promise<{
+    reBindWallets(input: FlexClientReBindWalletsInput): Promise<{
         transaction: Transaction;
     }>;
     runDestroyIndex(input: FlexClientDestroyIndexInput): Promise<{
