@@ -1,7 +1,7 @@
 import { Market, MarketOptions } from "./market";
 import { Client, ClientOptions, WalletInfo, walletInfoFromApi } from "./client";
 import { Flex, MakeOrderMode } from "./flex";
-import { Signer } from "@eversdk/core";
+import { ProcessingErrorCode, Signer, TvmErrorCode } from "@eversdk/core";
 import { amountToUnits, priceToUnits } from "../contracts/helpers";
 import { FlexWalletAccount, PriceXchgAccount, WrapperAccount, XchgPairAccount } from "../contracts";
 import { Token, TokenInfo } from "./token";
@@ -87,7 +87,7 @@ export type TradeInfo = {
      * Determines the users position in trade. Maker or taker.
      * Maker is a trade counterparty whose order was earlier.
      *Taker is a counterparty with a later order.
-    */
+     */
     liquidity: TradeLiquidity,
     /**
      * User fees for this trade. Measured in major tokens.
@@ -97,7 +97,7 @@ export type TradeInfo = {
      *
      * If the user is a taker then fees is a value that
      * the user pays to the exchange and maker.
-    */
+     */
     fees: number,
 
 
@@ -119,6 +119,7 @@ export class Trader {
         this.id = options.id;
         this.signer = options.signer;
     }
+
     /**
      * Creates an Order on Flex Dex Market
      *
@@ -151,24 +152,35 @@ export class Trader {
         const finishTime = options.finishTime ?? Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
 
         const mode = options.mode ?? defaults.mode;
-        await wallet.runMakeOrder({
-            _answer_id: 0,
-            evers: options.evers ?? defaults.evers,
-            lend_balance,
-            lend_finish_time: finishTime,
-            price_num: price.num,
-            unsalted_price_code: priceCode,
-            salt: priceSalt,
-            args: {
-                sell: options.sell,
-                immediate_client: mode === MakeOrderMode.IOP || mode === MakeOrderMode.IOC,
-                post_order: mode === MakeOrderMode.IOP || mode === MakeOrderMode.POST,
-                amount,
-                client_addr: await client.getAddress(),
-                user_id: "0x" + this.id,
-                order_id: orderId,
-            },
-        });
+        try {
+            await wallet.runMakeOrder({
+                _answer_id: 0,
+                evers: options.evers ?? defaults.evers,
+                lend_balance,
+                lend_finish_time: finishTime,
+                price_num: price.num,
+                unsalted_price_code: priceCode,
+                salt: priceSalt,
+                args: {
+                    sell: options.sell,
+                    immediate_client: mode === MakeOrderMode.IOP || mode === MakeOrderMode.IOC,
+                    post_order: mode === MakeOrderMode.IOP || mode === MakeOrderMode.POST,
+                    amount,
+                    client_addr: await client.getAddress(),
+                    user_id: "0x" + this.id,
+                    order_id: orderId,
+                },
+            });
+        } catch (err: any) {
+            throw resolveError(err, {
+                O: options.sell ? "sell" : "buy",
+                M: `${pairDetails.major_tip3cfg.symbol}/${pairDetails.minor_tip3cfg.symbol}`,
+                T: options.sell
+                    ? pairDetails.major_tip3cfg.symbol
+                    : pairDetails.minor_tip3cfg.symbol,
+                W: await wallet.getAddress(),
+            });
+        }
 
         // const priceDetails = await this.getPriceDetails(pair, price.num);
         // const order = findOrder(orderId, options.sell ? priceDetails.sells : priceDetails.buys);
@@ -190,6 +202,7 @@ export class Trader {
             amountLeft: 0,
         };
     }
+
     /**
      * Cancels an Order on Flex Dex Market
      *
@@ -240,7 +253,8 @@ export class Trader {
         `);
         return result.userOrders;
     }
-   /**
+
+    /**
      * Gets the list of Trader's executed trades.
      *
      * @returns the list of executed trades.
@@ -352,4 +366,47 @@ function findOrder(id: number | string, orders: any[] | null | undefined): any |
     }
     const numId = Number(id);
     return orders.find(x => Number(x.order_id) === numId);
+}
+
+function resolveError(original: Error & {
+    code?: number,
+    data?: {
+        local_error?: {
+            code: number,
+        }
+    }
+}, context: { O: string, M: string, T: string, W: string }): Error {
+
+    if (original.code !== ProcessingErrorCode.MessageExpired) {
+        return original;
+    }
+    const localCode = original.data?.local_error?.code;
+    const {
+        O,
+        M,
+        T,
+        W,
+    } = context;
+    let message: string;
+    switch (localCode) {
+    case TvmErrorCode.AccountCodeMissing:
+        message = `Error occurred while performing ${O} on ${M}. ${T} wallet ${W} was not completely activated. You need to deploy it to proceed.`;
+        break;
+    case TvmErrorCode.AccountMissing:
+        message = `Error occurred while performing operation ${O} on ${M} market. You need to activate ${T} wallet ${W} to trade on this Market.`;
+        break;
+    case TvmErrorCode.AccountFrozenOrDeleted:
+        message = `Error occurred while performing ${O} on ${M}. ${T} wallet ${W} was frozen or deleted. You need to deploy it to proceed.`;
+        break;
+    case TvmErrorCode.LowBalance:
+        message = `Error occurred while performing ${O} on ${M} Market. You need to top-up ${T} wallet ${W} to pay fees.`;
+        break;
+    default:
+        message = `Error occurred while performing ${O} on ${M}. Ask DEX Support team for help.`;
+        break;
+    }
+    const flexErr = new Error(message);
+    (flexErr as any).originalError = original;
+    return flexErr;
+
 }

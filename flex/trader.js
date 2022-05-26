@@ -13,6 +13,7 @@ exports.Trader = exports.TradeLiquidity = exports.TradeSide = void 0;
 const market_1 = require("./market");
 const client_1 = require("./client");
 const flex_1 = require("./flex");
+const core_1 = require("@eversdk/core");
 const helpers_1 = require("../contracts/helpers");
 const contracts_1 = require("../contracts");
 const token_1 = require("./token");
@@ -57,24 +58,36 @@ class Trader {
             })).output.value0;
             const finishTime = (_a = options.finishTime) !== null && _a !== void 0 ? _a : Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
             const mode = (_b = options.mode) !== null && _b !== void 0 ? _b : defaults.mode;
-            yield wallet.runMakeOrder({
-                _answer_id: 0,
-                evers: (_c = options.evers) !== null && _c !== void 0 ? _c : defaults.evers,
-                lend_balance,
-                lend_finish_time: finishTime,
-                price_num: price.num,
-                unsalted_price_code: priceCode,
-                salt: priceSalt,
-                args: {
-                    sell: options.sell,
-                    immediate_client: mode === flex_1.MakeOrderMode.IOP || mode === flex_1.MakeOrderMode.IOC,
-                    post_order: mode === flex_1.MakeOrderMode.IOP || mode === flex_1.MakeOrderMode.POST,
-                    amount,
-                    client_addr: yield client.getAddress(),
-                    user_id: "0x" + this.id,
-                    order_id: orderId,
-                },
-            });
+            try {
+                yield wallet.runMakeOrder({
+                    _answer_id: 0,
+                    evers: (_c = options.evers) !== null && _c !== void 0 ? _c : defaults.evers,
+                    lend_balance,
+                    lend_finish_time: finishTime,
+                    price_num: price.num,
+                    unsalted_price_code: priceCode,
+                    salt: priceSalt,
+                    args: {
+                        sell: options.sell,
+                        immediate_client: mode === flex_1.MakeOrderMode.IOP || mode === flex_1.MakeOrderMode.IOC,
+                        post_order: mode === flex_1.MakeOrderMode.IOP || mode === flex_1.MakeOrderMode.POST,
+                        amount,
+                        client_addr: yield client.getAddress(),
+                        user_id: "0x" + this.id,
+                        order_id: orderId,
+                    },
+                });
+            }
+            catch (err) {
+                throw resolveError(err, {
+                    O: options.sell ? "sell" : "buy",
+                    M: `${pairDetails.major_tip3cfg.symbol}/${pairDetails.minor_tip3cfg.symbol}`,
+                    T: options.sell
+                        ? pairDetails.major_tip3cfg.symbol
+                        : pairDetails.minor_tip3cfg.symbol,
+                    W: yield wallet.getAddress(),
+                });
+            }
             return {
                 side: options.sell ? TradeSide.SELL : TradeSide.BUY,
                 pair: {
@@ -228,5 +241,34 @@ function findOrder(id, orders) {
     }
     const numId = Number(id);
     return orders.find(x => Number(x.order_id) === numId);
+}
+function resolveError(original, context) {
+    var _a, _b;
+    if (original.code !== core_1.ProcessingErrorCode.MessageExpired) {
+        return original;
+    }
+    const localCode = (_b = (_a = original.data) === null || _a === void 0 ? void 0 : _a.local_error) === null || _b === void 0 ? void 0 : _b.code;
+    const { O, M, T, W, } = context;
+    let message;
+    switch (localCode) {
+        case core_1.TvmErrorCode.AccountCodeMissing:
+            message = `Error occurred while performing ${O} on ${M}. ${T} wallet ${W} was not completely activated. You need to deploy it to proceed.`;
+            break;
+        case core_1.TvmErrorCode.AccountMissing:
+            message = `Error occurred while performing operation ${O} on ${M} market. You need to activate ${T} wallet ${W} to trade on this Market.`;
+            break;
+        case core_1.TvmErrorCode.AccountFrozenOrDeleted:
+            message = `Error occurred while performing ${O} on ${M}. ${T} wallet ${W} was frozen or deleted. You need to deploy it to proceed.`;
+            break;
+        case core_1.TvmErrorCode.LowBalance:
+            message = `Error occurred while performing ${O} on ${M} Market. You need to top-up ${T} wallet ${W} to pay fees.`;
+            break;
+        default:
+            message = `Error occurred while performing ${O} on ${M}. Ask DEX Support team for help.`;
+            break;
+    }
+    const flexErr = new Error(message);
+    flexErr.originalError = original;
+    return flexErr;
 }
 //# sourceMappingURL=trader.js.map

@@ -6,16 +6,16 @@ initExample();
 (async () => {
     try {
         const trader = new Trader({
-            client: CONFIG.trader2.client,
-            id: CONFIG.trader2.id,
-            signer: CONFIG.trader2.signer,
+            client: CONFIG.trader3.client,
+            id: CONFIG.trader3.id,
+            signer: CONFIG.trader3.signer,
         });
 
         const order = await trader.makeOrder({
-            sell: false,
+            sell: true,
             market: CONFIG.market1,
             price: 40,
-            amount: 1,
+            amount: 0.5,
         });
 
         console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);

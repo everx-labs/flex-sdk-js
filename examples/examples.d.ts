@@ -13,6 +13,12 @@ export declare const CONFIG: {
         signer: string;
         wallet: string;
     };
+    trader3: {
+        client: string;
+        id: string;
+        signer: string;
+        wallet: string;
+    };
     market1: string;
     token1: string;
 };

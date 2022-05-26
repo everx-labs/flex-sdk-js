@@ -15,15 +15,15 @@ const examples_1 = require("./examples");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const trader = new flex_1.Trader({
-            client: examples_1.CONFIG.trader2.client,
-            id: examples_1.CONFIG.trader2.id,
-            signer: examples_1.CONFIG.trader2.signer,
+            client: examples_1.CONFIG.trader3.client,
+            id: examples_1.CONFIG.trader3.id,
+            signer: examples_1.CONFIG.trader3.signer,
         });
         const order = yield trader.makeOrder({
-            sell: false,
+            sell: true,
             market: examples_1.CONFIG.market1,
             price: 40,
-            amount: 1,
+            amount: 0.5,
         });
         console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
         yield flex_1.Flex.default.close();
