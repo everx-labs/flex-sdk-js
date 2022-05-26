@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type WICOnDeployInput = {
     keep_evers: string | number | bigint;
@@ -49,30 +50,35 @@ export declare class WICAccount extends Account {
     }>;
     runOnDeploy(input: WICOnDeployInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     onDeploy(input: WICOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
     runSetNext(input: WICSetNextInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setNext(input: WICSetNextInput): Promise<{
         transaction: Transaction;
     }>;
     runCloneUpgrade(input: WICCloneUpgradeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     cloneUpgrade(input: WICCloneUpgradeInput): Promise<{
         transaction: Transaction;
     }>;
     runUnlist(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     unlist(): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WICGetDetailsOutput;
     }>;
     getDetails(): Promise<{

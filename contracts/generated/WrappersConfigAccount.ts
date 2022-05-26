@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -108,6 +111,7 @@ export class WrappersConfigAccount extends Account {
 
     async runOnDeploy(input: WrappersConfigOnDeployInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
@@ -120,6 +124,7 @@ export class WrappersConfigAccount extends Account {
 
     async runOnWICsCloned(input: WrappersConfigOnWICsClonedInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "onWICsCloned", input);
     }
@@ -132,6 +137,7 @@ export class WrappersConfigAccount extends Account {
 
     async runAddWrapperType(input: WrappersConfigAddWrapperTypeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "addWrapperType", input);
     }
@@ -144,6 +150,7 @@ export class WrappersConfigAccount extends Account {
 
     async runAddWrapper(input: WrappersConfigAddWrapperInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "addWrapper", input);
     }
@@ -156,6 +163,7 @@ export class WrappersConfigAccount extends Account {
 
     async runUnlistWrapper(input: WrappersConfigUnlistWrapperInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "unlistWrapper", input);
     }
@@ -168,6 +176,7 @@ export class WrappersConfigAccount extends Account {
 
     async runCloneUpgrade(input: WrappersConfigCloneUpgradeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrappersConfigCloneUpgradeOutput,
     }> {
         return await runHelper(this, "cloneUpgrade", input);
@@ -182,6 +191,7 @@ export class WrappersConfigAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrappersConfigGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
@@ -196,6 +206,7 @@ export class WrappersConfigAccount extends Account {
 
     async runGetConfig(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrappersConfigGetConfigOutput,
     }> {
         return await runHelper(this, "getConfig", {});

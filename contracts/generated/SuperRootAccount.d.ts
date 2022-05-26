@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type SuperRootOnDeployInput = {
     global_config_code: string;
@@ -176,36 +177,42 @@ export declare class SuperRootAccount extends Account {
     }>;
     runOnDeploy(input: SuperRootOnDeployInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     onDeploy(input: SuperRootOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
     runUpdate(input: SuperRootUpdateInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     update(input: SuperRootUpdateInput): Promise<{
         transaction: Transaction;
     }>;
     runUpdateConfirmed(input: SuperRootUpdateConfirmedInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     updateConfirmed(input: SuperRootUpdateConfirmedInput): Promise<{
         transaction: Transaction;
     }>;
     runRelease(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     release(): Promise<{
         transaction: Transaction;
     }>;
     runProxy(input: SuperRootProxyInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     proxy(input: SuperRootProxyInput): Promise<{
         transaction: Transaction;
     }>;
     runDeployWrappersConfig(input: SuperRootDeployWrappersConfigInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: SuperRootDeployWrappersConfigOutput;
     }>;
     deployWrappersConfig(input: SuperRootDeployWrappersConfigInput): Promise<{
@@ -214,6 +221,7 @@ export declare class SuperRootAccount extends Account {
     }>;
     runDeployFlex(input: SuperRootDeployFlexInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: SuperRootDeployFlexOutput;
     }>;
     deployFlex(input: SuperRootDeployFlexInput): Promise<{
@@ -222,6 +230,7 @@ export declare class SuperRootAccount extends Account {
     }>;
     runDeployUserDataConfig(input: SuperRootDeployUserDataConfigInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: SuperRootDeployUserDataConfigOutput;
     }>;
     deployUserDataConfig(input: SuperRootDeployUserDataConfigInput): Promise<{
@@ -230,48 +239,56 @@ export declare class SuperRootAccount extends Account {
     }>;
     runCloneWrappersConfig(input: SuperRootCloneWrappersConfigInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     cloneWrappersConfig(input: SuperRootCloneWrappersConfigInput): Promise<{
         transaction: Transaction;
     }>;
     runTransfer(input: SuperRootTransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transfer(input: SuperRootTransferInput): Promise<{
         transaction: Transaction;
     }>;
     runTransferReserveTokens(input: SuperRootTransferReserveTokensInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transferReserveTokens(input: SuperRootTransferReserveTokensInput): Promise<{
         transaction: Transaction;
     }>;
     runSetFlags(input: SuperRootSetFlagsInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setFlags(input: SuperRootSetFlagsInput): Promise<{
         transaction: Transaction;
     }>;
     runSetOwner(input: SuperRootSetOwnerInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setOwner(input: SuperRootSetOwnerInput): Promise<{
         transaction: Transaction;
     }>;
     runSetUpdateTeam(input: SuperRootSetUpdateTeamInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setUpdateTeam(input: SuperRootSetUpdateTeamInput): Promise<{
         transaction: Transaction;
     }>;
     runSetNextSuperRoot(input: SuperRootSetNextSuperRootInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setNextSuperRoot(input: SuperRootSetNextSuperRootInput): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: SuperRootGetDetailsOutput;
     }>;
     getDetails(): Promise<{
@@ -280,6 +297,7 @@ export declare class SuperRootAccount extends Account {
     }>;
     runGetGlobalConfig(input: SuperRootGetGlobalConfigInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: SuperRootGetGlobalConfigOutput;
     }>;
     getGlobalConfig(input: SuperRootGetGlobalConfigInput): Promise<{
@@ -288,6 +306,7 @@ export declare class SuperRootAccount extends Account {
     }>;
     runGetCurrentGlobalConfig(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: SuperRootGetCurrentGlobalConfigOutput;
     }>;
     getCurrentGlobalConfig(): Promise<{

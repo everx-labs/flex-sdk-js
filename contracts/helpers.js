@@ -44,7 +44,7 @@ function runHelper(account, fn, params) {
         (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Run ${account.constructor.name}.${fn}`);
         try {
             const result = yield account.run(fn, params);
-            yield account.client.net.query_transaction_tree({
+            const transactionTree = yield account.client.net.query_transaction_tree({
                 in_msg: result.transaction.in_msg,
                 timeout: 60000 * 5,
             });
@@ -52,6 +52,7 @@ function runHelper(account, fn, params) {
             (_d = account.log) === null || _d === void 0 ? void 0 : _d.processingDone();
             return {
                 transaction: result.transaction,
+                transactionTree,
                 output: (_e = result.decoded) === null || _e === void 0 ? void 0 : _e.output,
             };
         }

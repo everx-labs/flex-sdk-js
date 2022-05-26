@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type stTONsClientMockDeployStTONsInput = {
     evers: string | number | bigint;
@@ -39,6 +40,7 @@ export declare class stTONsClientMockAccount extends Account {
     }>;
     runDeployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: stTONsClientMockDeployStTONsOutput;
     }>;
     deployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<{
@@ -47,18 +49,21 @@ export declare class stTONsClientMockAccount extends Account {
     }>;
     runReturnStake(input: stTONsClientMockReturnStakeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     returnStake(input: stTONsClientMockReturnStakeInput): Promise<{
         transaction: Transaction;
     }>;
     runFinalize(input: stTONsClientMockFinalizeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     finalize(input: stTONsClientMockFinalizeInput): Promise<{
         transaction: Transaction;
     }>;
     runGetOwnerPubkey(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: stTONsClientMockGetOwnerPubkeyOutput;
     }>;
     getOwnerPubkey(): Promise<{

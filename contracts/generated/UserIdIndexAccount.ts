@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -73,6 +76,7 @@ export class UserIdIndexAccount extends Account {
 
     async runOnDeploy(input: UserIdIndexOnDeployInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
@@ -85,6 +89,7 @@ export class UserIdIndexAccount extends Account {
 
     async runReLendPubkey(input: UserIdIndexReLendPubkeyInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "reLendPubkey", input);
     }
@@ -97,6 +102,7 @@ export class UserIdIndexAccount extends Account {
 
     async runRemove(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "remove", {});
     }
@@ -109,6 +115,7 @@ export class UserIdIndexAccount extends Account {
 
     async runRequestLendPubkey(input: UserIdIndexRequestLendPubkeyInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: UserIdIndexRequestLendPubkeyOutput,
     }> {
         return await runHelper(this, "requestLendPubkey", input);
@@ -123,6 +130,7 @@ export class UserIdIndexAccount extends Account {
 
     async runTransfer(input: UserIdIndexTransferInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "transfer", input);
     }
@@ -135,6 +143,7 @@ export class UserIdIndexAccount extends Account {
 
     async runSetRefillWallet(input: UserIdIndexSetRefillWalletInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "setRefillWallet", input);
     }
@@ -147,6 +156,7 @@ export class UserIdIndexAccount extends Account {
 
     async runGetConfig(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: UserIdIndexGetConfigOutput,
     }> {
         return await runHelper(this, "getConfig", {});

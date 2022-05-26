@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -49,6 +52,7 @@ export class FlexClientStubAccount extends Account {
 
     async runOnDeploy(input: FlexClientStubOnDeployInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
@@ -61,6 +65,7 @@ export class FlexClientStubAccount extends Account {
 
     async runUnused(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "unused", {});
     }

@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type WrapperInitInput = {
     external_wallet: string;
@@ -118,12 +119,14 @@ export declare class WrapperAccount extends Account {
     }>;
     runInit(input: WrapperInitInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     init(input: WrapperInitInput): Promise<{
         transaction: Transaction;
     }>;
     runDeployEmptyWallet(input: WrapperDeployEmptyWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WrapperDeployEmptyWalletOutput;
     }>;
     deployEmptyWallet(input: WrapperDeployEmptyWalletInput): Promise<{
@@ -132,6 +135,7 @@ export declare class WrapperAccount extends Account {
     }>;
     runOnTip3Transfer(input: WrapperOnTip3TransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WrapperOnTip3TransferOutput;
     }>;
     onTip3Transfer(input: WrapperOnTip3TransferInput): Promise<{
@@ -140,18 +144,21 @@ export declare class WrapperAccount extends Account {
     }>;
     runBurn(input: WrapperBurnInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     burn(input: WrapperBurnInput): Promise<{
         transaction: Transaction;
     }>;
     runTransferFromReserveWallet(input: WrapperTransferFromReserveWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transferFromReserveWallet(input: WrapperTransferFromReserveWalletInput): Promise<{
         transaction: Transaction;
     }>;
     runRequestTotalGranted(input: WrapperRequestTotalGrantedInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WrapperRequestTotalGrantedOutput;
     }>;
     requestTotalGranted(input: WrapperRequestTotalGrantedInput): Promise<{
@@ -160,6 +167,7 @@ export declare class WrapperAccount extends Account {
     }>;
     runCloned(input: WrapperClonedInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WrapperClonedOutput;
     }>;
     cloned(input: WrapperClonedInput): Promise<{
@@ -168,12 +176,14 @@ export declare class WrapperAccount extends Account {
     }>;
     runSetCloned(input: WrapperSetClonedInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setCloned(input: WrapperSetClonedInput): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WrapperGetDetailsOutput;
     }>;
     getDetails(): Promise<{
@@ -182,6 +192,7 @@ export declare class WrapperAccount extends Account {
     }>;
     runGetTip3Config(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WrapperGetTip3ConfigOutput;
     }>;
     getTip3Config(): Promise<{
@@ -190,6 +201,7 @@ export declare class WrapperAccount extends Account {
     }>;
     runHasInternalWalletCode(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WrapperHasInternalWalletCodeOutput;
     }>;
     hasInternalWalletCode(): Promise<{
@@ -198,6 +210,7 @@ export declare class WrapperAccount extends Account {
     }>;
     runGetWalletAddress(input: WrapperGetWalletAddressInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WrapperGetWalletAddressOutput;
     }>;
     getWalletAddress(input: WrapperGetWalletAddressInput): Promise<{
@@ -206,6 +219,7 @@ export declare class WrapperAccount extends Account {
     }>;
     runGetReserveWallet(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WrapperGetReserveWalletOutput;
     }>;
     getReserveWallet(): Promise<{
@@ -214,6 +228,7 @@ export declare class WrapperAccount extends Account {
     }>;
     runGetTestValue(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WrapperGetTestValueOutput;
     }>;
     getTestValue(): Promise<{

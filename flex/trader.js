@@ -59,7 +59,7 @@ class Trader {
             const finishTime = (_a = options.finishTime) !== null && _a !== void 0 ? _a : Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
             const mode = (_b = options.mode) !== null && _b !== void 0 ? _b : defaults.mode;
             try {
-                yield wallet.runMakeOrder({
+                const result = yield wallet.runMakeOrder({
                     _answer_id: 0,
                     evers: (_c = options.evers) !== null && _c !== void 0 ? _c : defaults.evers,
                     lend_balance,
@@ -77,6 +77,7 @@ class Trader {
                         order_id: orderId,
                     },
                 });
+                flex.log.verbose(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
             }
             catch (err) {
                 throw resolveError(err, {

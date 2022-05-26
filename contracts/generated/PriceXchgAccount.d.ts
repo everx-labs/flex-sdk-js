@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type PriceXchgOnTip3LendOwnershipInput = {
     _answer_id: number;
@@ -123,6 +124,7 @@ export declare class PriceXchgAccount extends Account {
     }>;
     runOnTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: PriceXchgOnTip3LendOwnershipOutput;
     }>;
     onTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput): Promise<{
@@ -131,24 +133,28 @@ export declare class PriceXchgAccount extends Account {
     }>;
     runProcessQueue(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     processQueue(): Promise<{
         transaction: Transaction;
     }>;
     runCancelOrder(input: PriceXchgCancelOrderInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     cancelOrder(input: PriceXchgCancelOrderInput): Promise<{
         transaction: Transaction;
     }>;
     runCancelWalletOrder(input: PriceXchgCancelWalletOrderInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     cancelWalletOrder(input: PriceXchgCancelWalletOrderInput): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: PriceXchgGetDetailsOutput;
     }>;
     getDetails(): Promise<{

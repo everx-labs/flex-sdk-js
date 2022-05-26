@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type FlexOnDeployInput = {
     flex_keep_evers: string | number | bigint;
@@ -98,12 +99,14 @@ export declare class FlexAccount extends Account {
     }>;
     runOnDeploy(input: FlexOnDeployInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     onDeploy(input: FlexOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
     runAddXchgPair(input: FlexAddXchgPairInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexAddXchgPairOutput;
     }>;
     addXchgPair(input: FlexAddXchgPairInput): Promise<{
@@ -112,12 +115,14 @@ export declare class FlexAccount extends Account {
     }>;
     runUnlistXchgPair(input: FlexUnlistXchgPairInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     unlistXchgPair(input: FlexUnlistXchgPairInput): Promise<{
         transaction: Transaction;
     }>;
     runRequestPairs(input: FlexRequestPairsInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexRequestPairsOutput;
     }>;
     requestPairs(input: FlexRequestPairsInput): Promise<{
@@ -126,6 +131,7 @@ export declare class FlexAccount extends Account {
     }>;
     runGetConfig(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexGetConfigOutput;
     }>;
     getConfig(): Promise<{
@@ -134,6 +140,7 @@ export declare class FlexAccount extends Account {
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexGetDetailsOutput;
     }>;
     getDetails(): Promise<{
@@ -142,6 +149,7 @@ export declare class FlexAccount extends Account {
     }>;
     runGetXchgTradingPair(input: FlexGetXchgTradingPairInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexGetXchgTradingPairOutput;
     }>;
     getXchgTradingPair(input: FlexGetXchgTradingPairInput): Promise<{
@@ -150,6 +158,7 @@ export declare class FlexAccount extends Account {
     }>;
     runCalcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexCalcLendTokensForOrderOutput;
     }>;
     calcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput): Promise<{

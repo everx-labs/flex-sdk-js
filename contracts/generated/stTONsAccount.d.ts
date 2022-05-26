@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type stTONsLendOwnershipInput = {
     _answer_id: number;
@@ -65,48 +66,56 @@ export declare class stTONsAccount extends Account {
     }>;
     runOnDeploy(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     onDeploy(): Promise<{
         transaction: Transaction;
     }>;
     runLendOwnership(input: stTONsLendOwnershipInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     lendOwnership(input: stTONsLendOwnershipInput): Promise<{
         transaction: Transaction;
     }>;
     runReturnOwnership(input: stTONsReturnOwnershipInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     returnOwnership(input: stTONsReturnOwnershipInput): Promise<{
         transaction: Transaction;
     }>;
     runReturnStake(input: stTONsReturnStakeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     returnStake(input: stTONsReturnStakeInput): Promise<{
         transaction: Transaction;
     }>;
     runFinalize(input: stTONsFinalizeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     finalize(input: stTONsFinalizeInput): Promise<{
         transaction: Transaction;
     }>;
     runReceiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     receiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<{
         transaction: Transaction;
     }>;
     runReceiveAnswer(input: stTONsReceiveAnswerInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     receiveAnswer(input: stTONsReceiveAnswerInput): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: stTONsGetDetailsOutput;
     }>;
     getDetails(): Promise<{
@@ -115,6 +124,7 @@ export declare class stTONsAccount extends Account {
     }>;
     runCalcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: stTONsCalcStTONsAddrOutput;
     }>;
     calcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<{

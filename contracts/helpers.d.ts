@@ -1,4 +1,5 @@
 import { Account, ContractPackage } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 export declare abstract class Log {
     static NULL: Log;
     static STDOUT: Log;
@@ -20,6 +21,7 @@ export declare function runHelper<O>(account: Account & {
     log?: Log;
 }, fn: string, params: object): Promise<{
     transaction: Transaction;
+    transactionTree: ResultOfQueryTransactionTree;
     output: O;
 }>;
 export declare function deployHelper(account: Account & {

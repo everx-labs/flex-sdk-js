@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type FlexClientTestUpdateDeployPriceXchgInput = {
     sell: boolean;
@@ -181,6 +182,7 @@ export declare class FlexClientTestUpdateAccount extends Account {
     }>;
     runDeployPriceXchg(input: FlexClientTestUpdateDeployPriceXchgInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientTestUpdateDeployPriceXchgOutput;
     }>;
     deployPriceXchg(input: FlexClientTestUpdateDeployPriceXchgInput): Promise<{
@@ -189,24 +191,28 @@ export declare class FlexClientTestUpdateAccount extends Account {
     }>;
     runCancelXchgOrder(input: FlexClientTestUpdateCancelXchgOrderInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     cancelXchgOrder(input: FlexClientTestUpdateCancelXchgOrderInput): Promise<{
         transaction: Transaction;
     }>;
     runTransfer(input: FlexClientTestUpdateTransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transfer(input: FlexClientTestUpdateTransferInput): Promise<{
         transaction: Transaction;
     }>;
     runTransferTokens(input: FlexClientTestUpdateTransferTokensInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transferTokens(input: FlexClientTestUpdateTransferTokensInput): Promise<{
         transaction: Transaction;
     }>;
     runDeployEmptyFlexWallet(input: FlexClientTestUpdateDeployEmptyFlexWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientTestUpdateDeployEmptyFlexWalletOutput;
     }>;
     deployEmptyFlexWallet(input: FlexClientTestUpdateDeployEmptyFlexWalletInput): Promise<{
@@ -215,54 +221,63 @@ export declare class FlexClientTestUpdateAccount extends Account {
     }>;
     runDeployIndex(input: FlexClientTestUpdateDeployIndexInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     deployIndex(input: FlexClientTestUpdateDeployIndexInput): Promise<{
         transaction: Transaction;
     }>;
     runReLendIndex(input: FlexClientTestUpdateReLendIndexInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     reLendIndex(input: FlexClientTestUpdateReLendIndexInput): Promise<{
         transaction: Transaction;
     }>;
     runDestroyIndex(input: FlexClientTestUpdateDestroyIndexInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     destroyIndex(input: FlexClientTestUpdateDestroyIndexInput): Promise<{
         transaction: Transaction;
     }>;
     runBurnWallet(input: FlexClientTestUpdateBurnWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     burnWallet(input: FlexClientTestUpdateBurnWalletInput): Promise<{
         transaction: Transaction;
     }>;
     runUnwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     unwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput): Promise<{
         transaction: Transaction;
     }>;
     runBindWallet(input: FlexClientTestUpdateBindWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     bindWallet(input: FlexClientTestUpdateBindWalletInput): Promise<{
         transaction: Transaction;
     }>;
     runOnTip3Transfer(input: FlexClientTestUpdateOnTip3TransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     onTip3Transfer(input: FlexClientTestUpdateOnTip3TransferInput): Promise<{
         transaction: Transaction;
     }>;
     runUpgrade(input: FlexClientTestUpdateUpgradeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     upgrade(input: FlexClientTestUpdateUpgradeInput): Promise<{
         transaction: Transaction;
     }>;
     runGetPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput;
     }>;
     getPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput): Promise<{
@@ -271,6 +286,7 @@ export declare class FlexClientTestUpdateAccount extends Account {
     }>;
     runGetPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientTestUpdateGetPriceXchgAddressOutput;
     }>;
     getPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput): Promise<{
@@ -279,6 +295,7 @@ export declare class FlexClientTestUpdateAccount extends Account {
     }>;
     runGetUserIdIndex(input: FlexClientTestUpdateGetUserIdIndexInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientTestUpdateGetUserIdIndexOutput;
     }>;
     getUserIdIndex(input: FlexClientTestUpdateGetUserIdIndexInput): Promise<{
@@ -287,6 +304,7 @@ export declare class FlexClientTestUpdateAccount extends Account {
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientTestUpdateGetDetailsOutput;
     }>;
     getDetails(): Promise<{
@@ -295,6 +313,7 @@ export declare class FlexClientTestUpdateAccount extends Account {
     }>;
     runGetTestValue(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientTestUpdateGetTestValueOutput;
     }>;
     getTestValue(): Promise<{

@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type FlexClientDeployPriceXchgInput = {
     sell: boolean;
@@ -178,6 +179,7 @@ export declare class FlexClientAccount extends Account {
     }>;
     runDeployPriceXchg(input: FlexClientDeployPriceXchgInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientDeployPriceXchgOutput;
     }>;
     deployPriceXchg(input: FlexClientDeployPriceXchgInput): Promise<{
@@ -186,24 +188,28 @@ export declare class FlexClientAccount extends Account {
     }>;
     runCancelXchgOrder(input: FlexClientCancelXchgOrderInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     cancelXchgOrder(input: FlexClientCancelXchgOrderInput): Promise<{
         transaction: Transaction;
     }>;
     runTransfer(input: FlexClientTransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transfer(input: FlexClientTransferInput): Promise<{
         transaction: Transaction;
     }>;
     runTransferTokens(input: FlexClientTransferTokensInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transferTokens(input: FlexClientTransferTokensInput): Promise<{
         transaction: Transaction;
     }>;
     runDeployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientDeployEmptyFlexWalletOutput;
     }>;
     deployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput): Promise<{
@@ -212,54 +218,63 @@ export declare class FlexClientAccount extends Account {
     }>;
     runDeployIndex(input: FlexClientDeployIndexInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     deployIndex(input: FlexClientDeployIndexInput): Promise<{
         transaction: Transaction;
     }>;
     runReLendIndex(input: FlexClientReLendIndexInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     reLendIndex(input: FlexClientReLendIndexInput): Promise<{
         transaction: Transaction;
     }>;
     runDestroyIndex(input: FlexClientDestroyIndexInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     destroyIndex(input: FlexClientDestroyIndexInput): Promise<{
         transaction: Transaction;
     }>;
     runBurnWallet(input: FlexClientBurnWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     burnWallet(input: FlexClientBurnWalletInput): Promise<{
         transaction: Transaction;
     }>;
     runUnwrapWallet(input: FlexClientUnwrapWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     unwrapWallet(input: FlexClientUnwrapWalletInput): Promise<{
         transaction: Transaction;
     }>;
     runBindWallet(input: FlexClientBindWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     bindWallet(input: FlexClientBindWalletInput): Promise<{
         transaction: Transaction;
     }>;
     runOnTip3Transfer(input: FlexClientOnTip3TransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     onTip3Transfer(input: FlexClientOnTip3TransferInput): Promise<{
         transaction: Transaction;
     }>;
     runUpgrade(input: FlexClientUpgradeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     upgrade(input: FlexClientUpgradeInput): Promise<{
         transaction: Transaction;
     }>;
     runGetPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientGetPayloadForDeployInternalWalletOutput;
     }>;
     getPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput): Promise<{
@@ -268,6 +283,7 @@ export declare class FlexClientAccount extends Account {
     }>;
     runGetPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientGetPriceXchgAddressOutput;
     }>;
     getPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput): Promise<{
@@ -276,6 +292,7 @@ export declare class FlexClientAccount extends Account {
     }>;
     runGetUserIdIndex(input: FlexClientGetUserIdIndexInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientGetUserIdIndexOutput;
     }>;
     getUserIdIndex(input: FlexClientGetUserIdIndexInput): Promise<{
@@ -284,6 +301,7 @@ export declare class FlexClientAccount extends Account {
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexClientGetDetailsOutput;
     }>;
     getDetails(): Promise<{

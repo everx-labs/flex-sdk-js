@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -148,6 +151,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runSetWalletCode(input: FlexTokenRootSetWalletCodeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootSetWalletCodeOutput,
     }> {
         return await runHelper(this, "setWalletCode", input);
@@ -162,6 +166,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runDeployWallet(input: FlexTokenRootDeployWalletInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootDeployWalletOutput,
     }> {
         return await runHelper(this, "deployWallet", input);
@@ -176,6 +181,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runDeployEmptyWallet(input: FlexTokenRootDeployEmptyWalletInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootDeployEmptyWalletOutput,
     }> {
         return await runHelper(this, "deployEmptyWallet", input);
@@ -190,6 +196,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runGrant(input: FlexTokenRootGrantInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "grant", input);
     }
@@ -202,6 +209,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runMint(input: FlexTokenRootMintInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootMintOutput,
     }> {
         return await runHelper(this, "mint", input);
@@ -216,6 +224,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runRequestTotalGranted(input: FlexTokenRootRequestTotalGrantedInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootRequestTotalGrantedOutput,
     }> {
         return await runHelper(this, "requestTotalGranted", input);
@@ -230,6 +239,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runGetName(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootGetNameOutput,
     }> {
         return await runHelper(this, "getName", {});
@@ -244,6 +254,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runGetSymbol(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootGetSymbolOutput,
     }> {
         return await runHelper(this, "getSymbol", {});
@@ -258,6 +269,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runGetDecimals(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootGetDecimalsOutput,
     }> {
         return await runHelper(this, "getDecimals", {});
@@ -272,6 +284,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runGetRootKey(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootGetRootKeyOutput,
     }> {
         return await runHelper(this, "getRootKey", {});
@@ -286,6 +299,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runGetRootOwner(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootGetRootOwnerOutput,
     }> {
         return await runHelper(this, "getRootOwner", {});
@@ -300,6 +314,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runGetTotalSupply(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootGetTotalSupplyOutput,
     }> {
         return await runHelper(this, "getTotalSupply", {});
@@ -314,6 +329,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runGetTotalGranted(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootGetTotalGrantedOutput,
     }> {
         return await runHelper(this, "getTotalGranted", {});
@@ -328,6 +344,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runHasWalletCode(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootHasWalletCodeOutput,
     }> {
         return await runHelper(this, "hasWalletCode", {});
@@ -342,6 +359,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runGetWalletCode(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootGetWalletCodeOutput,
     }> {
         return await runHelper(this, "getWalletCode", {});
@@ -356,6 +374,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runGetWalletAddress(input: FlexTokenRootGetWalletAddressInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootGetWalletAddressOutput,
     }> {
         return await runHelper(this, "getWalletAddress", input);
@@ -370,6 +389,7 @@ export class FlexTokenRootAccount extends Account {
 
     async runGetWalletCodeHash(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexTokenRootGetWalletCodeHashOutput,
     }> {
         return await runHelper(this, "getWalletCodeHash", {});

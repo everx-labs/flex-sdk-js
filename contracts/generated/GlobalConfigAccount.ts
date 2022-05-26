@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -58,6 +61,7 @@ export class GlobalConfigAccount extends Account {
 
     async runOnDeploy(input: GlobalConfigOnDeployInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
@@ -70,6 +74,7 @@ export class GlobalConfigAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: GlobalConfigGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
@@ -84,6 +89,7 @@ export class GlobalConfigAccount extends Account {
 
     async runGetConfig(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: GlobalConfigGetConfigOutput,
     }> {
         return await runHelper(this, "getConfig", {});

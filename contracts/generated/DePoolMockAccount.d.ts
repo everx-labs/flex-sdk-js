@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type DePoolMockSendOnTransferInput = {
     dst: string;
@@ -37,18 +38,21 @@ export declare class DePoolMockAccount extends Account {
     }>;
     runSendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     sendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<{
         transaction: Transaction;
     }>;
     runTransferStake(input: DePoolMockTransferStakeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transferStake(input: DePoolMockTransferStakeInput): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: DePoolMockGetDetailsOutput;
     }>;
     getDetails(): Promise<{

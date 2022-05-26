@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type RootTokenContractSetWalletCodeInput = {
     _answer_id: number;
@@ -102,6 +103,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runSetWalletCode(input: RootTokenContractSetWalletCodeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractSetWalletCodeOutput;
     }>;
     setWalletCode(input: RootTokenContractSetWalletCodeInput): Promise<{
@@ -110,6 +112,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runDeployWallet(input: RootTokenContractDeployWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractDeployWalletOutput;
     }>;
     deployWallet(input: RootTokenContractDeployWalletInput): Promise<{
@@ -118,6 +121,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runDeployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractDeployEmptyWalletOutput;
     }>;
     deployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput): Promise<{
@@ -126,12 +130,14 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runGrant(input: RootTokenContractGrantInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     grant(input: RootTokenContractGrantInput): Promise<{
         transaction: Transaction;
     }>;
     runMint(input: RootTokenContractMintInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractMintOutput;
     }>;
     mint(input: RootTokenContractMintInput): Promise<{
@@ -140,6 +146,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runRequestTotalGranted(input: RootTokenContractRequestTotalGrantedInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractRequestTotalGrantedOutput;
     }>;
     requestTotalGranted(input: RootTokenContractRequestTotalGrantedInput): Promise<{
@@ -148,6 +155,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runGetName(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractGetNameOutput;
     }>;
     getName(): Promise<{
@@ -156,6 +164,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runGetSymbol(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractGetSymbolOutput;
     }>;
     getSymbol(): Promise<{
@@ -164,6 +173,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runGetDecimals(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractGetDecimalsOutput;
     }>;
     getDecimals(): Promise<{
@@ -172,6 +182,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runGetRootKey(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractGetRootKeyOutput;
     }>;
     getRootKey(): Promise<{
@@ -180,6 +191,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runGetRootOwner(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractGetRootOwnerOutput;
     }>;
     getRootOwner(): Promise<{
@@ -188,6 +200,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runGetTotalSupply(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractGetTotalSupplyOutput;
     }>;
     getTotalSupply(): Promise<{
@@ -196,6 +209,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runGetTotalGranted(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractGetTotalGrantedOutput;
     }>;
     getTotalGranted(): Promise<{
@@ -204,6 +218,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runHasWalletCode(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractHasWalletCodeOutput;
     }>;
     hasWalletCode(): Promise<{
@@ -212,6 +227,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runGetWalletCode(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractGetWalletCodeOutput;
     }>;
     getWalletCode(): Promise<{
@@ -220,6 +236,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runGetWalletAddress(input: RootTokenContractGetWalletAddressInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractGetWalletAddressOutput;
     }>;
     getWalletAddress(input: RootTokenContractGetWalletAddressInput): Promise<{
@@ -228,6 +245,7 @@ export declare class RootTokenContractAccount extends Account {
     }>;
     runGetWalletCodeHash(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: RootTokenContractGetWalletCodeHashOutput;
     }>;
     getWalletCodeHash(): Promise<{

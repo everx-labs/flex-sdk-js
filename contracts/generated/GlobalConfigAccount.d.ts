@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type GlobalConfigOnDeployInput = {
     keep_evers: string | number | bigint;
@@ -32,12 +33,14 @@ export declare class GlobalConfigAccount extends Account {
     }>;
     runOnDeploy(input: GlobalConfigOnDeployInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     onDeploy(input: GlobalConfigOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: GlobalConfigGetDetailsOutput;
     }>;
     getDetails(): Promise<{
@@ -46,6 +49,7 @@ export declare class GlobalConfigAccount extends Account {
     }>;
     runGetConfig(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: GlobalConfigGetConfigOutput;
     }>;
     getConfig(): Promise<{

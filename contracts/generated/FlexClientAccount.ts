@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -223,6 +226,7 @@ export class FlexClientAccount extends Account {
 
     async runDeployPriceXchg(input: FlexClientDeployPriceXchgInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexClientDeployPriceXchgOutput,
     }> {
         return await runHelper(this, "deployPriceXchg", input);
@@ -237,6 +241,7 @@ export class FlexClientAccount extends Account {
 
     async runCancelXchgOrder(input: FlexClientCancelXchgOrderInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "cancelXchgOrder", input);
     }
@@ -249,6 +254,7 @@ export class FlexClientAccount extends Account {
 
     async runTransfer(input: FlexClientTransferInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "transfer", input);
     }
@@ -261,6 +267,7 @@ export class FlexClientAccount extends Account {
 
     async runTransferTokens(input: FlexClientTransferTokensInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "transferTokens", input);
     }
@@ -273,6 +280,7 @@ export class FlexClientAccount extends Account {
 
     async runDeployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexClientDeployEmptyFlexWalletOutput,
     }> {
         return await runHelper(this, "deployEmptyFlexWallet", input);
@@ -287,6 +295,7 @@ export class FlexClientAccount extends Account {
 
     async runDeployIndex(input: FlexClientDeployIndexInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "deployIndex", input);
     }
@@ -299,6 +308,7 @@ export class FlexClientAccount extends Account {
 
     async runReLendIndex(input: FlexClientReLendIndexInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "reLendIndex", input);
     }
@@ -311,6 +321,7 @@ export class FlexClientAccount extends Account {
 
     async runDestroyIndex(input: FlexClientDestroyIndexInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "destroyIndex", input);
     }
@@ -323,6 +334,7 @@ export class FlexClientAccount extends Account {
 
     async runBurnWallet(input: FlexClientBurnWalletInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "burnWallet", input);
     }
@@ -335,6 +347,7 @@ export class FlexClientAccount extends Account {
 
     async runUnwrapWallet(input: FlexClientUnwrapWalletInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "unwrapWallet", input);
     }
@@ -347,6 +360,7 @@ export class FlexClientAccount extends Account {
 
     async runBindWallet(input: FlexClientBindWalletInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "bindWallet", input);
     }
@@ -359,6 +373,7 @@ export class FlexClientAccount extends Account {
 
     async runOnTip3Transfer(input: FlexClientOnTip3TransferInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "onTip3Transfer", input);
     }
@@ -371,6 +386,7 @@ export class FlexClientAccount extends Account {
 
     async runUpgrade(input: FlexClientUpgradeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "upgrade", input);
     }
@@ -383,6 +399,7 @@ export class FlexClientAccount extends Account {
 
     async runGetPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexClientGetPayloadForDeployInternalWalletOutput,
     }> {
         return await runHelper(this, "getPayloadForDeployInternalWallet", input);
@@ -397,6 +414,7 @@ export class FlexClientAccount extends Account {
 
     async runGetPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexClientGetPriceXchgAddressOutput,
     }> {
         return await runHelper(this, "getPriceXchgAddress", input);
@@ -411,6 +429,7 @@ export class FlexClientAccount extends Account {
 
     async runGetUserIdIndex(input: FlexClientGetUserIdIndexInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexClientGetUserIdIndexOutput,
     }> {
         return await runHelper(this, "getUserIdIndex", input);
@@ -425,6 +444,7 @@ export class FlexClientAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexClientGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});

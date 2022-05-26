@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -133,6 +136,7 @@ export class FlexAccount extends Account {
 
     async runOnDeploy(input: FlexOnDeployInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
@@ -145,6 +149,7 @@ export class FlexAccount extends Account {
 
     async runAddXchgPair(input: FlexAddXchgPairInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexAddXchgPairOutput,
     }> {
         return await runHelper(this, "addXchgPair", input);
@@ -159,6 +164,7 @@ export class FlexAccount extends Account {
 
     async runUnlistXchgPair(input: FlexUnlistXchgPairInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "unlistXchgPair", input);
     }
@@ -171,6 +177,7 @@ export class FlexAccount extends Account {
 
     async runRequestPairs(input: FlexRequestPairsInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexRequestPairsOutput,
     }> {
         return await runHelper(this, "requestPairs", input);
@@ -185,6 +192,7 @@ export class FlexAccount extends Account {
 
     async runGetConfig(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexGetConfigOutput,
     }> {
         return await runHelper(this, "getConfig", {});
@@ -199,6 +207,7 @@ export class FlexAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
@@ -213,6 +222,7 @@ export class FlexAccount extends Account {
 
     async runGetXchgTradingPair(input: FlexGetXchgTradingPairInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexGetXchgTradingPairOutput,
     }> {
         return await runHelper(this, "getXchgTradingPair", input);
@@ -227,6 +237,7 @@ export class FlexAccount extends Account {
 
     async runCalcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: FlexCalcLendTokensForOrderOutput,
     }> {
         return await runHelper(this, "calcLendTokensForOrder", input);

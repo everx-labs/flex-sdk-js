@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type XchgPairOnDeployInput = {
     min_amount: string | number | bigint;
@@ -112,12 +113,14 @@ export declare class XchgPairAccount extends Account {
     }>;
     runOnDeploy(input: XchgPairOnDeployInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     onDeploy(input: XchgPairOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
     runRequestDetails(input: XchgPairRequestDetailsInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: XchgPairRequestDetailsOutput;
     }>;
     requestDetails(input: XchgPairRequestDetailsInput): Promise<{
@@ -126,18 +129,21 @@ export declare class XchgPairAccount extends Account {
     }>;
     runSetNext(input: XchgPairSetNextInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setNext(input: XchgPairSetNextInput): Promise<{
         transaction: Transaction;
     }>;
     runUnlist(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     unlist(): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: XchgPairGetDetailsOutput;
     }>;
     getDetails(): Promise<{
@@ -146,6 +152,7 @@ export declare class XchgPairAccount extends Account {
     }>;
     runGetConfig(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: XchgPairGetConfigOutput;
     }>;
     getConfig(): Promise<{
@@ -154,6 +161,7 @@ export declare class XchgPairAccount extends Account {
     }>;
     runGetPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: XchgPairGetPriceXchgCodeOutput;
     }>;
     getPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<{
@@ -162,6 +170,7 @@ export declare class XchgPairAccount extends Account {
     }>;
     runGetPriceXchgSalt(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: XchgPairGetPriceXchgSaltOutput;
     }>;
     getPriceXchgSalt(): Promise<{

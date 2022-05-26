@@ -1,4 +1,5 @@
 import { Account, ContractPackage } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 
 export abstract class Log {
     static NULL: Log = new class NullLog extends Log {
@@ -58,12 +59,13 @@ export async function runHelper<O>(
     params: object,
 ): Promise<{
     transaction: Transaction,
+    transactionTree: ResultOfQueryTransactionTree,
     output: O,
 }> {
     account.log?.processingStart(`Run ${account.constructor.name}.${fn}`);
     try {
         const result = await account.run(fn, params);
-        await account.client.net.query_transaction_tree({
+        const transactionTree = await account.client.net.query_transaction_tree({
             in_msg: result.transaction.in_msg,
             timeout: 60000 * 5,
         });
@@ -71,6 +73,7 @@ export async function runHelper<O>(
         account.log?.processingDone();
         return {
             transaction: result.transaction,
+            transactionTree,
             output: result.decoded?.output,
         };
     } catch (err: any) {

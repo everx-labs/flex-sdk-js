@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -67,6 +70,7 @@ export class stTONsClientMockAccount extends Account {
 
     async runDeployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: stTONsClientMockDeployStTONsOutput,
     }> {
         return await runHelper(this, "deployStTONs", input);
@@ -81,6 +85,7 @@ export class stTONsClientMockAccount extends Account {
 
     async runReturnStake(input: stTONsClientMockReturnStakeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "returnStake", input);
     }
@@ -93,6 +98,7 @@ export class stTONsClientMockAccount extends Account {
 
     async runFinalize(input: stTONsClientMockFinalizeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "finalize", input);
     }
@@ -105,6 +111,7 @@ export class stTONsClientMockAccount extends Account {
 
     async runGetOwnerPubkey(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: stTONsClientMockGetOwnerPubkeyOutput,
     }> {
         return await runHelper(this, "getOwnerPubkey", {});

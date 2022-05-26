@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -97,6 +100,7 @@ export class stTONsAccount extends Account {
 
     async runOnDeploy(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "onDeploy", {});
     }
@@ -109,6 +113,7 @@ export class stTONsAccount extends Account {
 
     async runLendOwnership(input: stTONsLendOwnershipInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "lendOwnership", input);
     }
@@ -121,6 +126,7 @@ export class stTONsAccount extends Account {
 
     async runReturnOwnership(input: stTONsReturnOwnershipInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "returnOwnership", input);
     }
@@ -133,6 +139,7 @@ export class stTONsAccount extends Account {
 
     async runReturnStake(input: stTONsReturnStakeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "returnStake", input);
     }
@@ -145,6 +152,7 @@ export class stTONsAccount extends Account {
 
     async runFinalize(input: stTONsFinalizeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "finalize", input);
     }
@@ -157,6 +165,7 @@ export class stTONsAccount extends Account {
 
     async runReceiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "receiveStakeTransfer", input);
     }
@@ -169,6 +178,7 @@ export class stTONsAccount extends Account {
 
     async runReceiveAnswer(input: stTONsReceiveAnswerInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "receiveAnswer", input);
     }
@@ -181,6 +191,7 @@ export class stTONsAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: stTONsGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
@@ -195,6 +206,7 @@ export class stTONsAccount extends Account {
 
     async runCalcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: stTONsCalcStTONsAddrOutput,
     }> {
         return await runHelper(this, "calcStTONsAddr", input);

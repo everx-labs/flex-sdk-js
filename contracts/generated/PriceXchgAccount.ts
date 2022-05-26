@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -151,6 +154,7 @@ export class PriceXchgAccount extends Account {
 
     async runOnTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: PriceXchgOnTip3LendOwnershipOutput,
     }> {
         return await runHelper(this, "onTip3LendOwnership", input);
@@ -165,6 +169,7 @@ export class PriceXchgAccount extends Account {
 
     async runProcessQueue(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "processQueue", {});
     }
@@ -177,6 +182,7 @@ export class PriceXchgAccount extends Account {
 
     async runCancelOrder(input: PriceXchgCancelOrderInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "cancelOrder", input);
     }
@@ -189,6 +195,7 @@ export class PriceXchgAccount extends Account {
 
     async runCancelWalletOrder(input: PriceXchgCancelWalletOrderInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "cancelWalletOrder", input);
     }
@@ -201,6 +208,7 @@ export class PriceXchgAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: PriceXchgGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});

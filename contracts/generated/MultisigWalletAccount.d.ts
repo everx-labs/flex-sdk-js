@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type MultisigWalletAcceptTransferInput = {
     payload: string;
@@ -218,18 +219,21 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runAcceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     acceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
         transaction: Transaction;
     }>;
     runSendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     sendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
         transaction: Transaction;
     }>;
     runSubmitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletSubmitTransactionOutput;
     }>;
     submitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
@@ -238,12 +242,14 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runConfirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     confirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
         transaction: Transaction;
     }>;
     runIsConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletIsConfirmedOutput;
     }>;
     isConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
@@ -252,6 +258,7 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runGetParameters(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletGetParametersOutput;
     }>;
     getParameters(): Promise<{
@@ -260,6 +267,7 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runGetTransaction(input: MultisigWalletGetTransactionInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletGetTransactionOutput;
     }>;
     getTransaction(input: MultisigWalletGetTransactionInput): Promise<{
@@ -268,6 +276,7 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runGetTransactions(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletGetTransactionsOutput;
     }>;
     getTransactions(): Promise<{
@@ -276,6 +285,7 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runGetTransactionIds(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletGetTransactionIdsOutput;
     }>;
     getTransactionIds(): Promise<{
@@ -284,6 +294,7 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runGetCustodians(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletGetCustodiansOutput;
     }>;
     getCustodians(): Promise<{
@@ -292,6 +303,7 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runCreateLimit(input: MultisigWalletCreateLimitInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletCreateLimitOutput;
     }>;
     createLimit(input: MultisigWalletCreateLimitInput): Promise<{
@@ -300,12 +312,14 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runConfirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     confirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
         transaction: Transaction;
     }>;
     runChangeLimit(input: MultisigWalletChangeLimitInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletChangeLimitOutput;
     }>;
     changeLimit(input: MultisigWalletChangeLimitInput): Promise<{
@@ -314,12 +328,14 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runDeleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     deleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
         transaction: Transaction;
     }>;
     runGetLimits(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletGetLimitsOutput;
     }>;
     getLimits(): Promise<{
@@ -328,6 +344,7 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runGetPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletGetPendingLimitOutput;
     }>;
     getPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
@@ -336,6 +353,7 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runGetPendingLimits(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletGetPendingLimitsOutput;
     }>;
     getPendingLimits(): Promise<{
@@ -344,6 +362,7 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runGetLimit(input: MultisigWalletGetLimitInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletGetLimitOutput;
     }>;
     getLimit(input: MultisigWalletGetLimitInput): Promise<{
@@ -352,6 +371,7 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runSubmitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletSubmitUpdateOutput;
     }>;
     submitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
@@ -360,18 +380,21 @@ export declare class MultisigWalletAccount extends Account {
     }>;
     runConfirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     confirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
         transaction: Transaction;
     }>;
     runExecuteUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     executeUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
         transaction: Transaction;
     }>;
     runGetUpdateRequests(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: MultisigWalletGetUpdateRequestsOutput;
     }>;
     getUpdateRequests(): Promise<{

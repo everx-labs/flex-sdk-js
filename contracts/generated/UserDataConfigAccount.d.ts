@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type UserDataConfigOnDeployInput = {
     binding: {
@@ -71,12 +72,14 @@ export declare class UserDataConfigAccount extends Account {
     }>;
     runOnDeploy(input: UserDataConfigOnDeployInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     onDeploy(input: UserDataConfigOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
     runDeployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: UserDataConfigDeployFlexClientOutput;
     }>;
     deployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<{
@@ -85,6 +88,7 @@ export declare class UserDataConfigAccount extends Account {
     }>;
     runRequestDetails(input: UserDataConfigRequestDetailsInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: UserDataConfigRequestDetailsOutput;
     }>;
     requestDetails(input: UserDataConfigRequestDetailsInput): Promise<{
@@ -93,6 +97,7 @@ export declare class UserDataConfigAccount extends Account {
     }>;
     runGetFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: UserDataConfigGetFlexClientAddrOutput;
     }>;
     getFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<{
@@ -101,6 +106,7 @@ export declare class UserDataConfigAccount extends Account {
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: UserDataConfigGetDetailsOutput;
     }>;
     getDetails(): Promise<{
@@ -109,6 +115,7 @@ export declare class UserDataConfigAccount extends Account {
     }>;
     runGetConfig(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: UserDataConfigGetConfigOutput;
     }>;
     getConfig(): Promise<{

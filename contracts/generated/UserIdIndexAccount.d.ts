@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type UserIdIndexOnDeployInput = {
     lend_pubkey: string | number | bigint;
@@ -43,24 +44,28 @@ export declare class UserIdIndexAccount extends Account {
     }>;
     runOnDeploy(input: UserIdIndexOnDeployInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     onDeploy(input: UserIdIndexOnDeployInput): Promise<{
         transaction: Transaction;
     }>;
     runReLendPubkey(input: UserIdIndexReLendPubkeyInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     reLendPubkey(input: UserIdIndexReLendPubkeyInput): Promise<{
         transaction: Transaction;
     }>;
     runRemove(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     remove(): Promise<{
         transaction: Transaction;
     }>;
     runRequestLendPubkey(input: UserIdIndexRequestLendPubkeyInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: UserIdIndexRequestLendPubkeyOutput;
     }>;
     requestLendPubkey(input: UserIdIndexRequestLendPubkeyInput): Promise<{
@@ -69,18 +74,21 @@ export declare class UserIdIndexAccount extends Account {
     }>;
     runTransfer(input: UserIdIndexTransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transfer(input: UserIdIndexTransferInput): Promise<{
         transaction: Transaction;
     }>;
     runSetRefillWallet(input: UserIdIndexSetRefillWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setRefillWallet(input: UserIdIndexSetRefillWalletInput): Promise<{
         transaction: Transaction;
     }>;
     runGetConfig(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: UserIdIndexGetConfigOutput;
     }>;
     getConfig(): Promise<{

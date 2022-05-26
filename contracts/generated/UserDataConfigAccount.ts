@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -103,6 +106,7 @@ export class UserDataConfigAccount extends Account {
 
     async runOnDeploy(input: UserDataConfigOnDeployInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
@@ -115,6 +119,7 @@ export class UserDataConfigAccount extends Account {
 
     async runDeployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: UserDataConfigDeployFlexClientOutput,
     }> {
         return await runHelper(this, "deployFlexClient", input);
@@ -129,6 +134,7 @@ export class UserDataConfigAccount extends Account {
 
     async runRequestDetails(input: UserDataConfigRequestDetailsInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: UserDataConfigRequestDetailsOutput,
     }> {
         return await runHelper(this, "requestDetails", input);
@@ -143,6 +149,7 @@ export class UserDataConfigAccount extends Account {
 
     async runGetFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: UserDataConfigGetFlexClientAddrOutput,
     }> {
         return await runHelper(this, "getFlexClientAddr", input);
@@ -157,6 +164,7 @@ export class UserDataConfigAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: UserDataConfigGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
@@ -171,6 +179,7 @@ export class UserDataConfigAccount extends Account {
 
     async runGetConfig(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: UserDataConfigGetConfigOutput,
     }> {
         return await runHelper(this, "getConfig", {});

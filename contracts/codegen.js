@@ -13,7 +13,10 @@ exports.genContractCode = exports.contractCodeHeader = void 0;
 function contractCodeHeader(options) {
     return `
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     ${options.hasDeploy ? "deployHelper," : ""}
     runHelper, 
@@ -126,6 +129,9 @@ function fnHeader(contractName, fn, prefix) {
     }
     header += "): Promise<{\n";
     header += "        transaction: Transaction,\n";
+    if (prefix === "run") {
+        header += "        transactionTree: ResultOfQueryTransactionTree,\n";
+    }
     if (fn.outputs.length > 0) {
         header += `        output: ${fnName(fn, contractName, "Output")},\n`;
     }

@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -271,6 +274,7 @@ export class MultisigWalletAccount extends Account {
 
     async runAcceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "acceptTransfer", input);
     }
@@ -283,6 +287,7 @@ export class MultisigWalletAccount extends Account {
 
     async runSendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "sendTransaction", input);
     }
@@ -295,6 +300,7 @@ export class MultisigWalletAccount extends Account {
 
     async runSubmitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletSubmitTransactionOutput,
     }> {
         return await runHelper(this, "submitTransaction", input);
@@ -309,6 +315,7 @@ export class MultisigWalletAccount extends Account {
 
     async runConfirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "confirmTransaction", input);
     }
@@ -321,6 +328,7 @@ export class MultisigWalletAccount extends Account {
 
     async runIsConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletIsConfirmedOutput,
     }> {
         return await runHelper(this, "isConfirmed", input);
@@ -335,6 +343,7 @@ export class MultisigWalletAccount extends Account {
 
     async runGetParameters(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletGetParametersOutput,
     }> {
         return await runHelper(this, "getParameters", {});
@@ -349,6 +358,7 @@ export class MultisigWalletAccount extends Account {
 
     async runGetTransaction(input: MultisigWalletGetTransactionInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletGetTransactionOutput,
     }> {
         return await runHelper(this, "getTransaction", input);
@@ -363,6 +373,7 @@ export class MultisigWalletAccount extends Account {
 
     async runGetTransactions(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletGetTransactionsOutput,
     }> {
         return await runHelper(this, "getTransactions", {});
@@ -377,6 +388,7 @@ export class MultisigWalletAccount extends Account {
 
     async runGetTransactionIds(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletGetTransactionIdsOutput,
     }> {
         return await runHelper(this, "getTransactionIds", {});
@@ -391,6 +403,7 @@ export class MultisigWalletAccount extends Account {
 
     async runGetCustodians(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletGetCustodiansOutput,
     }> {
         return await runHelper(this, "getCustodians", {});
@@ -405,6 +418,7 @@ export class MultisigWalletAccount extends Account {
 
     async runCreateLimit(input: MultisigWalletCreateLimitInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletCreateLimitOutput,
     }> {
         return await runHelper(this, "createLimit", input);
@@ -419,6 +433,7 @@ export class MultisigWalletAccount extends Account {
 
     async runConfirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "confirmLimit", input);
     }
@@ -431,6 +446,7 @@ export class MultisigWalletAccount extends Account {
 
     async runChangeLimit(input: MultisigWalletChangeLimitInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletChangeLimitOutput,
     }> {
         return await runHelper(this, "changeLimit", input);
@@ -445,6 +461,7 @@ export class MultisigWalletAccount extends Account {
 
     async runDeleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "deleteLimit", input);
     }
@@ -457,6 +474,7 @@ export class MultisigWalletAccount extends Account {
 
     async runGetLimits(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletGetLimitsOutput,
     }> {
         return await runHelper(this, "getLimits", {});
@@ -471,6 +489,7 @@ export class MultisigWalletAccount extends Account {
 
     async runGetPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletGetPendingLimitOutput,
     }> {
         return await runHelper(this, "getPendingLimit", input);
@@ -485,6 +504,7 @@ export class MultisigWalletAccount extends Account {
 
     async runGetPendingLimits(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletGetPendingLimitsOutput,
     }> {
         return await runHelper(this, "getPendingLimits", {});
@@ -499,6 +519,7 @@ export class MultisigWalletAccount extends Account {
 
     async runGetLimit(input: MultisigWalletGetLimitInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletGetLimitOutput,
     }> {
         return await runHelper(this, "getLimit", input);
@@ -513,6 +534,7 @@ export class MultisigWalletAccount extends Account {
 
     async runSubmitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletSubmitUpdateOutput,
     }> {
         return await runHelper(this, "submitUpdate", input);
@@ -527,6 +549,7 @@ export class MultisigWalletAccount extends Account {
 
     async runConfirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "confirmUpdate", input);
     }
@@ -539,6 +562,7 @@ export class MultisigWalletAccount extends Account {
 
     async runExecuteUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "executeUpdate", input);
     }
@@ -551,6 +575,7 @@ export class MultisigWalletAccount extends Account {
 
     async runGetUpdateRequests(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: MultisigWalletGetUpdateRequestsOutput,
     }> {
         return await runHelper(this, "getUpdateRequests", {});

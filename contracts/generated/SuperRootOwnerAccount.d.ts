@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type SuperRootOwnerSetCodeInput = {
     type: number;
@@ -207,12 +208,14 @@ export declare class SuperRootOwnerAccount extends Account {
     }>;
     runSetCode(input: SuperRootOwnerSetCodeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setCode(input: SuperRootOwnerSetCodeInput): Promise<{
         transaction: Transaction;
     }>;
     runDeploySuperRoot(input: SuperRootOwnerDeploySuperRootInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: SuperRootOwnerDeploySuperRootOutput;
     }>;
     deploySuperRoot(input: SuperRootOwnerDeploySuperRootInput): Promise<{
@@ -221,48 +224,56 @@ export declare class SuperRootOwnerAccount extends Account {
     }>;
     runUpdate(input: SuperRootOwnerUpdateInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     update(input: SuperRootOwnerUpdateInput): Promise<{
         transaction: Transaction;
     }>;
     runRelease(input: SuperRootOwnerReleaseInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     release(input: SuperRootOwnerReleaseInput): Promise<{
         transaction: Transaction;
     }>;
     runAddWrapperType(input: SuperRootOwnerAddWrapperTypeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     addWrapperType(input: SuperRootOwnerAddWrapperTypeInput): Promise<{
         transaction: Transaction;
     }>;
     runAddWrapper(input: SuperRootOwnerAddWrapperInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     addWrapper(input: SuperRootOwnerAddWrapperInput): Promise<{
         transaction: Transaction;
     }>;
     runAddXchgPair(input: SuperRootOwnerAddXchgPairInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     addXchgPair(input: SuperRootOwnerAddXchgPairInput): Promise<{
         transaction: Transaction;
     }>;
     runUnlistWrapper(input: SuperRootOwnerUnlistWrapperInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     unlistWrapper(input: SuperRootOwnerUnlistWrapperInput): Promise<{
         transaction: Transaction;
     }>;
     runUnlistXchgPair(input: SuperRootOwnerUnlistXchgPairInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     unlistXchgPair(input: SuperRootOwnerUnlistXchgPairInput): Promise<{
         transaction: Transaction;
     }>;
     runDeployWrappersConfig(input: SuperRootOwnerDeployWrappersConfigInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: SuperRootOwnerDeployWrappersConfigOutput;
     }>;
     deployWrappersConfig(input: SuperRootOwnerDeployWrappersConfigInput): Promise<{
@@ -271,6 +282,7 @@ export declare class SuperRootOwnerAccount extends Account {
     }>;
     runDeployFlex(input: SuperRootOwnerDeployFlexInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: SuperRootOwnerDeployFlexOutput;
     }>;
     deployFlex(input: SuperRootOwnerDeployFlexInput): Promise<{
@@ -279,6 +291,7 @@ export declare class SuperRootOwnerAccount extends Account {
     }>;
     runDeployUserDataConfig(input: SuperRootOwnerDeployUserDataConfigInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: SuperRootOwnerDeployUserDataConfigOutput;
     }>;
     deployUserDataConfig(input: SuperRootOwnerDeployUserDataConfigInput): Promise<{
@@ -287,6 +300,7 @@ export declare class SuperRootOwnerAccount extends Account {
     }>;
     runCloneWrappersConfig(input: SuperRootOwnerCloneWrappersConfigInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: SuperRootOwnerCloneWrappersConfigOutput;
     }>;
     cloneWrappersConfig(input: SuperRootOwnerCloneWrappersConfigInput): Promise<{
@@ -295,42 +309,49 @@ export declare class SuperRootOwnerAccount extends Account {
     }>;
     runSetFlags(input: SuperRootOwnerSetFlagsInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setFlags(input: SuperRootOwnerSetFlagsInput): Promise<{
         transaction: Transaction;
     }>;
     runTransfer(input: SuperRootOwnerTransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transfer(input: SuperRootOwnerTransferInput): Promise<{
         transaction: Transaction;
     }>;
     runTransferReserveTokens(input: SuperRootOwnerTransferReserveTokensInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transferReserveTokens(input: SuperRootOwnerTransferReserveTokensInput): Promise<{
         transaction: Transaction;
     }>;
     runSetOwner(input: SuperRootOwnerSetOwnerInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setOwner(input: SuperRootOwnerSetOwnerInput): Promise<{
         transaction: Transaction;
     }>;
     runSetUpdateTeam(input: SuperRootOwnerSetUpdateTeamInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setUpdateTeam(input: SuperRootOwnerSetUpdateTeamInput): Promise<{
         transaction: Transaction;
     }>;
     runSetNextSuperRoot(input: SuperRootOwnerSetNextSuperRootInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setNextSuperRoot(input: SuperRootOwnerSetNextSuperRootInput): Promise<{
         transaction: Transaction;
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: SuperRootOwnerGetDetailsOutput;
     }>;
     getDetails(): Promise<{

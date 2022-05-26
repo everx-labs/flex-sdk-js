@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type WrapperDeployerTip3SetWrapperCodeInput = {
     code: string;
@@ -48,24 +49,28 @@ export declare class WrapperDeployerTip3Account extends Account {
     }>;
     runSetWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<{
         transaction: Transaction;
     }>;
     runSetExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<{
         transaction: Transaction;
     }>;
     runSetFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     setFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<{
         transaction: Transaction;
     }>;
     runDeploy(input: WrapperDeployerTip3DeployInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WrapperDeployerTip3DeployOutput;
     }>;
     deploy_(input: WrapperDeployerTip3DeployInput): Promise<{
@@ -74,6 +79,7 @@ export declare class WrapperDeployerTip3Account extends Account {
     }>;
     runGetArgs(input: WrapperDeployerTip3GetArgsInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: WrapperDeployerTip3GetArgsOutput;
     }>;
     getArgs(input: WrapperDeployerTip3GetArgsInput): Promise<{

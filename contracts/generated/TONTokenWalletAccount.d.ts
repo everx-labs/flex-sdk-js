@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type TONTokenWalletTransferInput = {
     _answer_id: number;
@@ -121,18 +122,21 @@ export declare class TONTokenWalletAccount extends Account {
     }>;
     runTransfer(input: TONTokenWalletTransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transfer(input: TONTokenWalletTransferInput): Promise<{
         transaction: Transaction;
     }>;
     runTransferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<{
         transaction: Transaction;
     }>;
     runBalance(input: TONTokenWalletBalanceInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: TONTokenWalletBalanceOutput;
     }>;
     balance(input: TONTokenWalletBalanceInput): Promise<{
@@ -141,24 +145,28 @@ export declare class TONTokenWalletAccount extends Account {
     }>;
     runAcceptMint(input: TONTokenWalletAcceptMintInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     acceptMint(input: TONTokenWalletAcceptMintInput): Promise<{
         transaction: Transaction;
     }>;
     runAcceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     acceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<{
         transaction: Transaction;
     }>;
     runDestroy(input: TONTokenWalletDestroyInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     destroy(input: TONTokenWalletDestroyInput): Promise<{
         transaction: Transaction;
     }>;
     runDetails(input: TONTokenWalletDetailsInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: TONTokenWalletDetailsOutput;
     }>;
     details(input: TONTokenWalletDetailsInput): Promise<{
@@ -167,6 +175,7 @@ export declare class TONTokenWalletAccount extends Account {
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: TONTokenWalletGetDetailsOutput;
     }>;
     getDetails(): Promise<{
@@ -175,6 +184,7 @@ export declare class TONTokenWalletAccount extends Account {
     }>;
     runGetBalance(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: TONTokenWalletGetBalanceOutput;
     }>;
     getBalance_(): Promise<{

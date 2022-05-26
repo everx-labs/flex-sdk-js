@@ -8,7 +8,10 @@ import {
 export function contractCodeHeader(options: { hasDeploy: boolean }): string {
     return `
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     ${options.hasDeploy ? "deployHelper," : ""}
     runHelper, 
@@ -140,6 +143,9 @@ function fnHeader(contractName: string, fn: AbiFunction, prefix: string): string
     }
     header += "): Promise<{\n";
     header += "        transaction: Transaction,\n";
+    if (prefix === "run") {
+        header += "        transactionTree: ResultOfQueryTransactionTree,\n";
+    }
     if (fn.outputs.length > 0) {
         header += `        output: ${fnName(fn, contractName, "Output")},\n`;
     }

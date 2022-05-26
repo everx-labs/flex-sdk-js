@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -155,6 +158,7 @@ export class TONTokenWalletAccount extends Account {
 
     async runTransfer(input: TONTokenWalletTransferInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "transfer", input);
     }
@@ -167,6 +171,7 @@ export class TONTokenWalletAccount extends Account {
 
     async runTransferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "transferToRecipient", input);
     }
@@ -179,6 +184,7 @@ export class TONTokenWalletAccount extends Account {
 
     async runBalance(input: TONTokenWalletBalanceInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: TONTokenWalletBalanceOutput,
     }> {
         return await runHelper(this, "balance", input);
@@ -193,6 +199,7 @@ export class TONTokenWalletAccount extends Account {
 
     async runAcceptMint(input: TONTokenWalletAcceptMintInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "acceptMint", input);
     }
@@ -205,6 +212,7 @@ export class TONTokenWalletAccount extends Account {
 
     async runAcceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "acceptTransfer", input);
     }
@@ -217,6 +225,7 @@ export class TONTokenWalletAccount extends Account {
 
     async runDestroy(input: TONTokenWalletDestroyInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "destroy", input);
     }
@@ -229,6 +238,7 @@ export class TONTokenWalletAccount extends Account {
 
     async runDetails(input: TONTokenWalletDetailsInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: TONTokenWalletDetailsOutput,
     }> {
         return await runHelper(this, "details", input);
@@ -243,6 +253,7 @@ export class TONTokenWalletAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: TONTokenWalletGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
@@ -257,6 +268,7 @@ export class TONTokenWalletAccount extends Account {
 
     async runGetBalance(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: TONTokenWalletGetBalanceOutput,
     }> {
         return await runHelper(this, "getBalance", {});

@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -160,6 +163,7 @@ export class WrapperAccount extends Account {
 
     async runInit(input: WrapperInitInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "init", input);
     }
@@ -172,6 +176,7 @@ export class WrapperAccount extends Account {
 
     async runDeployEmptyWallet(input: WrapperDeployEmptyWalletInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrapperDeployEmptyWalletOutput,
     }> {
         return await runHelper(this, "deployEmptyWallet", input);
@@ -186,6 +191,7 @@ export class WrapperAccount extends Account {
 
     async runOnTip3Transfer(input: WrapperOnTip3TransferInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrapperOnTip3TransferOutput,
     }> {
         return await runHelper(this, "onTip3Transfer", input);
@@ -200,6 +206,7 @@ export class WrapperAccount extends Account {
 
     async runBurn(input: WrapperBurnInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "burn", input);
     }
@@ -212,6 +219,7 @@ export class WrapperAccount extends Account {
 
     async runTransferFromReserveWallet(input: WrapperTransferFromReserveWalletInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "transferFromReserveWallet", input);
     }
@@ -224,6 +232,7 @@ export class WrapperAccount extends Account {
 
     async runRequestTotalGranted(input: WrapperRequestTotalGrantedInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrapperRequestTotalGrantedOutput,
     }> {
         return await runHelper(this, "requestTotalGranted", input);
@@ -238,6 +247,7 @@ export class WrapperAccount extends Account {
 
     async runCloned(input: WrapperClonedInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrapperClonedOutput,
     }> {
         return await runHelper(this, "cloned", input);
@@ -252,6 +262,7 @@ export class WrapperAccount extends Account {
 
     async runSetCloned(input: WrapperSetClonedInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "setCloned", input);
     }
@@ -264,6 +275,7 @@ export class WrapperAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrapperGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
@@ -278,6 +290,7 @@ export class WrapperAccount extends Account {
 
     async runGetTip3Config(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrapperGetTip3ConfigOutput,
     }> {
         return await runHelper(this, "getTip3Config", {});
@@ -292,6 +305,7 @@ export class WrapperAccount extends Account {
 
     async runHasInternalWalletCode(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrapperHasInternalWalletCodeOutput,
     }> {
         return await runHelper(this, "hasInternalWalletCode", {});
@@ -306,6 +320,7 @@ export class WrapperAccount extends Account {
 
     async runGetWalletAddress(input: WrapperGetWalletAddressInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrapperGetWalletAddressOutput,
     }> {
         return await runHelper(this, "getWalletAddress", input);
@@ -320,6 +335,7 @@ export class WrapperAccount extends Account {
 
     async runGetReserveWallet(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrapperGetReserveWalletOutput,
     }> {
         return await runHelper(this, "getReserveWallet", {});
@@ -334,6 +350,7 @@ export class WrapperAccount extends Account {
 
     async runGetTestValue(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrapperGetTestValueOutput,
     }> {
         return await runHelper(this, "getTestValue", {});

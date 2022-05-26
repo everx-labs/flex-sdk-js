@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type FlexWalletTransferInput = {
     _answer_id: number;
@@ -166,18 +167,21 @@ export declare class FlexWalletAccount extends Account {
     }>;
     runTransfer(input: FlexWalletTransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transfer(input: FlexWalletTransferInput): Promise<{
         transaction: Transaction;
     }>;
     runTransferToRecipient(input: FlexWalletTransferToRecipientInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     transferToRecipient(input: FlexWalletTransferToRecipientInput): Promise<{
         transaction: Transaction;
     }>;
     runBalance(input: FlexWalletBalanceInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexWalletBalanceOutput;
     }>;
     balance(input: FlexWalletBalanceInput): Promise<{
@@ -186,54 +190,63 @@ export declare class FlexWalletAccount extends Account {
     }>;
     runAcceptMint(input: FlexWalletAcceptMintInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     acceptMint(input: FlexWalletAcceptMintInput): Promise<{
         transaction: Transaction;
     }>;
     runAcceptTransfer(input: FlexWalletAcceptTransferInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     acceptTransfer(input: FlexWalletAcceptTransferInput): Promise<{
         transaction: Transaction;
     }>;
     runBurn(input: FlexWalletBurnInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     burn(input: FlexWalletBurnInput): Promise<{
         transaction: Transaction;
     }>;
     runUnwrap(input: FlexWalletUnwrapInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     unwrap(input: FlexWalletUnwrapInput): Promise<{
         transaction: Transaction;
     }>;
     runMakeOrder(input: FlexWalletMakeOrderInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     makeOrder(input: FlexWalletMakeOrderInput): Promise<{
         transaction: Transaction;
     }>;
     runCancelOrder(input: FlexWalletCancelOrderInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     cancelOrder(input: FlexWalletCancelOrderInput): Promise<{
         transaction: Transaction;
     }>;
     runReturnOwnership(input: FlexWalletReturnOwnershipInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     returnOwnership(input: FlexWalletReturnOwnershipInput): Promise<{
         transaction: Transaction;
     }>;
     runBind(input: FlexWalletBindInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     bind(input: FlexWalletBindInput): Promise<{
         transaction: Transaction;
     }>;
     runDetails(input: FlexWalletDetailsInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexWalletDetailsOutput;
     }>;
     details(input: FlexWalletDetailsInput): Promise<{
@@ -242,6 +255,7 @@ export declare class FlexWalletAccount extends Account {
     }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexWalletGetDetailsOutput;
     }>;
     getDetails(): Promise<{
@@ -250,6 +264,7 @@ export declare class FlexWalletAccount extends Account {
     }>;
     runGetBalance(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexWalletGetBalanceOutput;
     }>;
     getBalance_(): Promise<{

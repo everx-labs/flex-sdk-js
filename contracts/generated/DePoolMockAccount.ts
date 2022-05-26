@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -63,6 +66,7 @@ export class DePoolMockAccount extends Account {
 
     async runSendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "sendOnTransfer", input);
     }
@@ -75,6 +79,7 @@ export class DePoolMockAccount extends Account {
 
     async runTransferStake(input: DePoolMockTransferStakeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "transferStake", input);
     }
@@ -87,6 +92,7 @@ export class DePoolMockAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: DePoolMockGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});

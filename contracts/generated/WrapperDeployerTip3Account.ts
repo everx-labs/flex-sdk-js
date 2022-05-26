@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -78,6 +81,7 @@ export class WrapperDeployerTip3Account extends Account {
 
     async runSetWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "setWrapperCode", input);
     }
@@ -90,6 +94,7 @@ export class WrapperDeployerTip3Account extends Account {
 
     async runSetExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "setExtWalletCode", input);
     }
@@ -102,6 +107,7 @@ export class WrapperDeployerTip3Account extends Account {
 
     async runSetFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "setFlexWalletCode", input);
     }
@@ -114,6 +120,7 @@ export class WrapperDeployerTip3Account extends Account {
 
     async runDeploy(input: WrapperDeployerTip3DeployInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrapperDeployerTip3DeployOutput,
     }> {
         return await runHelper(this, "deploy", input);
@@ -128,6 +135,7 @@ export class WrapperDeployerTip3Account extends Account {
 
     async runGetArgs(input: WrapperDeployerTip3GetArgsInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WrapperDeployerTip3GetArgsOutput,
     }> {
         return await runHelper(this, "getArgs", input);

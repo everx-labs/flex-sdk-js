@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -148,6 +151,7 @@ export class RootTokenContractAccount extends Account {
 
     async runSetWalletCode(input: RootTokenContractSetWalletCodeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractSetWalletCodeOutput,
     }> {
         return await runHelper(this, "setWalletCode", input);
@@ -162,6 +166,7 @@ export class RootTokenContractAccount extends Account {
 
     async runDeployWallet(input: RootTokenContractDeployWalletInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractDeployWalletOutput,
     }> {
         return await runHelper(this, "deployWallet", input);
@@ -176,6 +181,7 @@ export class RootTokenContractAccount extends Account {
 
     async runDeployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractDeployEmptyWalletOutput,
     }> {
         return await runHelper(this, "deployEmptyWallet", input);
@@ -190,6 +196,7 @@ export class RootTokenContractAccount extends Account {
 
     async runGrant(input: RootTokenContractGrantInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "grant", input);
     }
@@ -202,6 +209,7 @@ export class RootTokenContractAccount extends Account {
 
     async runMint(input: RootTokenContractMintInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractMintOutput,
     }> {
         return await runHelper(this, "mint", input);
@@ -216,6 +224,7 @@ export class RootTokenContractAccount extends Account {
 
     async runRequestTotalGranted(input: RootTokenContractRequestTotalGrantedInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractRequestTotalGrantedOutput,
     }> {
         return await runHelper(this, "requestTotalGranted", input);
@@ -230,6 +239,7 @@ export class RootTokenContractAccount extends Account {
 
     async runGetName(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractGetNameOutput,
     }> {
         return await runHelper(this, "getName", {});
@@ -244,6 +254,7 @@ export class RootTokenContractAccount extends Account {
 
     async runGetSymbol(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractGetSymbolOutput,
     }> {
         return await runHelper(this, "getSymbol", {});
@@ -258,6 +269,7 @@ export class RootTokenContractAccount extends Account {
 
     async runGetDecimals(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractGetDecimalsOutput,
     }> {
         return await runHelper(this, "getDecimals", {});
@@ -272,6 +284,7 @@ export class RootTokenContractAccount extends Account {
 
     async runGetRootKey(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractGetRootKeyOutput,
     }> {
         return await runHelper(this, "getRootKey", {});
@@ -286,6 +299,7 @@ export class RootTokenContractAccount extends Account {
 
     async runGetRootOwner(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractGetRootOwnerOutput,
     }> {
         return await runHelper(this, "getRootOwner", {});
@@ -300,6 +314,7 @@ export class RootTokenContractAccount extends Account {
 
     async runGetTotalSupply(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractGetTotalSupplyOutput,
     }> {
         return await runHelper(this, "getTotalSupply", {});
@@ -314,6 +329,7 @@ export class RootTokenContractAccount extends Account {
 
     async runGetTotalGranted(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractGetTotalGrantedOutput,
     }> {
         return await runHelper(this, "getTotalGranted", {});
@@ -328,6 +344,7 @@ export class RootTokenContractAccount extends Account {
 
     async runHasWalletCode(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractHasWalletCodeOutput,
     }> {
         return await runHelper(this, "hasWalletCode", {});
@@ -342,6 +359,7 @@ export class RootTokenContractAccount extends Account {
 
     async runGetWalletCode(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractGetWalletCodeOutput,
     }> {
         return await runHelper(this, "getWalletCode", {});
@@ -356,6 +374,7 @@ export class RootTokenContractAccount extends Account {
 
     async runGetWalletAddress(input: RootTokenContractGetWalletAddressInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractGetWalletAddressOutput,
     }> {
         return await runHelper(this, "getWalletAddress", input);
@@ -370,6 +389,7 @@ export class RootTokenContractAccount extends Account {
 
     async runGetWalletCodeHash(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: RootTokenContractGetWalletCodeHashOutput,
     }> {
         return await runHelper(this, "getWalletCodeHash", {});

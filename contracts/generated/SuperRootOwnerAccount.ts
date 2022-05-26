@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -255,6 +258,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runSetCode(input: SuperRootOwnerSetCodeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "setCode", input);
     }
@@ -267,6 +271,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runDeploySuperRoot(input: SuperRootOwnerDeploySuperRootInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: SuperRootOwnerDeploySuperRootOutput,
     }> {
         return await runHelper(this, "deploySuperRoot", input);
@@ -281,6 +286,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runUpdate(input: SuperRootOwnerUpdateInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "update", input);
     }
@@ -293,6 +299,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runRelease(input: SuperRootOwnerReleaseInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "release", input);
     }
@@ -305,6 +312,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runAddWrapperType(input: SuperRootOwnerAddWrapperTypeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "addWrapperType", input);
     }
@@ -317,6 +325,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runAddWrapper(input: SuperRootOwnerAddWrapperInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "addWrapper", input);
     }
@@ -329,6 +338,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runAddXchgPair(input: SuperRootOwnerAddXchgPairInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "addXchgPair", input);
     }
@@ -341,6 +351,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runUnlistWrapper(input: SuperRootOwnerUnlistWrapperInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "unlistWrapper", input);
     }
@@ -353,6 +364,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runUnlistXchgPair(input: SuperRootOwnerUnlistXchgPairInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "unlistXchgPair", input);
     }
@@ -365,6 +377,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runDeployWrappersConfig(input: SuperRootOwnerDeployWrappersConfigInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: SuperRootOwnerDeployWrappersConfigOutput,
     }> {
         return await runHelper(this, "deployWrappersConfig", input);
@@ -379,6 +392,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runDeployFlex(input: SuperRootOwnerDeployFlexInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: SuperRootOwnerDeployFlexOutput,
     }> {
         return await runHelper(this, "deployFlex", input);
@@ -393,6 +407,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runDeployUserDataConfig(input: SuperRootOwnerDeployUserDataConfigInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: SuperRootOwnerDeployUserDataConfigOutput,
     }> {
         return await runHelper(this, "deployUserDataConfig", input);
@@ -407,6 +422,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runCloneWrappersConfig(input: SuperRootOwnerCloneWrappersConfigInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: SuperRootOwnerCloneWrappersConfigOutput,
     }> {
         return await runHelper(this, "cloneWrappersConfig", input);
@@ -421,6 +437,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runSetFlags(input: SuperRootOwnerSetFlagsInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "setFlags", input);
     }
@@ -433,6 +450,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runTransfer(input: SuperRootOwnerTransferInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "transfer", input);
     }
@@ -445,6 +463,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runTransferReserveTokens(input: SuperRootOwnerTransferReserveTokensInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "transferReserveTokens", input);
     }
@@ -457,6 +476,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runSetOwner(input: SuperRootOwnerSetOwnerInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "setOwner", input);
     }
@@ -469,6 +489,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runSetUpdateTeam(input: SuperRootOwnerSetUpdateTeamInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "setUpdateTeam", input);
     }
@@ -481,6 +502,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runSetNextSuperRoot(input: SuperRootOwnerSetNextSuperRootInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "setNextSuperRoot", input);
     }
@@ -493,6 +515,7 @@ export class SuperRootOwnerAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: SuperRootOwnerGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});

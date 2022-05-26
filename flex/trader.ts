@@ -153,7 +153,7 @@ export class Trader {
 
         const mode = options.mode ?? defaults.mode;
         try {
-            await wallet.runMakeOrder({
+            const result = await wallet.runMakeOrder({
                 _answer_id: 0,
                 evers: options.evers ?? defaults.evers,
                 lend_balance,
@@ -171,6 +171,7 @@ export class Trader {
                     order_id: orderId,
                 },
             });
+            flex.log.verbose(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
         } catch (err: any) {
             throw resolveError(err, {
                 O: options.sell ? "sell" : "buy",

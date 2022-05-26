@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -76,6 +79,7 @@ export class WICAccount extends Account {
 
     async runOnDeploy(input: WICOnDeployInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
@@ -88,6 +92,7 @@ export class WICAccount extends Account {
 
     async runSetNext(input: WICSetNextInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "setNext", input);
     }
@@ -100,6 +105,7 @@ export class WICAccount extends Account {
 
     async runCloneUpgrade(input: WICCloneUpgradeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "cloneUpgrade", input);
     }
@@ -112,6 +118,7 @@ export class WICAccount extends Account {
 
     async runUnlist(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "unlist", {});
     }
@@ -124,6 +131,7 @@ export class WICAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: WICGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});

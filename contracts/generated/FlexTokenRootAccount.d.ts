@@ -1,4 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
+import { ResultOfQueryTransactionTree } from "@eversdk/core";
 import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type FlexTokenRootSetWalletCodeInput = {
     _answer_id: number;
@@ -102,6 +103,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runSetWalletCode(input: FlexTokenRootSetWalletCodeInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootSetWalletCodeOutput;
     }>;
     setWalletCode(input: FlexTokenRootSetWalletCodeInput): Promise<{
@@ -110,6 +112,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runDeployWallet(input: FlexTokenRootDeployWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootDeployWalletOutput;
     }>;
     deployWallet(input: FlexTokenRootDeployWalletInput): Promise<{
@@ -118,6 +121,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runDeployEmptyWallet(input: FlexTokenRootDeployEmptyWalletInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootDeployEmptyWalletOutput;
     }>;
     deployEmptyWallet(input: FlexTokenRootDeployEmptyWalletInput): Promise<{
@@ -126,12 +130,14 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runGrant(input: FlexTokenRootGrantInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
     }>;
     grant(input: FlexTokenRootGrantInput): Promise<{
         transaction: Transaction;
     }>;
     runMint(input: FlexTokenRootMintInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootMintOutput;
     }>;
     mint(input: FlexTokenRootMintInput): Promise<{
@@ -140,6 +146,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runRequestTotalGranted(input: FlexTokenRootRequestTotalGrantedInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootRequestTotalGrantedOutput;
     }>;
     requestTotalGranted(input: FlexTokenRootRequestTotalGrantedInput): Promise<{
@@ -148,6 +155,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runGetName(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootGetNameOutput;
     }>;
     getName(): Promise<{
@@ -156,6 +164,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runGetSymbol(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootGetSymbolOutput;
     }>;
     getSymbol(): Promise<{
@@ -164,6 +173,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runGetDecimals(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootGetDecimalsOutput;
     }>;
     getDecimals(): Promise<{
@@ -172,6 +182,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runGetRootKey(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootGetRootKeyOutput;
     }>;
     getRootKey(): Promise<{
@@ -180,6 +191,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runGetRootOwner(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootGetRootOwnerOutput;
     }>;
     getRootOwner(): Promise<{
@@ -188,6 +200,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runGetTotalSupply(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootGetTotalSupplyOutput;
     }>;
     getTotalSupply(): Promise<{
@@ -196,6 +209,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runGetTotalGranted(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootGetTotalGrantedOutput;
     }>;
     getTotalGranted(): Promise<{
@@ -204,6 +218,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runHasWalletCode(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootHasWalletCodeOutput;
     }>;
     hasWalletCode(): Promise<{
@@ -212,6 +227,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runGetWalletCode(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootGetWalletCodeOutput;
     }>;
     getWalletCode(): Promise<{
@@ -220,6 +236,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runGetWalletAddress(input: FlexTokenRootGetWalletAddressInput): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootGetWalletAddressOutput;
     }>;
     getWalletAddress(input: FlexTokenRootGetWalletAddressInput): Promise<{
@@ -228,6 +245,7 @@ export declare class FlexTokenRootAccount extends Account {
     }>;
     runGetWalletCodeHash(): Promise<{
         transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
         output: FlexTokenRootGetWalletCodeHashOutput;
     }>;
     getWalletCodeHash(): Promise<{

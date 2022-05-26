@@ -1,6 +1,9 @@
 
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { AbiContract } from "@eversdk/core";
+import {
+    AbiContract,
+    ResultOfQueryTransactionTree,
+} from "@eversdk/core";
 import { 
     deployHelper,
     runHelper, 
@@ -144,6 +147,7 @@ export class XchgPairAccount extends Account {
 
     async runOnDeploy(input: XchgPairOnDeployInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "onDeploy", input);
     }
@@ -156,6 +160,7 @@ export class XchgPairAccount extends Account {
 
     async runRequestDetails(input: XchgPairRequestDetailsInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: XchgPairRequestDetailsOutput,
     }> {
         return await runHelper(this, "requestDetails", input);
@@ -170,6 +175,7 @@ export class XchgPairAccount extends Account {
 
     async runSetNext(input: XchgPairSetNextInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "setNext", input);
     }
@@ -182,6 +188,7 @@ export class XchgPairAccount extends Account {
 
     async runUnlist(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
     }> {
         return await runHelper(this, "unlist", {});
     }
@@ -194,6 +201,7 @@ export class XchgPairAccount extends Account {
 
     async runGetDetails(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: XchgPairGetDetailsOutput,
     }> {
         return await runHelper(this, "getDetails", {});
@@ -208,6 +216,7 @@ export class XchgPairAccount extends Account {
 
     async runGetConfig(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: XchgPairGetConfigOutput,
     }> {
         return await runHelper(this, "getConfig", {});
@@ -222,6 +231,7 @@ export class XchgPairAccount extends Account {
 
     async runGetPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: XchgPairGetPriceXchgCodeOutput,
     }> {
         return await runHelper(this, "getPriceXchgCode", input);
@@ -236,6 +246,7 @@ export class XchgPairAccount extends Account {
 
     async runGetPriceXchgSalt(): Promise<{
         transaction: Transaction,
+        transactionTree: ResultOfQueryTransactionTree,
         output: XchgPairGetPriceXchgSaltOutput,
     }> {
         return await runHelper(this, "getPriceXchgSalt", {});
