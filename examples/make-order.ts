@@ -6,15 +6,15 @@ initExample();
 (async () => {
     try {
         const trader = new Trader({
-            client: CONFIG.trader1.client,
-            id: CONFIG.trader1.id,
-            signer: CONFIG.trader1.signer,
+            client: CONFIG.trader2.client,
+            id: CONFIG.trader2.id,
+            signer: CONFIG.trader2.signer,
         });
 
         const order = await trader.makeOrder({
             sell: false,
             market: CONFIG.market1,
-            price: 1.23,
+            price: 40,
             amount: 1,
         });
 

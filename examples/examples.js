@@ -6,7 +6,7 @@ const lib_node_1 = require("@eversdk/lib-node");
 const flex_1 = require("../flex");
 core_1.TonClient.useBinaryLibrary(lib_node_1.libNode);
 exports.CONFIG = {
-    endpoints: ["https://flex2.dev.tonlabs.io"],
+    endpoints: ["https://sdk3.dev.tonlabs.io"],
     superRoot: "0:ed1741f19f7c2f870e96bca16c45283721f023235dc6896c765407e9127bb073",
     trader1: {
         client: "0:8fc7626f86a402c5017af99aaa5847e1a5625f11ed74a544cf4f7f40f058c528",
