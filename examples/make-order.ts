@@ -11,14 +11,12 @@ initExample();
             signer: CONFIG.trader1.signer,
         });
 
-        const order = await trader.makeOrder({
+        await trader.makeOrder({
             sell: true,
             market: CONFIG.market1,
             price: 40,
-            amount: 0.5,
+            amount: 100,
         });
-
-        console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
 
         await Flex.default.close();
     } catch (err) {
