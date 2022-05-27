@@ -10,23 +10,47 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.priceToUnits = exports.amountToUnits = exports.runLocalHelper = exports.deployHelper = exports.runHelper = exports.Log = void 0;
+exports.priceToUnits = exports.amountToUnits = exports.runLocalHelper = exports.deployHelper = exports.runHelper = exports.Log = exports.LogLevel = void 0;
+var LogLevel;
+(function (LogLevel) {
+    LogLevel[LogLevel["NONE"] = 0] = "NONE";
+    LogLevel[LogLevel["FATAL"] = 1] = "FATAL";
+    LogLevel[LogLevel["ERROR"] = 2] = "ERROR";
+    LogLevel[LogLevel["WARN"] = 3] = "WARN";
+    LogLevel[LogLevel["INFO"] = 4] = "INFO";
+    LogLevel[LogLevel["DEBUG"] = 5] = "DEBUG";
+    LogLevel[LogLevel["TRACE"] = 6] = "TRACE";
+})(LogLevel = exports.LogLevel || (exports.LogLevel = {}));
 class Log {
+    constructor() {
+        this.level = LogLevel.INFO;
+    }
+    write(level, text) {
+        if (level <= this.level) {
+            this.writeText(text);
+        }
+    }
+    debug(text) {
+        this.write(LogLevel.DEBUG, text);
+    }
+    info(text) {
+        this.write(LogLevel.TRACE, text);
+    }
     processingStart(title) {
-        this.verbose(`${title}...`);
+        this.info(`${title}...`);
     }
     processingDone() {
-        this.verbose(" ✓\n");
+        this.info(" ✓\n");
     }
 }
 exports.Log = Log;
 _a = Log;
 Log.NULL = new class NullLog extends Log {
-    verbose(_text) {
+    writeText(_text) {
     }
 };
 Log.STDOUT = new class StdOutLog extends Log {
-    verbose(text) {
+    writeText(text) {
         process.stdout.write(text);
     }
 }();
@@ -48,7 +72,7 @@ function runHelper(account, fn, params) {
                 in_msg: result.transaction.in_msg,
                 timeout: 60000 * 5,
             });
-            (_c = account.log) === null || _c === void 0 ? void 0 : _c.verbose(` TX: ${result.transaction.id}`);
+            (_c = account.log) === null || _c === void 0 ? void 0 : _c.info(` TX: ${result.transaction.id}`);
             (_d = account.log) === null || _d === void 0 ? void 0 : _d.processingDone();
             return {
                 transaction: result.transaction,

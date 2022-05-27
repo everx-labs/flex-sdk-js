@@ -1,10 +1,23 @@
 import { Account, ContractPackage } from "@eversdk/appkit";
 import { ResultOfQueryTransactionTree } from "@eversdk/core";
+export declare enum LogLevel {
+    NONE = 0,
+    FATAL = 1,
+    ERROR = 2,
+    WARN = 3,
+    INFO = 4,
+    DEBUG = 5,
+    TRACE = 6
+}
 export declare abstract class Log {
+    level: LogLevel;
     static NULL: Log;
     static STDOUT: Log;
     static default: Log;
-    abstract verbose(text: string): void;
+    abstract writeText(text: string): void;
+    write(level: LogLevel, text: string): void;
+    debug(text: string): void;
+    info(text: string): void;
     processingStart(title: string): void;
     processingDone(): void;
 }
