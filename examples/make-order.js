@@ -25,7 +25,7 @@ const helpers_1 = require("../contracts/helpers");
             sell: true,
             market: examples_1.CONFIG.market1,
             price: 40,
-            amount: 0.5,
+            amount: 100,
         });
         console.log(`Order: ${JSON.stringify(order, undefined, "    ")}\n`);
         yield flex_1.Flex.default.close();
