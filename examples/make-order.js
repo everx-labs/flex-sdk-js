@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
+const helpers_1 = require("../contracts/helpers");
 (0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -19,6 +20,7 @@ const examples_1 = require("./examples");
             id: examples_1.CONFIG.trader1.id,
             signer: examples_1.CONFIG.trader1.signer,
         });
+        trader.flex.log.level = helpers_1.LogLevel.DEBUG;
         const order = yield trader.makeOrder({
             sell: true,
             market: examples_1.CONFIG.market1,

@@ -1,27 +1,52 @@
 import { Account, ContractPackage } from "@eversdk/appkit";
 import { ResultOfQueryTransactionTree } from "@eversdk/core";
 
+export enum LogLevel {
+    NONE,
+    FATAL,
+    ERROR,
+    WARN,
+    INFO,
+    DEBUG,
+    TRACE,
+}
+
 export abstract class Log {
+    level = LogLevel.INFO;
     static NULL: Log = new class NullLog extends Log {
-        verbose(_text: string) {
+        writeText(_text: string) {
         }
     };
     static STDOUT: Log = new class StdOutLog extends Log {
-        verbose(text: string) {
+        writeText(text: string) {
             process.stdout.write(text);
         }
     }();
 
     static default = this.STDOUT;
 
-    abstract verbose(text: string): void;
+    abstract writeText(text: string): void;
+
+    write(level: LogLevel, text: string) {
+        if (level <= this.level) {
+            this.writeText(text);
+        }
+    }
+
+    debug(text: string): void {
+        this.write(LogLevel.DEBUG, text);
+    }
+
+    info(text: string): void {
+        this.write(LogLevel.TRACE, text);
+    }
 
     processingStart(title: string): void {
-        this.verbose(`${title}...`);
+        this.info(`${title}...`);
     }
 
     processingDone(): void {
-        this.verbose(" ✓\n");
+        this.info(" ✓\n");
     }
 }
 
@@ -69,7 +94,7 @@ export async function runHelper<O>(
             in_msg: result.transaction.in_msg,
             timeout: 60000 * 5,
         });
-        account.log?.verbose(` TX: ${result.transaction.id}`);
+        account.log?.info(` TX: ${result.transaction.id}`);
         account.log?.processingDone();
         return {
             transaction: result.transaction,

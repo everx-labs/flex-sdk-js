@@ -81,7 +81,7 @@ class Trader {
                         order_id: orderId,
                     },
                 });
-                flex.log.verbose(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
+                flex.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
             }
             catch (err) {
                 throw resolveError(err, {
