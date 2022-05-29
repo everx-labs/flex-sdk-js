@@ -1,6 +1,6 @@
 import { Flex, Trader } from "../flex";
 import { CONFIG, initExample } from "./examples";
-import { LogLevel } from "../contracts/helpers";
+///import { LogLevel } from "../contracts/helpers";
 
 initExample();
 
@@ -12,14 +12,14 @@ initExample();
             signer: CONFIG.trader1.signer,
         });
 
-        trader.flex.log.level = LogLevel.DEBUG;
+        /// trader.flex.log.level = LogLevel.DEBUG;
       
         await trader.makeOrder({
 
-            sell: true,
+            sell: false,
             market: CONFIG.market1,
-            price: 40,
-            amount: 100,
+            price: 2.6,
+            amount: 18,
         });
 
         await Flex.default.close();

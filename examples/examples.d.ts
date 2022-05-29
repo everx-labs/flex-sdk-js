@@ -28,6 +28,18 @@ export declare const CONFIG_DEVNET: {
     market1: string;
     token1: string;
 };
+export declare const CONFIG_V: {
+    endpoints: string[];
+    superRoot: string;
+    trader1: {
+        client: string;
+        id: string;
+        signer: string;
+        wallet: string;
+    };
+    market1: string;
+    token1: string;
+};
 export declare function initExample(): void;
 export declare function log(title: string, value: any): void;
 //# sourceMappingURL=examples.d.ts.map
