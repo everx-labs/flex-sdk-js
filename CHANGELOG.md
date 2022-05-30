@@ -10,4 +10,4 @@ All notable changes to this project will be documented in this file.
 
 ### Improvements
 
-Random generator is now used to generate order IDs instead of current timestamp. 
+- Random generator is now used to generate order IDs instead of current timestamp. 
