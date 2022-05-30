@@ -9,7 +9,9 @@ import { PriceXchgGetDetailsOutput } from "../contracts/generated/PriceXchgAccou
 
 export type TraderOptions = {
     client: Client | ClientOptions | string,
+    /** Trader device ID.  Ask Flex Client owner for your ID. */
     id: string,
+    /** Private key you Trader will use to sign messages */
     signer: Signer | string,
 };
 
@@ -79,7 +81,7 @@ export type NewOrderInfo = {
      */
     orderId: string,
     /** Blockchain transaction in which the order was created */
-    transactionId: string,
+    transactionHash: string,
 }
 
 export type TradeInfo = {
@@ -196,7 +198,7 @@ export class Trader {
             flex.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
             return {
                 orderId: orderId.toString(),
-                transactionId: result.transaction.id,
+                transactionHash: result.transaction.id,
             };
         } catch (err: any) {
             throw resolveError(err, {

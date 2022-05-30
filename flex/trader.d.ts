@@ -46,7 +46,7 @@ export declare type OrderInfo = {
 };
 export declare type NewOrderInfo = {
     orderId: string;
-    transactionId: string;
+    transactionHash: string;
 };
 export declare type TradeInfo = {
     pair: {

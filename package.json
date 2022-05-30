@@ -1,6 +1,6 @@
 {
 	"name": "flex-sdk-js",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"scripts": {
 		"docs": "typedoc flex/index.ts --excludePrivate --excludeProtected --excludeInternal --out docs"
 	},

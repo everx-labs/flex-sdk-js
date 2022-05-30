@@ -84,7 +84,7 @@ class Trader {
                 flex.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
                 return {
                     orderId: orderId.toString(),
-                    transactionId: result.transaction.id,
+                    transactionHash: result.transaction.id,
                 };
             }
             catch (err) {
