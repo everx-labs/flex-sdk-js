@@ -44,6 +44,10 @@ export declare type OrderInfo = {
         address: string;
     };
 };
+export declare type NewOrderInfo = {
+    orderId: string;
+    transactionId: string;
+};
 export declare type TradeInfo = {
     pair: {
         address: string;
@@ -63,7 +67,7 @@ export declare class Trader {
     id: string;
     signer: Signer | string;
     constructor(options: TraderOptions, flex?: Flex);
-    makeOrder(options: MakeOrderOptions): Promise<OrderInfo>;
+    makeOrder(options: MakeOrderOptions): Promise<NewOrderInfo>;
     cancelOrder(options: CancelOrderOptions): Promise<void>;
     queryOrders(): Promise<OrderInfo[]>;
     queryTrades(): Promise<TradeInfo[]>;

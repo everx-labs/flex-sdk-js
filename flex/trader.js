@@ -82,6 +82,10 @@ class Trader {
                     },
                 });
                 flex.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
+                return {
+                    orderId: orderId.toString(),
+                    transactionId: result.transaction.id,
+                };
             }
             catch (err) {
                 throw resolveError(err, {
@@ -93,18 +97,6 @@ class Trader {
                     W: yield wallet.getAddress(),
                 });
             }
-            return {
-                side: options.sell ? TradeSide.SELL : TradeSide.BUY,
-                pair: {
-                    address: yield pair.getAddress(),
-                },
-                orderId: orderId.toString(),
-                traderId: this.id,
-                finishTime: finishTime,
-                price: options.price,
-                amountProcessed: options.amount,
-                amountLeft: 0,
-            };
         });
     }
     cancelOrder(options) {

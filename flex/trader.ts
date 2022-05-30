@@ -67,6 +67,11 @@ export type OrderInfo = {
     }
 }
 
+export type NewOrderInfo = {
+    orderId: string,
+    transactionId: string,
+}
+
 export type TradeInfo = {
     /** Flex market (pair) */
     pair: { address: string },
@@ -128,7 +133,7 @@ export class Trader {
      *
      * @returns OrderInfo
      */
-    async makeOrder(options: MakeOrderOptions): Promise<OrderInfo> {
+    async makeOrder(options: MakeOrderOptions): Promise<NewOrderInfo> {
         const defaults = this.flex.config.trader.order;
         const market = Market.resolve(options.market);
         const pair = (await market.getState()).pair;
@@ -179,6 +184,10 @@ export class Trader {
                 },
             });
             flex.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
+            return {
+                orderId: orderId.toString(),
+                transactionId: result.transaction.id,
+            };
         } catch (err: any) {
             throw resolveError(err, {
                 O: options.sell ? "sell" : "buy",
@@ -195,20 +204,6 @@ export class Trader {
         // if (!order) {
         //     throw Error("Make order failed: order isn't presented in price.");
         // }
-
-
-        return {
-            side: options.sell ? TradeSide.SELL : TradeSide.BUY,
-            pair: {
-                address: await pair.getAddress(),
-            },
-            orderId: orderId.toString(),
-            traderId: this.id,
-            finishTime: finishTime,
-            price: options.price,
-            amountProcessed: options.amount,
-            amountLeft: 0,
-        };
     }
 
     /**
