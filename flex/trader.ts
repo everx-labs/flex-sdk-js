@@ -142,7 +142,7 @@ export class Trader {
         const amount = amountToUnits(options.amount, pairDetails.major_tip3cfg.decimals);
         const orderId = options.orderId !== undefined
             ? options.orderId
-            : Math.floor(Date.now() / 1000);
+            : await this.generateRandomOrderId();
         const price = priceToUnits(options.price, pairDetails.price_denum);
         const lend_balance = (await flex.calcLendTokensForOrder({
             sell: options.sell,
@@ -151,7 +151,10 @@ export class Trader {
         })).output.value0;
         const finishTime = options.finishTime ?? Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
 
-        const minAmount = Number(pairDetails.min_amount) / Math.pow(10, Number(pairDetails.major_tip3cfg.decimals));
+        const minAmount = Number(pairDetails.min_amount) / Math.pow(
+            10,
+            Number(pairDetails.major_tip3cfg.decimals),
+        );
         if (options.amount < minAmount) {
             throw new Error(`Specified amount ${options.amount} is less that market min amount ${minAmount}`);
         }
@@ -362,6 +365,13 @@ export class Trader {
             signer,
             log: this.flex.log,
         });
+    }
+
+    private async generateRandomOrderId(): Promise<string> {
+        const result = await this.flex.web3.crypto.generate_random_bytes({
+            length: 8,
+        });
+        return `0x${Buffer.from(result.bytes, "base64").toString("hex")}`;
     }
 }
 

@@ -70,5 +70,6 @@ export declare class Trader {
     queryWallets(token?: Token | string): Promise<WalletInfo[]>;
     private getPriceDetails;
     private getWallet;
+    private generateRandomOrderId;
 }
 //# sourceMappingURL=trader.d.ts.map

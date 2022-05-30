@@ -49,7 +49,7 @@ class Trader {
             const amount = (0, helpers_1.amountToUnits)(options.amount, pairDetails.major_tip3cfg.decimals);
             const orderId = options.orderId !== undefined
                 ? options.orderId
-                : Math.floor(Date.now() / 1000);
+                : yield this.generateRandomOrderId();
             const price = (0, helpers_1.priceToUnits)(options.price, pairDetails.price_denum);
             const lend_balance = (yield flex.calcLendTokensForOrder({
                 sell: options.sell,
@@ -236,6 +236,14 @@ class Trader {
                 signer,
                 log: this.flex.log,
             });
+        });
+    }
+    generateRandomOrderId() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.flex.web3.crypto.generate_random_bytes({
+                length: 8,
+            });
+            return `0x${Buffer.from(result.bytes, "base64").toString("hex")}`;
         });
     }
 }
