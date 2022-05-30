@@ -7,7 +7,31 @@ export declare const CONFIG: {
         signer: string;
         wallet: string;
     };
+    market1: string;
+    token1: string;
+};
+export declare const CONFIG_DEVNET: {
+    endpoints: string[];
+    superRoot: string;
+    trader1: {
+        client: string;
+        id: string;
+        signer: string;
+        wallet: string;
+    };
     trader2: {
+        client: string;
+        id: string;
+        signer: string;
+        wallet: string;
+    };
+    market1: string;
+    token1: string;
+};
+export declare const CONFIG_V: {
+    endpoints: string[];
+    superRoot: string;
+    trader1: {
         client: string;
         id: string;
         signer: string;
