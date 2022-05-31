@@ -34,7 +34,7 @@ class Log {
         this.write(LogLevel.DEBUG, text);
     }
     info(text) {
-        this.write(LogLevel.TRACE, text);
+        this.write(LogLevel.INFO, text);
     }
     processingStart(title) {
         this.info(`${title}...`);

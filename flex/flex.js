@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FlexBoundLazy = exports.Flex = exports.MakeOrderMode = void 0;
+exports.Flex = exports.MakeOrderMode = void 0;
 const core_1 = require("@eversdk/core");
 const contracts_1 = require("../contracts");
 const helpers_1 = require("../contracts/helpers");
@@ -23,7 +23,6 @@ var MakeOrderMode;
 class Flex {
     constructor(config) {
         this.log = helpers_1.Log.default;
-        this._state = undefined;
         this.config = config;
         this.web3 = new core_1.TonClient(config.web3);
         this.signers = new account_ex_1.SignerRegistry(this.web3);
@@ -46,36 +45,42 @@ class Flex {
         }
         return this._config;
     }
-    getState() {
+    getAccount(accountClass, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const address = typeof options === "string" ? options : options.address;
+            const signer = typeof options === "string" ? undefined : options.signer;
+            return new accountClass({
+                address,
+                client: this.web3,
+                log: this.log,
+                signer: yield this.signers.resolve(signer),
+            });
+        });
+    }
+    getSuperRootAccount() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.getAccount(contracts_1.SuperRootAccount, this.config.superRoot);
+        });
+    }
+    getGlobalConfigAccount() {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            if (!this._state) {
-                const superRoot = new contracts_1.SuperRootAccount({
-                    client: this.web3,
-                    address: this.config.superRoot,
-                });
-                const globalConfigAddress = (_a = this.config.globalConfig) !== null && _a !== void 0 ? _a : (yield superRoot.getCurrentGlobalConfig()).output.value0;
-                const globalConfig = new contracts_1.GlobalConfigAccount({
-                    client: this.web3,
-                    address: globalConfigAddress,
-                });
-                const globalConfigDetails = (yield globalConfig.getDetails()).output;
-                const flex = new contracts_1.FlexAccount({
-                    client: this.web3,
-                    address: globalConfigDetails.flex,
-                });
-                const userConfig = new contracts_1.UserDataConfigAccount({
-                    client: this.web3,
-                    address: globalConfigDetails.user_cfg,
-                });
-                this._state = {
-                    superRoot,
-                    globalConfig,
-                    flex,
-                    userConfig,
-                };
-            }
-            return this._state;
+            const globalConfigAddress = (_a = this.config.globalConfig) !== null && _a !== void 0 ? _a : (yield (yield this.getSuperRootAccount()).getCurrentGlobalConfig()).output.value0;
+            return yield this.getAccount(contracts_1.GlobalConfigAccount, globalConfigAddress);
+        });
+    }
+    getFlexAccount() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const globalConfig = yield this.getGlobalConfigAccount();
+            const globalConfigDetails = (yield globalConfig.getDetails()).output;
+            return yield this.getAccount(contracts_1.FlexAccount, globalConfigDetails.flex);
+        });
+    }
+    getUserConfigAccount() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const globalConfig = yield this.getGlobalConfigAccount();
+            const globalConfigDetails = (yield globalConfig.getDetails()).output;
+            return yield this.getAccount(contracts_1.UserDataConfigAccount, globalConfigDetails.user_cfg);
         });
     }
     query(text) {
@@ -110,27 +115,11 @@ class Flex {
                     mode: MakeOrderMode.IOP,
                 },
             },
+            superRoot: "",
         };
     }
 }
 exports.Flex = Flex;
 Flex._config = undefined;
 Flex._default = undefined;
-class FlexBoundLazy {
-    constructor(options, flex) {
-        this._state = undefined;
-        this.flex = flex !== null && flex !== void 0 ? flex : Flex.default;
-        this.log = this.flex.log;
-        this.options = options;
-    }
-    getState() {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!this._state) {
-                this._state = yield this.createState(this.options);
-            }
-            return this._state;
-        });
-    }
-}
-exports.FlexBoundLazy = FlexBoundLazy;
 //# sourceMappingURL=flex.js.map

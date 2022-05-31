@@ -1,13 +1,4 @@
-import { Flex, FlexBoundLazy } from "./flex";
-import { WrapperAccount } from "../contracts";
-import { Signer } from "@eversdk/core";
-export declare type TokenOptions = {
-    address: string;
-    signer?: Signer | string;
-};
-declare type TokenState = {
-    wrapper: WrapperAccount;
-};
+import { Flex } from "./flex";
 export declare type TokenInfo = {
     address: string;
     ticker: string;
@@ -19,10 +10,11 @@ export declare type TokenInfo = {
     externalAddress: string;
     reserveWallet: string;
 };
-export declare class Token extends FlexBoundLazy<TokenOptions, TokenState> {
-    protected createState(options: TokenOptions): Promise<TokenState>;
+export declare class Token {
+    flex: Flex;
+    address: string;
+    constructor(address: string, flex?: Flex);
     static queryTokens(flex?: Flex): Promise<TokenInfo[]>;
     static queryFields(): string;
 }
-export {};
 //# sourceMappingURL=token.d.ts.map

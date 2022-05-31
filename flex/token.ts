@@ -1,15 +1,4 @@
-import { Flex, FlexBoundLazy } from "./flex";
-import { WrapperAccount } from "../contracts";
-import { Signer } from "@eversdk/core";
-
-export type TokenOptions = {
-    address: string,
-    signer?: Signer | string
-}
-
-type TokenState = {
-    wrapper: WrapperAccount,
-}
+import { Flex } from "./flex";
 
 export type TokenInfo = {
     /// Flex Tip3 root address (wrapper address)
@@ -40,14 +29,13 @@ export type TokenInfo = {
     reserveWallet: string
 }
 
-export class Token extends FlexBoundLazy<TokenOptions, TokenState> {
-    protected async createState(options: TokenOptions): Promise<TokenState> {
-        return {
-            wrapper: new WrapperAccount({
-                client: this.flex.web3,
-                address: options.address,
-            }),
-        };
+export class Token {
+    flex: Flex;
+    address: string;
+
+    constructor(address: string, flex?: Flex) {
+        this.flex = flex ?? Flex.default;
+        this.address = address;
     }
 
     static async queryTokens(flex?: Flex): Promise<TokenInfo[]> {

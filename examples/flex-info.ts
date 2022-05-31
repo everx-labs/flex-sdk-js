@@ -8,9 +8,7 @@ initExample();
         log("Tokens", await Token.queryTokens());
         log("Markets", await Market.queryMarkets());
 
-        const market = new Market({
-            address: CONFIG.market1,
-        });
+        const market = new Market(CONFIG.market);
         log("Market Order Book", await market.queryOrderBook());
         log("Market Price", await market.queryPrice());
 

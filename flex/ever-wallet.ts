@@ -1,14 +1,10 @@
-import { FlexBoundLazy } from "./flex";
+import { Flex } from "./flex";
 import { MultisigWalletAccount } from "../contracts";
 import { abiContract, AbiContract, Signer, signerNone } from "@eversdk/core";
 
 export type EverWalletOptions = {
     address: string,
     signer?: Signer | string,
-}
-
-type EverWalletState = {
-    account: MultisigWalletAccount,
 }
 
 export type SubmitTransactionOptions = {
@@ -21,24 +17,23 @@ export type SubmitTransactionOptions = {
     }
 }
 
-export class EverWallet extends FlexBoundLazy<EverWalletOptions, EverWalletState> {
-    constructor(options: EverWalletOptions) {
-        super(options);
+export class EverWallet {
+    flex: Flex;
+    address: string;
+    signer?: Signer | string;
+
+    constructor(options: EverWalletOptions, flex?: Flex) {
+        this.flex = flex ?? Flex.default;
+        this.address = options.address;
+        this.signer = options.signer;
     }
 
-    protected async createState(options: EverWalletOptions): Promise<EverWalletState> {
-        return {
-            account: new MultisigWalletAccount({
-                log: this.log,
-                client: this.flex.web3,
-                address: options.address,
-                signer: await this.flex.signers.resolve(options.signer),
-            }),
-        };
+    async getAccount(): Promise<MultisigWalletAccount> {
+        return await this.flex.getAccount(MultisigWalletAccount, this);
     }
 
     async transfer(options: SubmitTransactionOptions) {
-        const { account } = await this.getState();
+        const account = await this.getAccount();
         const payload = (await this.flex.web3.abi.encode_message_body({
             abi: abiContract(options.messageBody.abi),
             call_set: {

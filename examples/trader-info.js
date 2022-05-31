@@ -14,11 +14,11 @@ const examples_1 = require("./examples");
 (0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const client = new flex_1.Client({ address: examples_1.CONFIG.trader1.client });
+        const client = new flex_1.Client({ address: examples_1.CONFIG.trader.client });
         const trader = new flex_1.Trader({
-            client,
-            id: examples_1.CONFIG.trader1.id,
-            signer: examples_1.CONFIG.trader1.signer,
+            client: client.address,
+            id: examples_1.CONFIG.trader.id,
+            signer: examples_1.CONFIG.trader.signer,
         });
         (0, examples_1.log)("Trader Orders", yield trader.queryOrders());
         (0, examples_1.log)("Trader Trades", yield trader.queryTrades());

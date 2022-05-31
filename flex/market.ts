@@ -1,14 +1,5 @@
-import { Flex, FlexBoundLazy } from "./flex";
-import { XchgPairAccount } from "../contracts";
+import { Flex } from "./flex";
 import { Token, TokenInfo } from "./token";
-
-export type MarketOptions = {
-    address: string,
-}
-
-type MarketState = {
-    pair: XchgPairAccount,
-}
 
 export type MarketInfo = {
     /// Flex Pair account address
@@ -61,27 +52,18 @@ export type OrderBookItem = {
     amount: number
 }
 
-export class Market extends FlexBoundLazy<MarketOptions, MarketState> {
+export class Market {
+    flex: Flex;
+    address: string;
 
-    protected async createState(options: MarketOptions): Promise<MarketState> {
-        return {
-            pair: new XchgPairAccount({
-                client: this.flex.web3,
-                address: options.address,
-            }),
-        };
-    }
-
-    /** @internal */
-    static resolve(from: Market | MarketOptions | string, flex?: Flex): Market {
-        return from instanceof Market
-            ? from
-            : new Market(typeof from === "string" ? { address: from } : from, flex);
+    constructor(address: string, flex?: Flex) {
+        this.flex = flex ?? Flex.default;
+        this.address = address;
     }
 
     async queryOrderBook(): Promise<OrderBookInfo> {
         const result = await this.flex.query(`
-            market(pairAddress: "${this.options.address}") {
+            market(pairAddress: "${this.address}") {
                 orderBook {
                     bids {
                         price
@@ -100,7 +82,7 @@ export class Market extends FlexBoundLazy<MarketOptions, MarketState> {
     async queryPrice(): Promise<number | null> {
         try {
             const result = await this.flex.query(`
-            market(pairAddress: "${this.options.address}") {
+            market(pairAddress: "${this.address}") {
                 price
             }
         `);

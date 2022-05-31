@@ -11,17 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Token = void 0;
 const flex_1 = require("./flex");
-const contracts_1 = require("../contracts");
-class Token extends flex_1.FlexBoundLazy {
-    createState(options) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return {
-                wrapper: new contracts_1.WrapperAccount({
-                    client: this.flex.web3,
-                    address: options.address,
-                }),
-            };
-        });
+class Token {
+    constructor(address, flex) {
+        this.flex = flex !== null && flex !== void 0 ? flex : flex_1.Flex.default;
+        this.address = address;
     }
     static queryTokens(flex) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -1,4 +1,4 @@
-import { ClientConfig, TonClient } from "@eversdk/core";
+import { ClientConfig, Signer, TonClient } from "@eversdk/core";
 import {
     FlexAccount,
     GlobalConfigAccount,
@@ -15,25 +15,25 @@ export enum MakeOrderMode {
      * Simple order that will immediately execute (partially or fully)
      * and place the left amount into the orderbook
      */
-     IOP = "IOP",
-     /**
-      * Immediate-or-cancel
-      *
-      * Order that will immediately execute (partially or fully)
-      * and return the left amount back to the Trader wallet
-      */
-     IOC = "IOC",
-     /**
-      * Post order
-      *
-      * Order that will be created only if there is no liquidity with this
-      * price on the opposite side on the Market
-      */
-     POST = "POST",
+    IOP = "IOP",
+    /**
+     * Immediate-or-cancel
+     *
+     * Order that will immediately execute (partially or fully)
+     * and return the left amount back to the Trader wallet
+     */
+    IOC = "IOC",
+    /**
+     * Post order
+     *
+     * Order that will be created only if there is no liquidity with this
+     * price on the opposite side on the Market
+     */
+    POST = "POST",
 }
 
 export type FlexConfig = {
-    superRoot?: string,
+    superRoot: string,
     globalConfig?: string,
     web3?: ClientConfig,
     trader: {
@@ -79,15 +79,6 @@ export type FlexConfig = {
     }
 }
 
-/** @internal */
-export type FlexState = {
-    superRoot: SuperRootAccount,
-    globalConfig: GlobalConfigAccount,
-    flex: FlexAccount,
-    userConfig: UserDataConfigAccount,
-}
-
-
 export class Flex {
     /**
      * Configuration of Flex Dex
@@ -102,10 +93,9 @@ export class Flex {
      *
      */
     signers: SignerRegistry;
+
     /** @internal */
     log = Log.default;
-
-    private _state: FlexState | undefined = undefined;
 
     private static _config: FlexConfig | undefined = undefined;
     private static _default: Flex | undefined = undefined;
@@ -142,36 +132,48 @@ export class Flex {
     }
 
     /** @internal */
-    async getState(): Promise<FlexState> {
-        if (!this._state) {
-            const superRoot = new SuperRootAccount({
-                client: this.web3,
-                address: this.config.superRoot,
-            });
-            const globalConfigAddress =
-                this.config.globalConfig
-                ?? (await superRoot.getCurrentGlobalConfig()).output.value0;
-            const globalConfig = new GlobalConfigAccount({
-                client: this.web3,
-                address: globalConfigAddress,
-            });
-            const globalConfigDetails = (await globalConfig.getDetails()).output;
-            const flex = new FlexAccount({
-                client: this.web3,
-                address: globalConfigDetails.flex,
-            });
-            const userConfig = new UserDataConfigAccount({
-                client: this.web3,
-                address: globalConfigDetails.user_cfg,
-            });
-            this._state = {
-                superRoot,
-                globalConfig,
-                flex,
-                userConfig,
-            };
-        }
-        return this._state;
+    async getAccount<T>(
+        accountClass: new (options: { address: string, client: TonClient, signer?: Signer, log?: Log }) => T,
+        options: string | {
+            address: string,
+            signer?: Signer | string,
+        },
+    ): Promise<T> {
+        const address = typeof options === "string" ? options : options.address;
+        const signer = typeof options === "string" ? undefined : options.signer;
+        return new accountClass({
+            address,
+            client: this.web3,
+            log: this.log,
+            signer: await this.signers.resolve(signer),
+        });
+    }
+
+    /** @internal */
+    async getSuperRootAccount(): Promise<SuperRootAccount> {
+        return this.getAccount(SuperRootAccount, this.config.superRoot);
+    }
+
+    /** @internal */
+    async getGlobalConfigAccount(): Promise<GlobalConfigAccount> {
+        const globalConfigAddress =
+            this.config.globalConfig
+            ?? (await (await this.getSuperRootAccount()).getCurrentGlobalConfig()).output.value0;
+        return await this.getAccount(GlobalConfigAccount, globalConfigAddress);
+    }
+
+    /** @internal */
+    async getFlexAccount(): Promise<FlexAccount> {
+        const globalConfig = await this.getGlobalConfigAccount();
+        const globalConfigDetails = (await globalConfig.getDetails()).output;
+        return await this.getAccount(FlexAccount, globalConfigDetails.flex);
+    }
+
+    /** @internal */
+    async getUserConfigAccount(): Promise<UserDataConfigAccount> {
+        const globalConfig = await this.getGlobalConfigAccount();
+        const globalConfigDetails = (await globalConfig.getDetails()).output;
+        return await this.getAccount(UserDataConfigAccount, globalConfigDetails.user_cfg);
     }
 
     async query(text: string): Promise<any> {
@@ -209,39 +211,7 @@ export class Flex {
                     mode: MakeOrderMode.IOP,
                 },
             },
+            superRoot: "",
         };
     }
 }
-
-/** @internal */
-export abstract class FlexBoundLazy<O, S> {
-    /** @internal */
-    flex: Flex;
-    /** @internal */
-    log: Log;
-    /** @internal */
-    readonly options: O;
-
-    constructor(options: O, flex?: Flex) {
-        this.flex = flex ?? Flex.default;
-        this.log = this.flex.log;
-        this.options = options;
-    }
-
-    /** @internal */
-    async getState(): Promise<S> {
-        if (!this._state) {
-            this._state = await this.createState(this.options);
-        }
-        return this._state;
-    }
-
-    // To Implement
-
-    protected abstract createState(options: O): Promise<S>;
-
-    // Internals
-
-    private _state: S | undefined = undefined;
-}
-

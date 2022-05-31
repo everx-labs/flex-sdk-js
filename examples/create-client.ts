@@ -16,12 +16,12 @@ initExample();
             signer: "flex-client-1",
         });
         await client.deployTrader({
-            id: CONFIG.trader1.id,
+            id: CONFIG.trader.id,
             name: "Trader 1",
-            pubkey: await Flex.default.signers.resolvePublicKey(CONFIG.trader1.signer),
+            pubkey: await Flex.default.signers.resolvePublicKey(CONFIG.trader.signer),
         });
 
-        console.log(`Client: ${await (await client.getState()).account.getAddress()}`);
+        console.log(`Client: ${client.address}}`);
         await Flex.default.close();
     } catch (err) {
         console.error(err);

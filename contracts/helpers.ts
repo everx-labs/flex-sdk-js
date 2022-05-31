@@ -38,7 +38,7 @@ export abstract class Log {
     }
 
     info(text: string): void {
-        this.write(LogLevel.TRACE, text);
+        this.write(LogLevel.INFO, text);
     }
 
     processingStart(title: string): void {

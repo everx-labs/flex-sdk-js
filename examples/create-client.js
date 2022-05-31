@@ -25,11 +25,11 @@ const examples_1 = require("./examples");
             signer: "flex-client-1",
         });
         yield client.deployTrader({
-            id: examples_1.CONFIG.trader1.id,
+            id: examples_1.CONFIG.trader.id,
             name: "Trader 1",
-            pubkey: yield flex_1.Flex.default.signers.resolvePublicKey(examples_1.CONFIG.trader1.signer),
+            pubkey: yield flex_1.Flex.default.signers.resolvePublicKey(examples_1.CONFIG.trader.signer),
         });
-        console.log(`Client: ${yield (yield client.getState()).account.getAddress()}`);
+        console.log(`Client: ${client.address}}`);
         yield flex_1.Flex.default.close();
     }
     catch (err) {

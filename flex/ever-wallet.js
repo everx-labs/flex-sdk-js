@@ -13,25 +13,20 @@ exports.EverWallet = void 0;
 const flex_1 = require("./flex");
 const contracts_1 = require("../contracts");
 const core_1 = require("@eversdk/core");
-class EverWallet extends flex_1.FlexBoundLazy {
-    constructor(options) {
-        super(options);
+class EverWallet {
+    constructor(options, flex) {
+        this.flex = flex !== null && flex !== void 0 ? flex : flex_1.Flex.default;
+        this.address = options.address;
+        this.signer = options.signer;
     }
-    createState(options) {
+    getAccount() {
         return __awaiter(this, void 0, void 0, function* () {
-            return {
-                account: new contracts_1.MultisigWalletAccount({
-                    log: this.log,
-                    client: this.flex.web3,
-                    address: options.address,
-                    signer: yield this.flex.signers.resolve(options.signer),
-                }),
-            };
+            return yield this.flex.getAccount(contracts_1.MultisigWalletAccount, this);
         });
     }
     transfer(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { account } = yield this.getState();
+            const account = yield this.getAccount();
             const payload = (yield this.flex.web3.abi.encode_message_body({
                 abi: (0, core_1.abiContract)(options.messageBody.abi),
                 call_set: {

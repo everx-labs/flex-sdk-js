@@ -10,11 +10,11 @@ initExample();
 
 (async () => {
     try {
-        const client = new Client({ address: CONFIG.trader1.client });
+        const client = new Client({ address: CONFIG.trader.client });
         const trader = new Trader({
-            client,
-            id: CONFIG.trader1.id,
-            signer: CONFIG.trader1.signer,
+            client: client.address,
+            id: CONFIG.trader.id,
+            signer: CONFIG.trader.signer,
         });
 
         log("Trader Orders", await trader.queryOrders());

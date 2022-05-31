@@ -36,6 +36,8 @@
 		"contracts/*.ts",
 		"contracts/generated/*.ts",
 		"flex/*.ts",
+		"flex/client/*.ts",
+		"flex/trader/*.ts",
 		"cli/*.ts",
 		"examples/*.ts",
 		"tests/*.ts",

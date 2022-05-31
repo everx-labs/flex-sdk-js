@@ -1,12 +1,9 @@
-import { FlexBoundLazy } from "./flex";
+import { Flex } from "./flex";
 import { MultisigWalletAccount } from "../contracts";
 import { AbiContract, Signer } from "@eversdk/core";
 export declare type EverWalletOptions = {
     address: string;
     signer?: Signer | string;
-};
-declare type EverWalletState = {
-    account: MultisigWalletAccount;
 };
 export declare type SubmitTransactionOptions = {
     dest: string;
@@ -17,10 +14,12 @@ export declare type SubmitTransactionOptions = {
         params: object;
     };
 };
-export declare class EverWallet extends FlexBoundLazy<EverWalletOptions, EverWalletState> {
-    constructor(options: EverWalletOptions);
-    protected createState(options: EverWalletOptions): Promise<EverWalletState>;
+export declare class EverWallet {
+    flex: Flex;
+    address: string;
+    signer?: Signer | string;
+    constructor(options: EverWalletOptions, flex?: Flex);
+    getAccount(): Promise<MultisigWalletAccount>;
     transfer(options: SubmitTransactionOptions): Promise<void>;
 }
-export {};
 //# sourceMappingURL=ever-wallet.d.ts.map

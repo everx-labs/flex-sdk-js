@@ -16,9 +16,7 @@ const examples_1 = require("./examples");
     try {
         (0, examples_1.log)("Tokens", yield flex_1.Token.queryTokens());
         (0, examples_1.log)("Markets", yield flex_1.Market.queryMarkets());
-        const market = new flex_1.Market({
-            address: examples_1.CONFIG.market1,
-        });
+        const market = new flex_1.Market(examples_1.CONFIG.market);
         (0, examples_1.log)("Market Order Book", yield market.queryOrderBook());
         (0, examples_1.log)("Market Price", yield market.queryPrice());
         yield flex_1.Flex.default.close();
