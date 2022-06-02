@@ -124,7 +124,7 @@ function runLocalHelper(account, fn, params) {
     });
 }
 exports.runLocalHelper = runLocalHelper;
-function amountToUnits(tokens, decimals) {
+function amountToUnits(tokens, decimals = 9) {
     return Math.floor(tokens * Math.pow(10, Number(decimals))).toString();
 }
 exports.amountToUnits = amountToUnits;

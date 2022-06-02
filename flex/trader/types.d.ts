@@ -1,4 +1,21 @@
 import { TokenInfo } from "../token";
+import { Signer } from "@eversdk/core";
+export declare type TraderOptions = {
+    id: string;
+    signer: Signer | string;
+};
+export declare type OrderInfo = {
+    orderId: string;
+    traderId: string;
+    price: number;
+    amountProcessed: number;
+    amountLeft: number;
+    side: TradeSide;
+    finishTime: number;
+    pair: {
+        address: string;
+    };
+};
 export declare enum TradeSide {
     SELL = "SELL",
     BUY = "BUY"
@@ -20,4 +37,4 @@ export declare type TradeInfo = {
     feesToken: TokenInfo;
     cursor: string;
 };
-//# sourceMappingURL=trade.d.ts.map
+//# sourceMappingURL=types.d.ts.map

@@ -38,6 +38,7 @@
 		"flex/*.ts",
 		"flex/client/*.ts",
 		"flex/trader/*.ts",
+		"flex/exchange/*.ts",
 		"cli/*.ts",
 		"examples/*.ts",
 		"tests/*.ts",

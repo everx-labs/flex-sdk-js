@@ -1,29 +1,8 @@
-import { ClientConfig, Signer, TonClient } from "@eversdk/core";
-import { FlexAccount, GlobalConfigAccount, SuperRootAccount, UserDataConfigAccount } from "../contracts";
+import { FlexConfig } from "./config";
+import { Signer, TonClient } from "@eversdk/core";
+import { AccountOptionsEx, SignerRegistry } from "../contracts/account-ex";
 import { Log } from "../contracts/helpers";
-import { SignerRegistry } from "../contracts/account-ex";
-export declare enum MakeOrderMode {
-    IOP = "IOP",
-    IOC = "IOC",
-    POST = "POST"
-}
-export declare type FlexConfig = {
-    superRoot: string;
-    globalConfig?: string;
-    web3?: ClientConfig;
-    trader: {
-        deploy: {
-            eversAll: number;
-            eversAuth: number;
-            refillWallet: number;
-            minRefill: number;
-        };
-        order: {
-            evers: number;
-            mode: MakeOrderMode;
-        };
-    };
-};
+import { FlexAccount, GlobalConfigAccount, SuperRootAccount, UserDataConfigAccount } from "../contracts";
 export declare class Flex {
     config: FlexConfig;
     web3: TonClient;
@@ -37,20 +16,16 @@ export declare class Flex {
     static get config(): FlexConfig;
     constructor(config: FlexConfig);
     getAccount<T>(accountClass: new (options: {
-        address: string;
         client: TonClient;
+        address?: string;
         signer?: Signer;
         log?: Log;
-    }) => T, options: string | {
-        address: string;
-        signer?: Signer | string;
-    }): Promise<T>;
+    }) => T, options: string | AccountOptionsEx): Promise<T>;
     getSuperRootAccount(): Promise<SuperRootAccount>;
     getGlobalConfigAccount(): Promise<GlobalConfigAccount>;
     getFlexAccount(): Promise<FlexAccount>;
     getUserConfigAccount(): Promise<UserDataConfigAccount>;
     query(text: string): Promise<any>;
     close(): Promise<void>;
-    private static defaultConfig;
 }
 //# sourceMappingURL=flex.d.ts.map

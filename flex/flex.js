@@ -9,17 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Flex = exports.MakeOrderMode = void 0;
+exports.Flex = void 0;
+const config_1 = require("./config");
 const core_1 = require("@eversdk/core");
-const contracts_1 = require("../contracts");
-const helpers_1 = require("../contracts/helpers");
 const account_ex_1 = require("../contracts/account-ex");
-var MakeOrderMode;
-(function (MakeOrderMode) {
-    MakeOrderMode["IOP"] = "IOP";
-    MakeOrderMode["IOC"] = "IOC";
-    MakeOrderMode["POST"] = "POST";
-})(MakeOrderMode = exports.MakeOrderMode || (exports.MakeOrderMode = {}));
+const helpers_1 = require("../contracts/helpers");
+const contracts_1 = require("../contracts");
 class Flex {
     constructor(config) {
         this.log = helpers_1.Log.default;
@@ -37,11 +32,11 @@ class Flex {
         return this._default;
     }
     static set config(config) {
-        this._config = Object.assign(Object.assign({}, Flex.defaultConfig()), config);
+        this._config = Object.assign(Object.assign({}, (0, config_1.defaultConfig)()), config);
     }
     static get config() {
         if (!this._config) {
-            this._config = Flex.defaultConfig();
+            this._config = (0, config_1.defaultConfig)();
         }
         return this._config;
     }
@@ -99,24 +94,6 @@ class Flex {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.web3.close();
         });
-    }
-    static defaultConfig() {
-        return {
-            web3: core_1.TonClient.defaultConfig,
-            trader: {
-                deploy: {
-                    eversAll: 40e9,
-                    eversAuth: 1e9,
-                    refillWallet: 10e9,
-                    minRefill: 0.1e9,
-                },
-                order: {
-                    evers: 3e9,
-                    mode: MakeOrderMode.IOP,
-                },
-            },
-            superRoot: "",
-        };
     }
 }
 exports.Flex = Flex;

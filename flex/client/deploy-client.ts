@@ -1,13 +1,20 @@
 import { Flex } from "../flex";
-import { AccountEx } from "../../contracts/account-ex";
+import { AccountEx, AccountOptionsEx } from "../../contracts/account-ex";
 import { UserDataConfigAccount } from "../../contracts";
-import { ClientDeployOptions } from "./index";
 import { Signer } from "@eversdk/core";
+import { EverWallet } from "../ever-wallet";
+
+export type DeployClientOptions = {
+    everWallet: AccountOptionsEx,
+    signer: Signer | string,
+}
 
 /** @internal */
-export async function deployClient(options: ClientDeployOptions & { flex?: Flex }): Promise<{ address: string, signer: Signer }> {
-    const { everWallet } = options;
-    const flex = options.flex ?? Flex.default;
+export async function deployClient(
+    flex: Flex,
+    options: DeployClientOptions,
+): Promise<{ address: string, signer: Signer }> {
+    const everWallet = new EverWallet(options.everWallet, flex);
     const signer = await flex.signers.resolve(options.signer);
     const publicKey = await flex.signers.publicKey(signer);
     const userConfig = await flex.getUserConfigAccount();

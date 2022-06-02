@@ -1,16 +1,17 @@
-import { Flex, Market, Token } from "../flex";
+import { Flex } from "../flex";
 import { CONFIG, initExample, log } from "./examples";
+import { Token } from "../flex";
+import { Market } from "../flex";
 
 initExample();
 
 (async () => {
     try {
-        log("Tokens", await Token.queryTokens());
-        log("Markets", await Market.queryMarkets());
-
-        const market = new Market(CONFIG.market);
-        log("Market Order Book", await market.queryOrderBook());
-        log("Market Price", await market.queryPrice());
+        const flex = Flex.default;
+        log("Tokens", await Token.queryTokens(flex));
+        log("Markets", await Market.queryMarkets(flex));
+        log("Market Order Book", await Market.queryOrderBook(flex, CONFIG.market));
+        log("Market Price", await Market.queryPrice(flex, CONFIG.market));
 
         await Flex.default.close();
     } catch (err) {

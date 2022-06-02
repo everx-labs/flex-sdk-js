@@ -13,6 +13,7 @@ exports.EverWallet = void 0;
 const flex_1 = require("./flex");
 const contracts_1 = require("../contracts");
 const core_1 = require("@eversdk/core");
+const helpers_1 = require("../contracts/helpers");
 class EverWallet {
     constructor(options, flex) {
         this.flex = flex !== null && flex !== void 0 ? flex : flex_1.Flex.default;
@@ -43,6 +44,23 @@ class EverWallet {
                 value: options.value,
                 payload,
             });
+        });
+    }
+    topUp(address, evers) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const account = yield this.getAccount();
+            yield account.runSubmitTransaction({
+                dest: address,
+                value: (0, helpers_1.amountToUnits)(evers),
+                allBalance: false,
+                bounce: true,
+                payload: "",
+            });
+        });
+    }
+    static topUp(flex, options, account, balance) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield new EverWallet(options, flex).topUp(yield account.getAddress(), balance);
         });
     }
 }

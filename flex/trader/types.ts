@@ -1,4 +1,33 @@
 import { TokenInfo } from "../token";
+import { Signer } from "@eversdk/core";
+
+export type TraderOptions = {
+    /** Trader device ID.  Ask Flex Client owner for your ID. */
+    id: string,
+    /** Private key you Trader will use to sign messages */
+    signer: Signer | string,
+};
+
+export type OrderInfo = {
+    /** May be assigned to some GUID*/
+    orderId: string,
+    /** Trader ID */
+    traderId: string,
+    /** Price of Major token */
+    price: number,
+    /** Amount that has been processed */
+    amountProcessed: number,
+    /** Amount left in the order*/
+    amountLeft: number,
+    /** Trader's side in the order*/
+    side: TradeSide,
+    /** Order expiration time */
+    finishTime: number,
+    /** Market of the order */
+    pair: {
+        address: string,
+    }
+}
 
 export enum TradeSide {
     SELL = "SELL",
@@ -29,9 +58,10 @@ export type TradeInfo = {
     /**
      * Determines the users position in trade. Maker or taker.
      * Maker is a trade counterparty whose order was earlier.
-     *Taker is a counterparty with a later order.
+     * Taker is a counterparty with a later order.
      */
     liquidity: TradeLiquidity,
+
     /**
      * User fees for this trade. Measured in major tokens.
      * If the user is a maker then fees is a value
@@ -42,7 +72,6 @@ export type TradeInfo = {
      * the user pays to the exchange and maker.
      */
     fees: number,
-
 
     /** User fees token. */
     feesToken: TokenInfo

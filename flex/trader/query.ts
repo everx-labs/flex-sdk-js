@@ -1,9 +1,8 @@
 import { Flex } from "../flex";
 import { Market } from "../market";
-import { OrderInfo } from "./order";
-import { TradeInfo } from "./trade";
 import { Token } from "../token";
 import { WalletInfo, walletInfoFromApi } from "../client/index";
+import { OrderInfo, TradeInfo } from "./types";
 
 /** @internal */
 export async function queryOrders(flex: Flex, trader: string): Promise<OrderInfo[]> {
@@ -39,18 +38,22 @@ export async function queryTrades(flex: Flex, trader: string): Promise<TradeInfo
     return result.userTrades;
 }
 
+export type QueryWalletsOptions = {
+    client: string,
+    trader?: string,
+    token?: string,
+}
+
 /** @internal */
 export async function queryWallets(
     flex: Flex,
-    client: string,
-    trader: string,
-    token?: string,
+    options: QueryWalletsOptions,
 ): Promise<WalletInfo[]> {
     const result = await flex.query(`
         wallets(
-            clientAddress: "${client}",
-            userId:"0x${trader}",
-            ${token ? `token: "${token}",` : ""}
+            clientAddress: "${options.client}"
+            ${options.trader ? `userId:"0x${options.trader}"` : ""}
+            ${options.token ? `token: "${options.token}",` : ""}
         ) {
             address
             clientAddress

@@ -30,18 +30,11 @@ export type TokenInfo = {
 }
 
 export class Token {
-    flex: Flex;
-    address: string;
-
-    constructor(address: string, flex?: Flex) {
-        this.flex = flex ?? Flex.default;
-        this.address = address;
+    static async queryTokens(flex: Flex): Promise<TokenInfo[]> {
+        return (await flex.query(`tokens { ${Token.queryFields()} }`)).tokens;
     }
 
-    static async queryTokens(flex?: Flex): Promise<TokenInfo[]> {
-        return (await (flex ?? Flex.default).query(`tokens { ${Token.queryFields()} }`)).tokens;
-    }
-
+    /** @internal */
     static queryFields() {
         return `
             address

@@ -11,10 +11,7 @@ export declare type TokenInfo = {
     reserveWallet: string;
 };
 export declare class Token {
-    flex: Flex;
-    address: string;
-    constructor(address: string, flex?: Flex);
-    static queryTokens(flex?: Flex): Promise<TokenInfo[]>;
+    static queryTokens(flex: Flex): Promise<TokenInfo[]>;
     static queryFields(): string;
 }
 //# sourceMappingURL=token.d.ts.map

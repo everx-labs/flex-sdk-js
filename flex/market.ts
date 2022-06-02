@@ -53,17 +53,9 @@ export type OrderBookItem = {
 }
 
 export class Market {
-    flex: Flex;
-    address: string;
-
-    constructor(address: string, flex?: Flex) {
-        this.flex = flex ?? Flex.default;
-        this.address = address;
-    }
-
-    async queryOrderBook(): Promise<OrderBookInfo> {
-        const result = await this.flex.query(`
-            market(pairAddress: "${this.address}") {
+    static async queryOrderBook(flex: Flex, market: string): Promise<OrderBookInfo> {
+        const result = await flex.query(`
+            market(pairAddress: "${market}") {
                 orderBook {
                     bids {
                         price
@@ -79,10 +71,10 @@ export class Market {
         return result.market.orderBook;
     }
 
-    async queryPrice(): Promise<number | null> {
+    static async queryPrice(flex: Flex, market: string): Promise<number | null> {
         try {
-            const result = await this.flex.query(`
-            market(pairAddress: "${this.address}") {
+            const result = await flex.query(`
+            market(pairAddress: "${market}") {
                 price
             }
         `);
@@ -92,10 +84,11 @@ export class Market {
         }
     }
 
-    static async queryMarkets(flex?: Flex): Promise<MarketInfo[]> {
-        return (await (flex ?? Flex.default).query(`pairs { ${Market.queryFields()} }`)).pairs;
+    static async queryMarkets(flex: Flex): Promise<MarketInfo[]> {
+        return (await flex.query(`pairs { ${Market.queryFields()} }`)).pairs;
     }
 
+    /** @internal */
     static queryFields() {
         return `
             address

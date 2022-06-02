@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### New
 
-- `Trader.makeOrder(...)` now returns `orderId` and `transactionHash` fields
+- `Trader.makeOrder(...)` now returns `orderId` and `transactionId` fields
 
 ### Improvements
 

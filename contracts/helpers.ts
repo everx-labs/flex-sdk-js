@@ -149,7 +149,7 @@ export async function runLocalHelper<O>(
     }
 }
 
-export function amountToUnits(tokens: number, decimals: string | number): string {
+export function amountToUnits(tokens: number, decimals: string | number = 9): string {
     return Math.floor(tokens * Math.pow(10, Number(decimals))).toString();
 }
 

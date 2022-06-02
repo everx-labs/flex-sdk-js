@@ -1,11 +1,9 @@
 import { Flex } from "./flex";
 import { MultisigWalletAccount } from "../contracts";
 import { abiContract, AbiContract, Signer, signerNone } from "@eversdk/core";
-
-export type EverWalletOptions = {
-    address: string,
-    signer?: Signer | string,
-}
+import { AccountOptionsEx } from "../contracts/account-ex";
+import { amountToUnits } from "../contracts/helpers";
+import { Account } from "@eversdk/appkit";
 
 export type SubmitTransactionOptions = {
     dest: string,
@@ -19,10 +17,10 @@ export type SubmitTransactionOptions = {
 
 export class EverWallet {
     flex: Flex;
-    address: string;
+    address?: string;
     signer?: Signer | string;
 
-    constructor(options: EverWalletOptions, flex?: Flex) {
+    constructor(options: AccountOptionsEx, flex?: Flex) {
         this.flex = flex ?? Flex.default;
         this.address = options.address;
         this.signer = options.signer;
@@ -53,5 +51,28 @@ export class EverWallet {
             value: options.value,
             payload,
         });
+    }
+
+    async topUp(address: string, evers: number) {
+        const account = await this.getAccount();
+        await account.runSubmitTransaction({
+            dest: address,
+            value: amountToUnits(evers),
+            allBalance: false,
+            bounce: true,
+            payload: "",
+        });
+    }
+
+    static async topUp(
+        flex: Flex,
+        options: AccountOptionsEx,
+        account: Account,
+        balance: number,
+    ): Promise<void> {
+        await new EverWallet(options, flex).topUp(
+            await account.getAddress(),
+            balance,
+        );
     }
 }

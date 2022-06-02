@@ -1,4 +1,8 @@
 import { Signer, TonClient } from "@eversdk/core";
+export declare type AccountOptionsEx = {
+    address?: string;
+    signer?: Signer | string;
+};
 export declare class AccountEx {
     static isActive(address: string, useWeb3?: TonClient): Promise<boolean>;
 }

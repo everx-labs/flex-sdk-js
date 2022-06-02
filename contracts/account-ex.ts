@@ -4,6 +4,11 @@ import path from "path";
 import os from "os";
 import fs from "fs";
 
+export type AccountOptionsEx = {
+    address?: string,
+    signer?: Signer | string,
+}
+
 /** @internal */
 export class AccountEx {
     static async isActive(address: string, useWeb3?: TonClient): Promise<boolean> {

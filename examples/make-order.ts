@@ -6,20 +6,20 @@ initExample();
 
 (async () => {
     try {
-        const trader = new Trader({
-            client: CONFIG.trader.client,
-            id: CONFIG.trader.id,
-            signer: CONFIG.trader.signer,
-        });
+        const flex = Flex.default;
+        flex.log.level = LogLevel.DEBUG;
 
-        trader.flex.log.level = LogLevel.DEBUG;
-
-        await trader.makeOrder({
-            sell: false,
-            market: CONFIG.market,
-            price: 2.6,
-            amount: 18,
-        });
+        await Trader.makeOrder(
+            flex,
+            {
+                client: CONFIG.trader.client,
+                trader: CONFIG.trader,
+                sell: false,
+                market: CONFIG.market,
+                price: 2.6,
+                amount: 18,
+            },
+        );
 
         await Flex.default.close();
     } catch (err) {

@@ -11,4 +11,4 @@ var TradeLiquidity;
     TradeLiquidity["TAKER"] = "TAKER";
     TradeLiquidity["MAKER"] = "MAKER";
 })(TradeLiquidity = exports.TradeLiquidity || (exports.TradeLiquidity = {}));
-//# sourceMappingURL=trade.js.map
+//# sourceMappingURL=types.js.map

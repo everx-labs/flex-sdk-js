@@ -15,13 +15,11 @@ const helpers_1 = require("../contracts/helpers");
 (0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const trader = new flex_1.Trader({
+        const flex = flex_1.Flex.default;
+        flex.log.level = helpers_1.LogLevel.DEBUG;
+        yield flex_1.Trader.makeOrder(flex, {
             client: examples_1.CONFIG.trader.client,
-            id: examples_1.CONFIG.trader.id,
-            signer: examples_1.CONFIG.trader.signer,
-        });
-        trader.flex.log.level = helpers_1.LogLevel.DEBUG;
-        yield trader.makeOrder({
+            trader: examples_1.CONFIG.trader,
             sell: false,
             market: examples_1.CONFIG.market,
             price: 2.6,

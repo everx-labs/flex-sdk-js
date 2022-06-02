@@ -1,9 +1,11 @@
 import { Flex } from "../flex";
-import { ClientDeployOptions } from "./index";
+import { AccountOptionsEx } from "../../contracts/account-ex";
 import { Signer } from "@eversdk/core";
-export declare function deployClient(options: ClientDeployOptions & {
-    flex?: Flex;
-}): Promise<{
+export declare type DeployClientOptions = {
+    everWallet: AccountOptionsEx;
+    signer: Signer | string;
+};
+export declare function deployClient(flex: Flex, options: DeployClientOptions): Promise<{
     address: string;
     signer: Signer;
 }>;

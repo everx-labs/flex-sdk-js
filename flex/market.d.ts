@@ -21,12 +21,9 @@ export declare type OrderBookItem = {
     amount: number;
 };
 export declare class Market {
-    flex: Flex;
-    address: string;
-    constructor(address: string, flex?: Flex);
-    queryOrderBook(): Promise<OrderBookInfo>;
-    queryPrice(): Promise<number | null>;
-    static queryMarkets(flex?: Flex): Promise<MarketInfo[]>;
+    static queryOrderBook(flex: Flex, market: string): Promise<OrderBookInfo>;
+    static queryPrice(flex: Flex, market: string): Promise<number | null>;
+    static queryMarkets(flex: Flex): Promise<MarketInfo[]>;
     static queryFields(): string;
 }
 //# sourceMappingURL=market.d.ts.map

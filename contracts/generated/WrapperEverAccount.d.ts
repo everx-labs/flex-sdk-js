@@ -19,7 +19,6 @@ export declare type WrapperEverDeployEmptyWalletOutput = {
     value0: string;
 };
 export declare type WrapperEverOnEverTransferInput = {
-    _answer_id: number;
     tokens: string | number | bigint;
     args: {
         pubkey: string | number | bigint;
@@ -27,7 +26,6 @@ export declare type WrapperEverOnEverTransferInput = {
         evers: string | number | bigint;
         keep_evers: string | number | bigint;
     };
-    answer_addr: string;
 };
 export declare type WrapperEverBurnInput = {
     tokens: string | number | bigint;
@@ -36,6 +34,7 @@ export declare type WrapperEverBurnInput = {
     sender_owner?: string;
     out_pubkey: string | number | bigint;
     out_owner?: string;
+    notify?: string;
 };
 export declare type WrapperEverTransferFromReserveWalletInput = {
     answer_addr?: string;
@@ -73,6 +72,7 @@ export declare type WrapperEverGetDetailsOutput = {
     reserve_wallet: string;
     super_root: string;
     cloned?: string;
+    type_id: number;
 };
 export declare type WrapperEverGetTip3ConfigOutput = {
     name: string;

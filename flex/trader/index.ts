@@ -1,96 +1,63 @@
-import { WalletInfo } from "../client";
 import { Flex } from "../flex";
-import { Signer } from "@eversdk/core";
-import { makeOrder, MakeOrderOptions, CancelOrderOptions, OrderInfo, cancelOrder } from "./order";
-import { TradeInfo } from "./trade";
-import { queryOrders, queryTrades, queryWallets } from "./query";
+import { makeOrder, MakeOrderOptions, NewOrderInfo } from "./make-order";
+import { cancelOrder, CancelOrderOptions } from "./cancel-order";
+import { OrderInfo, TradeInfo } from "./types";
+import { queryOrders, queryTrades, queryWallets, QueryWalletsOptions } from "./query";
+import { WalletInfo } from "../client/index";
+import { deployTrader, DeployTraderOptions } from "./deploy-trader";
 
-export type TraderOptions = {
-    client: string,
-    id: string,
-    signer: Signer | string,
+export * from "./types";
+export {
+    DeployTraderOptions,
+    MakeOrderOptions,
+    NewOrderInfo,
+    CancelOrderOptions,
+    QueryWalletsOptions,
 };
 
 export class Trader {
-    flex: Flex;
-    client: string;
-    id: string;
-    signer: Signer | string;
-
-    constructor(options: TraderOptions, flex?: Flex) {
-        this.flex = flex ?? Flex.default;
-        this.client = options.client;
-        this.id = options.id;
-        this.signer = options.signer;
+    static async deploy(flex: Flex, options: DeployTraderOptions): Promise<void> {
+        return await deployTrader(flex, options);
     }
 
     /**
      * Creates an Order on Flex Dex Market
      *
+     * @param flex
      * @param {MakeOrderOptions} options
      * Order parameters
      *
-     * @returns OrderInfo
+     * @returns NewOrderInfo
      */
-    async makeOrder(options: MakeOrderOptions): Promise<{
-        orderId: string,
-        transactionId: string,
-    }> {
-        return makeOrder({
-            ...options,
-            flex: this.flex,
-            client: this.client,
-            trader: this.id,
-            traderSigner: this.signer,
-        });
+    static async makeOrder(flex: Flex, options: MakeOrderOptions): Promise<NewOrderInfo> {
+        return await makeOrder(flex, options);
     }
 
     /**
      * Cancels an Order on Flex Dex Market
      *
+     * @param flex
      * @param {CancelOrderOptions} options
      * Cancel order parameters
      *
      * @returns void
      */
-    async cancelOrder(options: CancelOrderOptions): Promise<void> {
-        return cancelOrder({
-            ...options,
-            flex: this.flex,
-            client: this.client,
-            traderId: this.id,
-            traderSigner: this.signer,
-        });
+    static async cancelOrder(flex: Flex, options: CancelOrderOptions): Promise<void> {
+        return await cancelOrder(flex, options);
     }
 
-    /**
-     * Gets the list of Trader's open orders.
-     *
-     * @returns the list of open orders, including expired orders.
-     */
-    async queryOrders(): Promise<OrderInfo[]> {
-        return queryOrders(this.flex, this.id);
+    static async queryOrders(flex: Flex, trader: string): Promise<OrderInfo[]> {
+        return await queryOrders(flex, trader);
     }
 
-    /**
-     * Gets the list of Trader's executed trades.
-     *
-     * @returns the list of executed trades.
-     */
-    async queryTrades(): Promise<TradeInfo[]> {
-        return queryTrades(this.flex, this.id);
+    static async queryTrades(flex: Flex, trader: string): Promise<TradeInfo[]> {
+        return await queryTrades(flex, trader);
     }
 
-    /**
-     * Gets the list of Trader's wallets
-     * optionally filtered by a token
-     *
-     * @param {Token | string} token?
-     * Optional parameter with Token instance or token root address
-     *
-     * @returns list of wallets
-     */
-    async queryWallets(token?: string): Promise<WalletInfo[]> {
-        return queryWallets(this.flex, this.client, this.id, token);
+    static async queryWallets(
+        flex: Flex,
+        options: QueryWalletsOptions,
+    ): Promise<WalletInfo[]> {
+        return await queryWallets(flex, options);
     }
 }

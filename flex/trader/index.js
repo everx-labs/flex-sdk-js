@@ -1,4 +1,18 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -10,39 +24,40 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Trader = void 0;
-const flex_1 = require("../flex");
-const order_1 = require("./order");
+const make_order_1 = require("./make-order");
+const cancel_order_1 = require("./cancel-order");
 const query_1 = require("./query");
+const deploy_trader_1 = require("./deploy-trader");
+__exportStar(require("./types"), exports);
 class Trader {
-    constructor(options, flex) {
-        this.flex = flex !== null && flex !== void 0 ? flex : flex_1.Flex.default;
-        this.client = options.client;
-        this.id = options.id;
-        this.signer = options.signer;
-    }
-    makeOrder(options) {
+    static deploy(flex, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (0, order_1.makeOrder)(Object.assign(Object.assign({}, options), { flex: this.flex, client: this.client, trader: this.id, traderSigner: this.signer }));
+            return yield (0, deploy_trader_1.deployTrader)(flex, options);
         });
     }
-    cancelOrder(options) {
+    static makeOrder(flex, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (0, order_1.cancelOrder)(Object.assign(Object.assign({}, options), { flex: this.flex, client: this.client, traderId: this.id, traderSigner: this.signer }));
+            return yield (0, make_order_1.makeOrder)(flex, options);
         });
     }
-    queryOrders() {
+    static cancelOrder(flex, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (0, query_1.queryOrders)(this.flex, this.id);
+            return yield (0, cancel_order_1.cancelOrder)(flex, options);
         });
     }
-    queryTrades() {
+    static queryOrders(flex, trader) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (0, query_1.queryTrades)(this.flex, this.id);
+            return yield (0, query_1.queryOrders)(flex, trader);
         });
     }
-    queryWallets(token) {
+    static queryTrades(flex, trader) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (0, query_1.queryWallets)(this.flex, this.client, this.id, token);
+            return yield (0, query_1.queryTrades)(flex, trader);
+        });
+    }
+    static queryWallets(flex, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0, query_1.queryWallets)(flex, options);
         });
     }
 }

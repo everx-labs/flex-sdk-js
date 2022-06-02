@@ -9,33 +9,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cancelOrder = exports.makeOrder = void 0;
-const flex_1 = require("../flex");
+exports.generateRandomOrderId = exports.makeOrder = void 0;
+const exchange_1 = require("../exchange");
 const helpers_1 = require("../../contracts/helpers");
+const core_1 = require("@eversdk/core");
 const contracts_1 = require("../../contracts");
 const internals_1 = require("./internals");
-function makeOrder(options) {
+function makeOrder(flex, options) {
     var _a, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
-        const flex = options.flex;
         const defaults = flex.config.trader.order;
         const pair = yield flex.getAccount(contracts_1.XchgPairAccount, options.market);
         const flexAccount = yield flex.getFlexAccount();
         const pairDetails = (yield pair.getDetails()).output;
-        const wallet = yield (0, internals_1.getWallet)({
-            flex: options.flex,
+        const wallet = yield (0, internals_1.getWallet)(flex, {
             market: options.market,
             sell: options.sell,
             client: options.client,
             trader: options.trader,
-            traderSigner: options.traderSigner,
         });
         const priceCode = (yield pair.getPriceXchgCode({ salted: false })).output.value0;
         const priceSalt = (yield pair.getPriceXchgSalt()).output.value0;
         const amount = (0, helpers_1.amountToUnits)(options.amount, pairDetails.major_tip3cfg.decimals);
         const orderId = options.orderId !== undefined
             ? options.orderId
-            : yield (0, internals_1.generateRandomOrderId)(flex.web3);
+            : yield generateRandomOrderId(flex.web3);
         const price = (0, helpers_1.priceToUnits)(options.price, pairDetails.price_denum);
         const lend_balance = (yield flexAccount.calcLendTokensForOrder({
             sell: options.sell,
@@ -59,8 +57,8 @@ function makeOrder(options) {
                 salt: priceSalt,
                 args: {
                     sell: options.sell,
-                    immediate_client: mode === flex_1.MakeOrderMode.IOP || mode === flex_1.MakeOrderMode.IOC,
-                    post_order: mode === flex_1.MakeOrderMode.IOP || mode === flex_1.MakeOrderMode.POST,
+                    immediate_client: mode === exchange_1.MakeOrderMode.IOP || mode === exchange_1.MakeOrderMode.IOC,
+                    post_order: mode === exchange_1.MakeOrderMode.IOP || mode === exchange_1.MakeOrderMode.POST,
                     amount,
                     client_addr: options.client,
                     user_id: "0x" + options.trader,
@@ -74,7 +72,7 @@ function makeOrder(options) {
             };
         }
         catch (err) {
-            throw (0, internals_1.resolveError)(err, {
+            throw resolveError(err, {
                 O: options.sell ? "sell" : "buy",
                 M: `${pairDetails.major_tip3cfg.symbol}/${pairDetails.minor_tip3cfg.symbol}`,
                 T: options.sell
@@ -86,38 +84,42 @@ function makeOrder(options) {
     });
 }
 exports.makeOrder = makeOrder;
-function cancelOrder(options) {
-    var _a;
+function resolveError(original, context) {
+    var _a, _b;
+    if (original.code !== core_1.ProcessingErrorCode.MessageExpired) {
+        return original;
+    }
+    const localCode = (_b = (_a = original.data) === null || _a === void 0 ? void 0 : _a.local_error) === null || _b === void 0 ? void 0 : _b.code;
+    const { O, M, T, W, } = context;
+    let message;
+    switch (localCode) {
+        case core_1.TvmErrorCode.AccountCodeMissing:
+            message = `Error occurred while performing ${O} on ${M}. ${T} wallet ${W} was not completely activated. You need to deploy it to proceed.`;
+            break;
+        case core_1.TvmErrorCode.AccountMissing:
+            message = `Error occurred while performing operation ${O} on ${M} market. You need to activate ${T} wallet ${W} to trade on this Market.`;
+            break;
+        case core_1.TvmErrorCode.AccountFrozenOrDeleted:
+            message = `Error occurred while performing ${O} on ${M}. ${T} wallet ${W} was frozen or deleted. You need to deploy it to proceed.`;
+            break;
+        case core_1.TvmErrorCode.LowBalance:
+            message = `Error occurred while performing ${O} on ${M} Market. You need to top-up ${T} wallet ${W} to pay fees.`;
+            break;
+        default:
+            message = `Error occurred while performing ${O} on ${M}. Ask DEX Support team for help.`;
+            break;
+    }
+    const flexErr = new Error(message);
+    flexErr.originalError = original;
+    return flexErr;
+}
+function generateRandomOrderId(web3) {
     return __awaiter(this, void 0, void 0, function* () {
-        const pair = yield options.flex.getAccount(contracts_1.XchgPairAccount, options.market);
-        const pairDetails = (yield pair.getDetails()).output;
-        const price = (0, helpers_1.priceToUnits)(options.price, pairDetails.price_denum);
-        const priceDetails = yield (0, internals_1.getPriceDetails)(options.flex, options.client, pair, price.num);
-        let sell;
-        if ((0, internals_1.findOrder)(options.orderId, priceDetails.sells)) {
-            sell = true;
-        }
-        else if ((0, internals_1.findOrder)(options.orderId, priceDetails.buys)) {
-            sell = false;
-        }
-        else {
-            throw new Error(`Order ${options.orderId} not found in price ${priceDetails.address}.`);
-        }
-        const wallet = yield (0, internals_1.getWallet)({
-            flex: options.flex,
-            market: options.market,
-            sell,
-            client: options.client,
-            trader: options.traderId,
-            traderSigner: options.traderSigner,
+        const result = yield web3.crypto.generate_random_bytes({
+            length: 8,
         });
-        yield wallet.runCancelOrder({
-            order_id: options.orderId,
-            sell,
-            price: priceDetails.address,
-            evers: (_a = options.evers) !== null && _a !== void 0 ? _a : 3e9,
-        });
+        return `0x${Buffer.from(result.bytes, "base64").toString("hex")}`;
     });
 }
-exports.cancelOrder = cancelOrder;
-//# sourceMappingURL=order.js.map
+exports.generateRandomOrderId = generateRandomOrderId;
+//# sourceMappingURL=make-order.js.map

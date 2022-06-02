@@ -68,6 +68,8 @@ function update(client, relPaths) {
             "../tokens/fungible/WrapperEver",
             "../tokens/fungible/WrapperDeployerTip3",
             "../tokens/fungible/WrapperDeployerEver",
+            "../tokens/fungible/WrapperBroxus",
+            "../tokens/fungible/WrapperDeployerBroxus",
             "../../solidity/multisig/MultisigWallet",
             "immutable/SuperRoot",
             "immutable/GlobalConfig",

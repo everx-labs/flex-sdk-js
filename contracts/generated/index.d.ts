@@ -18,6 +18,8 @@ export { WrapperAccount } from "./WrapperAccount";
 export { WrapperEverAccount } from "./WrapperEverAccount";
 export { WrapperDeployerTip3Account } from "./WrapperDeployerTip3Account";
 export { WrapperDeployerEverAccount } from "./WrapperDeployerEverAccount";
+export { WrapperBroxusAccount } from "./WrapperBroxusAccount";
+export { WrapperDeployerBroxusAccount } from "./WrapperDeployerBroxusAccount";
 export { MultisigWalletAccount } from "./MultisigWalletAccount";
 export { SuperRootAccount } from "./SuperRootAccount";
 export { GlobalConfigAccount } from "./GlobalConfigAccount";

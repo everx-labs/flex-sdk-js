@@ -1,26 +1,30 @@
-import { Client, Flex, Trader } from "../flex";
+import { Flex } from "../flex";
 import {
     CONFIG,
     initExample,
     log,
 } from "./examples";
+import { Trader } from "../flex";
 
 initExample();
 
 
 (async () => {
     try {
-        const client = new Client({ address: CONFIG.trader.client });
-        const trader = new Trader({
-            client: client.address,
-            id: CONFIG.trader.id,
-            signer: CONFIG.trader.signer,
-        });
+        const flex = Flex.default;
 
-        log("Trader Orders", await trader.queryOrders());
-        log("Trader Trades", await trader.queryTrades());
-        log("Trader Wallets", await trader.queryWallets());
-        log("Client Wallets", await client.queryWallets());
+        log("Trader Orders", await Trader.queryOrders(flex, CONFIG.trader.id));
+        log("Trader Trades", await Trader.queryTrades(flex, CONFIG.trader.id));
+        log(
+            "Trader Wallets",
+            await Trader.queryWallets(flex,
+                {
+                    client: CONFIG.trader.client,
+                    trader: CONFIG.trader.id,
+                },
+            ),
+        );
+        log("Client Wallets", await Trader.queryWallets(flex, { client: CONFIG.trader.client }));
 
         await Flex.default.close();
     } catch (err) {

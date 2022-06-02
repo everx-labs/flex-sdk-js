@@ -10,17 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Market = void 0;
-const flex_1 = require("./flex");
 const token_1 = require("./token");
 class Market {
-    constructor(address, flex) {
-        this.flex = flex !== null && flex !== void 0 ? flex : flex_1.Flex.default;
-        this.address = address;
-    }
-    queryOrderBook() {
+    static queryOrderBook(flex, market) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.flex.query(`
-            market(pairAddress: "${this.address}") {
+            const result = yield flex.query(`
+            market(pairAddress: "${market}") {
                 orderBook {
                     bids {
                         price
@@ -36,11 +31,11 @@ class Market {
             return result.market.orderBook;
         });
     }
-    queryPrice() {
+    static queryPrice(flex, market) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const result = yield this.flex.query(`
-            market(pairAddress: "${this.address}") {
+                const result = yield flex.query(`
+            market(pairAddress: "${market}") {
                 price
             }
         `);
@@ -53,7 +48,7 @@ class Market {
     }
     static queryMarkets(flex) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield (flex !== null && flex !== void 0 ? flex : flex_1.Flex.default).query(`pairs { ${Market.queryFields()} }`)).pairs;
+            return (yield flex.query(`pairs { ${Market.queryFields()} }`)).pairs;
         });
     }
     static queryFields() {
