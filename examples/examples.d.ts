@@ -1,3 +1,4 @@
+import { FlexConfig } from "../flex";
 export declare const CONFIG: {
     endpoints: string[];
     superRoot: string;
@@ -16,6 +17,6 @@ export declare const CONFIG: {
     market: string;
     token: string;
 };
-export declare function initExample(): void;
-export declare function log(title: string, value: any): void;
+export declare const EXAMPLES_FLEX_CONFIG: Partial<FlexConfig>;
+export declare function examplesLog(title: string, value: any): void;
 //# sourceMappingURL=examples.d.ts.map

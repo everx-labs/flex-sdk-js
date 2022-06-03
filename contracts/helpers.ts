@@ -149,19 +149,4 @@ export async function runLocalHelper<O>(
     }
 }
 
-export function amountToUnits(tokens: number, decimals: string | number = 9): string {
-    return Math.floor(tokens * Math.pow(10, Number(decimals))).toString();
-}
-
-export function priceToUnits(
-    price: number,
-    denominator: string | number,
-): { num: string, denum: string } {
-    const denom = Math.floor(Number(denominator));
-    const price_num = Math.floor(price * denom);
-    return {
-        num: price_num.toString(),
-        denum: denom.toString(),
-    };
-}
 

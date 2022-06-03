@@ -1,45 +1,50 @@
 import { Flex } from "../flex";
-import { AccountEx, AccountOptionsEx } from "../../contracts/account-ex";
+import { AccountOptionsEx } from "../../contracts/account-ex";
 import { UserDataConfigAccount } from "../../contracts";
-import { Signer } from "@eversdk/core";
-import { EverWallet } from "../ever-wallet";
+import { EverWallet, SignerOption, toUnits } from "../web3";
 
 export type DeployClientOptions = {
     everWallet: AccountOptionsEx,
-    signer: Signer | string,
+    signer: SignerOption,
+    transferEvers?: number,
+    deployEvers?: number,
 }
+
+const DEFAULTS = {
+    transferEvers: 55,
+    deployEvers: 50,
+};
 
 /** @internal */
 export async function deployClient(
     flex: Flex,
     options: DeployClientOptions,
-): Promise<{ address: string, signer: Signer }> {
-    const everWallet = new EverWallet(options.everWallet, flex);
-    const signer = await flex.signers.resolve(options.signer);
-    const publicKey = await flex.signers.publicKey(signer);
+): Promise<string> {
+    const everWallet = new EverWallet(flex.evr, options.everWallet);
+    const signer = await flex.evr.signers.resolve(options.signer);
+    const publicKey = await flex.evr.signers.publicKey(signer);
     const userConfig = await flex.getUserConfigAccount();
     const pubkey = `0x${publicKey}`;
     const address = (await userConfig.getFlexClientAddr({
         pubkey,
     })).output.value0;
 
-    const isActive = await AccountEx.isActive(address, flex.web3);
+    const isActive = await flex.evr.accounts.isActive(address);
     if (!isActive) {
+        const transferEvers = options.transferEvers ?? DEFAULTS.transferEvers;
+        const deployEvers = options.deployEvers ?? DEFAULTS.deployEvers;
         await everWallet.transfer({
             dest: await userConfig.getAddress(),
-            value: 55e9,
+            value: toUnits(transferEvers + deployEvers),
             messageBody: {
                 abi: UserDataConfigAccount.package.abi,
                 fn: "deployFlexClient",
                 params: {
                     pubkey,
-                    deploy_evers: 50e9,
+                    deploy_evers: toUnits(deployEvers),
                 },
             },
         });
     }
-    return {
-        address,
-        signer,
-    };
+    return address;
 }

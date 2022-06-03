@@ -20,6 +20,6 @@ __exportStar(require("./client"), exports);
 __exportStar(require("./token"), exports);
 __exportStar(require("./trader"), exports);
 __exportStar(require("./config"), exports);
-__exportStar(require("./ever-wallet"), exports);
+__exportStar(require("./web3"), exports);
 __exportStar(require("../contracts/account-ex"), exports);
 //# sourceMappingURL=index.js.map

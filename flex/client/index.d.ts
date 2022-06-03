@@ -1,4 +1,3 @@
-import { Signer } from "@eversdk/core";
 import { TokenInfo } from "../token";
 import { Flex } from "../flex";
 import { DeployClientOptions } from "./deploy-client";
@@ -18,9 +17,6 @@ export declare type WalletInfo = {
 };
 export declare function walletInfoFromApi(result: any): WalletInfo;
 export declare class Client {
-    static deploy(flex: Flex, options: DeployClientOptions): Promise<{
-        address: string;
-        signer: Signer;
-    }>;
+    static deploy(flex: Flex, options: DeployClientOptions): Promise<string>;
 }
 //# sourceMappingURL=index.d.ts.map

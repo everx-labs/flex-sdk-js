@@ -1,21 +1,17 @@
 import { Flex } from "../flex";
 import {
-    CONFIG,
-    initExample,
-    log,
+    CONFIG, EXAMPLES_FLEX_CONFIG,
+    examplesLog,
 } from "./examples";
 import { Trader } from "../flex";
 
-initExample();
-
-
 (async () => {
     try {
-        const flex = Flex.default;
+        const flex = new Flex(EXAMPLES_FLEX_CONFIG);
 
-        log("Trader Orders", await Trader.queryOrders(flex, CONFIG.trader.id));
-        log("Trader Trades", await Trader.queryTrades(flex, CONFIG.trader.id));
-        log(
+        examplesLog("Trader Orders", await Trader.queryOrders(flex, CONFIG.trader.id));
+        examplesLog("Trader Trades", await Trader.queryTrades(flex, CONFIG.trader.id));
+        examplesLog(
             "Trader Wallets",
             await Trader.queryWallets(flex,
                 {
@@ -24,9 +20,9 @@ initExample();
                 },
             ),
         );
-        log("Client Wallets", await Trader.queryWallets(flex, { client: CONFIG.trader.client }));
+        examplesLog("Client Wallets", await Trader.queryWallets(flex, { client: CONFIG.trader.client }));
 
-        await Flex.default.close();
+        await flex.close();
     } catch (err) {
         console.error(err);
         process.exit(1);

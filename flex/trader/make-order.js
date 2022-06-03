@@ -11,18 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateRandomOrderId = exports.makeOrder = void 0;
 const exchange_1 = require("../exchange");
-const helpers_1 = require("../../contracts/helpers");
 const core_1 = require("@eversdk/core");
 const contracts_1 = require("../../contracts");
 const internals_1 = require("./internals");
+const web3_1 = require("../web3");
+const flex_1 = require("../flex");
 function makeOrder(flex, options) {
     var _a, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         const defaults = flex.config.trader.order;
-        const pair = yield flex.getAccount(contracts_1.XchgPairAccount, options.market);
+        const pair = yield flex.evr.accounts.get(contracts_1.XchgPairAccount, options.market);
         const flexAccount = yield flex.getFlexAccount();
         const pairDetails = (yield pair.getDetails()).output;
-        const wallet = yield (0, internals_1.getWallet)(flex, {
+        const wallet = yield (0, internals_1.getWallet)(flex.evr, {
             market: options.market,
             sell: options.sell,
             client: options.client,
@@ -30,11 +31,11 @@ function makeOrder(flex, options) {
         });
         const priceCode = (yield pair.getPriceXchgCode({ salted: false })).output.value0;
         const priceSalt = (yield pair.getPriceXchgSalt()).output.value0;
-        const amount = (0, helpers_1.amountToUnits)(options.amount, pairDetails.major_tip3cfg.decimals);
+        const amount = (0, web3_1.toUnits)(options.amount, pairDetails.major_tip3cfg.decimals);
         const orderId = options.orderId !== undefined
             ? options.orderId
-            : yield generateRandomOrderId(flex.web3);
-        const price = (0, helpers_1.priceToUnits)(options.price, pairDetails.price_denum);
+            : yield generateRandomOrderId(flex.evr);
+        const price = (0, flex_1.priceToUnits)(options.price, pairDetails.price_denum);
         const lend_balance = (yield flexAccount.calcLendTokensForOrder({
             sell: options.sell,
             major_tokens: amount,
@@ -65,7 +66,7 @@ function makeOrder(flex, options) {
                     order_id: orderId,
                 },
             });
-            flex.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
+            flex.evr.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
             return {
                 orderId: orderId.toString(),
                 transactionId: result.transaction.id,
@@ -113,9 +114,9 @@ function resolveError(original, context) {
     flexErr.originalError = original;
     return flexErr;
 }
-function generateRandomOrderId(web3) {
+function generateRandomOrderId(evr) {
     return __awaiter(this, void 0, void 0, function* () {
-        const result = yield web3.crypto.generate_random_bytes({
+        const result = yield evr.sdk.crypto.generate_random_bytes({
             length: 8,
         });
         return `0x${Buffer.from(result.bytes, "base64").toString("hex")}`;

@@ -1,12 +1,11 @@
 import { Flex } from "../flex";
 import { AccountOptionsEx } from "../../contracts/account-ex";
-import { Signer } from "@eversdk/core";
+import { SignerOption } from "../web3";
 export declare type DeployClientOptions = {
     everWallet: AccountOptionsEx;
-    signer: Signer | string;
+    signer: SignerOption;
+    transferEvers?: number;
+    deployEvers?: number;
 };
-export declare function deployClient(flex: Flex, options: DeployClientOptions): Promise<{
-    address: string;
-    signer: Signer;
-}>;
+export declare function deployClient(flex: Flex, options: DeployClientOptions): Promise<string>;
 //# sourceMappingURL=deploy-client.d.ts.map

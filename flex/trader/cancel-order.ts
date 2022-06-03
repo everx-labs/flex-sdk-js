@@ -1,5 +1,3 @@
-import { Flex } from "../flex";
-import { priceToUnits } from "../../contracts/helpers";
 import {
     FlexClientAccount, PriceXchgAccount,
     XchgPairAccount,
@@ -9,6 +7,8 @@ import {
 } from "./internals";
 import { PriceXchgGetDetailsOutput } from "../../contracts/generated/PriceXchgAccount";
 import { TraderOptions } from "./types";
+import { Web3Evr } from "../web3";
+import { priceToUnits } from "../flex";
 
 export type CancelOrderOptions = {
     client: string,
@@ -19,11 +19,11 @@ export type CancelOrderOptions = {
     evers?: bigint | number | string,
 };
 
-export async function cancelOrder(flex: Flex, options: CancelOrderOptions): Promise<void> {
-    const pair = await flex.getAccount(XchgPairAccount, options.market);
+export async function cancelOrder(evr: Web3Evr, options: CancelOrderOptions): Promise<void> {
+    const pair = await evr.accounts.get(XchgPairAccount, options.market);
     const pairDetails = (await pair.getDetails()).output;
     const price = priceToUnits(options.price, pairDetails.price_denum);
-    const priceDetails = await getPriceDetails(flex, options.client, pair, price.num);
+    const priceDetails = await getPriceDetails(evr, options.client, pair, price.num);
     let sell: boolean;
     if (findOrder(options.orderId, priceDetails.sells)) {
         sell = true;
@@ -32,7 +32,7 @@ export async function cancelOrder(flex: Flex, options: CancelOrderOptions): Prom
     } else {
         throw new Error(`Order ${options.orderId} not found in price ${priceDetails.address}.`);
     }
-    const wallet = await getWallet(flex, {
+    const wallet = await getWallet(evr, {
         market: options.market,
         sell,
         client: options.client,
@@ -55,18 +55,18 @@ function findOrder(id: number | string, orders: any[] | null | undefined): any |
 }
 
 async function getPriceDetails(
-    flex: Flex,
+    evr: Web3Evr,
     client: string,
     pair: XchgPairAccount,
     priceNum: string,
 ): Promise<PriceXchgGetDetailsOutput & { address: string }> {
     const saltedPriceCode = (await pair.getPriceXchgCode({ salted: true })).output.value0;
-    const clientAccount = await flex.getAccount(FlexClientAccount, client);
+    const clientAccount = await evr.accounts.get(FlexClientAccount, client);
     const address = (await clientAccount.getPriceXchgAddress({
         price_num: priceNum,
         salted_price_code: saltedPriceCode,
     })).output.value0;
-    const priceAccount = await flex.getAccount(PriceXchgAccount, address);
+    const priceAccount = await evr.accounts.get(PriceXchgAccount, address);
     const details = (await priceAccount.getDetails()).output;
     return {
         address,

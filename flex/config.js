@@ -10,7 +10,9 @@ var MakeOrderMode;
 })(MakeOrderMode = exports.MakeOrderMode || (exports.MakeOrderMode = {}));
 function defaultConfig() {
     return {
-        web3: core_1.TonClient.defaultConfig,
+        evr: {
+            sdk: core_1.TonClient.defaultConfig,
+        },
         trader: {
             deploy: {
                 eversAll: 40e9,

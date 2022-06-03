@@ -1,26 +1,10 @@
 import { FlexConfig } from "./config";
-import { Signer, TonClient } from "@eversdk/core";
-import { AccountOptionsEx, SignerRegistry } from "../contracts/account-ex";
-import { Log } from "../contracts/helpers";
 import { FlexAccount, GlobalConfigAccount, SuperRootAccount, UserDataConfigAccount } from "../contracts";
+import { Web3Evr } from "./web3";
 export declare class Flex {
     config: FlexConfig;
-    web3: TonClient;
-    signers: SignerRegistry;
-    log: Log;
-    private static _config;
-    private static _default;
-    static set default(flex: Flex);
-    static get default(): Flex;
-    static set config(config: Partial<FlexConfig>);
-    static get config(): FlexConfig;
-    constructor(config: FlexConfig);
-    getAccount<T>(accountClass: new (options: {
-        client: TonClient;
-        address?: string;
-        signer?: Signer;
-        log?: Log;
-    }) => T, options: string | AccountOptionsEx): Promise<T>;
+    evr: Web3Evr;
+    constructor(config: Partial<FlexConfig>);
     getSuperRootAccount(): Promise<SuperRootAccount>;
     getGlobalConfigAccount(): Promise<GlobalConfigAccount>;
     getFlexAccount(): Promise<FlexAccount>;
@@ -28,4 +12,8 @@ export declare class Flex {
     query(text: string): Promise<any>;
     close(): Promise<void>;
 }
+export declare function priceToUnits(price: number, denominator: string | number): {
+    num: string;
+    denum: string;
+};
 //# sourceMappingURL=flex.d.ts.map

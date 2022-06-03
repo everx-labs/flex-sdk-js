@@ -11,10 +11,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
-(0, examples_1.initExample)();
+const contracts_1 = require("../contracts");
+const contract_1 = require("../flex/web3/contract");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield flex_1.Flex.default.close();
+        const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
+        const acc = new contract_1.Contract(flex.evr, contracts_1.MultisigWalletAccount.package.abi);
+        yield acc.methods.acceptTransfer(1).call();
+        yield flex.close();
     }
     catch (err) {
         console.error(err);

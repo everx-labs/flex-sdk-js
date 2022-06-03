@@ -1,24 +1,29 @@
-import { Flex } from "../flex";
-import { initExample } from "./examples";
-import { deployExchange } from "../flex/exchange/deploy-exchange";
-
-initExample();
+import { Exchange, Flex } from "../flex";
+import { EXAMPLES_FLEX_CONFIG, examplesLog } from "./examples";
+import { LogLevel } from "../contracts/helpers";
 
 (async () => {
     try {
-        const flex = Flex.default;
-        const superRoot = await deployExchange(flex, {
-            signer: "flex-1",
-            everWallet: { signer: "flex-wallet" },
-            version: {
-                wallet: 1,
-                exchange: 1,
-                user: 1,
-            },
+        const flex = new Flex(EXAMPLES_FLEX_CONFIG);
+        flex.evr.log.level = LogLevel.DEBUG;
+        const signer = "flex-exchange";
+        const info = await Exchange.deploy(flex.evr, {
+            signer,
+            everWallet: { signer: "msig" },
+            tokenTypes: {
+                tip3: {
+                    wrapperSigner: signer,
+                    wrapperDeployerSigner: signer,
+                },
+                ever: {
+                    wrapperSigner: signer,
+                    wrapperDeployerSigner: signer,
+                }
+            }
         });
 
-        console.log(`Super Root: ${superRoot}}`);
-        await Flex.default.close();
+        examplesLog("Exchange", info);
+        await flex.close();
     } catch (err) {
         console.error(err);
         process.exit(1);

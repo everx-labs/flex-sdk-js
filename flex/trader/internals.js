@@ -11,19 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getWallet = void 0;
 const contracts_1 = require("../../contracts");
-function getWallet(flex, options) {
+function getWallet(evr, options) {
     return __awaiter(this, void 0, void 0, function* () {
-        const pair = yield flex.getAccount(contracts_1.XchgPairAccount, options.market);
+        const pair = yield evr.accounts.get(contracts_1.XchgPairAccount, options.market);
         const pairDetails = (yield pair.getDetails()).output;
-        const token = yield flex.getAccount(contracts_1.WrapperAccount, options.sell
+        const token = yield evr.accounts.get(contracts_1.WrapperAccount, options.sell
             ? pairDetails.major_tip3cfg.root_address
             : pairDetails.minor_tip3cfg.root_address);
-        const signer = yield flex.signers.resolve(options.trader.signer);
+        const signer = yield evr.signers.resolve(options.trader.signer);
         const address = (yield token.getWalletAddress({
             pubkey: `0x${options.trader}`,
             owner: options.client,
         })).output.value0;
-        return flex.getAccount(contracts_1.FlexWalletAccount, {
+        return evr.accounts.get(contracts_1.FlexWalletAccount, {
             address,
             signer,
         });

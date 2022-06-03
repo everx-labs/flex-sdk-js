@@ -1,4 +1,5 @@
-import { ClientConfig, TonClient } from "@eversdk/core";
+import { TonClient } from "@eversdk/core";
+import { Web3EvrConfig } from "./web3/index";
 
 export enum MakeOrderMode {
     /**
@@ -27,7 +28,7 @@ export enum MakeOrderMode {
 export type FlexConfig = {
     superRoot: string,
     globalConfig?: string,
-    web3?: ClientConfig,
+    evr?: Web3EvrConfig,
     trader: {
         deploy: {
             /**
@@ -71,9 +72,12 @@ export type FlexConfig = {
     }
 }
 
+/** @internal */
 export function defaultConfig(): FlexConfig {
     return {
-        web3: TonClient.defaultConfig,
+        evr: {
+            sdk: TonClient.defaultConfig,
+        },
         trader: {
             deploy: {
                 eversAll: 40e9,

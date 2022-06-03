@@ -11,22 +11,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
-const deploy_exchange_1 = require("../flex/exchange/deploy-exchange");
-(0, examples_1.initExample)();
+const helpers_1 = require("../contracts/helpers");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const flex = flex_1.Flex.default;
-        const superRoot = yield (0, deploy_exchange_1.deployExchange)(flex, {
-            signer: "flex-1",
-            everWallet: { signer: "flex-wallet" },
-            version: {
-                wallet: 1,
-                exchange: 1,
-                user: 1,
-            },
+        const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
+        flex.evr.log.level = helpers_1.LogLevel.DEBUG;
+        const signer = "flex-exchange";
+        const info = yield flex_1.Exchange.deploy(flex.evr, {
+            signer,
+            everWallet: { signer: "msig" },
+            tokenTypes: {
+                tip3: {
+                    wrapperSigner: signer,
+                    wrapperDeployerSigner: signer,
+                },
+                ever: {
+                    wrapperSigner: signer,
+                    wrapperDeployerSigner: signer,
+                }
+            }
         });
-        console.log(`Super Root: ${superRoot}}`);
-        yield flex_1.Flex.default.close();
+        (0, examples_1.examplesLog)("Exchange", info);
+        yield flex.close();
     }
     catch (err) {
         console.error(err);

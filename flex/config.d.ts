@@ -1,4 +1,4 @@
-import { ClientConfig } from "@eversdk/core";
+import { Web3EvrConfig } from "./web3/index";
 export declare enum MakeOrderMode {
     IOP = "IOP",
     IOC = "IOC",
@@ -7,7 +7,7 @@ export declare enum MakeOrderMode {
 export declare type FlexConfig = {
     superRoot: string;
     globalConfig?: string;
-    web3?: ClientConfig;
+    evr?: Web3EvrConfig;
     trader: {
         deploy: {
             eversAll: number;

@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.priceToUnits = exports.amountToUnits = exports.runLocalHelper = exports.deployHelper = exports.runHelper = exports.Log = exports.LogLevel = void 0;
+exports.runLocalHelper = exports.deployHelper = exports.runHelper = exports.Log = exports.LogLevel = void 0;
 var LogLevel;
 (function (LogLevel) {
     LogLevel[LogLevel["NONE"] = 0] = "NONE";
@@ -124,17 +124,4 @@ function runLocalHelper(account, fn, params) {
     });
 }
 exports.runLocalHelper = runLocalHelper;
-function amountToUnits(tokens, decimals = 9) {
-    return Math.floor(tokens * Math.pow(10, Number(decimals))).toString();
-}
-exports.amountToUnits = amountToUnits;
-function priceToUnits(price, denominator) {
-    const denom = Math.floor(Number(denominator));
-    const price_num = Math.floor(price * denom);
-    return {
-        num: price_num.toString(),
-        denum: denom.toString(),
-    };
-}
-exports.priceToUnits = priceToUnits;
 //# sourceMappingURL=helpers.js.map

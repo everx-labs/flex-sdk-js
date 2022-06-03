@@ -1,11 +1,11 @@
 import { TokenInfo } from "../token";
-import { Signer } from "@eversdk/core";
+import { SignerOption } from "../web3/signers";
 
 export type TraderOptions = {
     /** Trader device ID.  Ask Flex Client owner for your ID. */
     id: string,
     /** Private key you Trader will use to sign messages */
-    signer: Signer | string,
+    signer: SignerOption,
 };
 
 export type OrderInfo = {

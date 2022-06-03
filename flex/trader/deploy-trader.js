@@ -11,15 +11,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deployTrader = void 0;
 const contracts_1 = require("../../contracts");
-const account_ex_1 = require("../../contracts/account-ex");
 function deployTrader(flex, options) {
     var _a, _b, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
-        const clientAccount = yield flex.getAccount(contracts_1.FlexClientAccount, options.client);
+        const clientAccount = yield flex.evr.accounts.get(contracts_1.FlexClientAccount, options.client);
         const address = (yield clientAccount.getUserIdIndex({
             user_id: options.id,
         })).output.value0;
-        if (!(yield account_ex_1.AccountEx.isActive(address, flex.web3))) {
+        if (!(yield flex.evr.accounts.isActive(address))) {
             const defaults = flex.config.trader.deploy;
             yield clientAccount.runDeployIndex({
                 user_id: options.id,

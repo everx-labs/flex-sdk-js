@@ -1,11 +1,13 @@
-import { Flex } from "../flex";
-import { SuperRootAccount } from "../../contracts";
-import { DeployExchangeOptions } from "./deploy-exchange";
-import { TokenType } from "./add-token-type";
+import { DeployExchangeOptions, ExchangeInfo } from "./deploy-exchange";
+import { AddEverTokenTypeOptions, TokenTypeInfo, EverTokenTypeOptions } from "./ever-token-type";
+import { AddTip3TokenTypeOptions, Tip3TokenTypeOptions } from "./tip3-token-type";
+import { Web3Evr } from "../web3";
 export { MakeOrderMode, FlexConfig } from "../config";
 export { Flex } from "../flex";
-export { DeployExchangeOptions, TokenType };
+export { DeployExchangeOptions, AddEverTokenTypeOptions, ExchangeInfo, AddTip3TokenTypeOptions, EverTokenTypeOptions, Tip3TokenTypeOptions, TokenTypeInfo, };
 export declare class Exchange {
-    static deploy(flex: Flex, options: DeployExchangeOptions): Promise<SuperRootAccount>;
+    static deploy(web3: Web3Evr, options: DeployExchangeOptions): Promise<ExchangeInfo>;
+    static addEverTokenType(web3: Web3Evr, options: AddEverTokenTypeOptions): Promise<TokenTypeInfo>;
+    static addTip3TokenType(web3: Web3Evr, options: AddTip3TokenTypeOptions): Promise<TokenTypeInfo>;
 }
 //# sourceMappingURL=index.d.ts.map

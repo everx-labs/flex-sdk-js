@@ -1,12 +1,12 @@
-import { Flex } from "../flex";
-import { Signer } from "@eversdk/core";
 import { FlexWalletAccount } from "../../contracts";
-export declare function getWallet(flex: Flex, options: {
+import { Web3Evr } from "../web3";
+import { SignerOption } from "../web3/signers";
+export declare function getWallet(evr: Web3Evr, options: {
     market: string;
     client: string;
     trader: {
         id: string;
-        signer: Signer | string;
+        signer: SignerOption;
     };
     sell: boolean;
 }): Promise<FlexWalletAccount>;

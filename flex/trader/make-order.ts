@@ -1,6 +1,5 @@
 import { Flex, MakeOrderMode } from "../exchange";
-import { amountToUnits, priceToUnits } from "../../contracts/helpers";
-import { ProcessingErrorCode, TonClient, TvmErrorCode } from "@eversdk/core";
+import { ProcessingErrorCode, TvmErrorCode } from "@eversdk/core";
 import {
     XchgPairAccount,
 } from "../../contracts";
@@ -8,6 +7,8 @@ import {
     getWallet,
 } from "./internals";
 import { TraderOptions } from "./types";
+import { toUnits, Web3Evr } from "../web3";
+import { priceToUnits } from "../flex";
 
 export type MakeOrderOptions = {
     client: string;
@@ -46,11 +47,11 @@ export type NewOrderInfo = {
 /** @internal */
 export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<NewOrderInfo> {
     const defaults = flex.config.trader.order;
-    const pair = await flex.getAccount(XchgPairAccount, options.market);
+    const pair = await flex.evr.accounts.get(XchgPairAccount, options.market);
     const flexAccount = await flex.getFlexAccount();
 
     const pairDetails = (await pair.getDetails()).output;
-    const wallet = await getWallet(flex, {
+    const wallet = await getWallet(flex.evr, {
         market: options.market,
         sell: options.sell,
         client: options.client,
@@ -58,10 +59,10 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
     });
     const priceCode = (await pair.getPriceXchgCode({ salted: false })).output.value0;
     const priceSalt = (await pair.getPriceXchgSalt()).output.value0;
-    const amount = amountToUnits(options.amount, pairDetails.major_tip3cfg.decimals);
+    const amount = toUnits(options.amount, pairDetails.major_tip3cfg.decimals);
     const orderId = options.orderId !== undefined
         ? options.orderId
-        : await generateRandomOrderId(flex.web3);
+        : await generateRandomOrderId(flex.evr);
     const price = priceToUnits(options.price, pairDetails.price_denum);
     const lend_balance = (await flexAccount.calcLendTokensForOrder({
         sell: options.sell,
@@ -97,7 +98,7 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
                 order_id: orderId,
             },
         });
-        flex.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
+        flex.evr.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
         return {
             orderId: orderId.toString(),
             transactionId: result.transaction.id,
@@ -156,8 +157,8 @@ function resolveError(original: Error & {
     return flexErr;
 }
 
-export async function generateRandomOrderId(web3: TonClient): Promise<string> {
-    const result = await web3.crypto.generate_random_bytes({
+export async function generateRandomOrderId(evr: Web3Evr): Promise<string> {
+    const result = await evr.sdk.crypto.generate_random_bytes({
         length: 8,
     });
     return `0x${Buffer.from(result.bytes, "base64").toString("hex")}`;

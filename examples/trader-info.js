@@ -12,18 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
 const flex_2 = require("../flex");
-(0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const flex = flex_1.Flex.default;
-        (0, examples_1.log)("Trader Orders", yield flex_2.Trader.queryOrders(flex, examples_1.CONFIG.trader.id));
-        (0, examples_1.log)("Trader Trades", yield flex_2.Trader.queryTrades(flex, examples_1.CONFIG.trader.id));
-        (0, examples_1.log)("Trader Wallets", yield flex_2.Trader.queryWallets(flex, {
+        const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
+        (0, examples_1.examplesLog)("Trader Orders", yield flex_2.Trader.queryOrders(flex, examples_1.CONFIG.trader.id));
+        (0, examples_1.examplesLog)("Trader Trades", yield flex_2.Trader.queryTrades(flex, examples_1.CONFIG.trader.id));
+        (0, examples_1.examplesLog)("Trader Wallets", yield flex_2.Trader.queryWallets(flex, {
             client: examples_1.CONFIG.trader.client,
             trader: examples_1.CONFIG.trader.id,
         }));
-        (0, examples_1.log)("Client Wallets", yield flex_2.Trader.queryWallets(flex, { client: examples_1.CONFIG.trader.client }));
-        yield flex_1.Flex.default.close();
+        (0, examples_1.examplesLog)("Client Wallets", yield flex_2.Trader.queryWallets(flex, { client: examples_1.CONFIG.trader.client }));
+        yield flex.close();
     }
     catch (err) {
         console.error(err);

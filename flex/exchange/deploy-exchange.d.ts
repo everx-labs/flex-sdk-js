@@ -1,15 +1,14 @@
-import { Flex } from "../flex";
 import { AccountOptionsEx } from "../../contracts/account-ex";
-import { SuperRootAccount } from "../../contracts";
-import { Signer } from "@eversdk/core";
-import { TokenType } from "./add-token-type";
+import { EverTokenTypeOptions, TokenTypeInfo } from "./ever-token-type";
+import { Tip3TokenTypeOptions } from "./tip3-token-type";
+import { SignerOption, Web3Evr } from "../web3";
 export declare type DeployExchangeOptions = {
     everWallet: AccountOptionsEx;
-    signer: Signer | string;
-    version: {
-        wallet: 1;
-        exchange: 1;
-        user: 1;
+    signer: SignerOption;
+    version?: {
+        wallet: number;
+        exchange: number;
+        user: number;
     };
     superRootOwnerEvers?: number;
     superRootEvers?: number;
@@ -41,7 +40,20 @@ export declare type DeployExchangeOptions = {
         };
         dealsLimit: number;
     };
-    tokenTypes?: TokenType[];
+    tokenTypes?: {
+        ever?: EverTokenTypeOptions;
+        tip3?: Tip3TokenTypeOptions;
+    };
 };
-export declare function deployExchange(flex: Flex, options: DeployExchangeOptions): Promise<SuperRootAccount>;
+export declare type ExchangeInfo = {
+    superRootOwner: string;
+    superRoot: string;
+    wrappersConfig: string;
+    flex: string;
+    tokenTypes: {
+        ever?: TokenTypeInfo;
+        tip3?: TokenTypeInfo;
+    };
+};
+export declare function deployExchange(web3: Web3Evr, options: DeployExchangeOptions): Promise<ExchangeInfo>;
 //# sourceMappingURL=deploy-exchange.d.ts.map

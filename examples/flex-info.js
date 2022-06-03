@@ -13,15 +13,14 @@ const flex_1 = require("../flex");
 const examples_1 = require("./examples");
 const flex_2 = require("../flex");
 const flex_3 = require("../flex");
-(0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const flex = flex_1.Flex.default;
-        (0, examples_1.log)("Tokens", yield flex_2.Token.queryTokens(flex));
-        (0, examples_1.log)("Markets", yield flex_3.Market.queryMarkets(flex));
-        (0, examples_1.log)("Market Order Book", yield flex_3.Market.queryOrderBook(flex, examples_1.CONFIG.market));
-        (0, examples_1.log)("Market Price", yield flex_3.Market.queryPrice(flex, examples_1.CONFIG.market));
-        yield flex_1.Flex.default.close();
+        const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
+        (0, examples_1.examplesLog)("Tokens", yield flex_2.Token.queryTokens(flex));
+        (0, examples_1.examplesLog)("Markets", yield flex_3.Market.queryMarkets(flex));
+        (0, examples_1.examplesLog)("Market Order Book", yield flex_3.Market.queryOrderBook(flex, examples_1.CONFIG.market));
+        (0, examples_1.examplesLog)("Market Price", yield flex_3.Market.queryPrice(flex, examples_1.CONFIG.market));
+        yield flex.close();
     }
     catch (err) {
         console.error(err);

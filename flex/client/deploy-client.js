@@ -10,38 +10,41 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deployClient = void 0;
-const account_ex_1 = require("../../contracts/account-ex");
 const contracts_1 = require("../../contracts");
-const ever_wallet_1 = require("../ever-wallet");
+const web3_1 = require("../web3");
+const DEFAULTS = {
+    transferEvers: 55,
+    deployEvers: 50,
+};
 function deployClient(flex, options) {
+    var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
-        const everWallet = new ever_wallet_1.EverWallet(options.everWallet, flex);
-        const signer = yield flex.signers.resolve(options.signer);
-        const publicKey = yield flex.signers.publicKey(signer);
+        const everWallet = new web3_1.EverWallet(flex.evr, options.everWallet);
+        const signer = yield flex.evr.signers.resolve(options.signer);
+        const publicKey = yield flex.evr.signers.publicKey(signer);
         const userConfig = yield flex.getUserConfigAccount();
         const pubkey = `0x${publicKey}`;
         const address = (yield userConfig.getFlexClientAddr({
             pubkey,
         })).output.value0;
-        const isActive = yield account_ex_1.AccountEx.isActive(address, flex.web3);
+        const isActive = yield flex.evr.accounts.isActive(address);
         if (!isActive) {
+            const transferEvers = (_a = options.transferEvers) !== null && _a !== void 0 ? _a : DEFAULTS.transferEvers;
+            const deployEvers = (_b = options.deployEvers) !== null && _b !== void 0 ? _b : DEFAULTS.deployEvers;
             yield everWallet.transfer({
                 dest: yield userConfig.getAddress(),
-                value: 55e9,
+                value: (0, web3_1.toUnits)(transferEvers + deployEvers),
                 messageBody: {
                     abi: contracts_1.UserDataConfigAccount.package.abi,
                     fn: "deployFlexClient",
                     params: {
                         pubkey,
-                        deploy_evers: 50e9,
+                        deploy_evers: (0, web3_1.toUnits)(deployEvers),
                     },
                 },
             });
         }
-        return {
-            address,
-            signer,
-        };
+        return address;
     });
 }
 exports.deployClient = deployClient;

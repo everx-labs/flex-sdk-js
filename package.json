@@ -2,13 +2,13 @@
 	"name": "flex-sdk-js",
 	"version": "0.2.0",
 	"scripts": {
-		"docs": "typedoc flex/index.ts --excludePrivate --excludeProtected --excludeInternal --out docs"
+		"docs": "typedoc --options typedoc.js"
 	},
 	"devDependencies": {
 		"@types/node": "^14.14.31",
-		"typescript": "^4.6.4",
 		"jest": "^28.1.0",
-		"typedoc": "^0.22.11"
+		"typedoc": "^0.22.17",
+		"typescript": "^4.6.4"
 	},
 	"dependencies": {
 		"@eversdk/core": "^1.33.1",

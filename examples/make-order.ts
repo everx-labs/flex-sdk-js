@@ -1,13 +1,11 @@
 import { Flex, Trader } from "../flex";
-import { CONFIG, initExample } from "./examples";
+import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
 import { LogLevel } from "../contracts/helpers";
-
-initExample();
 
 (async () => {
     try {
-        const flex = Flex.default;
-        flex.log.level = LogLevel.DEBUG;
+        const flex = new Flex(EXAMPLES_FLEX_CONFIG);
+        flex.evr.log.level = LogLevel.DEBUG;
 
         await Trader.makeOrder(
             flex,
@@ -21,7 +19,7 @@ initExample();
             },
         );
 
-        await Flex.default.close();
+        await flex.close();
     } catch (err) {
         console.error(err);
         process.exit(1);

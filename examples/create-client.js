@@ -11,11 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
-(0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const flex = flex_1.Flex.default;
-        const client = yield flex_1.Client.deploy(flex, {
+        const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
+        const clientAddress = yield flex_1.Client.deploy(flex, {
             everWallet: {
                 address: "0:b4da2773b3566c8799ff8292bb1058662d143556a7ac8a129c481a38657cbd33",
                 signer: "msig",
@@ -23,13 +22,16 @@ const examples_1 = require("./examples");
             signer: "flex-client-1",
         });
         yield flex_1.Trader.deploy(flex, {
-            client,
+            client: {
+                address: clientAddress,
+                signer: "flex-client-2",
+            },
             id: examples_1.CONFIG.trader.id,
             name: "Trader 1",
-            pubkey: yield flex_1.Flex.default.signers.resolvePublicKey(examples_1.CONFIG.trader.signer),
+            pubkey: yield flex.evr.signers.resolvePublicKey(examples_1.CONFIG.trader.signer),
         });
-        console.log(`Client: ${client.address}}`);
-        yield flex_1.Flex.default.close();
+        console.log(`Client: ${clientAddress}}`);
+        yield flex.close();
     }
     catch (err) {
         console.error(err);

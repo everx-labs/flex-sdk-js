@@ -1,4 +1,7 @@
-import { Signer } from "@eversdk/core";
+/**
+ * @module client
+ */
+
 import { TokenInfo } from "../token";
 import { Flex } from "../flex";
 import { DeployClientOptions } from "./deploy-client";
@@ -61,7 +64,7 @@ export class Client {
     static async deploy(
         flex: Flex,
         options: DeployClientOptions,
-    ): Promise<{ address: string, signer: Signer }> {
+    ): Promise<string> {
         return await deployClient(flex, options);
     }
 

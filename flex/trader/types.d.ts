@@ -1,8 +1,8 @@
 import { TokenInfo } from "../token";
-import { Signer } from "@eversdk/core";
+import { SignerOption } from "../web3/signers";
 export declare type TraderOptions = {
     id: string;
-    signer: Signer | string;
+    signer: SignerOption;
 };
 export declare type OrderInfo = {
     orderId: string;

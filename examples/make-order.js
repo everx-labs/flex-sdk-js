@@ -12,11 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
 const helpers_1 = require("../contracts/helpers");
-(0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const flex = flex_1.Flex.default;
-        flex.log.level = helpers_1.LogLevel.DEBUG;
+        const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
+        flex.evr.log.level = helpers_1.LogLevel.DEBUG;
         yield flex_1.Trader.makeOrder(flex, {
             client: examples_1.CONFIG.trader.client,
             trader: examples_1.CONFIG.trader,
@@ -25,7 +24,7 @@ const helpers_1 = require("../contracts/helpers");
             price: 2.6,
             amount: 18,
         });
-        yield flex_1.Flex.default.close();
+        yield flex.close();
     }
     catch (err) {
         console.error(err);
