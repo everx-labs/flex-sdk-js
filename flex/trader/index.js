@@ -29,7 +29,7 @@ const cancel_order_1 = require("./cancel-order");
 const query_1 = require("./query");
 const deploy_trader_1 = require("./deploy-trader");
 const deploy_ever_wallet_1 = require("./deploy-ever-wallet");
-const deploy_tip3_wallet_1 = require("./deploy-tip3-wallet");
+const deploy_tip31_wallet_1 = require("./deploy-tip31-wallet");
 __exportStar(require("./types"), exports);
 class Trader {
     static deploy(flex, options) {
@@ -42,9 +42,9 @@ class Trader {
             return yield (0, deploy_ever_wallet_1.deployTraderEverWallet)(flex, options);
         });
     }
-    static deployTip3Wallet(flex, options) {
+    static deployTip31Wallet(flex, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, deploy_tip3_wallet_1.deployTraderTip3Wallet)(flex, options);
+            return yield (0, deploy_tip31_wallet_1.deployTraderTip31Wallet)(flex, options);
         });
     }
     static makeOrder(flex, options) {

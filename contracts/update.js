@@ -70,8 +70,30 @@ function update(client, sources) {
             "../tokens/fungible/WrapperEver",
             "../tokens/fungible/WrapperDeployerTip3",
             "../tokens/fungible/WrapperDeployerEver",
-            { relPath: "../tokens/fungible/WrapperBroxus", name: "WrapperTip31" },
-            { relPath: "../tokens/fungible/WrapperDeployerBroxus", name: "WrapperDeployerTip31" },
+            {
+                relPath: "../tokens/fungible/broxus/contracts/TokenRoot",
+                name: "Tip31Root",
+            },
+            {
+                relPath: "../tokens/fungible/broxus/contracts/TokenWallet",
+                name: "Tip31Wallet",
+            },
+            {
+                relPath: "../tokens/fungible/WrapperDeployerBroxus",
+                name: "Tip31WrapperDeployer",
+            },
+            {
+                relPath: "../tokens/fungible/WrapperBroxus",
+                name: "Tip31Wrapper",
+            },
+            {
+                relPath: "../tokens/fungible/broxus/contracts/additional/TokenFactory",
+                name: "Tip31Factory",
+            },
+            {
+                relPath: "../tokens/fungible/broxus/contracts/TokenFactoryBuilder",
+                name: "Tip31FactoryBuilder",
+            },
             "../../solidity/multisig/MultisigWallet",
             "immutable/SuperRoot",
             "immutable/GlobalConfig",

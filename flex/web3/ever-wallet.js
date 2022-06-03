@@ -21,15 +21,17 @@ class EverWallet {
     transfer(options) {
         return __awaiter(this, void 0, void 0, function* () {
             const account = yield this.getAccount();
-            const payload = (yield this.evr.sdk.abi.encode_message_body({
-                abi: (0, core_1.abiContract)(options.messageBody.abi),
-                call_set: {
-                    function_name: options.messageBody.fn,
-                    input: Object.assign({ _answer_id: 0 }, options.messageBody.params),
-                },
-                is_internal: true,
-                signer: (0, core_1.signerNone)(),
-            })).body;
+            const payload = typeof options.payload === "string"
+                ? options.payload
+                : (yield this.evr.sdk.abi.encode_message_body({
+                    abi: (0, core_1.abiContract)(options.payload.abi),
+                    call_set: {
+                        function_name: options.payload.fn,
+                        input: Object.assign({ _answer_id: 0 }, options.payload.params),
+                    },
+                    is_internal: true,
+                    signer: (0, core_1.signerNone)(),
+                })).body;
             yield account.runSubmitTransaction({
                 dest: options.dest,
                 allBalance: false,

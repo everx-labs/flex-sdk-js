@@ -14,10 +14,9 @@ import {
     EverWalletInfo,
 } from "./deploy-ever-wallet";
 import {
-    deployTraderTip3Wallet,
-    DeployTraderTip3WalletOptions,
-    Tip3WalletInfo,
-} from "./deploy-tip3-wallet";
+    deployTraderTip31Wallet,
+    DeployTraderTip31WalletOptions,
+} from "./deploy-tip31-wallet";
 
 export * from "./types";
 export {
@@ -26,11 +25,10 @@ export {
     NewOrderInfo,
     CancelOrderOptions,
     QueryWalletsOptions,
-    DeployTraderTip3WalletOptions,
+    DeployTraderTip31WalletOptions,
     DeployTraderEverWalletOptions,
     WalletInfo,
     EverWalletInfo,
-    Tip3WalletInfo,
 };
 
 export class Trader {
@@ -45,11 +43,11 @@ export class Trader {
         return await deployTraderEverWallet(flex, options);
     }
 
-    static async deployTip3Wallet(
+    static async deployTip31Wallet(
         flex: Flex,
-        options: DeployTraderTip3WalletOptions,
-    ): Promise<Tip3WalletInfo> {
-        return await deployTraderTip3Wallet(flex, options);
+        options: DeployTraderTip31WalletOptions,
+    ): Promise<string> {
+        return await deployTraderTip31Wallet(flex, options);
     }
 
     /**

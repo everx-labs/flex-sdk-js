@@ -36,7 +36,7 @@ export async function deployClient(
         await everWallet.transfer({
             dest: await userConfig.getAddress(),
             value: toUnits(transferEvers + deployEvers),
-            messageBody: {
+            payload: {
                 abi: UserDataConfigAccount.package.abi,
                 fn: "deployFlexClient",
                 params: {

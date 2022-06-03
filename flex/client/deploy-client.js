@@ -34,7 +34,7 @@ function deployClient(flex, options) {
             yield everWallet.transfer({
                 dest: yield userConfig.getAddress(),
                 value: (0, web3_1.toUnits)(transferEvers + deployEvers),
-                messageBody: {
+                payload: {
                     abi: contracts_1.UserDataConfigAccount.package.abi,
                     fn: "deployFlexClient",
                     params: {

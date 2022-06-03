@@ -31,7 +31,7 @@ function deployTraderEverWallet(flex, options) {
         yield everWallet.transfer({
             dest: options.wrapper,
             value: (0, web3_1.toUnits)(options.tokens + evers),
-            messageBody: {
+            payload: {
                 abi: contracts_1.WrapperAccount.package.abi,
                 fn: "onEverTransfer",
                 params: {

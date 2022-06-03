@@ -4,10 +4,10 @@ import { AccountOptionsEx } from "../../contracts/account-ex";
 import { Evr } from "./evr";
 import { toUnits } from "./utils";
 
-export type SubmitTransactionOptions = {
+export type TransferOptions = {
     dest: string,
     value: string | number | bigint,
-    messageBody: {
+    payload: string | {
         abi: AbiContract,
         fn: string,
         params: object
@@ -23,20 +23,22 @@ export class EverWallet {
         this.options = options;
     }
 
-    async transfer(options: SubmitTransactionOptions) {
+    async transfer(options: TransferOptions) {
         const account = await this.getAccount();
-        const payload = (await this.evr.sdk.abi.encode_message_body({
-            abi: abiContract(options.messageBody.abi),
-            call_set: {
-                function_name: options.messageBody.fn,
-                input: {
-                    _answer_id: 0,
-                    ...options.messageBody.params,
+        const payload = typeof options.payload === "string"
+            ? options.payload
+            : (await this.evr.sdk.abi.encode_message_body({
+                abi: abiContract(options.payload.abi),
+                call_set: {
+                    function_name: options.payload.fn,
+                    input: {
+                        _answer_id: 0,
+                        ...options.payload.params,
+                    },
                 },
-            },
-            is_internal: true,
-            signer: signerNone(),
-        })).body;
+                is_internal: true,
+                signer: signerNone(),
+            })).body;
         await account.runSubmitTransaction({
             dest: options.dest,
             allBalance: false,

@@ -4,7 +4,7 @@
 import { Log, LogLevel } from "../../contracts/helpers";
 import { EvrAccounts } from "./accounts";
 import { EvrSigners, SignerOption } from "./signers";
-import { EverWallet, SubmitTransactionOptions } from "./ever-wallet";
+import { EverWallet, TransferOptions } from "./ever-wallet";
 import { EvrConfig, Evr } from "./evr";
 import { toUnits, uint256 } from "./utils";
 
@@ -15,7 +15,7 @@ export {
     LogLevel,
     SignerOption,
     EverWallet,
-    SubmitTransactionOptions,
+    TransferOptions,
     Evr,
     EvrConfig,
     toUnits,

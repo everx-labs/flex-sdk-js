@@ -61,7 +61,7 @@ export async function deployTraderEverWallet(
     await everWallet.transfer({
         dest: options.wrapper,
         value: toUnits(options.tokens + evers),
-        messageBody: {
+        payload: {
             abi: WrapperAccount.package.abi,
             fn: "onEverTransfer",
             params: {
