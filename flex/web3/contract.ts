@@ -1,5 +1,5 @@
 import { AbiContract, AbiFunction } from "@eversdk/core";
-import { Web3Evr } from "./index";
+import { Web3Evr } from "./evr";
 
 export class ContractFunction {
     constructor(

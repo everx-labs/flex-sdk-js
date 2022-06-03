@@ -1,4 +1,4 @@
-import { SignerOption } from "../flex/web3/signers";
+import { SignerOption } from "../flex";
 
 export type AccountOptionsEx = {
     address: string,

@@ -1,5 +1,5 @@
 import { TonClient } from "@eversdk/core";
-import { Web3EvrConfig } from "./web3/index";
+import { Web3EvrConfig } from "./web3";
 
 export enum MakeOrderMode {
     /**

@@ -1,5 +1,5 @@
 import { TokenInfo } from "../token";
-import { SignerOption } from "../web3/signers";
+import { SignerOption } from "../web3";
 
 export type TraderOptions = {
     /** Trader device ID.  Ask Flex Client owner for your ID. */
