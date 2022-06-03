@@ -11,13 +11,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
-const contracts_1 = require("../contracts");
-const contract_1 = require("../flex/web3/contract");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
-        const acc = new contract_1.Contract(flex.evr, contracts_1.MultisigWalletAccount.package.abi);
-        yield acc.methods.acceptTransfer(1).call();
+        yield flex_1.Trader.deployTip31Wallet(flex, {
+            client: examples_1.CONFIG.trader.client,
+            trader: examples_1.CONFIG.trader.id,
+            tokenWrapper: "token-wrapper-address",
+            tokenWrapperWallet: "token-wrapper-wallet",
+            tokenWallet: "token-wallet",
+            tokenUnits: "100000",
+            everWallet: { signer: "msig " },
+        });
+        yield flex_1.Trader.deployEverWallet(flex, {
+            client: examples_1.CONFIG.trader.client,
+            trader: examples_1.CONFIG.trader.id,
+            tokens: 100000,
+            wrapper: "wrapper-address",
+            everWallet: { signer: "msig " },
+        });
         yield flex.close();
     }
     catch (err) {
