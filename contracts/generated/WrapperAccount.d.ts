@@ -49,6 +49,7 @@ export declare type WrapperBurnInput = {
     sender_owner?: string;
     out_pubkey: string | number | bigint;
     out_owner?: string;
+    notify?: string;
 };
 export declare type WrapperTransferFromReserveWalletInput = {
     answer_addr?: string;
@@ -86,6 +87,7 @@ export declare type WrapperGetDetailsOutput = {
     reserve_wallet: string;
     super_root: string;
     cloned?: string;
+    type_id: number;
 };
 export declare type WrapperGetTip3ConfigOutput = {
     name: string;
@@ -106,9 +108,6 @@ export declare type WrapperGetWalletAddressOutput = {
 };
 export declare type WrapperGetReserveWalletOutput = {
     value0: string;
-};
-export declare type WrapperGetTestValueOutput = {
-    value0: number;
 };
 export declare class WrapperAccount extends Account {
     static package: ContractPackageEx;
@@ -227,15 +226,6 @@ export declare class WrapperAccount extends Account {
     getReserveWallet(): Promise<{
         transaction: Transaction;
         output: WrapperGetReserveWalletOutput;
-    }>;
-    runGetTestValue(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperGetTestValueOutput;
-    }>;
-    getTestValue(): Promise<{
-        transaction: Transaction;
-        output: WrapperGetTestValueOutput;
     }>;
 }
 //# sourceMappingURL=WrapperAccount.d.ts.map

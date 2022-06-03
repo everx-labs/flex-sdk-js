@@ -48,9 +48,4 @@ export declare function runLocalHelper<O>(account: Account & {
     transaction: Transaction;
     output: O;
 }>;
-export declare function amountToUnits(tokens: number, decimals: string | number): string;
-export declare function priceToUnits(price: number, denominator: string | number): {
-    num: string;
-    denum: string;
-};
 //# sourceMappingURL=helpers.d.ts.map

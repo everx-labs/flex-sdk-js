@@ -18,28 +18,30 @@ const core_1 = require("@eversdk/core");
 const lib_node_1 = require("@eversdk/lib-node");
 const codegen_1 = require("./codegen");
 core_1.TonClient.useBinaryLibrary(lib_node_1.libNode);
-function update(client, relPaths) {
+function update(client, sources) {
     return __awaiter(this, void 0, void 0, function* () {
         let index = "";
-        for (const relPath of relPaths) {
+        for (const source of sources) {
+            const relPath = typeof source === "string" ? source : source.relPath;
             const sourcePath = path_1.default.resolve(__dirname, "../../ton-contracts/cpp/freetrade", path_1.default.dirname(relPath));
-            const sourceName = path_1.default.basename(relPath);
-            let abiPath = path_1.default.resolve(sourcePath, `${sourceName}.abi`);
+            const fileName = path_1.default.basename(relPath);
+            let abiPath = path_1.default.resolve(sourcePath, `${fileName}.abi`);
             if (!fs_1.default.existsSync(abiPath)) {
-                abiPath = path_1.default.resolve(sourcePath, `${sourceName}.abi.json`);
+                abiPath = path_1.default.resolve(sourcePath, `${fileName}.abi.json`);
             }
-            const tvcPath = path_1.default.resolve(sourcePath, `${sourceName}.tvc`);
+            const tvcPath = path_1.default.resolve(sourcePath, `${fileName}.tvc`);
             const abi = JSON.parse(fs_1.default.readFileSync(abiPath, "utf8"));
             const tvc = fs_1.default.readFileSync(tvcPath, "base64");
+            const name = typeof source === "string" ? fileName : source.name;
             const gen = yield (0, codegen_1.genContractCode)(client, {
-                name: sourceName,
+                name,
                 abi,
                 tvc,
             });
             const contracts = (0, codegen_1.contractCodeHeader)({ hasDeploy: gen.hasDeploy }) +
                 gen.code;
-            index += `export { ${sourceName}Account } from "./${sourceName}Account";\n`;
-            fs_1.default.writeFileSync(path_1.default.resolve(__dirname, "generated", `${sourceName}Account.ts`), contracts, "utf8");
+            index += `export { ${name}Account } from "./${name}Account";\n`;
+            fs_1.default.writeFileSync(path_1.default.resolve(__dirname, "generated", `${name}Account.ts`), contracts, "utf8");
         }
         fs_1.default.writeFileSync(path_1.default.resolve(__dirname, "generated", `index.ts`), index, "utf8");
     });
@@ -68,6 +70,30 @@ function update(client, relPaths) {
             "../tokens/fungible/WrapperEver",
             "../tokens/fungible/WrapperDeployerTip3",
             "../tokens/fungible/WrapperDeployerEver",
+            {
+                relPath: "../tokens/fungible/broxus/contracts/TokenRoot",
+                name: "Tip31Root",
+            },
+            {
+                relPath: "../tokens/fungible/broxus/contracts/TokenWallet",
+                name: "Tip31Wallet",
+            },
+            {
+                relPath: "../tokens/fungible/WrapperDeployerBroxus",
+                name: "Tip31WrapperDeployer",
+            },
+            {
+                relPath: "../tokens/fungible/WrapperBroxus",
+                name: "Tip31Wrapper",
+            },
+            {
+                relPath: "../tokens/fungible/broxus/contracts/additional/TokenFactory",
+                name: "Tip31Factory",
+            },
+            {
+                relPath: "../tokens/fungible/broxus/contracts/TokenFactoryBuilder",
+                name: "Tip31FactoryBuilder",
+            },
             "../../solidity/multisig/MultisigWallet",
             "immutable/SuperRoot",
             "immutable/GlobalConfig",

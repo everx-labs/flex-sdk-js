@@ -1,28 +1,28 @@
-import { Client, Flex, Trader } from "../flex";
+import { Flex } from "../flex";
 import {
-    CONFIG,
-    initExample,
-    log,
+    CONFIG, EXAMPLES_FLEX_CONFIG,
+    examplesLog,
 } from "./examples";
-
-initExample();
-
+import { Trader } from "../flex";
 
 (async () => {
     try {
-        const client = new Client({ address: CONFIG.trader1.client });
-        const trader = new Trader({
-            client,
-            id: CONFIG.trader1.id,
-            signer: CONFIG.trader1.signer,
-        });
+        const flex = new Flex(EXAMPLES_FLEX_CONFIG);
 
-        log("Trader Orders", await trader.queryOrders());
-        log("Trader Trades", await trader.queryTrades());
-        log("Trader Wallets", await trader.queryWallets());
-        log("Client Wallets", await client.queryWallets());
+        examplesLog("Trader Orders", await Trader.queryOrders(flex, CONFIG.trader.id));
+        examplesLog("Trader Trades", await Trader.queryTrades(flex, CONFIG.trader.id));
+        examplesLog(
+            "Trader Wallets",
+            await Trader.queryWallets(flex,
+                {
+                    client: CONFIG.trader.client,
+                    trader: CONFIG.trader.id,
+                },
+            ),
+        );
+        examplesLog("Client Wallets", await Trader.queryWallets(flex, { client: CONFIG.trader.client }));
 
-        await Flex.default.close();
+        await flex.close();
     } catch (err) {
         console.error(err);
         process.exit(1);

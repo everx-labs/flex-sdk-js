@@ -1,12 +1,5 @@
-import { Flex, FlexBoundLazy } from "./flex";
-import { XchgPairAccount } from "../contracts";
+import { Flex } from "./flex";
 import { TokenInfo } from "./token";
-export declare type MarketOptions = {
-    address: string;
-};
-declare type MarketState = {
-    pair: XchgPairAccount;
-};
 export declare type MarketInfo = {
     address: string;
     ticker: string;
@@ -27,13 +20,10 @@ export declare type OrderBookItem = {
     price: number;
     amount: number;
 };
-export declare class Market extends FlexBoundLazy<MarketOptions, MarketState> {
-    protected createState(options: MarketOptions): Promise<MarketState>;
-    static resolve(from: Market | MarketOptions | string, flex?: Flex): Market;
-    queryOrderBook(): Promise<OrderBookInfo>;
-    queryPrice(): Promise<number | null>;
-    static queryMarkets(flex?: Flex): Promise<MarketInfo[]>;
+export declare class Market {
+    static queryOrderBook(flex: Flex, market: string): Promise<OrderBookInfo>;
+    static queryPrice(flex: Flex, market: string): Promise<number | null>;
+    static queryMarkets(flex: Flex): Promise<MarketInfo[]>;
     static queryFields(): string;
 }
-export {};
 //# sourceMappingURL=market.d.ts.map

@@ -10,27 +10,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
-const flex_2 = require("../flex");
-const flex_3 = require("../flex");
 const examples_1 = require("./examples");
-(0, examples_1.initExample)();
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const everWallet = new flex_3.EverWallet({
-            address: "0:b4da2773b3566c8799ff8292bb1058662d143556a7ac8a129c481a38657cbd33",
-            signer: "msig",
+        const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
+        yield flex_1.Trader.deployTip31Wallet(flex, {
+            client: examples_1.CONFIG.trader.client,
+            trader: examples_1.CONFIG.trader.id,
+            tokenWrapper: "token-wrapper-address",
+            tokenWrapperWallet: "token-wrapper-wallet",
+            tokenWallet: "token-wallet",
+            tokenUnits: "100000",
+            everWallet: { signer: "msig " },
         });
-        const client = yield flex_2.Client.deploy({
-            everWallet,
-            signer: "flex-client-1",
+        yield flex_1.Trader.deployEverWallet(flex, {
+            client: examples_1.CONFIG.trader.client,
+            trader: examples_1.CONFIG.trader.id,
+            tokens: 100000,
+            wrapper: "wrapper-address",
+            everWallet: { signer: "msig " },
         });
-        yield client.deployTrader({
-            id: examples_1.CONFIG.trader1.id,
-            name: "Trader 1",
-            pubkey: yield flex_1.Flex.default.signers.resolvePublicKey(examples_1.CONFIG.trader1.signer),
-        });
-        console.log(`Client: ${yield (yield client.getState()).account.getAddress()}`);
-        yield flex_1.Flex.default.close();
+        yield flex.close();
     }
     catch (err) {
         console.error(err);

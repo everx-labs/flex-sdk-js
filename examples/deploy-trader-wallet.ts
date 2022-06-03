@@ -1,28 +1,30 @@
-import { Flex } from "../flex";
-import { Client } from "../flex";
-import { EverWallet } from "../flex";
-import { CONFIG, initExample } from "./examples";
+import { Flex, Trader } from "../flex";
+import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
 
-initExample();
 
 (async () => {
     try {
-        const everWallet = new EverWallet({
-            address: "0:b4da2773b3566c8799ff8292bb1058662d143556a7ac8a129c481a38657cbd33",
-            signer: "msig",
-        });
-        const client = await Client.deploy({
-            everWallet,
-            signer: "flex-client-1",
-        });
-        await client.deployTrader({
-            id: CONFIG.trader1.id,
-            name: "Trader 1",
-            pubkey: await Flex.default.signers.resolvePublicKey(CONFIG.trader1.signer),
+        const flex = new Flex(EXAMPLES_FLEX_CONFIG);
+
+        await Trader.deployTip31Wallet(flex, {
+            client: CONFIG.trader.client,
+            trader: CONFIG.trader.id,
+            tokenWrapper: "token-wrapper-address",
+            tokenWrapperWallet: "token-wrapper-wallet",
+            tokenWallet: "token-wallet",
+            tokenUnits: "100000",
+            everWallet: { signer: "msig " },
         });
 
-        console.log(`Client: ${await (await client.getState()).account.getAddress()}`);
-        await Flex.default.close();
+        await Trader.deployEverWallet(flex, {
+            client: CONFIG.trader.client,
+            trader: CONFIG.trader.id,
+            tokens: 100000,
+            wrapper: "wrapper-address",
+            everWallet: { signer: "msig " },
+        });
+
+        await flex.close();
     } catch (err) {
         console.error(err);
         process.exit(1);
