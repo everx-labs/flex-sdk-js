@@ -14,10 +14,14 @@ const examples_1 = require("./examples");
 const helpers_1 = require("../contracts/helpers");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
-        flex.evr.log.level = helpers_1.LogLevel.DEBUG;
+        const evr = new flex_1.Evr({
+            sdk: {
+                network: { endpoints: ["http://localhost"] },
+            },
+        });
+        evr.log.level = helpers_1.LogLevel.DEBUG;
         const signer = "flex-exchange";
-        const info = yield flex_1.Exchange.deploy(flex.evr, {
+        const info = yield flex_1.Exchange.deploy(evr, {
             signer,
             everWallet: { signer: "msig" },
             tokenTypes: {
@@ -28,11 +32,11 @@ const helpers_1 = require("../contracts/helpers");
                 ever: {
                     wrapperSigner: signer,
                     wrapperDeployerSigner: signer,
-                }
-            }
+                },
+            },
         });
         (0, examples_1.examplesLog)("Exchange", info);
-        yield flex.close();
+        yield evr.close();
     }
     catch (err) {
         console.error(err);

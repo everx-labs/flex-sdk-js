@@ -6,7 +6,7 @@ export declare type DeployTraderTip31WalletOptions = {
     tokenWallet: string;
     tokenWrapper: string;
     tokenWrapperWallet: string;
-    tokens: number;
+    tokenUnits: string;
     everWallet: AccountOptionsEx;
     transferEvers?: number;
     evers?: number;

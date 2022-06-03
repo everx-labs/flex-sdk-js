@@ -1,13 +1,17 @@
-import { Exchange, Flex } from "../flex";
-import { EXAMPLES_FLEX_CONFIG, examplesLog } from "./examples";
+import { Evr, Exchange } from "../flex";
+import { examplesLog } from "./examples";
 import { LogLevel } from "../contracts/helpers";
 
 (async () => {
     try {
-        const flex = new Flex(EXAMPLES_FLEX_CONFIG);
-        flex.evr.log.level = LogLevel.DEBUG;
+        const evr = new Evr({
+            sdk: {
+                network: { endpoints: ["http://localhost"] },
+            },
+        });
+        evr.log.level = LogLevel.DEBUG;
         const signer = "flex-exchange";
-        const info = await Exchange.deploy(flex.evr, {
+        const info = await Exchange.deploy(evr, {
             signer,
             everWallet: { signer: "msig" },
             tokenTypes: {
@@ -18,12 +22,12 @@ import { LogLevel } from "../contracts/helpers";
                 ever: {
                     wrapperSigner: signer,
                     wrapperDeployerSigner: signer,
-                }
-            }
+                },
+            },
         });
 
         examplesLog("Exchange", info);
-        await flex.close();
+        await evr.close();
     } catch (err) {
         console.error(err);
         process.exit(1);

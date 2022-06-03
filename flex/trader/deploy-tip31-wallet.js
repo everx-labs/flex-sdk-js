@@ -12,14 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deployTraderTip31Wallet = void 0;
 const contracts_1 = require("../../contracts");
 const web3_1 = require("../web3");
-const Tip3WalletAccount_1 = require("../../contracts/generated/Tip3WalletAccount");
 const DEFAULTS = {
-    transferEvers: 7,
+    transferEvers: 30,
     evers: 15,
     keepEvers: 12,
 };
 function deployTraderTip31Wallet(flex, options) {
-    var _a, _b;
+    var _a, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         const pubkey = (0, web3_1.uint256)(options.trader);
         const client = yield flex.evr.accounts.get(contracts_1.FlexClientAccount, options.client);
@@ -34,13 +33,13 @@ function deployTraderTip31Wallet(flex, options) {
         const everWallet = new web3_1.EverWallet(flex.evr, options.everWallet);
         yield everWallet.transfer({
             dest: options.tokenWallet,
-            value: (0, web3_1.toUnits)(30),
+            value: (0, web3_1.toUnits)((_c = options.transferEvers) !== null && _c !== void 0 ? _c : DEFAULTS.transferEvers),
             payload: {
-                abi: Tip3WalletAccount_1.Tip3WalletAccount.package.abi,
+                abi: contracts_1.Tip31WalletAccount.package.abi,
                 fn: "transferToWallet",
                 params: {
                     _answer_id: 0,
-                    amount: 100000e2,
+                    amount: options.tokenUnits,
                     recipientTokenWallet: options.tokenWrapperWallet,
                     remainingGasTo: yield everWallet.getAddress(),
                     notify: true,
