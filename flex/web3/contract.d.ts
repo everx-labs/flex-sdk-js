@@ -1,20 +1,20 @@
 import { AbiContract, AbiFunction } from "@eversdk/core";
-import { Web3Evr } from "./index";
+import { Evr } from "./evr";
 export declare class ContractFunction {
-    evr: Web3Evr;
+    evr: Evr;
     abi: AbiContract;
     fn: AbiFunction;
     params: any;
-    constructor(evr: Web3Evr, abi: AbiContract, fn: AbiFunction, params: any);
+    constructor(evr: Evr, abi: AbiContract, fn: AbiFunction, params: any);
     call(): Promise<any>;
     process(): Promise<any>;
 }
 export declare class Contract {
-    evr: Web3Evr;
+    evr: Evr;
     abi: AbiContract;
     methods: {
         [name: string]: (params: any) => ContractFunction;
     };
-    constructor(evr: Web3Evr, abi: AbiContract);
+    constructor(evr: Evr, abi: AbiContract);
 }
 //# sourceMappingURL=contract.d.ts.map

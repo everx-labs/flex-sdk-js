@@ -1,16 +1,16 @@
 import { ClientConfig, TonClient } from "@eversdk/core";
-import { Web3EvrSigners } from "./signers";
-import { Web3EvrAccounts } from "./accounts";
+import { EvrSigners } from "./signers";
+import { EvrAccounts } from "./accounts";
 import { Log } from "../../contracts/helpers";
-export declare type Web3EvrConfig = {
+export declare type EvrConfig = {
     sdk: ClientConfig;
 };
-export declare class Web3Evr {
+export declare class Evr {
     sdk: TonClient;
-    signers: Web3EvrSigners;
-    accounts: Web3EvrAccounts;
+    signers: EvrSigners;
+    accounts: EvrAccounts;
     log: Log;
-    constructor(config?: Web3EvrConfig);
+    constructor(config?: EvrConfig);
     close(): Promise<void>;
 }
 //# sourceMappingURL=evr.d.ts.map

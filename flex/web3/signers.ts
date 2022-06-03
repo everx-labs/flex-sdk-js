@@ -5,7 +5,7 @@ import fs from "fs";
 
 export type SignerOption = Signer | string;
 
-export class Web3EvrSigners {
+export class EvrSigners {
     registry = new Map<string, Signer>();
 
     constructor(public crypto: CryptoModule) {

@@ -1,5 +1,5 @@
 import { TonClient } from "@eversdk/core";
-import { Web3EvrConfig } from "./web3";
+import { EvrConfig } from "./web3";
 
 export enum MakeOrderMode {
     /**
@@ -28,7 +28,7 @@ export enum MakeOrderMode {
 export type FlexConfig = {
     superRoot: string,
     globalConfig?: string,
-    evr?: Web3EvrConfig,
+    evr?: EvrConfig,
     trader: {
         deploy: {
             /**

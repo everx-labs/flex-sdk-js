@@ -7,7 +7,7 @@ import {
 } from "./internals";
 import { PriceXchgGetDetailsOutput } from "../../contracts/generated/PriceXchgAccount";
 import { TraderOptions } from "./types";
-import { Web3Evr } from "../web3";
+import { Evr } from "../web3";
 import { priceToUnits } from "../flex";
 
 export type CancelOrderOptions = {
@@ -19,7 +19,7 @@ export type CancelOrderOptions = {
     evers?: bigint | number | string,
 };
 
-export async function cancelOrder(evr: Web3Evr, options: CancelOrderOptions): Promise<void> {
+export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<void> {
     const pair = await evr.accounts.get(XchgPairAccount, options.market);
     const pairDetails = (await pair.getDetails()).output;
     const price = priceToUnits(options.price, pairDetails.price_denum);
@@ -55,7 +55,7 @@ function findOrder(id: number | string, orders: any[] | null | undefined): any |
 }
 
 async function getPriceDetails(
-    evr: Web3Evr,
+    evr: Evr,
     client: string,
     pair: XchgPairAccount,
     priceNum: string,

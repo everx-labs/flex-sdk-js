@@ -1,6 +1,6 @@
 import { Flex, MakeOrderMode } from "../exchange";
 import { TraderOptions } from "./types";
-import { Web3Evr } from "../web3";
+import { Evr } from "../web3";
 export declare type MakeOrderOptions = {
     client: string;
     trader: TraderOptions;
@@ -18,5 +18,5 @@ export declare type NewOrderInfo = {
     transactionId: string;
 };
 export declare function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<NewOrderInfo>;
-export declare function generateRandomOrderId(evr: Web3Evr): Promise<string>;
+export declare function generateRandomOrderId(evr: Evr): Promise<string>;
 //# sourceMappingURL=make-order.d.ts.map

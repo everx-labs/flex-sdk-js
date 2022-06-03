@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Web3EvrAccounts = void 0;
+exports.EvrAccounts = void 0;
 const core_1 = require("@eversdk/core");
 const appkit_1 = require("@eversdk/appkit");
-class Web3EvrAccounts {
+class EvrAccounts {
     constructor(everos, signers, log) {
         this.everos = everos;
         this.signers = signers;
@@ -87,5 +87,5 @@ class Web3EvrAccounts {
         });
     }
 }
-exports.Web3EvrAccounts = Web3EvrAccounts;
+exports.EvrAccounts = EvrAccounts;
 //# sourceMappingURL=accounts.js.map

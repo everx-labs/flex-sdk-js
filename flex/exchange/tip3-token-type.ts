@@ -7,7 +7,7 @@ import {
 } from "../../contracts";
 import { AccountOptionsEx } from "../../contracts/account-ex";
 import { TokenTypeInfo } from "./ever-token-type";
-import { EverWallet, SignerOption, toUnits, Web3Evr } from "../web3";
+import { EverWallet, SignerOption, toUnits, Evr } from "../web3";
 
 export const TIP3_TOKEN_TYPE = 0;
 export type Tip3TokenTypeOptions = {
@@ -43,7 +43,7 @@ const DEFAULTS = {
 
 /** @internal */
 export async function addTip3TokenType(
-    web3: Web3Evr,
+    web3: Evr,
     options: AddTip3TokenTypeOptions,
 ): Promise<TokenTypeInfo> {
     const deployer = await web3.accounts.get(WrapperDeployerTip3Account, {

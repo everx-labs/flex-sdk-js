@@ -1,6 +1,6 @@
 import { CryptoModule, Signer } from "@eversdk/core";
 export declare type SignerOption = Signer | string;
-export declare class Web3EvrSigners {
+export declare class EvrSigners {
     crypto: CryptoModule;
     registry: Map<string, Signer>;
     constructor(crypto: CryptoModule);

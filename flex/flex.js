@@ -16,7 +16,7 @@ const web3_1 = require("./web3");
 class Flex {
     constructor(config) {
         this.config = Object.assign(Object.assign({}, (0, config_1.defaultConfig)()), config);
-        this.evr = new web3_1.Web3Evr(config.evr);
+        this.evr = new web3_1.Evr(config.evr);
     }
     getSuperRootAccount() {
         return __awaiter(this, void 0, void 0, function* () {

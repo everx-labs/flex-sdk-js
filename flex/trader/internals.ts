@@ -3,11 +3,11 @@ import {
     WrapperAccount,
     XchgPairAccount,
 } from "../../contracts";
-import { Web3Evr, SignerOption } from "../web3";
+import { Evr, SignerOption } from "../web3";
 
 /** @internal */
 export async function getWallet(
-    evr: Web3Evr,
+    evr: Evr,
     options: {
         market: string,
         client: string,

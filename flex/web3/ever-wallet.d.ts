@@ -1,6 +1,6 @@
 import { AbiContract } from "@eversdk/core";
 import { AccountOptionsEx } from "../../contracts/account-ex";
-import { Web3Evr } from "./evr";
+import { Evr } from "./evr";
 export declare type SubmitTransactionOptions = {
     dest: string;
     value: string | number | bigint;
@@ -11,9 +11,9 @@ export declare type SubmitTransactionOptions = {
     };
 };
 export declare class EverWallet {
-    evr: Web3Evr;
+    evr: Evr;
     options: AccountOptionsEx;
-    constructor(web3: Web3Evr, options: AccountOptionsEx);
+    constructor(web3: Evr, options: AccountOptionsEx);
     transfer(options: SubmitTransactionOptions): Promise<void>;
     topUp(address: string, evers: number): Promise<void>;
     getAddress(): Promise<string>;

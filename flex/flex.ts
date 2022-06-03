@@ -5,7 +5,7 @@ import {
     SuperRootAccount,
     UserDataConfigAccount,
 } from "../contracts";
-import { Web3Evr } from "./web3";
+import { Evr } from "./web3";
 
 export class Flex {
     /**
@@ -15,14 +15,14 @@ export class Flex {
     /**
      * Web3 instance
      */
-    evr: Web3Evr;
+    evr: Evr;
 
     constructor(config: Partial<FlexConfig>) {
         this.config = {
             ...defaultConfig(),
             ...config,
         };
-        this.evr = new Web3Evr(config.evr);
+        this.evr = new Evr(config.evr);
     }
 
 

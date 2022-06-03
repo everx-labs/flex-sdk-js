@@ -1,5 +1,5 @@
 import { TokenInfo } from "../token";
-import { SignerOption } from "../web3/signers";
+import { SignerOption } from "../web3";
 export declare type TraderOptions = {
     id: string;
     signer: SignerOption;

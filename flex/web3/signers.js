@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Web3EvrSigners = void 0;
+exports.EvrSigners = void 0;
 const core_1 = require("@eversdk/core");
 const path_1 = __importDefault(require("path"));
 const os_1 = __importDefault(require("os"));
 const fs_1 = __importDefault(require("fs"));
-class Web3EvrSigners {
+class EvrSigners {
     constructor(crypto) {
         this.crypto = crypto;
         this.registry = new Map();
@@ -85,5 +85,5 @@ class Web3EvrSigners {
         });
     }
 }
-exports.Web3EvrSigners = Web3EvrSigners;
+exports.EvrSigners = EvrSigners;
 //# sourceMappingURL=signers.js.map

@@ -1,7 +1,7 @@
 import { AccountOptionsEx } from "../../contracts/account-ex";
 import { EverTokenTypeOptions, TokenTypeInfo } from "./ever-token-type";
 import { Tip3TokenTypeOptions } from "./tip3-token-type";
-import { SignerOption, Web3Evr } from "../web3";
+import { SignerOption, Evr } from "../web3";
 export declare type DeployExchangeOptions = {
     everWallet: AccountOptionsEx;
     signer: SignerOption;
@@ -55,5 +55,5 @@ export declare type ExchangeInfo = {
         tip3?: TokenTypeInfo;
     };
 };
-export declare function deployExchange(web3: Web3Evr, options: DeployExchangeOptions): Promise<ExchangeInfo>;
+export declare function deployExchange(web3: Evr, options: DeployExchangeOptions): Promise<ExchangeInfo>;
 //# sourceMappingURL=deploy-exchange.d.ts.map

@@ -22,7 +22,7 @@ import {
 } from "../../contracts/generated/SuperRootOwnerAccount";
 import { addEverTokenType, EverTokenTypeOptions, TokenTypeInfo } from "./ever-token-type";
 import { addTip3TokenType, Tip3TokenTypeOptions } from "./tip3-token-type";
-import { EverWallet, SignerOption, toUnits, Web3Evr } from "../web3";
+import { EverWallet, SignerOption, toUnits, Evr } from "../web3";
 
 export type DeployExchangeOptions = {
     everWallet: AccountOptionsEx,
@@ -125,7 +125,7 @@ export type ExchangeInfo = {
 
 /** @internal */
 export async function deployExchange(
-    web3: Web3Evr,
+    web3: Evr,
     options: DeployExchangeOptions,
 ): Promise<ExchangeInfo> {
     const superRootOwnerAddress = await deploySuperRootOwner(web3, options);
@@ -235,7 +235,7 @@ function flexConfig(exchangeOptions: DeployExchangeOptions): SuperRootOwnerDeplo
 }
 
 async function deploySuperRootOwner(
-    web3: Web3Evr,
+    web3: Evr,
     options: DeployExchangeOptions,
 ): Promise<string> {
     const pubkey = await web3.signers.resolvePublicKey(options.signer);

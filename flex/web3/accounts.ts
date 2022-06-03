@@ -8,10 +8,10 @@ import {
 import { Log } from "../../contracts/helpers";
 import { AccountOptionsEx } from "../../contracts/account-ex";
 import { AccountType } from "@eversdk/appkit";
-import { Web3EvrSigners } from "./signers";
+import { EvrSigners } from "./signers";
 
-export class Web3EvrAccounts {
-    constructor(public everos: TonClient, public signers: Web3EvrSigners, public log: Log) {
+export class EvrAccounts {
+    constructor(public everos: TonClient, public signers: EvrSigners, public log: Log) {
     }
 
     async get<T>(

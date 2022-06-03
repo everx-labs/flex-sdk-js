@@ -1,13 +1,13 @@
 import { ClientConfig, TonClient } from "@eversdk/core";
-import { Web3EvrSigners } from "./signers";
-import { Web3EvrAccounts } from "./accounts";
+import { EvrSigners } from "./signers";
+import { EvrAccounts } from "./accounts";
 import { Log } from "../../contracts/helpers";
 
-export type Web3EvrConfig = {
+export type EvrConfig = {
     sdk: ClientConfig,
 }
 
-export class Web3Evr {
+export class Evr {
     /**
      * EverOS SDK Modules
      */
@@ -16,19 +16,19 @@ export class Web3Evr {
     /**
      * Secrets used to sign messages sent to Flex Dex
      */
-    signers: Web3EvrSigners;
+    signers: EvrSigners;
 
-    accounts: Web3EvrAccounts;
+    accounts: EvrAccounts;
 
     /**
      * Log object.
      */
     log = Log.default;
 
-    constructor(config?: Web3EvrConfig) {
+    constructor(config?: EvrConfig) {
         this.sdk = new TonClient(config?.sdk);
-        this.signers = new Web3EvrSigners(this.sdk.crypto);
-        this.accounts = new Web3EvrAccounts(this.sdk, this.signers, this.log);
+        this.signers = new EvrSigners(this.sdk.crypto);
+        this.accounts = new EvrAccounts(this.sdk, this.signers, this.log);
     }
 
     async close() {

@@ -1,12 +1,12 @@
 import { AbiContract, Signer, TonClient, TransactionNode } from "@eversdk/core";
 import { Log } from "../../contracts/helpers";
 import { AccountOptionsEx } from "../../contracts/account-ex";
-import { Web3EvrSigners } from "./signers";
-export declare class Web3EvrAccounts {
+import { EvrSigners } from "./signers";
+export declare class EvrAccounts {
     everos: TonClient;
-    signers: Web3EvrSigners;
+    signers: EvrSigners;
     log: Log;
-    constructor(everos: TonClient, signers: Web3EvrSigners, log: Log);
+    constructor(everos: TonClient, signers: EvrSigners, log: Log);
     get<T>(accountClass: new (options: {
         client: TonClient;
         address?: string;

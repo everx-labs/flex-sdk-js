@@ -1,6 +1,6 @@
 import { AccountOptionsEx } from "../../contracts/account-ex";
 import { TokenTypeInfo } from "./ever-token-type";
-import { SignerOption, Web3Evr } from "../web3";
+import { SignerOption, Evr } from "../web3";
 export declare const TIP3_TOKEN_TYPE = 0;
 export declare type Tip3TokenTypeOptions = {
     wrapperSigner: SignerOption;
@@ -20,5 +20,5 @@ export declare type AddTip3TokenTypeOptions = {
     superRoot: string;
     wrappersConfigAddress: string;
 } & Tip3TokenTypeOptions;
-export declare function addTip3TokenType(web3: Web3Evr, options: AddTip3TokenTypeOptions): Promise<TokenTypeInfo>;
+export declare function addTip3TokenType(web3: Evr, options: AddTip3TokenTypeOptions): Promise<TokenTypeInfo>;
 //# sourceMappingURL=tip3-token-type.d.ts.map

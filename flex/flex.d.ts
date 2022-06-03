@@ -1,9 +1,9 @@
 import { FlexConfig } from "./config";
 import { FlexAccount, GlobalConfigAccount, SuperRootAccount, UserDataConfigAccount } from "../contracts";
-import { Web3Evr } from "./web3";
+import { Evr } from "./web3";
 export declare class Flex {
     config: FlexConfig;
-    evr: Web3Evr;
+    evr: Evr;
     constructor(config: Partial<FlexConfig>);
     getSuperRootAccount(): Promise<SuperRootAccount>;
     getGlobalConfigAccount(): Promise<GlobalConfigAccount>;

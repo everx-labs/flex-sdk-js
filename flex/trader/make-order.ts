@@ -7,7 +7,7 @@ import {
     getWallet,
 } from "./internals";
 import { TraderOptions } from "./types";
-import { toUnits, Web3Evr } from "../web3";
+import { toUnits, Evr } from "../web3";
 import { priceToUnits } from "../flex";
 
 export type MakeOrderOptions = {
@@ -157,7 +157,7 @@ function resolveError(original: Error & {
     return flexErr;
 }
 
-export async function generateRandomOrderId(evr: Web3Evr): Promise<string> {
+export async function generateRandomOrderId(evr: Evr): Promise<string> {
     const result = await evr.sdk.crypto.generate_random_bytes({
         length: 8,
     });

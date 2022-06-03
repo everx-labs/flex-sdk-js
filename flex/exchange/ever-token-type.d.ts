@@ -1,5 +1,5 @@
 import { AccountOptionsEx } from "../../contracts/account-ex";
-import { Web3Evr, SignerOption } from "../web3";
+import { Evr, SignerOption } from "../web3";
 export declare const EVER_TOKEN_TYPE = 1;
 export declare type EverTokenTypeOptions = {
     wrapperSigner: SignerOption;
@@ -21,5 +21,5 @@ export declare type AddEverTokenTypeOptions = {
 export declare type TokenTypeInfo = {
     deployer: string;
 };
-export declare function addEverTokenType(web3: Web3Evr, options: AddEverTokenTypeOptions): Promise<TokenTypeInfo>;
+export declare function addEverTokenType(web3: Evr, options: AddEverTokenTypeOptions): Promise<TokenTypeInfo>;
 //# sourceMappingURL=ever-token-type.d.ts.map

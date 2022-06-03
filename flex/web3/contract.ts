@@ -1,9 +1,9 @@
 import { AbiContract, AbiFunction } from "@eversdk/core";
-import { Web3Evr } from "./evr";
+import { Evr } from "./evr";
 
 export class ContractFunction {
     constructor(
-        public evr: Web3Evr,
+        public evr: Evr,
         public abi: AbiContract,
         public fn: AbiFunction,
         public params: any,
@@ -23,7 +23,7 @@ export class ContractFunction {
 export class Contract {
     methods: { [name: string]: (params: any) => ContractFunction } = {};
 
-    constructor(public evr: Web3Evr, public abi: AbiContract) {
+    constructor(public evr: Evr, public abi: AbiContract) {
         for (const fn of abi.functions ?? []) {
             this.methods[fn.name] = (params) => new ContractFunction(evr, abi, fn, params);
         }

@@ -1,7 +1,6 @@
 import { FlexWalletAccount } from "../../contracts";
-import { Web3Evr } from "../web3";
-import { SignerOption } from "../web3/signers";
-export declare function getWallet(evr: Web3Evr, options: {
+import { Evr, SignerOption } from "../web3";
+export declare function getWallet(evr: Evr, options: {
     market: string;
     client: string;
     trader: {

@@ -1,7 +1,7 @@
 import { MultisigWalletAccount } from "../../contracts";
 import { abiContract, AbiContract, signerNone } from "@eversdk/core";
 import { AccountOptionsEx } from "../../contracts/account-ex";
-import { Web3Evr } from "./evr";
+import { Evr } from "./evr";
 import { toUnits } from "./utils";
 
 export type SubmitTransactionOptions = {
@@ -15,10 +15,10 @@ export type SubmitTransactionOptions = {
 }
 
 export class EverWallet {
-    evr: Web3Evr;
+    evr: Evr;
     options: AccountOptionsEx;
 
-    constructor(web3: Web3Evr, options: AccountOptionsEx) {
+    constructor(web3: Evr, options: AccountOptionsEx) {
         this.evr = web3;
         this.options = options;
     }
