@@ -1,0 +1,32 @@
+{
+	"name": "flex-trader-tests",
+	"version": "0.1.0",
+	"description": "FLEX Trading Tests",
+	"main": "index.js",
+	"types": "index.d.ts",
+	"scripts": {
+		"tsc": "tsc",
+		"prepublishOnly": "npm i && tsc",
+		"pretier": "prettier --write '**/*.ts' 'types/**/*.ts'",
+		"eslint": "eslint . --ext .ts",
+		"eslint-fix": "eslint . --ext .ts --fix"
+	},
+	"publishConfig": {
+		"access": "private"
+	},
+	"devDependencies": {
+		"@types/node": "^14",
+		"@typescript-eslint/eslint-plugin": "^5.21.0",
+		"@typescript-eslint/parser": "^5.21.0",
+		"eslint": "^8.14.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"prettier": "^2.6.2",
+		"typescript": "^4.6.4"
+	},
+	"dependencies": {
+		"commander": "^9.2.0",
+		"fasy": "^9.0.0",
+		"pm2": "^5.2.0"
+	}
+}

@@ -43,5 +43,6 @@
 		"cli/*.ts",
 		"examples/*.ts",
 		"tests/*.ts",
+		"tests/perf/*.ts"
 	]
 }

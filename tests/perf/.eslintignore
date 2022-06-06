@@ -1,0 +1,5 @@
+/node_modules
+# build artefacts
+**/*.js
+# data definition files
+**/*.d.ts
