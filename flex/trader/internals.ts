@@ -24,9 +24,8 @@ export async function getWallet(
         ? pairDetails.major_tip3cfg.root_address
         : pairDetails.minor_tip3cfg.root_address);
     const signer = await evr.signers.resolve(options.trader.signer);
-    const traderPublicKey = await evr.signers.resolvePublicKey(options.trader.signer);
     const address = (await token.getWalletAddress({
-        pubkey: `0x${traderPublicKey}`,
+        pubkey: `0x${options.trader.id}`,
         owner: options.client,
     })).output.value0;
     return evr.accounts.get(FlexWalletAccount, {
