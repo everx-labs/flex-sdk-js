@@ -19,8 +19,9 @@ function getWallet(evr, options) {
             ? pairDetails.major_tip3cfg.root_address
             : pairDetails.minor_tip3cfg.root_address);
         const signer = yield evr.signers.resolve(options.trader.signer);
+        const traderPublicKey = yield evr.signers.resolvePublicKey(options.trader.signer);
         const address = (yield token.getWalletAddress({
-            pubkey: `0x${options.trader}`,
+            pubkey: `0x${traderPublicKey}`,
             owner: options.client,
         })).output.value0;
         return evr.accounts.get(contracts_1.FlexWalletAccount, {

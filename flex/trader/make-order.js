@@ -62,7 +62,7 @@ function makeOrder(flex, options) {
                     post_order: mode === exchange_1.MakeOrderMode.IOP || mode === exchange_1.MakeOrderMode.POST,
                     amount,
                     client_addr: options.client,
-                    user_id: "0x" + options.trader,
+                    user_id: "0x" + options.trader.id,
                     order_id: orderId,
                 },
             });

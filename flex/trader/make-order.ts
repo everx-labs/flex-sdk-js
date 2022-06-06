@@ -94,7 +94,7 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
                 post_order: mode === MakeOrderMode.IOP || mode === MakeOrderMode.POST,
                 amount,
                 client_addr: options.client,
-                user_id: "0x" + options.trader,
+                user_id: "0x" + options.trader.id,
                 order_id: orderId,
             },
         });
