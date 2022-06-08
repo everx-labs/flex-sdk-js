@@ -41,14 +41,6 @@ export type CancelOrderOptions = {
  
 };
 
-/**
- * Cancels Trader's order(s) on Flex
- * @param evr 
- * DEX blockchain data instance
- * @param options 
- * Parameters 
- * 
- */
 export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<void> {
     const pair = await evr.accounts.get(XchgPairAccount, options.market);
     const pairDetails = (await pair.getDetails()).output;

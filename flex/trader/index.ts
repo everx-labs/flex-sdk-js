@@ -31,7 +31,16 @@ export {
     EverWalletInfo,
 };
 
+
 export class Trader {
+    /**
+     * Deploys Trader's Index contract, that is used to pay gas
+     * @param flex 
+     * DEX instance
+     * @param options 
+     * Paramerers
+     * @returns 
+     */
     static async deploy(flex: Flex, options: DeployTraderOptions): Promise<void> {
         return await deployTrader(flex, options);
     }
