@@ -1,6 +1,7 @@
 import { FlexClientAccount } from "../../contracts";
 import { AccountOptionsEx } from "../../contracts/account-ex";
 import { Flex } from "../flex";
+import { uint256 } from "../web3";
 
 export type DeployTraderOptions = {
     client: AccountOptionsEx,
@@ -15,14 +16,15 @@ export type DeployTraderOptions = {
 
 export async function deployTrader(flex: Flex, options: DeployTraderOptions): Promise<void> {
     const clientAccount = await flex.evr.accounts.get(FlexClientAccount, options.client);
+    const userId = uint256(options.id);
     const address = (await clientAccount.getUserIdIndex({
-        user_id: options.id,
+        user_id: userId,
     })).output.value0;
     if (!(await flex.evr.accounts.isActive(address))) {
         const defaults = flex.config.trader.deploy;
         await clientAccount.runDeployIndex({
-            user_id: options.id,
-            lend_pubkey: options.pubkey,
+            user_id: userId,
+            lend_pubkey: uint256(options.pubkey),
             name: options.name,
             evers_all: options.eversAll ?? defaults.eversAll,
             evers_to_auth_idx: options.eversAuth ?? defaults.eversAuth,
