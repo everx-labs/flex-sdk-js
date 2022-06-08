@@ -5,32 +5,33 @@ import { EverWallet, toUnits, uint256 } from "../web3";
 
 export type DeployTraderEverWalletOptions = {
     /**
-     * Multisig wallet that act as a sponsor for wallet deploying.
+     * Multisig EVER wallet from which EVERs are deposited on Trader's wallet on DEX
      */
     everWallet: AccountOptionsEx,
     /**
-     * FLEX client address
+     * Flex Client contract address
      */
     client: string,
     /**
-     * FLEX trader
+     * Trader ID. uint256 hex string.
      */
     trader: string,
     /**
-     * Ever Token wrapper address
+     * EVER wrapper (that also acts as EVER Vault) address
      */
     wrapper: string,
     /**
-     * Ever wallet token balance
+     * Amount of EVERs to deposit
      */
     tokens: number,
 
     /**
-     * TODO: Evers that will be sent to ever wallet
+     * TODO: Total fees for deposit
      */
     evers?: number,
     /**
-     * TODO: Evers that must be kept on ever wallet
+     * Minimum amount of EVERs on DEX wallet. If balance drops below this amount, 
+     * wallet is topped-up from Trader's Index wallet.
      */
     keepEvers?: number,
 }

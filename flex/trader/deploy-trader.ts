@@ -4,10 +4,24 @@ import { Flex } from "../flex";
 import { uint256 } from "../web3";
 
 export type DeployTraderOptions = {
+    /**
+     * 
+     */
     client: AccountOptionsEx,
+    /**
+     * Trader's ID. uint256 hex string, can be generated randomly or by some
+     * algorithms by the DEX integrator.
+     */
     id: string,
+    /**
+     * Trader's name. Can be any.
+     */
     name: string,
+    /**
+     * Trader's pubkey from signing key pair which Trader generates on his own. 
+     */
     pubkey: string,
+    
     eversAll?: string | number | bigint;
     eversAuth?: string | number | bigint;
     refillWallet?: string | number | bigint;

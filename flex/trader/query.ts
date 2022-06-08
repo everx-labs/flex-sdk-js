@@ -39,8 +39,15 @@ export async function queryTrades(flex: Flex, trader: string): Promise<TradeInfo
 }
 
 export type QueryWalletsOptions = {
+
     client: string,
+    /**
+     * Trader ID as uint256 hex string
+     */
     trader?: string,
+    /**
+     * Token DEX Wrapper address
+     */
     token?: string,
 }
 

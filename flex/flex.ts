@@ -13,7 +13,7 @@ export class Flex {
      */
     config: FlexConfig;
     /**
-     * Web3 instance
+     * Dex Config
      */
     evr: Evr;
 

@@ -38,13 +38,24 @@ export class Trader {
      * @param flex 
      * DEX instance
      * @param options 
-     * Paramerers
+     * Deploy paramerers
      * @returns 
      */
     static async deploy(flex: Flex, options: DeployTraderOptions): Promise<void> {
         return await deployTrader(flex, options);
     }
 
+    /**
+     * Deposits EVERs on DEX Trader's wallet.
+     * Transfers EVERs from Client's Ever Wallet to a Trader's wallet on DEX.
+     * 
+     * @param flex 
+     * DEX instance
+     * @param options 
+     * Deposit parameters
+     * @returns 
+     * Address of the DEX Trader's wallet
+     */
     static async deployEverWallet(
         flex: Flex,
         options: DeployTraderEverWalletOptions,
@@ -52,6 +63,15 @@ export class Trader {
         return await deployTraderEverWallet(flex, options);
     }
 
+    /**
+     * Deposits TIP-31 tokens on DEX Trader's wallet 
+     * @param flex 
+     * DEX instance
+     * @param options 
+     * Deposit parameters
+     * @returns 
+     * Address of the DEX Trader's wallet
+     */
     static async deployTip31Wallet(
         flex: Flex,
         options: DeployTraderTip31WalletOptions,
@@ -59,33 +79,32 @@ export class Trader {
         return await deployTraderTip31Wallet(flex, options);
     }
 
-    /**
-     * Creates an Order on Flex Dex Market
-     *
-     * @param flex
-     * @param {MakeOrderOptions} options
-     * Order parameters
-     *
-     * @returns NewOrderInfo
-     */
+   /**
+    * Places an order on a specified market
+    * @param flex 
+    * DEX instance
+    * @param options 
+    * Order options
+    * @returns 
+    */
     static async makeOrder(flex: Flex, options: MakeOrderOptions): Promise<NewOrderInfo> {
         return await makeOrder(flex, options);
     }
 
     /**
-     * Cancels an Order on Flex Dex Market
+     * Cancels an Order on DEX Market
      * 
      * @param flex 
      * DEX instance
      * @param options 
-     * Cancelation options
+     * Cancel options
      * @returns 
      */
     static async cancelOrder(flex: Flex, options: CancelOrderOptions): Promise<void> {
         return await cancelOrder(flex.evr, options);
     }
     /**
-     * 
+     * Returns Trader's open orders on DEX
      * @param flex 
      * @param trader 
      * @returns 
@@ -94,10 +113,22 @@ export class Trader {
         return await queryOrders(flex, trader);
     }
 
+    /**
+     * Returns Trader's trade history
+     * @param flex 
+     * @param trader 
+     * @returns 
+     */
     static async queryTrades(flex: Flex, trader: string): Promise<TradeInfo[]> {
         return await queryTrades(flex, trader);
     }
 
+    /**
+     * Returns Trader's DEX wallets
+     * @param flex 
+     * @param options 
+     * @returns 
+     */
     static async queryWallets(
         flex: Flex,
         options: QueryWalletsOptions,

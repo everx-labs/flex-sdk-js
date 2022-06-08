@@ -18,42 +18,43 @@ export type DeployTraderTip31WalletOptions = {
     trader: string,
 
     /**
-     * Token wallet address
+     * Client's native TIP-31 token wallet address
      */
     tokenWallet: string,
 
     /**
-     * Token wallet address
+     * Tip-31 DEX Token wrapper address
      */
     tokenWrapper: string,
 
     /**
-     * Token wallet address
+     * Token Wrapper's TIP-31 Vault wallet address
      */
     tokenWrapperWallet: string,
 
     /**
-     * Tip31 wallet token balance
+     * How much TIP-31 tokens to deposit on DEX. 
      */
     tokenUnits: string,
 
     /**
-     * Ever wallet that will be used to start deployment process
+     * Ever Wallet, that is the owner of native TIP31 Wallet
      */
     everWallet: AccountOptionsEx,
 
     /**
-     * TODO: Evers that will be sent to ever wallet
+     *  TODO: need to describe
      */
     transferEvers?: number,
 
     /**
-     * TODO: Evers that will be sent to ever wallet
+     * TODO: need to describe
      */
     evers?: number,
 
     /**
-     * TODO: Evers that must be kept on ever wallet
+     * Minimum amount of EVERs on DEX wallet. If balance drops below this amount, 
+     * wallet is topped-up from Trader's Index wallet.
      */
     keepEvers?: number,
 }

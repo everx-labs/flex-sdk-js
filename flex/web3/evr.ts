@@ -14,7 +14,7 @@ export class Evr {
     sdk: TonClient;
 
     /**
-     * Secrets used to sign messages sent to Flex Dex
+     * Secrets used to sign messages sent to  Dex
      */
     signers: EvrSigners;
 
