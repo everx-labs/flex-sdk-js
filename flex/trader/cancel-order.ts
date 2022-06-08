@@ -46,7 +46,7 @@ export type CancelOrderOptions = {
  * @param evr 
  * DEX blockchain data instance
  * @param options 
- * Parameters
+ * Parameters 
  * 
  */
 export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<void> {
