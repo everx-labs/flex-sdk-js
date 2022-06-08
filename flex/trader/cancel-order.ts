@@ -10,15 +10,45 @@ import { TraderOptions } from "./types";
 import { Evr } from "../web3";
 import { priceToUnits } from "../flex";
 
+
 export type CancelOrderOptions = {
+    /**
+     * Flex Client address. If you are a trader, ask the person who lent you the money.
+     */
     client: string,
+     /**
+     * Trader info
+     */
     trader: TraderOptions,
+     /**
+     * Trading market
+     */    
     market: string,
+     /**
+     * Order price 
+     */    
     price: number,
+     /**
+     * Optional order ID. If ommited, all orders with this price will be canceled.
+     * Otherwise only order with orderId will be canceled.
+     *
+     */    
     orderId: number | string,
+     /**
+     * Evers for comission. 
+     */    
     evers?: bigint | number | string,
+ 
 };
 
+/**
+ * Cancels Trader's order(s) on Flex
+ * @param evr 
+ * DEX blockchain data instance
+ * @param options 
+ * Parameters
+ * 
+ */
 export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<void> {
     const pair = await evr.accounts.get(XchgPairAccount, options.market);
     const pairDetails = (await pair.getDetails()).output;

@@ -9,7 +9,7 @@ export type EvrConfig = {
 
 export class Evr {
     /**
-     * EverOS SDK Modules
+     * Everscale client instance
      */
     sdk: TonClient;
 

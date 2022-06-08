@@ -65,17 +65,22 @@ export class Trader {
 
     /**
      * Cancels an Order on Flex Dex Market
-     *
-     * @param flex
-     * @param {CancelOrderOptions} options
-     * Cancel order parameters
-     *
-     * @returns void
+     * 
+     * @param flex 
+     * DEX instance
+     * @param options 
+     * Cancelation options
+     * @returns 
      */
     static async cancelOrder(flex: Flex, options: CancelOrderOptions): Promise<void> {
         return await cancelOrder(flex.evr, options);
     }
-
+    /**
+     * 
+     * @param flex 
+     * @param trader 
+     * @returns 
+     */
     static async queryOrders(flex: Flex, trader: string): Promise<OrderInfo[]> {
         return await queryOrders(flex, trader);
     }
