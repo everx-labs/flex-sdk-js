@@ -10,31 +10,51 @@ import { deployClient } from "./deploy-client";
 export { DeployClientOptions };
 
 export type WalletInfo = {
-    /// Flex wallet address
+    /**
+     * Flex wallet address
+     */
     address: string,
 
-    /// Flex client account address
+    /** 
+     * Flex client account address
+     */
     clientAddress: string,
 
-    /// User id the account owner
+    /**
+    Trader ID uint256 hex string
+     */
+
     traderId: string,
 
-    /// Dapp public key
+    /**
+    Trader public key uint256 hex string
+     */
     traderPublicKey: string
 
-    /// Wallet token
+    /**
+     * Token DEX Wrapper address
+     */
     token: TokenInfo,
 
-    /// Balance of native currency of the wallet in EVERs
+    /**
+     * Balance of wallet account in native currency (EVERs)
+     */ 
     nativeCurrencyBalance: number,
 
-    /// Token balance of the wallet in tokens
+    /**
+     * Token balance on the wallet (in tokens)
+     */
+
     totalBalance: number,
 
-    /// Available balance in tokens
+    /**
+     * Available balance in tokens
+     */
     availableBalance: number,
 
-    /// Balance in orders
+    /**
+     * Balance in orders
+     */
     balanceInOrders: number,
 
     /// Unsalted price code hash
@@ -61,6 +81,15 @@ export function walletInfoFromApi(result: any): WalletInfo {
 }
 
 export class Client {
+    /**
+     * Deploys Flex Client contract that is used to manage funds on DEX.
+     * @param flex 
+     * DEX instance
+     * @param options 
+     * Deploy options
+     * @returns 
+     * Address of the Flex Client contract
+     */
     static async deploy(
         flex: Flex,
         options: DeployClientOptions,

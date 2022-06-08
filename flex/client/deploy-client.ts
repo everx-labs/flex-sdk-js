@@ -4,9 +4,22 @@ import { UserDataConfigAccount } from "../../contracts";
 import { EverWallet, SignerOption, toUnits } from "../web3";
 
 export type DeployClientOptions = {
+    /**
+     * Ever Wallet (multisig) that will deploy Flex Client contract and
+     * become its only owner. Only this wallet can call functions of Flex Client contract.
+     */
     everWallet: AccountOptionsEx,
+    /**
+     * Secret key of Ever Wallet custodian (owner)
+     */
     signer: SignerOption,
+    /**
+     * TODO: Need to describe
+     */
     transferEvers?: number,
+    /**
+     * TODO: Need to describe
+     */
     deployEvers?: number,
 }
 
