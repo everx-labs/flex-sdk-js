@@ -64,7 +64,8 @@ export class Trader {
     }
 
     /**
-     * Deposits TIP-31 tokens on DEX Trader's wallet 
+     * Deposits TIP-31 tokens on DEX Trader's wallet.
+     * Transfers TIP-31 from Client's native TIP-31 Wallet to a Trader's wallet on DEX.
      * @param flex 
      * DEX instance
      * @param options 
