@@ -18,10 +18,10 @@ const flex_2 = require("../flex");
         (0, examples_1.examplesLog)("Trader Orders", yield flex_2.Trader.queryOrders(flex, examples_1.CONFIG.trader.id));
         (0, examples_1.examplesLog)("Trader Trades", yield flex_2.Trader.queryTrades(flex, examples_1.CONFIG.trader.id));
         (0, examples_1.examplesLog)("Trader Wallets", yield flex_2.Trader.queryWallets(flex, {
-            client: examples_1.CONFIG.trader.client,
-            trader: examples_1.CONFIG.trader.id,
+            clientAddress: examples_1.CONFIG.trader.client,
+            traderId: examples_1.CONFIG.trader.id,
         }));
-        (0, examples_1.examplesLog)("Client Wallets", yield flex_2.Trader.queryWallets(flex, { client: examples_1.CONFIG.trader.client }));
+        (0, examples_1.examplesLog)("Client Wallets", yield flex_2.Trader.queryWallets(flex, { clientAddress: examples_1.CONFIG.trader.client }));
         yield flex.close();
     }
     catch (err) {

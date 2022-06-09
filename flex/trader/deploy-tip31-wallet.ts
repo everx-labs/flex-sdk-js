@@ -10,30 +10,30 @@ export type DeployTraderTip31WalletOptions = {
     /**
      * FLEX client address
      */
-    client: string,
+    clientAddress: string,
 
     /**
      * FLEX trader
      */
-    trader: string,
+    traderId: string,
 
     /**
      * Client's native TIP-31 token wallet address
      */
-    tokenWallet: string,
+    tokenWalletAddress: string,
 
     /**
      * Tip-31 DEX Token wrapper address
      */
-    tokenWrapper: string,
+    tokenWrapperAddress: string,
 
     /**
      * Token Wrapper's TIP-31 Vault wallet address
      */
-    tokenWrapperWallet: string,
+    tokenWrapperWalletAddress: string,
 
     /**
-     * How much TIP-31 tokens to deposit on DEX. 
+     * How much TIP-31 tokens to deposit on DEX.
      */
     tokenUnits: string,
 
@@ -53,11 +53,15 @@ export type DeployTraderTip31WalletOptions = {
     evers?: number,
 
     /**
-     * Minimum amount of EVERs on DEX wallet. If balance drops below this amount, 
+     * Minimum amount of EVERs on DEX wallet. If balance drops below this amount,
      * wallet is topped-up from Trader's Index wallet.
      */
     keepEvers?: number,
 }
+
+export type DeployTraderTip31WalletResult = {
+    address: string,
+};
 
 const DEFAULTS = {
     transferEvers: 30,
@@ -69,16 +73,16 @@ const DEFAULTS = {
 export async function deployTraderTip31Wallet(
     flex: Flex,
     options: DeployTraderTip31WalletOptions,
-): Promise<string> {
-    const pubkey = uint256(options.trader);
+): Promise<DeployTraderTip31WalletResult> {
+    const pubkey = uint256(options.traderId);
 
 
-    const client = await flex.evr.accounts.get(FlexClientAccount, options.client);
+    const client = await flex.evr.accounts.get(FlexClientAccount, options.clientAddress);
     const evers = options.evers ?? DEFAULTS.evers;
     const keepEvers = options.keepEvers ?? DEFAULTS.keepEvers;
 
     const payload = (await client.getPayloadForDeployInternalWallet({
-        owner_addr: options.client,
+        owner_addr: options.clientAddress,
         owner_pubkey: pubkey,
         evers: toUnits(evers),
         keep_evers: toUnits(keepEvers),
@@ -86,7 +90,7 @@ export async function deployTraderTip31Wallet(
 
     const everWallet = new EverWallet(flex.evr, options.everWallet);
     await everWallet.transfer({
-        dest: options.tokenWallet,
+        dest: options.tokenWalletAddress,
         value: toUnits(options.transferEvers ?? DEFAULTS.transferEvers),
         payload: {
             abi: Tip31WalletAccount.package.abi,
@@ -94,7 +98,7 @@ export async function deployTraderTip31Wallet(
             params: {
                 _answer_id: 0,
                 amount: options.tokenUnits,
-                recipientTokenWallet: options.tokenWrapperWallet,
+                recipientTokenWallet: options.tokenWrapperWalletAddress,
                 remainingGasTo: await everWallet.getAddress(),
                 notify: true,
                 payload,
@@ -102,12 +106,13 @@ export async function deployTraderTip31Wallet(
         },
     });
 
-    const wrapper = await flex.evr.accounts.get(WrapperAccount, options.tokenWrapper);
-    return (await wrapper.getWalletAddress({
-        pubkey,
-        owner: options.client,
-    })).output.value0;
-
+    const wrapper = await flex.evr.accounts.get(WrapperAccount, options.tokenWrapperAddress);
+    return {
+        address: (await wrapper.getWalletAddress({
+            pubkey,
+            owner: options.clientAddress,
+        })).output.value0,
+    };
 }
 
 

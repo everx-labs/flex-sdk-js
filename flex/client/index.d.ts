@@ -12,7 +12,6 @@ export declare type WalletInfo = {
     totalBalance: number;
     availableBalance: number;
     balanceInOrders: number;
-    unsaltedPriceCodeHash: string;
     cursor: string;
 };
 export declare function walletInfoFromApi(result: any): WalletInfo;

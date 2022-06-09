@@ -15,7 +15,7 @@ export type WalletInfo = {
      */
     address: string,
 
-    /** 
+    /**
      * Flex client account address
      */
     clientAddress: string,
@@ -38,7 +38,7 @@ export type WalletInfo = {
 
     /**
      * Balance of wallet account in native currency (EVERs)
-     */ 
+     */
     nativeCurrencyBalance: number,
 
     /**
@@ -57,9 +57,6 @@ export type WalletInfo = {
      */
     balanceInOrders: number,
 
-    /// Unsalted price code hash
-    unsaltedPriceCodeHash: string,
-
     cursor: string,
 }
 
@@ -75,7 +72,6 @@ export function walletInfoFromApi(result: any): WalletInfo {
         totalBalance: result.totalBalance,
         availableBalance: result.availableBalance,
         balanceInOrders: result.balanceInOrders,
-        unsaltedPriceCodeHash: result.unsaltedPriceCodeHash,
         cursor: result.cursor,
     };
 }
@@ -83,11 +79,11 @@ export function walletInfoFromApi(result: any): WalletInfo {
 export class Client {
     /**
      * Deploys Flex Client contract that is used to manage funds on DEX.
-     * @param flex 
+     * @param flex
      * DEX instance
-     * @param options 
+     * @param options
      * Deploy options
-     * @returns 
+     * @returns
      * Address of the Flex Client contract
      */
     static async deploy(

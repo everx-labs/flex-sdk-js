@@ -2,9 +2,9 @@ import { Flex, MakeOrderMode } from "../exchange";
 import { TraderOptions } from "./types";
 import { Evr } from "../web3";
 export declare type MakeOrderOptions = {
-    client: string;
+    clientAddress: string;
     trader: TraderOptions;
-    market: string;
+    marketAddress: string;
     sell: boolean;
     amount: number;
     price: number;

@@ -15,37 +15,37 @@ export type CancelOrderOptions = {
     /**
      * Flex Client address. If you are a trader, ask the person who lent you the money.
      */
-    client: string,
+    clientAddress: string,
      /**
      * Trader info
      */
     trader: TraderOptions,
      /**
      * Trading market
-     */    
-    market: string,
+     */
+    marketAddress: string,
      /**
-     * Order price 
-     */    
+     * Order price
+     */
     price: number,
      /**
-     * Optional order ID. If ommited, all orders with this price will be canceled.
-     * Otherwise only order with orderId will be canceled.
+     * Optional order ID. If omitted, all orders with this price will be canceled.
+     * Otherwise, only order with orderId will be canceled.
      *
-     */    
+     */
     orderId: number | string,
      /**
-     * Evers for comission. 
-     */    
+     * Evers for commission.
+     */
     evers?: bigint | number | string,
- 
+
 };
 
 export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<void> {
-    const pair = await evr.accounts.get(XchgPairAccount, options.market);
+    const pair = await evr.accounts.get(XchgPairAccount, options.marketAddress);
     const pairDetails = (await pair.getDetails()).output;
     const price = priceToUnits(options.price, pairDetails.price_denum);
-    const priceDetails = await getPriceDetails(evr, options.client, pair, price.num);
+    const priceDetails = await getPriceDetails(evr, options.clientAddress, pair, price.num);
     let sell: boolean;
     if (findOrder(options.orderId, priceDetails.sells)) {
         sell = true;
@@ -55,9 +55,9 @@ export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promis
         throw new Error(`Order ${options.orderId} not found in price ${priceDetails.address}.`);
     }
     const wallet = await getWallet(evr, {
-        market: options.market,
+        marketAddress: options.marketAddress,
         sell,
-        client: options.client,
+        clientAddress: options.clientAddress,
         trader: options.trader,
     });
     await wallet.runCancelOrder({

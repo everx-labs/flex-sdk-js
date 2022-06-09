@@ -4,8 +4,8 @@ import { OrderInfo, TradeInfo } from "./types";
 export declare function queryOrders(flex: Flex, trader: string): Promise<OrderInfo[]>;
 export declare function queryTrades(flex: Flex, trader: string): Promise<TradeInfo[]>;
 export declare type QueryWalletsOptions = {
-    client: string;
-    trader?: string;
+    clientAddress: string;
+    traderId?: string;
     token?: string;
 };
 export declare function queryWallets(flex: Flex, options: QueryWalletsOptions): Promise<WalletInfo[]>;

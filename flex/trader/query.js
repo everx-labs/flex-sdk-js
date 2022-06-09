@@ -53,8 +53,8 @@ function queryWallets(flex, options) {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield flex.query(`
         wallets(
-            clientAddress: "${options.client}"
-            ${options.trader ? `userId:"0x${options.trader}"` : ""}
+            clientAddress: "${options.clientAddress}"
+            ${options.traderId ? `userId: "0x${options.traderId}"` : ""}
             ${options.token ? `token: "${options.token}",` : ""}
         ) {
             address

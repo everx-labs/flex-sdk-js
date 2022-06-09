@@ -17,10 +17,10 @@ const helpers_1 = require("../contracts/helpers");
         const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
         flex.evr.log.level = helpers_1.LogLevel.DEBUG;
         yield flex_1.Trader.makeOrder(flex, {
-            client: examples_1.CONFIG.trader.client,
+            clientAddress: examples_1.CONFIG.trader.client,
             trader: examples_1.CONFIG.trader,
             sell: false,
-            market: examples_1.CONFIG.market,
+            marketAddress: examples_1.CONFIG.market,
             price: 2.6,
             amount: 18,
         });

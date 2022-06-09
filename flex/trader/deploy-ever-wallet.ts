@@ -11,15 +11,15 @@ export type DeployTraderEverWalletOptions = {
     /**
      * Flex Client contract address
      */
-    client: string,
+    clientAddress: string,
     /**
      * Trader ID. uint256 hex string.
      */
-    trader: string,
+    traderId: string,
     /**
      * EVER wrapper (that also acts as EVER Vault) address
      */
-    wrapper: string,
+    wrapperAddress: string,
     /**
      * Amount of EVERs to deposit
      */
@@ -30,7 +30,7 @@ export type DeployTraderEverWalletOptions = {
      */
     evers?: number,
     /**
-     * Minimum amount of EVERs on DEX wallet. If balance drops below this amount, 
+     * Minimum amount of EVERs on DEX wallet. If balance drops below this amount,
      * wallet is topped-up from Trader's Index wallet.
      */
     keepEvers?: number,
@@ -50,17 +50,17 @@ export async function deployTraderEverWallet(
     flex: Flex,
     options: DeployTraderEverWalletOptions,
 ): Promise<EverWalletInfo> {
-    const pubkey = uint256(options.trader);
-    const wrapper = await flex.evr.accounts.get(WrapperAccount, options.wrapper);
+    const pubkey = uint256(options.traderId);
+    const wrapper = await flex.evr.accounts.get(WrapperAccount, options.wrapperAddress);
     const walletAddress = (await wrapper.getWalletAddress({
-        owner: options.client,
+        owner: options.clientAddress,
         pubkey,
     })).output.value0;
     const everWallet = new EverWallet(flex.evr, options.everWallet);
     const evers = options.evers ?? DEFAULTS.evers;
     const keepEvers = options.keepEvers ?? DEFAULTS.keepEvers;
     await everWallet.transfer({
-        dest: options.wrapper,
+        dest: options.wrapperAddress,
         value: toUnits(options.tokens + evers),
         payload: {
             abi: WrapperAccount.package.abi,
@@ -69,7 +69,7 @@ export async function deployTraderEverWallet(
                 tokens: toUnits(options.tokens),
                 args: {
                     pubkey,
-                    owner: options.client,
+                    owner: options.clientAddress,
                     evers: toUnits(evers),
                     keep_evers: toUnits(keepEvers),
                 },

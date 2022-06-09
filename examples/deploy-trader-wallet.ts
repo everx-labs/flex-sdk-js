@@ -7,20 +7,20 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
         const flex = new Flex(EXAMPLES_FLEX_CONFIG);
 
         await Trader.deployTip31Wallet(flex, {
-            client: CONFIG.trader.client,
-            trader: CONFIG.trader.id,
-            tokenWrapper: "token-wrapper-address",
-            tokenWrapperWallet: "token-wrapper-wallet",
-            tokenWallet: "token-wallet",
+            clientAddress: CONFIG.trader.client,
+            traderId: CONFIG.trader.id,
+            tokenWrapperAddress: "token-wrapper-address",
+            tokenWrapperWalletAddress: "token-wrapper-wallet",
+            tokenWalletAddress: "token-wallet",
             tokenUnits: "100000",
             everWallet: { signer: "msig " },
         });
 
         await Trader.deployEverWallet(flex, {
-            client: CONFIG.trader.client,
-            trader: CONFIG.trader.id,
+            clientAddress: CONFIG.trader.client,
+            traderId: CONFIG.trader.id,
             tokens: 100000,
-            wrapper: "wrapper-address",
+            wrapperAddress: "wrapper-address",
             everWallet: { signer: "msig " },
         });
 

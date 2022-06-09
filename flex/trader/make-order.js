@@ -20,13 +20,13 @@ function makeOrder(flex, options) {
     var _a, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         const defaults = flex.config.trader.order;
-        const pair = yield flex.evr.accounts.get(contracts_1.XchgPairAccount, options.market);
+        const pair = yield flex.evr.accounts.get(contracts_1.XchgPairAccount, options.marketAddress);
         const flexAccount = yield flex.getFlexAccount();
         const pairDetails = (yield pair.getDetails()).output;
         const wallet = yield (0, internals_1.getWallet)(flex.evr, {
-            market: options.market,
+            marketAddress: options.marketAddress,
             sell: options.sell,
-            client: options.client,
+            clientAddress: options.clientAddress,
             trader: options.trader,
         });
         const priceCode = (yield pair.getPriceXchgCode({ salted: false })).output.value0;
@@ -61,7 +61,7 @@ function makeOrder(flex, options) {
                     immediate_client: mode === exchange_1.MakeOrderMode.IOP || mode === exchange_1.MakeOrderMode.IOC,
                     post_order: mode === exchange_1.MakeOrderMode.IOP || mode === exchange_1.MakeOrderMode.POST,
                     amount,
-                    client_addr: options.client,
+                    client_addr: options.clientAddress,
                     user_id: "0x" + options.trader.id,
                     order_id: orderId,
                 },

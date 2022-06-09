@@ -22,7 +22,6 @@ function walletInfoFromApi(result) {
         totalBalance: result.totalBalance,
         availableBalance: result.availableBalance,
         balanceInOrders: result.balanceInOrders,
-        unsaltedPriceCodeHash: result.unsaltedPriceCodeHash,
         cursor: result.cursor,
     };
 }

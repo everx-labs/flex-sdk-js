@@ -10,10 +10,10 @@ import { LogLevel } from "../contracts/helpers";
         await Trader.makeOrder(
             flex,
             {
-                client: CONFIG.trader.client,
+                clientAddress: CONFIG.trader.client,
                 trader: CONFIG.trader,
                 sell: false,
-                market: CONFIG.market,
+                marketAddress: CONFIG.market,
                 price: 2.6,
                 amount: 18,
             },

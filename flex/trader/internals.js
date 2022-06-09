@@ -13,7 +13,7 @@ exports.getWallet = void 0;
 const contracts_1 = require("../../contracts");
 function getWallet(evr, options) {
     return __awaiter(this, void 0, void 0, function* () {
-        const pair = yield evr.accounts.get(contracts_1.XchgPairAccount, options.market);
+        const pair = yield evr.accounts.get(contracts_1.XchgPairAccount, options.marketAddress);
         const pairDetails = (yield pair.getDetails()).output;
         const token = yield evr.accounts.get(contracts_1.WrapperAccount, options.sell
             ? pairDetails.major_tip3cfg.root_address
@@ -21,7 +21,7 @@ function getWallet(evr, options) {
         const signer = yield evr.signers.resolve(options.trader.signer);
         const address = (yield token.getWalletAddress({
             pubkey: `0x${options.trader.id}`,
-            owner: options.client,
+            owner: options.clientAddress,
         })).output.value0;
         return evr.accounts.get(contracts_1.FlexWalletAccount, {
             address,

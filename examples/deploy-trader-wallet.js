@@ -15,19 +15,19 @@ const examples_1 = require("./examples");
     try {
         const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
         yield flex_1.Trader.deployTip31Wallet(flex, {
-            client: examples_1.CONFIG.trader.client,
-            trader: examples_1.CONFIG.trader.id,
-            tokenWrapper: "token-wrapper-address",
-            tokenWrapperWallet: "token-wrapper-wallet",
-            tokenWallet: "token-wallet",
+            clientAddress: examples_1.CONFIG.trader.client,
+            traderId: examples_1.CONFIG.trader.id,
+            tokenWrapperAddress: "token-wrapper-address",
+            tokenWrapperWalletAddress: "token-wrapper-wallet",
+            tokenWalletAddress: "token-wallet",
             tokenUnits: "100000",
             everWallet: { signer: "msig " },
         });
         yield flex_1.Trader.deployEverWallet(flex, {
-            client: examples_1.CONFIG.trader.client,
-            trader: examples_1.CONFIG.trader.id,
+            clientAddress: examples_1.CONFIG.trader.client,
+            traderId: examples_1.CONFIG.trader.id,
             tokens: 100000,
-            wrapper: "wrapper-address",
+            wrapperAddress: "wrapper-address",
             everWallet: { signer: "msig " },
         });
         yield flex.close();

@@ -11,9 +11,9 @@ import { toUnits, Evr } from "../web3";
 import { priceToUnits } from "../flex";
 
 export type MakeOrderOptions = {
-    client: string;
+    clientAddress: string;
     trader: TraderOptions,
-    market: string,
+    marketAddress: string,
     /** Trade direction */
     sell: boolean,
     /** Amount of Major token to buy or sell */
@@ -47,14 +47,14 @@ export type NewOrderInfo = {
 /** @internal */
 export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<NewOrderInfo> {
     const defaults = flex.config.trader.order;
-    const pair = await flex.evr.accounts.get(XchgPairAccount, options.market);
+    const pair = await flex.evr.accounts.get(XchgPairAccount, options.marketAddress);
     const flexAccount = await flex.getFlexAccount();
 
     const pairDetails = (await pair.getDetails()).output;
     const wallet = await getWallet(flex.evr, {
-        market: options.market,
+        marketAddress: options.marketAddress,
         sell: options.sell,
-        client: options.client,
+        clientAddress: options.clientAddress,
         trader: options.trader,
     });
     const priceCode = (await pair.getPriceXchgCode({ salted: false })).output.value0;
@@ -93,7 +93,7 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
                 immediate_client: mode === MakeOrderMode.IOP || mode === MakeOrderMode.IOC,
                 post_order: mode === MakeOrderMode.IOP || mode === MakeOrderMode.POST,
                 amount,
-                client_addr: options.client,
+                client_addr: options.clientAddress,
                 user_id: "0x" + options.trader.id,
                 order_id: orderId,
             },

@@ -16,10 +16,10 @@ const flex_1 = require("../flex");
 function cancelOrder(evr, options) {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
-        const pair = yield evr.accounts.get(contracts_1.XchgPairAccount, options.market);
+        const pair = yield evr.accounts.get(contracts_1.XchgPairAccount, options.marketAddress);
         const pairDetails = (yield pair.getDetails()).output;
         const price = (0, flex_1.priceToUnits)(options.price, pairDetails.price_denum);
-        const priceDetails = yield getPriceDetails(evr, options.client, pair, price.num);
+        const priceDetails = yield getPriceDetails(evr, options.clientAddress, pair, price.num);
         let sell;
         if (findOrder(options.orderId, priceDetails.sells)) {
             sell = true;
@@ -31,9 +31,9 @@ function cancelOrder(evr, options) {
             throw new Error(`Order ${options.orderId} not found in price ${priceDetails.address}.`);
         }
         const wallet = yield (0, internals_1.getWallet)(evr, {
-            market: options.market,
+            marketAddress: options.marketAddress,
             sell,
-            client: options.client,
+            clientAddress: options.clientAddress,
             trader: options.trader,
         });
         yield wallet.runCancelOrder({

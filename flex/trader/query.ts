@@ -40,11 +40,11 @@ export async function queryTrades(flex: Flex, trader: string): Promise<TradeInfo
 
 export type QueryWalletsOptions = {
 
-    client: string,
+    clientAddress: string,
     /**
      * Trader ID as uint256 hex string
      */
-    trader?: string,
+    traderId?: string,
     /**
      * Token DEX Wrapper address
      */
@@ -58,8 +58,8 @@ export async function queryWallets(
 ): Promise<WalletInfo[]> {
     const result = await flex.query(`
         wallets(
-            clientAddress: "${options.client}"
-            ${options.trader ? `userId:"0x${options.trader}"` : ""}
+            clientAddress: "${options.clientAddress}"
+            ${options.traderId ? `userId: "0x${options.traderId}"` : ""}
             ${options.token ? `token: "${options.token}",` : ""}
         ) {
             address

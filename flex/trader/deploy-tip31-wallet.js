@@ -20,19 +20,19 @@ const DEFAULTS = {
 function deployTraderTip31Wallet(flex, options) {
     var _a, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
-        const pubkey = (0, web3_1.uint256)(options.trader);
-        const client = yield flex.evr.accounts.get(contracts_1.FlexClientAccount, options.client);
+        const pubkey = (0, web3_1.uint256)(options.traderId);
+        const client = yield flex.evr.accounts.get(contracts_1.FlexClientAccount, options.clientAddress);
         const evers = (_a = options.evers) !== null && _a !== void 0 ? _a : DEFAULTS.evers;
         const keepEvers = (_b = options.keepEvers) !== null && _b !== void 0 ? _b : DEFAULTS.keepEvers;
         const payload = (yield client.getPayloadForDeployInternalWallet({
-            owner_addr: options.client,
+            owner_addr: options.clientAddress,
             owner_pubkey: pubkey,
             evers: (0, web3_1.toUnits)(evers),
             keep_evers: (0, web3_1.toUnits)(keepEvers),
         })).output.value0;
         const everWallet = new web3_1.EverWallet(flex.evr, options.everWallet);
         yield everWallet.transfer({
-            dest: options.tokenWallet,
+            dest: options.tokenWalletAddress,
             value: (0, web3_1.toUnits)((_c = options.transferEvers) !== null && _c !== void 0 ? _c : DEFAULTS.transferEvers),
             payload: {
                 abi: contracts_1.Tip31WalletAccount.package.abi,
@@ -40,18 +40,20 @@ function deployTraderTip31Wallet(flex, options) {
                 params: {
                     _answer_id: 0,
                     amount: options.tokenUnits,
-                    recipientTokenWallet: options.tokenWrapperWallet,
+                    recipientTokenWallet: options.tokenWrapperWalletAddress,
                     remainingGasTo: yield everWallet.getAddress(),
                     notify: true,
                     payload,
                 },
             },
         });
-        const wrapper = yield flex.evr.accounts.get(contracts_1.WrapperAccount, options.tokenWrapper);
-        return (yield wrapper.getWalletAddress({
-            pubkey,
-            owner: options.client,
-        })).output.value0;
+        const wrapper = yield flex.evr.accounts.get(contracts_1.WrapperAccount, options.tokenWrapperAddress);
+        return {
+            address: (yield wrapper.getWalletAddress({
+                pubkey,
+                owner: options.clientAddress,
+            })).output.value0,
+        };
     });
 }
 exports.deployTraderTip31Wallet = deployTraderTip31Wallet;

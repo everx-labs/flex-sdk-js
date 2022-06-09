@@ -15,12 +15,12 @@ import { Trader } from "../flex";
             "Trader Wallets",
             await Trader.queryWallets(flex,
                 {
-                    client: CONFIG.trader.client,
-                    trader: CONFIG.trader.id,
+                    clientAddress: CONFIG.trader.client,
+                    traderId: CONFIG.trader.id,
                 },
             ),
         );
-        examplesLog("Client Wallets", await Trader.queryWallets(flex, { client: CONFIG.trader.client }));
+        examplesLog("Client Wallets", await Trader.queryWallets(flex, { clientAddress: CONFIG.trader.client }));
 
         await flex.close();
     } catch (err) {
