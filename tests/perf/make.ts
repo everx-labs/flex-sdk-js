@@ -42,7 +42,7 @@ TonClient.useBinaryLibrary(libNode)
 const FLEX_CONFIG_FILENAME = "./flex.config.json"
 const TRADERS_CONFIG_FILENAME = "./traders.config.json"
 const MSIG_CONFIG_FILENAME = "./msig.config.json"
-const PRICE_RANGE = require("./range360.json")  // (d3js.org) d3.range(0, 3600).map(x => Number((Math.sin((x/10)*(Math.PI/180))+2).toFixed(9)))
+const PRICE_RANGE = require("./range3600.json")  // (d3js.org) d3.range(0, 3600).map(x => Number((Math.sin((x/10)*(Math.PI/180))+2).toFixed(9)))
 //const PRICE_COUNTER = {} limit 150
 
 // const sleep = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms))
@@ -245,13 +245,11 @@ const test = async (options: any): Promise<void> => {
 
     if (
         !(
-            options.index >= 0 &&
             FLEX_CONFIG &&
             FLEX_CONFIG.market &&
             FLEX_CONFIG.client1 &&
             FLEX_CONFIG.client1.addr &&
-            TRADERS_CONFIG &&
-            TRADERS_CONFIG[options.index]
+            TRADERS_CONFIG
         )
     ) {
         console.error(`market / trader not found`)
@@ -369,11 +367,6 @@ program
     )
     .addOption(new Option("-c, --max-req-per-second <number>").default(1))
     .addOption(new Option("-j, --max-concurrency <number>").default(1))
-    .requiredOption(
-        "-i, --index <number>",
-        "Index number of client in configuration file",
-        (val, _) => parseInt(val),
-    )
     .action(test)
 
 program
