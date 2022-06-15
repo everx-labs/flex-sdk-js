@@ -9,7 +9,7 @@ import {
     Exchange,
     Trader,
 } from "../../flex"
-import { LogLevel } from "../../contracts/helpers"
+//import { LogLevel } from "../../contracts/helpers"
 
 import { Option, program } from "commander"
 import { writeFile } from "fs/promises"
@@ -42,10 +42,9 @@ TonClient.useBinaryLibrary(libNode)
 const FLEX_CONFIG_FILENAME = "./flex.config.json"
 const TRADERS_CONFIG_FILENAME = "./traders.config.json"
 const MSIG_CONFIG_FILENAME = "./msig.config.json"
-const PRICE_RANGE = require("./range3600.json")  // (d3js.org) d3.range(0, 3600).map(x => Number((Math.sin((x/10)*(Math.PI/180))+2).toFixed(9)))
 //const PRICE_COUNTER = {} limit 150
 
-// const sleep = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms))
+const sleep = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms))
 
 /*
 function* priceLoop() {
@@ -154,7 +153,7 @@ const deploy = async (options: any): Promise<void> => {
 
     const evr = new Evr(FLEX_CONFIG.evr)
 
-    evr.log.level = LogLevel.DEBUG
+    //evr.log.level = LogLevel.DEBUG
 
     const signer = options.exchange
 
@@ -180,22 +179,27 @@ const clients = async (options: any): Promise<void> => {
     const FLEX_CONFIG: Partial<
         FlexConfig & MarketConfig
     > = require(FLEX_CONFIG_FILENAME)
-    const MSIG_CONFIG: KeyConfig  = require(MSIG_CONFIG_FILENAME)
+    const MSIG_CONFIG: KeyConfig = require(MSIG_CONFIG_FILENAME)
     const flex = new Flex(FLEX_CONFIG)
 
     const doJob = async () => {
-        const id = (await flex.evr.sdk.crypto.generate_random_sign_keys()).public
-        const traderSigner = await flex.evr.sdk.crypto.generate_random_sign_keys()
+        const id = (await flex.evr.sdk.crypto.generate_random_sign_keys())
+            .public
+        const traderSigner =
+            await flex.evr.sdk.crypto.generate_random_sign_keys()
 
-        if (!(FLEX_CONFIG.client1?.addr &&
-            FLEX_CONFIG.broxusTokenWallet &&
-            FLEX_CONFIG.flx_wrapper &&
-            FLEX_CONFIG.flx_wrapper_wallet &&
-            FLEX_CONFIG.ever_wrapper))
-        {
+        if (
+            !(
+                FLEX_CONFIG.client1?.addr &&
+                FLEX_CONFIG.broxusTokenWallet &&
+                FLEX_CONFIG.flx_wrapper &&
+                FLEX_CONFIG.flx_wrapper_wallet &&
+                FLEX_CONFIG.ever_wrapper
+            )
+        ) {
             return null
         }
-        
+
         await Trader.deploy(flex, {
             client: {
                 address: FLEX_CONFIG.client1?.addr,
@@ -231,7 +235,10 @@ const clients = async (options: any): Promise<void> => {
         }
     }
 
-    const result = await concurrent(options.maxConcurrency).map(doJob, new Array(options.traders))
+    const result = await concurrent(options.maxConcurrency).map(
+        doJob,
+        new Array(options.traders),
+    )
     console.dir(result, { depth: null })
 
     await flex.close()
@@ -242,6 +249,7 @@ const test = async (options: any): Promise<void> => {
         FlexConfig & MarketConfig
     > = require(FLEX_CONFIG_FILENAME)
     const TRADERS_CONFIG: TraderConfig[] = require(TRADERS_CONFIG_FILENAME)
+    const PRICE_RANGE = require("./range3600.json") // (d3js.org) d3.range(0, 3600).map(x => Number((Math.sin((x/10)*(Math.PI/180))+2).toFixed(9)))
 
     if (
         !(
@@ -256,15 +264,30 @@ const test = async (options: any): Promise<void> => {
         return
     }
 
-    function* traderLoop() {
-        let sell = true
-        for (let i = 0; ; ) {
-            yield [TRADERS_CONFIG[i], sell, PRICE_RANGE[i]]
-            if (i == PRICE_RANGE.length - 1) { // cycle loop index
-                i = 0
-                sell = !sell
+    const slicedGroups: [[number, number]?] = []
+    for (
+        let step, start = 0, end = (step = PRICE_RANGE.length / options.sliced);
+        start < PRICE_RANGE.length;
+        start += step, end += step
+    ) {
+        slicedGroups.push([start, end])
+    }
+    const [start, end] = slicedGroups[options.group] ?? [0, PRICE_RANGE.length]
+
+    let idx = 0
+    function* entries() {
+        let sell = true // first trader sell token
+        for (let i = start; ; ) {
+            yield [
+                idx++,
+                { trader: TRADERS_CONFIG[i], sell, price: PRICE_RANGE[i] },
+            ] // each trader has specific price
+            if (i == end - 1) {
+                // cycle current sliced group
+                i = start
+                sell = !sell // next cycle switch from sell to buy and vice versa, so same trader should place order to sell and buy
             } else {
-                i = i + 1
+                i += 1
             }
         }
     }
@@ -274,48 +297,46 @@ const test = async (options: any): Promise<void> => {
     const client = FLEX_CONFIG.client1.addr
     const market = FLEX_CONFIG.market
 
-    flex.evr.log.level = LogLevel.DEBUG
+    //flex.evr.log.level = LogLevel.DEBUG
 
-    // let timestamps: number[] = []
+    let timestamps: number[] = []
 
-    /*
     const clearOldTimestamps = (ts: number) => {
         timestamps = timestamps.filter(x => x > ts)
     }
-    */
 
-    let idx = 0
-    function* jobs() {
-            for (const [trader, sell, price] of traderLoop()) {
-                // yield [idx++, new Promise((resolve) => {setTimeout(() => {console.log(sell ? `[${trader.pubkey}]sell` : `[${trader.pubkey}]buy`, price); resolve(null)}, 3000)})]
-                yield [
-                    idx,
-                    Trader.makeOrder(flex, {
-                        client,
-                        trader,
-                        sell,
-                        market,
-                        price,
-                        amount: 1,
-                    }),
-                ]
-                // yield [idx++, new Promise((resolve) => {console.log(sell ? `[${idx}]sell` : `[${idx}]buy`, price); resolve(null)})]
-            }
-    }
-    async function doJob(job: Promise<void>) {
-        /*
-        clearOldTimestamps(Date.now() - 3000)
+    async function trade(job: any) {
+        clearOldTimestamps(Date.now() - 1000)
 
         while (timestamps.length >= options.maxReqPerSecond) {
             await sleep(10)
-            clearOldTimestamps(Date.now() - 3000)
+            clearOldTimestamps(Date.now() - 1000)
         }
         timestamps.push(Date.now())
-        */
-        await job
+        const { trader, sell, price } = job
+        try {
+            await Trader.makeOrder(flex, {
+                client,
+                trader,
+                sell,
+                market,
+                price,
+                amount: 1,
+            })
+        } catch (error) {
+            console.dir(
+                {
+                    trader,
+                    sell,
+                    price,
+                    error,
+                },
+                { depth: null },
+            )
+        }
     }
 
-    await concurrent(options.maxConcurrency).map(doJob, { entries: jobs })
+    await concurrent(options.maxConcurrency).map(trade, { entries })
 
     await flex.close()
 }
@@ -367,6 +388,8 @@ program
     )
     .addOption(new Option("-c, --max-req-per-second <number>").default(1))
     .addOption(new Option("-j, --max-concurrency <number>").default(1))
+    .addOption(new Option("-g, --group <number>").default(0))
+    .addOption(new Option("-s, --sliced <number>").default(1))
     .action(test)
 
 program
