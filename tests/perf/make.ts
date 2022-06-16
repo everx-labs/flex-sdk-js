@@ -8,12 +8,15 @@ import {
     Market,
     Exchange,
     Trader,
+//    EverWallet,
 } from "../../flex"
 //import { LogLevel } from "../../contracts/helpers"
 
 import { Option, program } from "commander"
 import { writeFile } from "fs/promises"
 import { concurrent } from "fasy"
+
+import { topUp } from "./giver"
 
 type KeyConfig = {
     addr: string
@@ -81,6 +84,7 @@ const info = async (options: any): Promise<void> => {
     const flex = new Flex(FLEX_CONFIG)
 
     if (FLEX_CONFIG && FLEX_CONFIG.market) {
+	    /*
         console.dir(
             {
                 "Market Order Book": await Market.queryOrderBook(
@@ -90,6 +94,7 @@ const info = async (options: any): Promise<void> => {
             },
             { depth: null },
         )
+       */
         console.dir(
             {
                 "Market Price": await Market.queryPrice(
@@ -280,7 +285,7 @@ const test = async (options: any): Promise<void> => {
         for (let i = start; ; ) {
             yield [
                 idx++,
-                { trader: TRADERS_CONFIG[i], sell, price: PRICE_RANGE[i] },
+                { i: i, trader: TRADERS_CONFIG[i], sell, price: PRICE_RANGE[i] },
             ] // each trader has specific price
             if (i == end - 1) {
                 // cycle current sliced group
@@ -313,7 +318,7 @@ const test = async (options: any): Promise<void> => {
             clearOldTimestamps(Date.now() - 1000)
         }
         timestamps.push(Date.now())
-        const { trader, sell, price } = job
+        const { i, trader, sell, price } = job
         try {
             await Trader.makeOrder(flex, {
                 client,
@@ -326,6 +331,7 @@ const test = async (options: any): Promise<void> => {
         } catch (error) {
             console.dir(
                 {
+                    i,
                     trader,
                     sell,
                     price,
@@ -339,6 +345,48 @@ const test = async (options: any): Promise<void> => {
     await concurrent(options.maxConcurrency).map(trade, { entries })
 
     await flex.close()
+}
+
+const airdrop = async (options: any): Promise<void> => {
+    const FLEX_CONFIG: Partial<
+        FlexConfig & MarketConfig
+    > = require(FLEX_CONFIG_FILENAME)
+    // const MSIG_CONFIG: KeyConfig = require(MSIG_CONFIG_FILENAME)
+    const TRADERS_CONFIG: TraderConfig[] = require(TRADERS_CONFIG_FILENAME)
+    const flex = new Flex(FLEX_CONFIG)
+
+    let i = 0
+    const doJob = async (trader: TraderConfig) => {
+        const traderWallets = await Trader.queryWallets(flex, {
+            client: FLEX_CONFIG.client1?.addr ?? "",
+            trader: trader.id,
+        })
+        try {
+            await Promise.all(traderWallets.map(wallet => {
+                if (wallet.nativeCurrencyBalance < 100) {
+                    return topUp(flex, wallet.address, 1000 - wallet.nativeCurrencyBalance)
+                } else {
+                    return Promise.resolve()
+                }
+            }))
+        } catch (error) {
+            console.dir({error}, {depth: null})
+        }
+        console.log(i++)
+        return traderWallets.length < 2 ? null : trader
+    }
+
+    const result = await concurrent(options.maxConcurrency).map(
+        doJob,
+        TRADERS_CONFIG,
+    )
+    await flex.close()
+
+    await writeFile(
+        "clean.traders.config.json",
+        JSON.stringify(result.filter(Boolean), null, 4),
+        { encoding: "utf-8" },
+    )
 }
 
 program
@@ -391,6 +439,14 @@ program
     .addOption(new Option("-g, --group <number>").default(0))
     .addOption(new Option("-s, --sliced <number>").default(1))
     .action(test)
+
+program
+    .command("airdrop")
+    .summary(
+        "TopUp all wallets of all traders",
+    )
+    .addOption(new Option("-j, --max-concurrency <number>").default(1))
+    .action(airdrop)
 
 program
     .parseAsync(process.argv)
