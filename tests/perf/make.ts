@@ -8,9 +8,10 @@ import {
     Market,
     Exchange,
     Trader,
+    WalletInfo,
+    LogLevel
 //    EverWallet,
 } from "../../flex"
-//import { LogLevel } from "../../contracts/helpers"
 
 import { Option, program } from "commander"
 import { writeFile } from "fs/promises"
@@ -158,7 +159,7 @@ const deploy = async (options: any): Promise<void> => {
 
     const evr = new Evr(FLEX_CONFIG.evr)
 
-    //evr.log.level = LogLevel.DEBUG
+    evr.log.level = LogLevel.NONE
 
     const signer = options.exchange
 
@@ -302,15 +303,24 @@ const test = async (options: any): Promise<void> => {
     const client = FLEX_CONFIG.client1.addr
     const market = FLEX_CONFIG.market
 
-    //flex.evr.log.level = LogLevel.DEBUG
+    flex.evr.log.level = LogLevel.NONE
 
     let timestamps: number[] = []
 
+    /*
+    setInterval(() => {
+        console.log(`TPS: ${timestamps.filter(Boolean).length}`)
+    }, 1000)
+    */
+
+    /*
     const clearOldTimestamps = (ts: number) => {
         timestamps = timestamps.filter(x => x > ts)
     }
+    */
 
     async function trade(job: any) {
+        /*
         clearOldTimestamps(Date.now() - 1000)
 
         while (timestamps.length >= options.maxReqPerSecond) {
@@ -318,7 +328,9 @@ const test = async (options: any): Promise<void> => {
             clearOldTimestamps(Date.now() - 1000)
         }
         timestamps.push(Date.now())
+        */
         const { i, trader, sell, price } = job
+        /*
         try {
             await Trader.makeOrder(flex, {
                 client,
@@ -340,6 +352,47 @@ const test = async (options: any): Promise<void> => {
                 { depth: null },
             )
         }
+        */
+        // if flag is fired wait until timeout removes it
+        while(timestamps[i] !== undefined && (Date.now() - timestamps[i]) < options.maxReqPerSecond * 1_000) {
+            await sleep(100)
+        }
+
+        // topup gas
+        /*
+        const traderWallets = await Trader.queryWallets(flex, {
+            client: FLEX_CONFIG.client1?.addr ?? "",
+            trader: trader.id,
+        })
+        await traderWalletsTopUp(flex, traderWallets)
+        */
+
+        // fire flag that this trader index in process
+        timestamps[i] = Date.now()
+
+        // execute without waiting for result
+        Trader.makeOrder(flex, {
+            client,
+            trader,
+            sell,
+            market,
+            price,
+            amount: 1,
+        }).then().catch(error => {
+            console.dir(
+                {
+                    i,
+                    trader,
+                    sell,
+                    price,
+                    error,
+                },
+                { depth: null },
+            )
+        })
+
+        // after n seconds drop flag
+        //setTimeout(()=>{delete timestamps[i]}, options.maxReqPerSecond * 1_000)
     }
 
     await concurrent(options.maxConcurrency).map(trade, { entries })
@@ -347,11 +400,22 @@ const test = async (options: any): Promise<void> => {
     await flex.close()
 }
 
+const traderWalletsTopUp = async (flex: Flex, traderWallets: WalletInfo[]) => {
+    await Promise.all(
+        traderWallets.map(
+            wallet =>
+                wallet.nativeCurrencyBalance < 1_000 ?
+                    topUp(flex, wallet.address, 1_000_000)
+                    :
+                    Promise.resolve()
+        )
+    )
+}
+
 const airdrop = async (options: any): Promise<void> => {
     const FLEX_CONFIG: Partial<
         FlexConfig & MarketConfig
     > = require(FLEX_CONFIG_FILENAME)
-    // const MSIG_CONFIG: KeyConfig = require(MSIG_CONFIG_FILENAME)
     const TRADERS_CONFIG: TraderConfig[] = require(TRADERS_CONFIG_FILENAME)
     const flex = new Flex(FLEX_CONFIG)
 
@@ -362,17 +426,11 @@ const airdrop = async (options: any): Promise<void> => {
             trader: trader.id,
         })
         try {
-            await Promise.all(traderWallets.map(wallet => {
-                if (wallet.nativeCurrencyBalance < 100) {
-                    return topUp(flex, wallet.address, 1000 - wallet.nativeCurrencyBalance)
-                } else {
-                    return Promise.resolve()
-                }
-            }))
+            await traderWalletsTopUp(flex, traderWallets)
         } catch (error) {
             console.dir({error}, {depth: null})
         }
-        console.log(i++)
+        setTimeout(()=>console.log(`${i++}`), 1)
         return traderWallets.length < 2 ? null : trader
     }
 
