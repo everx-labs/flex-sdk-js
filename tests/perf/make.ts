@@ -255,7 +255,8 @@ const test = async (options: any): Promise<void> => {
         FlexConfig & MarketConfig
     > = require(FLEX_CONFIG_FILENAME)
     const TRADERS_CONFIG: TraderConfig[] = require(TRADERS_CONFIG_FILENAME)
-    const PRICE_RANGE = require("./range3600.json") // (d3js.org) d3.range(0, 3600).map(x => Number((Math.sin((x/10)*(Math.PI/180))+2).toFixed(9)))
+    const stepTrader = 1800
+    const PRICE_RANGE = require("./range3600.json").slice(0, stepTrader) // (d3js.org) d3.range(0, 3600).map(x => Number((Math.sin((x/10)*(Math.PI/180))+2).toFixed(9)))
 
     if (
         !(
@@ -286,7 +287,7 @@ const test = async (options: any): Promise<void> => {
         for (let i = start; ; ) {
             yield [
                 idx++,
-                { i: i, trader: TRADERS_CONFIG[i], sell, price: PRICE_RANGE[i] },
+                { i: i, trader: TRADERS_CONFIG[i], sell, price: PRICE_RANGE[i], investor: TRADERS_CONFIG[i + stepTrader] },
             ] // each trader has specific price
             if (i == end - 1) {
                 // cycle current sliced group
@@ -303,7 +304,7 @@ const test = async (options: any): Promise<void> => {
     const client = FLEX_CONFIG.client1.addr
     const market = FLEX_CONFIG.market
 
-    flex.evr.log.level = LogLevel.NONE
+    flex.evr.log.level = LogLevel.INFO
 
     let timestamps: number[] = []
 
@@ -329,7 +330,7 @@ const test = async (options: any): Promise<void> => {
         }
         timestamps.push(Date.now())
         */
-        const { i, trader, sell, price } = job
+        const { i, trader, sell, price, investor } = job
         /*
         try {
             await Trader.makeOrder(flex, {
@@ -384,6 +385,26 @@ const test = async (options: any): Promise<void> => {
                     i,
                     trader,
                     sell,
+                    price,
+                    error,
+                },
+                { depth: null },
+            )
+        })
+
+        Trader.makeOrder(flex, {
+            client,
+            trader: investor,
+            sell: !sell,
+            market,
+            price,
+            amount: 1,
+        }).then().catch(error => {
+            console.dir(
+                {
+                    i,
+                    trader: investor,
+                    sell: !sell,
                     price,
                     error,
                 },
@@ -447,6 +468,25 @@ const airdrop = async (options: any): Promise<void> => {
     )
 }
 
+const pm2 = async (): Promise<void> => {
+    const template = `
+module.exports = {
+  apps : [
+    {
+      name   : "app0",
+      script : "./make.js",
+      args   : "test -j 20 -c 5 -s 48 -g 47"
+    },
+  ]
+}
+`
+    await writeFile(
+        "ecosystem.config.json",
+        template,
+        { encoding: "utf-8" },
+    )
+}
+
 program
     .command("config")
     .summary(
@@ -486,6 +526,17 @@ program
         ).default(1),
     )
     .action(clients)
+
+program
+    .command("pm2")
+    .summary("Generate configuration file for pm2")
+    .addOption(
+        new Option(
+            "-j, --max-concurrency <number>",
+            "Number of process",
+        ).default(1),
+    )
+    .action(pm2)
 
 program
     .command("test")
