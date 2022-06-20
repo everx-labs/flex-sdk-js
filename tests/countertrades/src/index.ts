@@ -1,4 +1,5 @@
 import { Option, program, InvalidArgumentError } from "commander"
+import { info } from "./info"
 import { trades } from "./trades"
 import { airdrop } from "./airdrop"
 
@@ -50,6 +51,19 @@ program
             .argParser(asInt),
     )
     .action(airdrop)
+
+program
+    .command("info")
+    .summary("Show information about markets")
+    .option(
+        "-i, --index <number>",
+        "Index number of client in configuration file",
+        (val, _) => parseInt(val),
+    )
+    .option("-w, --wallet")
+    .option("-o, --orders")
+    .option("-t, --trades")
+    .action(info)
 
 program
     .parseAsync(process.argv)
