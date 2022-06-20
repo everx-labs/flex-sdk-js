@@ -91,6 +91,16 @@ export declare type FlexClientBurnWalletInput = {
     out_pubkey: string | number | bigint;
     out_owner?: string;
     my_tip3_addr: string;
+    notify?: string;
+};
+export declare type FlexClientBurnThemAllInput = {
+    burn_ev: string | number | bigint;
+    burns: {
+        out_pubkey: string | number | bigint;
+        out_owner?: string;
+        wallet: string;
+        notify?: string;
+    }[];
 };
 export declare type FlexClientUnwrapWalletInput = {
     evers_value: string | number | bigint;
@@ -98,6 +108,7 @@ export declare type FlexClientUnwrapWalletInput = {
     out_owner?: string;
     my_tip3_addr: string;
     tokens: string | number | bigint;
+    notify?: string;
 };
 export declare type FlexClientBindWalletInput = {
     evers: string | number | bigint;
@@ -144,6 +155,13 @@ export declare type FlexClientGetPayloadForDeployInternalWalletInput = {
     keep_evers: string | number | bigint;
 };
 export declare type FlexClientGetPayloadForDeployInternalWalletOutput = {
+    value0: string;
+};
+export declare type FlexClientGetPayloadForEverReTransferArgsInput = {
+    wallet_deploy_evers: string | number | bigint;
+    wallet_keep_evers: string | number | bigint;
+};
+export declare type FlexClientGetPayloadForEverReTransferArgsOutput = {
     value0: string;
 };
 export declare type FlexClientGetPriceXchgAddressInput = {
@@ -250,6 +268,20 @@ export declare class FlexClientAccount extends Account {
     burnWallet(input: FlexClientBurnWalletInput): Promise<{
         transaction: Transaction;
     }>;
+    runBurnThemAll(input: FlexClientBurnThemAllInput): Promise<{
+        transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
+    }>;
+    burnThemAll(input: FlexClientBurnThemAllInput): Promise<{
+        transaction: Transaction;
+    }>;
+    runContinueBurnThemAll(): Promise<{
+        transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
+    }>;
+    continueBurnThemAll(): Promise<{
+        transaction: Transaction;
+    }>;
     runUnwrapWallet(input: FlexClientUnwrapWalletInput): Promise<{
         transaction: Transaction;
         transactionTree: ResultOfQueryTransactionTree;
@@ -286,6 +318,15 @@ export declare class FlexClientAccount extends Account {
     getPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput): Promise<{
         transaction: Transaction;
         output: FlexClientGetPayloadForDeployInternalWalletOutput;
+    }>;
+    runGetPayloadForEverReTransferArgs(input: FlexClientGetPayloadForEverReTransferArgsInput): Promise<{
+        transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
+        output: FlexClientGetPayloadForEverReTransferArgsOutput;
+    }>;
+    getPayloadForEverReTransferArgs(input: FlexClientGetPayloadForEverReTransferArgsInput): Promise<{
+        transaction: Transaction;
+        output: FlexClientGetPayloadForEverReTransferArgsOutput;
     }>;
     runGetPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput): Promise<{
         transaction: Transaction;

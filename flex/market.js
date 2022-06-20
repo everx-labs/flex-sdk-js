@@ -10,29 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Market = void 0;
-const flex_1 = require("./flex");
-const contracts_1 = require("../contracts");
 const token_1 = require("./token");
-class Market extends flex_1.FlexBoundLazy {
-    createState(options) {
+class Market {
+    static queryOrderBook(flex, market) {
         return __awaiter(this, void 0, void 0, function* () {
-            return {
-                pair: new contracts_1.XchgPairAccount({
-                    client: this.flex.web3,
-                    address: options.address,
-                }),
-            };
-        });
-    }
-    static resolve(from, flex) {
-        return from instanceof Market
-            ? from
-            : new Market(typeof from === "string" ? { address: from } : from, flex);
-    }
-    queryOrderBook() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.flex.query(`
-            market(pairAddress: "${this.options.address}") {
+            const result = yield flex.query(`
+            market(pairAddress: "${market}") {
                 orderBook {
                     bids {
                         price
@@ -48,11 +31,11 @@ class Market extends flex_1.FlexBoundLazy {
             return result.market.orderBook;
         });
     }
-    queryPrice() {
+    static queryPrice(flex, market) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const result = yield this.flex.query(`
-            market(pairAddress: "${this.options.address}") {
+                const result = yield flex.query(`
+            market(pairAddress: "${market}") {
                 price
             }
         `);
@@ -65,9 +48,10 @@ class Market extends flex_1.FlexBoundLazy {
     }
     static queryMarkets(flex) {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield (flex !== null && flex !== void 0 ? flex : flex_1.Flex.default).query(`pairs { ${Market.queryFields()} }`)).pairs;
+            return (yield flex.query(`pairs { ${Market.queryFields()} }`)).pairs;
         });
     }
+    /** @internal */
     static queryFields() {
         return `
             address

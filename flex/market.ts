@@ -1,14 +1,5 @@
-import { Flex, FlexBoundLazy } from "./flex";
-import { XchgPairAccount } from "../contracts";
+import { Flex } from "./flex";
 import { Token, TokenInfo } from "./token";
-
-export type MarketOptions = {
-    address: string,
-}
-
-type MarketState = {
-    pair: XchgPairAccount,
-}
 
 export type MarketInfo = {
     /// Flex Pair account address
@@ -61,27 +52,10 @@ export type OrderBookItem = {
     amount: number
 }
 
-export class Market extends FlexBoundLazy<MarketOptions, MarketState> {
-
-    protected async createState(options: MarketOptions): Promise<MarketState> {
-        return {
-            pair: new XchgPairAccount({
-                client: this.flex.web3,
-                address: options.address,
-            }),
-        };
-    }
-
-    /** @internal */
-    static resolve(from: Market | MarketOptions | string, flex?: Flex): Market {
-        return from instanceof Market
-            ? from
-            : new Market(typeof from === "string" ? { address: from } : from, flex);
-    }
-
-    async queryOrderBook(): Promise<OrderBookInfo> {
-        const result = await this.flex.query(`
-            market(pairAddress: "${this.options.address}") {
+export class Market {
+    static async queryOrderBook(flex: Flex, market: string): Promise<OrderBookInfo> {
+        const result = await flex.query(`
+            market(pairAddress: "${market}") {
                 orderBook {
                     bids {
                         price
@@ -97,10 +71,10 @@ export class Market extends FlexBoundLazy<MarketOptions, MarketState> {
         return result.market.orderBook;
     }
 
-    async queryPrice(): Promise<number | null> {
+    static async queryPrice(flex: Flex, market: string): Promise<number | null> {
         try {
-            const result = await this.flex.query(`
-            market(pairAddress: "${this.options.address}") {
+            const result = await flex.query(`
+            market(pairAddress: "${market}") {
                 price
             }
         `);
@@ -110,10 +84,11 @@ export class Market extends FlexBoundLazy<MarketOptions, MarketState> {
         }
     }
 
-    static async queryMarkets(flex?: Flex): Promise<MarketInfo[]> {
-        return (await (flex ?? Flex.default).query(`pairs { ${Market.queryFields()} }`)).pairs;
+    static async queryMarkets(flex: Flex): Promise<MarketInfo[]> {
+        return (await flex.query(`pairs { ${Market.queryFields()} }`)).pairs;
     }
 
+    /** @internal */
     static queryFields() {
         return `
             address

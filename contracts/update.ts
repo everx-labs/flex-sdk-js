@@ -9,32 +9,37 @@ import {
 
 TonClient.useBinaryLibrary(libNode);
 
-async function update(client: TonClient, relPaths: string[]) {
+async function update(
+    client: TonClient,
+    sources: (string | { relPath: string, name: string })[],
+) {
     let index = "";
-    for (const relPath of relPaths) {
+    for (const source of sources) {
+        const relPath = typeof source === "string" ? source : source.relPath;
         const sourcePath = path.resolve(
             __dirname,
             "../../ton-contracts/cpp/freetrade",
             path.dirname(relPath),
         );
-        const sourceName = path.basename(relPath);
-        let abiPath = path.resolve(sourcePath, `${sourceName}.abi`);
+        const fileName = path.basename(relPath);
+        let abiPath = path.resolve(sourcePath, `${fileName}.abi`);
         if (!fs.existsSync(abiPath)) {
-            abiPath = path.resolve(sourcePath, `${sourceName}.abi.json`);
+            abiPath = path.resolve(sourcePath, `${fileName}.abi.json`);
         }
-        const tvcPath = path.resolve(sourcePath, `${sourceName}.tvc`);
+        const tvcPath = path.resolve(sourcePath, `${fileName}.tvc`);
         const abi: AbiContract = JSON.parse(fs.readFileSync(abiPath, "utf8"));
         const tvc = fs.readFileSync(tvcPath, "base64");
+        const name = typeof source === "string" ? fileName : source.name;
         const gen = await genContractCode(client, {
-            name: sourceName,
+            name,
             abi,
             tvc,
         });
         const contracts = contractCodeHeader({ hasDeploy: gen.hasDeploy }) +
             gen.code;
-        index += `export { ${sourceName}Account } from "./${sourceName}Account";\n`;
+        index += `export { ${name}Account } from "./${name}Account";\n`;
         fs.writeFileSync(
-            path.resolve(__dirname, "generated", `${sourceName}Account.ts`),
+            path.resolve(__dirname, "generated", `${name}Account.ts`),
             contracts,
             "utf8",
         );
@@ -67,6 +72,31 @@ async function update(client: TonClient, relPaths: string[]) {
                 "../tokens/fungible/WrapperEver",
                 "../tokens/fungible/WrapperDeployerTip3",
                 "../tokens/fungible/WrapperDeployerEver",
+                {
+                    relPath: "../tokens/fungible/broxus/contracts/TokenRoot",
+                    name: "Tip31Root",
+                },
+                {
+                    relPath: "../tokens/fungible/broxus/contracts/TokenWallet",
+                    name: "Tip31Wallet",
+                },
+                {
+                    relPath: "../tokens/fungible/WrapperDeployerBroxus",
+                    name: "Tip31WrapperDeployer",
+                },
+                {
+                    relPath: "../tokens/fungible/WrapperBroxus",
+                    name: "Tip31Wrapper",
+                },
+                {
+                    relPath: "../tokens/fungible/broxus/contracts/additional/TokenFactory",
+                    name: "Tip31Factory",
+                },
+                {
+                    relPath: "../tokens/fungible/broxus/contracts/TokenFactoryBuilder",
+                    name: "Tip31FactoryBuilder",
+                },
+
                 "../../solidity/multisig/MultisigWallet",
                 "immutable/SuperRoot",
                 "immutable/GlobalConfig",

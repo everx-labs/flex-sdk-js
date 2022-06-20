@@ -36,8 +36,13 @@
 		"contracts/*.ts",
 		"contracts/generated/*.ts",
 		"flex/*.ts",
+		"flex/client/*.ts",
+		"flex/trader/*.ts",
+		"flex/exchange/*.ts",
+		"flex/web3/*.ts",
 		"cli/*.ts",
 		"examples/*.ts",
 		"tests/*.ts",
+		"tests/perf/*.ts"
 	]
 }

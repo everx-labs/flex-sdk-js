@@ -1,0 +1,7 @@
+node_modules
+package-lock.json
+*.config.json
+*.d.ts
+*.js.map
+*.js
+*.bak
