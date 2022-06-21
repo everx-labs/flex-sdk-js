@@ -3,6 +3,7 @@ import { TonClient } from "@eversdk/core"
 import { libNode } from "@eversdk/lib-node"
 
 import FLEX_CONFIG from "./flex.config.json"
+import XchgPairAbi from "./XchgPair.abi.json"
 
 TonClient.useBinaryLibrary(libNode)
 
@@ -16,12 +17,30 @@ export function subscribeOnMessages(address: string) {
         {
             collection: "messages",
             filter: { dst: { eq: address } },
-            result: "id",
+            result: "id body",
         },
         (params, code: number) => {
             if (code === 100) {
-                console.log(`Got message on ${address}`, params)
-                statsd.increment(FLEX_CONFIG.metrics.trades)
+                tonClient.abi
+                    .decode_message_body({
+                        abi: {
+                            type: "Contract",
+                            value: XchgPairAbi,
+                        },
+                        body: params.result.body,
+                        is_internal: true,
+                    })
+                    .then(decoded => {
+                        console.log(decoded)
+                        if (decoded.name === "onXchgDealCompleted") {
+                            console.log(
+                                `Got onXchgDealCompleted message on ${address}`,
+                            )
+                            statsd.increment(FLEX_CONFIG.metrics.trades)
+                        }
+                    })
+                    // eslint-disable-next-line @typescript-eslint/no-empty-function
+                    .catch(() => {})
             } else {
                 console.log(
                     "Abort the test because of subscription error, code=",

@@ -5,7 +5,6 @@ import { sleep, time } from "./utils"
 
 import FLEX_CONFIG from "./flex.config.json"
 import TRADERS_CONFIG from "./traders.config.json"
-import PRICE_RANGE from "./prices3600.json"
 
 const MILLIS_TO_WAIT_BEFORE_EXIT = 120000
 
@@ -32,18 +31,19 @@ export const trades = async (opts: TTestOpts): Promise<void> => {
             for (;;) {
                 for (let i = 0; i < half; i++) {
                     // each trader has specific price
+                    const price = parseFloat((1 + Math.random()).toFixed(9)) // e.g.1.33818564
                     yield [
                         {
                             i: i,
                             trader: TRADERS_CONFIG[i],
                             sell: numCycles % 2 === 0,
-                            price: PRICE_RANGE[i],
+                            price,
                         },
                         {
                             i: i + half,
                             trader: TRADERS_CONFIG[i + half],
                             sell: numCycles % 2 !== 0,
-                            price: PRICE_RANGE[i],
+                            price,
                         },
                     ]
                 }
