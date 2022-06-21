@@ -7,6 +7,7 @@
 	"scripts": {
 		"trades": "node dist/tests/countertrades/src/index.js trades",
 		"info": "node dist/tests/countertrades/src/index.js info",
+		"topup": "node dist/tests/countertrades/src/index.js airdrop",
 		"build": "rimraf dist && tsc --project ./tsconfig.json",
 		"prepublishOnly": "npm i && tsc",
 		"format": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",

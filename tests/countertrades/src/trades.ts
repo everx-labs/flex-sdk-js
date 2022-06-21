@@ -9,11 +9,6 @@ import PRICE_RANGE from "./prices3600.json"
 
 const MILLIS_TO_WAIT_BEFORE_EXIT = 120000
 
-// Subscribe and send metrics to stastsd
-subscribeOnMessages(
-    "0:25e39eeeda69f35e97324bf224a2cac0d4338fcdfe0add3e1ab4ba8c4e2dc6f2",
-)
-
 type TTestOpts = {
     numTraders?: number
     msBetweenOrders?: number
@@ -25,6 +20,11 @@ export const trades = async (opts: TTestOpts): Promise<void> => {
         opts.numTraders > 1,
         "--num-traders should be greater than one and even",
     )
+    // Subscribe and send metrics to stastsd
+    subscribeOnMessages(
+        "0:25e39eeeda69f35e97324bf224a2cac0d4338fcdfe0add3e1ab4ba8c4e2dc6f2",
+    )
+
     let numCycles = 0
     const iterable = {
         [Symbol.iterator]: function* () {

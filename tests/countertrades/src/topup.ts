@@ -4,7 +4,7 @@ const giverAddr =
     "0:2bb4a0e8391e7ea8877f4825064924bd41ce110fce97e939d3323999e1efbb13"
 const giverKeys = {
     public: "95c06aa743d1f9000dd64b75498f106af4b7e7444234d7de67ea26988f6181df",
-    secret: "---"
+    secret: "---",
 }
 
 import { Trader, Flex } from "../../../flex"
