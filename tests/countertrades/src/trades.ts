@@ -1,9 +1,11 @@
 import assert from "assert"
+import StatsD from "hot-shots"
+
 import { Flex, Trader } from "../../../flex"
 import { subscribeOnMessages } from "./metrics"
 import { sleep, time } from "./utils"
 
-import FLEX_CONFIG from "./flex.config.json"
+import FLEX_CONFIG from "./config"
 import TRADERS_CONFIG from "./traders.config.json"
 
 const MILLIS_TO_WAIT_BEFORE_EXIT = 120000
@@ -23,6 +25,7 @@ export const trades = async (opts: TTestOpts): Promise<void> => {
     subscribeOnMessages(
         "0:25e39eeeda69f35e97324bf224a2cac0d4338fcdfe0add3e1ab4ba8c4e2dc6f2",
     )
+    const statsd = new StatsD(FLEX_CONFIG.statsd)
 
     let numCycles = 0
     const iterable = {
@@ -76,6 +79,7 @@ export const trades = async (opts: TTestOpts): Promise<void> => {
                 })
                 .catch(err => {
                     console.log(time(), "MAKE_ORDER_ERROR", ...context, err)
+                    statsd.increment(FLEX_CONFIG.metrics.errors)
                 })
         }
         await sleep(opts.msBetweenOrders / (opts.numTraders / 2))

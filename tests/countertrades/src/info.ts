@@ -1,6 +1,6 @@
 import { Flex, Market, Trader, Token } from "../../../flex"
 
-import FLEX_CONFIG from "./flex.config.json"
+import FLEX_CONFIG from "./config"
 import TRADERS_CONFIG from "./traders.config.json"
 
 export const info = async (options: any): Promise<void> => {

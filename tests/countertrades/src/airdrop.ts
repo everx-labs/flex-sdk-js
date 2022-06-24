@@ -4,7 +4,7 @@ import { RateLimiter } from "./utils"
 import { TraderConfig } from "./types"
 import { Flex } from "../../../flex"
 
-import FLEX_CONFIG from "./flex.config.json"
+import FLEX_CONFIG from "./config"
 import TRADERS_CONFIG from "./traders.config.json"
 
 export const airdrop = async (options: any): Promise<void> => {

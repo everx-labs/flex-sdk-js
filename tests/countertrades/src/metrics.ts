@@ -2,7 +2,7 @@ import StatsD from "hot-shots"
 import { TonClient } from "@eversdk/core"
 import { libNode } from "@eversdk/lib-node"
 
-import FLEX_CONFIG from "./flex.config.json"
+import FLEX_CONFIG from "./config"
 import XchgPairAbi from "./XchgPair.abi.json"
 
 TonClient.useBinaryLibrary(libNode)
@@ -31,7 +31,6 @@ export function subscribeOnMessages(address: string) {
                         is_internal: true,
                     })
                     .then(decoded => {
-                        console.log(decoded)
                         if (decoded.name === "onXchgDealCompleted") {
                             console.log(
                                 `Got onXchgDealCompleted message on ${address}`,
