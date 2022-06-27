@@ -66,6 +66,8 @@ export const trades = async (opts: TTestOpts): Promise<void> => {
             const context = [i, trader.id, sell, price]
             console.log(time(), "MAKE_ORDER_START", ...context)
 
+            statsd.increment(FLEX_CONFIG.metrics.orderSent)
+
             Trader.makeOrder(flex, {
                 client: FLEX_CONFIG.client1.addr,
                 market: FLEX_CONFIG.market,
@@ -76,6 +78,7 @@ export const trades = async (opts: TTestOpts): Promise<void> => {
             })
                 .then(() => {
                     console.log(time(), "MAKE_ORDER_RESULT", ...context)
+                    statsd.increment(FLEX_CONFIG.metrics.orderAccepted)
                 })
                 .catch(err => {
                     console.log(time(), "MAKE_ORDER_ERROR", ...context, err)

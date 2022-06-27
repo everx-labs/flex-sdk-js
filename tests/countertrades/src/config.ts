@@ -55,5 +55,7 @@ export default {
     metrics: {
         trades: "trades",
         errors: "errors",
+        orderSent: "sent",
+        orderAccepted: "accepted",
     },
 }
