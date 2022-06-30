@@ -34,9 +34,13 @@ export declare type FlexClientTestUpdateTransferInput = {
 };
 export declare type FlexClientTestUpdateTransferTokensInput = {
     src: string;
-    dst: string;
+    dst: {
+        pubkey: string | number | bigint;
+        owner?: string;
+    };
     tokens: string | number | bigint;
     evers: string | number | bigint;
+    keep_evers: string | number | bigint;
 };
 export declare type FlexClientTestUpdateDeployEmptyFlexWalletInput = {
     pubkey: string | number | bigint;
@@ -48,11 +52,7 @@ export declare type FlexClientTestUpdateDeployEmptyFlexWalletInput = {
         root_pubkey: string | number | bigint;
         root_address: string;
     };
-    binding?: {
-        flex: string;
-        unsalted_price_code_hash: string | number | bigint;
-    };
-    trader?: string | number | bigint;
+    trader: string | number | bigint;
     flex_wallet_code: string;
 };
 export declare type FlexClientTestUpdateDeployEmptyFlexWalletOutput = {
@@ -67,9 +67,15 @@ export declare type FlexClientTestUpdateDeployIndexInput = {
     refill_wallet: string | number | bigint;
     min_refill: string | number | bigint;
 };
-export declare type FlexClientTestUpdateReLendIndexInput = {
+export declare type FlexClientTestUpdateReBindWalletsInput = {
     user_id: string | number | bigint;
-    new_lend_pubkey: string | number | bigint;
+    set_binding: boolean;
+    binding?: {
+        flex: string;
+        unsalted_price_code_hash: string | number | bigint;
+    };
+    set_trader: boolean;
+    trader?: string | number | bigint;
     wallets: string[];
     evers_relend_call: string | number | bigint;
     evers_each_wallet_call: string | number | bigint;
@@ -85,6 +91,16 @@ export declare type FlexClientTestUpdateBurnWalletInput = {
     out_pubkey: string | number | bigint;
     out_owner?: string;
     my_tip3_addr: string;
+    notify?: string;
+};
+export declare type FlexClientTestUpdateBurnThemAllInput = {
+    burn_ev: string | number | bigint;
+    burns: {
+        out_pubkey: string | number | bigint;
+        out_owner?: string;
+        wallet: string;
+        notify?: string;
+    }[];
 };
 export declare type FlexClientTestUpdateUnwrapWalletInput = {
     evers_value: string | number | bigint;
@@ -92,6 +108,7 @@ export declare type FlexClientTestUpdateUnwrapWalletInput = {
     out_owner?: string;
     my_tip3_addr: string;
     tokens: string | number | bigint;
+    notify?: string;
 };
 export declare type FlexClientTestUpdateBindWalletInput = {
     evers: string | number | bigint;
@@ -138,6 +155,13 @@ export declare type FlexClientTestUpdateGetPayloadForDeployInternalWalletInput =
     keep_evers: string | number | bigint;
 };
 export declare type FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput = {
+    value0: string;
+};
+export declare type FlexClientTestUpdateGetPayloadForEverReTransferArgsInput = {
+    wallet_deploy_evers: string | number | bigint;
+    wallet_keep_evers: string | number | bigint;
+};
+export declare type FlexClientTestUpdateGetPayloadForEverReTransferArgsOutput = {
     value0: string;
 };
 export declare type FlexClientTestUpdateGetPriceXchgAddressInput = {
@@ -226,11 +250,11 @@ export declare class FlexClientTestUpdateAccount extends Account {
     deployIndex(input: FlexClientTestUpdateDeployIndexInput): Promise<{
         transaction: Transaction;
     }>;
-    runReLendIndex(input: FlexClientTestUpdateReLendIndexInput): Promise<{
+    runReBindWallets(input: FlexClientTestUpdateReBindWalletsInput): Promise<{
         transaction: Transaction;
         transactionTree: ResultOfQueryTransactionTree;
     }>;
-    reLendIndex(input: FlexClientTestUpdateReLendIndexInput): Promise<{
+    reBindWallets(input: FlexClientTestUpdateReBindWalletsInput): Promise<{
         transaction: Transaction;
     }>;
     runDestroyIndex(input: FlexClientTestUpdateDestroyIndexInput): Promise<{
@@ -245,6 +269,20 @@ export declare class FlexClientTestUpdateAccount extends Account {
         transactionTree: ResultOfQueryTransactionTree;
     }>;
     burnWallet(input: FlexClientTestUpdateBurnWalletInput): Promise<{
+        transaction: Transaction;
+    }>;
+    runBurnThemAll(input: FlexClientTestUpdateBurnThemAllInput): Promise<{
+        transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
+    }>;
+    burnThemAll(input: FlexClientTestUpdateBurnThemAllInput): Promise<{
+        transaction: Transaction;
+    }>;
+    runContinueBurnThemAll(): Promise<{
+        transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
+    }>;
+    continueBurnThemAll(): Promise<{
         transaction: Transaction;
     }>;
     runUnwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput): Promise<{
@@ -283,6 +321,15 @@ export declare class FlexClientTestUpdateAccount extends Account {
     getPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput): Promise<{
         transaction: Transaction;
         output: FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput;
+    }>;
+    runGetPayloadForEverReTransferArgs(input: FlexClientTestUpdateGetPayloadForEverReTransferArgsInput): Promise<{
+        transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
+        output: FlexClientTestUpdateGetPayloadForEverReTransferArgsOutput;
+    }>;
+    getPayloadForEverReTransferArgs(input: FlexClientTestUpdateGetPayloadForEverReTransferArgsInput): Promise<{
+        transaction: Transaction;
+        output: FlexClientTestUpdateGetPayloadForEverReTransferArgsOutput;
     }>;
     runGetPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput): Promise<{
         transaction: Transaction;

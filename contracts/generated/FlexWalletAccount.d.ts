@@ -48,12 +48,14 @@ export declare type FlexWalletBurnInput = {
     _answer_id: number;
     out_pubkey: string | number | bigint;
     out_owner?: string;
+    notify?: string;
 };
 export declare type FlexWalletUnwrapInput = {
     _answer_id: number;
     out_pubkey: string | number | bigint;
     out_owner?: string;
     tokens: string | number | bigint;
+    notify?: string;
 };
 export declare type FlexWalletMakeOrderInput = {
     _answer_id: number;

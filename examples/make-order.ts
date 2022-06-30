@@ -1,28 +1,25 @@
 import { Flex, Trader } from "../flex";
-import { CONFIG, initExample } from "./examples";
-///import { LogLevel } from "../contracts/helpers";
-
-initExample();
+import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
+import { LogLevel } from "../contracts/helpers";
 
 (async () => {
     try {
-        const trader = new Trader({
-            client: CONFIG.trader1.client,
-            id: CONFIG.trader1.id,
-            signer: CONFIG.trader1.signer,
-        });
+        const flex = new Flex(EXAMPLES_FLEX_CONFIG);
+        flex.evr.log.level = LogLevel.DEBUG;
 
-        /// trader.flex.log.level = LogLevel.DEBUG;
-      
-        await trader.makeOrder({
+        await Trader.makeOrder(
+            flex,
+            {
+                clientAddress: CONFIG.trader.client,
+                trader: CONFIG.trader,
+                sell: false,
+                marketAddress: CONFIG.market,
+                price: 2.6,
+                amount: 18,
+            },
+        );
 
-            sell: false,
-            market: CONFIG.market1,
-            price: 2.6,
-            amount: 18,
-        });
-
-        await Flex.default.close();
+        await flex.close();
     } catch (err) {
         console.error(err);
         process.exit(1);
