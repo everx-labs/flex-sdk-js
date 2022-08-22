@@ -20,7 +20,7 @@ TonClient.useBinaryLibrary(libNode);
 Flex.config = {
     web3: {
         network: {
-            endpoints: ["https://flex2.dev.tonlabs.io"],
+            endpoints: ["FLEX_ENDPOINT"],
         },
     },
     superRoot: "0:ed1741f19f7c2f870e96bca16c45283721f023235dc6896c765407e9127bb073",
