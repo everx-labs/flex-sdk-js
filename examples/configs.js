@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.VPS21_CONFIG = exports.DEVNET_CONFIG = exports.DEFAULT_CONFIG = void 0;
 exports.DEFAULT_CONFIG = {
     endpoints: ["https://test.flex.everos.dev"],
-    superRoot: "0:d3854bb948116fd6f23dbc761235f038dd2aed00f2312a2d70529fa88dbd19ba",
+    superRoot: "0:9120575adeae852d36b1ded9971281fa9907ac348fece95dea8a4e4328f77351",
     trader: {
         client: "0:fabe9e3e04a354d331bebffcabbc08fbab726feb234b12ea506840232109276f",
         id: "a51a2ccb21eddfda9069aabc76faba5840f361b7a0c6eb51c925af44156a2802",
