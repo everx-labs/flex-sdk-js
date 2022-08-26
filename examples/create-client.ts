@@ -11,7 +11,7 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
             },
             signer: "everWallet",
         });
-        
+        console.log(clientAddress);
         
         await Trader.deploy(flex, {
             client: {

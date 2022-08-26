@@ -55,6 +55,12 @@ export declare type Tip31RootSetBurnPausedOutput = {
 export declare type Tip31RootTransferOwnershipInput = {
     newOwner: string;
     remainingGasTo: string;
+    callbacks: {
+        [key: string]: {
+            value: string | number | bigint;
+            payload: string;
+        };
+    };
 };
 export declare type Tip31RootNameInput = {
     answerId: number;

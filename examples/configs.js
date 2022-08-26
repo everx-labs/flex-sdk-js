@@ -5,7 +5,7 @@ exports.DEFAULT_CONFIG = {
     endpoints: ["https://test.flex.everos.dev"],
     superRoot: "0:d3854bb948116fd6f23dbc761235f038dd2aed00f2312a2d70529fa88dbd19ba",
     trader: {
-        client: "0:301558399ae2d1b1e263c28884531e079541e47d747f0a7e89fdbe161f491d1b",
+        client: "0:fabe9e3e04a354d331bebffcabbc08fbab726feb234b12ea506840232109276f",
         id: "a51a2ccb21eddfda9069aabc76faba5840f361b7a0c6eb51c925af44156a2802",
         signer: "162c6c708018da073729dd4a60118425dd917e44653383f1faed4d16b94af30b",
         wallet: "0:b43f29b9e097cb0e21571ae63dcb1bfeda0568211da9eee4091ba42288c2a4c9",

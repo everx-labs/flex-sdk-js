@@ -21,6 +21,7 @@ const examples_1 = require("./examples");
             },
             signer: "everWallet",
         });
+        console.log(clientAddress);
         yield flex_1.Trader.deploy(flex, {
             client: {
                 address: clientAddress,
