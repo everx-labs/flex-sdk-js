@@ -1,7 +1,7 @@
 import {
     FlexWalletAccount,
     SuperRootOwnerAccount,
-    TONTokenWalletAccount,
+    // TONTokenWalletAccount,
     WrapperDeployerEverAccount,
     WrapperEverAccount,
 } from "../../contracts";
@@ -69,7 +69,7 @@ export async function addEverTokenType(
         reserve_wallet_value: toUnits(options.reserveWalletEvers ?? DEFAULTS.reserveWalletEvers),
     });
     await deployer.runSetWrapperEverCode({ code: WrapperEverAccount.package.code });
-    await deployer.runSetExtWalletCode({ code: TONTokenWalletAccount.package.code });
+    // await deployer.runSetExtWalletCode({ code: TONTokenWalletAccount.package.code });
     await deployer.runSetFlexWalletCode({ code: FlexWalletAccount.package.code });
 
     const superRootOwner = await web3.accounts.get(SuperRootOwnerAccount, options.superRootOwner);

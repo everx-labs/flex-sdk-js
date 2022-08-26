@@ -42,7 +42,6 @@ function addEverTokenType(web3, options) {
             reserve_wallet_value: (0, web3_1.toUnits)((_d = options.reserveWalletEvers) !== null && _d !== void 0 ? _d : DEFAULTS.reserveWalletEvers),
         });
         yield deployer.runSetWrapperEverCode({ code: contracts_1.WrapperEverAccount.package.code });
-        yield deployer.runSetExtWalletCode({ code: contracts_1.TONTokenWalletAccount.package.code });
         yield deployer.runSetFlexWalletCode({ code: contracts_1.FlexWalletAccount.package.code });
         const superRootOwner = yield web3.accounts.get(contracts_1.SuperRootOwnerAccount, options.superRootOwner);
         yield superRootOwner.runAddWrapperType({
