@@ -2,7 +2,8 @@
 	"name": "flex-sdk-js",
 	"version": "0.2.0",
 	"scripts": {
-		"docs": "typedoc --options typedoc.js"
+		"docs": "typedoc --options typedoc.js",
+		"update-contracts": "node contracts/update.js"
 	},
 	"devDependencies": {
 		"@types/node": "^14.14.31",

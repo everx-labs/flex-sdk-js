@@ -86,6 +86,10 @@ export declare type SuperRootOwnerUnlistXchgPairInput = {
     flex: string;
     pair: string;
 };
+export declare type SuperRootOwnerUpgradeBroxusWrapperWalletInput = {
+    main_evers: string | number | bigint;
+    wrapper: string;
+};
 export declare type SuperRootOwnerDeployWrappersConfigInput = {
     main_evers: string | number | bigint;
     deploy_evers: string | number | bigint;
@@ -164,7 +168,6 @@ export declare type SuperRootOwnerTransferReserveTokensInput = {
     wrapper: string;
     tokens: string | number | bigint;
     to: string;
-    evers: string | number | bigint;
 };
 export declare type SuperRootOwnerSetOwnerInput = {
     main_evers: string | number | bigint;
@@ -269,6 +272,13 @@ export declare class SuperRootOwnerAccount extends Account {
         transactionTree: ResultOfQueryTransactionTree;
     }>;
     unlistXchgPair(input: SuperRootOwnerUnlistXchgPairInput): Promise<{
+        transaction: Transaction;
+    }>;
+    runUpgradeBroxusWrapperWallet(input: SuperRootOwnerUpgradeBroxusWrapperWalletInput): Promise<{
+        transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
+    }>;
+    upgradeBroxusWrapperWallet(input: SuperRootOwnerUpgradeBroxusWrapperWalletInput): Promise<{
         transaction: Transaction;
     }>;
     runDeployWrappersConfig(input: SuperRootOwnerDeployWrappersConfigInput): Promise<{

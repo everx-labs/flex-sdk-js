@@ -16,19 +16,19 @@ const examples_1 = require("./examples");
         const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
         const clientAddress = yield flex_1.Client.deploy(flex, {
             everWallet: {
-                address: "0:b4da2773b3566c8799ff8292bb1058662d143556a7ac8a129c481a38657cbd33",
-                signer: "msig",
+                address: "0:d807caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
+                signer: "everWallet",
             },
-            signer: "flex-client-1",
+            signer: "everWallet",
         });
         yield flex_1.Trader.deploy(flex, {
             client: {
                 address: clientAddress,
-                signer: "flex-client-2",
+                signer: "everWallet",
             },
             id: examples_1.CONFIG.trader.id,
-            name: "Trader 1",
-            pubkey: yield flex.evr.signers.resolvePublicKey(examples_1.CONFIG.trader.signer),
+            name: "trader_1",
+            pubkey: "162c6c708018da073729dd4a60118425dd917e44653383f1faed4d16b94af30b"
         });
         console.log(`Client: ${clientAddress}}`);
         yield flex.close();

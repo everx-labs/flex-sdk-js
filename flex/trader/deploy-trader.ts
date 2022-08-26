@@ -34,6 +34,7 @@ export async function deployTrader(flex: Flex, options: DeployTraderOptions): Pr
     const address = (await clientAccount.getUserIdIndex({
         user_id: userId,
     })).output.value0;
+    console.log(address);
     if (!(await flex.evr.accounts.isActive(address))) {
         const defaults = flex.config.trader.deploy;
         await clientAccount.runDeployIndex({

@@ -110,7 +110,6 @@ export declare type SuperRootTransferReserveTokensInput = {
     wrapper: string;
     tokens: string | number | bigint;
     to: string;
-    evers: string | number | bigint;
 };
 export declare type SuperRootSetFlagsInput = {
     stop_trade?: boolean;

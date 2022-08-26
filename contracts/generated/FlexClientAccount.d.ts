@@ -102,6 +102,10 @@ export declare type FlexClientBurnThemAllInput = {
         notify?: string;
     }[];
 };
+export declare type FlexClientCancelThemAllInput = {
+    cancel_ev: string | number | bigint;
+    prices: string[];
+};
 export declare type FlexClientUnwrapWalletInput = {
     evers_value: string | number | bigint;
     out_pubkey: string | number | bigint;
@@ -280,6 +284,20 @@ export declare class FlexClientAccount extends Account {
         transactionTree: ResultOfQueryTransactionTree;
     }>;
     continueBurnThemAll(): Promise<{
+        transaction: Transaction;
+    }>;
+    runCancelThemAll(input: FlexClientCancelThemAllInput): Promise<{
+        transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
+    }>;
+    cancelThemAll(input: FlexClientCancelThemAllInput): Promise<{
+        transaction: Transaction;
+    }>;
+    runContinueCancelThemAll(): Promise<{
+        transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
+    }>;
+    continueCancelThemAll(): Promise<{
         transaction: Transaction;
     }>;
     runUnwrapWallet(input: FlexClientUnwrapWalletInput): Promise<{

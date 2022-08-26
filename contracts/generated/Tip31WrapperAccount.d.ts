@@ -161,6 +161,13 @@ export declare class Tip31WrapperAccount extends Account {
     setCloned(input: Tip31WrapperSetClonedInput): Promise<{
         transaction: Transaction;
     }>;
+    runUpgradeExternalWallet(): Promise<{
+        transaction: Transaction;
+        transactionTree: ResultOfQueryTransactionTree;
+    }>;
+    upgradeExternalWallet(): Promise<{
+        transaction: Transaction;
+    }>;
     runGetDetails(): Promise<{
         transaction: Transaction;
         transactionTree: ResultOfQueryTransactionTree;

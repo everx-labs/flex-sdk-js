@@ -4,9 +4,6 @@ import { Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type WrapperDeployerEverSetWrapperEverCodeInput = {
     code: string;
 };
-export declare type WrapperDeployerEverSetExtWalletCodeInput = {
-    code: string;
-};
 export declare type WrapperDeployerEverSetFlexWalletCodeInput = {
     code: string;
 };
@@ -40,13 +37,6 @@ export declare class WrapperDeployerEverAccount extends Account {
         transactionTree: ResultOfQueryTransactionTree;
     }>;
     setWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSetExtWalletCode(input: WrapperDeployerEverSetExtWalletCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setExtWalletCode(input: WrapperDeployerEverSetExtWalletCodeInput): Promise<{
         transaction: Transaction;
     }>;
     runSetFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput): Promise<{
