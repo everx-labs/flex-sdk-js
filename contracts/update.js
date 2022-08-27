@@ -105,7 +105,7 @@ function update(client, sources) {
     }
     catch (e) {
         console.log(e);
+        process.exit(1);
     }
-    process.exit(1);
 }))();
 //# sourceMappingURL=update.js.map
