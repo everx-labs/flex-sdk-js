@@ -15,13 +15,13 @@ const flex_2 = require("../flex");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
-        (0, examples_1.examplesLog)("Trader Orders", yield flex_2.Trader.queryOrders(flex, examples_1.CONFIG.trader.id));
-        (0, examples_1.examplesLog)("Trader Trades", yield flex_2.Trader.queryTrades(flex, examples_1.CONFIG.trader.id));
-        (0, examples_1.examplesLog)("Trader Wallets", yield flex_2.Trader.queryWallets(flex, {
+        const traderId = examples_1.CONFIG.trader.id;
+        console.log(`Trader Orders`, JSON.stringify(yield flex_2.Trader.queryOrders(flex, traderId), undefined, "   "));
+        console.log(`Trader Trades`, JSON.stringify(yield flex_2.Trader.queryTrades(flex, traderId), undefined, "   "));
+        console.log(`Trader Wallets`, JSON.stringify(yield flex_2.Trader.queryWallets(flex, {
             clientAddress: examples_1.CONFIG.trader.client,
             traderId: examples_1.CONFIG.trader.id,
-        }));
-        (0, examples_1.examplesLog)("Client Wallets", yield flex_2.Trader.queryWallets(flex, { clientAddress: examples_1.CONFIG.trader.client }));
+        }), undefined, "   "));
         yield flex.close();
     }
     catch (err) {

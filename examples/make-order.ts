@@ -6,14 +6,20 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
     try {
         const flex = new Flex(EXAMPLES_FLEX_CONFIG);
        // flex.evr.log.level = LogLevel.DEBUG;
+       const clientAddress = CONFIG.trader.client;
+       const traderId = CONFIG.trader.id;
+       const marketAddress = CONFIG.market;
 
         await Trader.makeOrder(
             flex,
             {
-                clientAddress: CONFIG.trader.client,
-                trader: CONFIG.trader,
+                clientAddress: clientAddress,
+                trader: {
+                    id: traderId,
+                    signer: 'trader_1'
+                },
                 sell: true,
-                marketAddress: CONFIG.market,
+                marketAddress: marketAddress,
                 price: 2.6,
                 amount: 18,
             },
