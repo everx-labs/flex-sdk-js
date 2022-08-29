@@ -14,14 +14,7 @@ const examples_1 = require("./examples");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
-        const clientAddress = yield flex_1.Client.deploy(flex, {
-            everWallet: {
-                address: "0:d807caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
-                signer: "everWallet",
-            },
-            signer: "everWallet",
-        });
-        console.log(`Client: ${clientAddress}}`);
+        const clientAddress = examples_1.CONFIG.trader.client;
         yield flex_1.Trader.deploy(flex, {
             client: {
                 address: clientAddress,
@@ -31,6 +24,16 @@ const examples_1 = require("./examples");
             name: "trader_1",
             pubkey: "162c6c708018da073729dd4a60118425dd917e44653383f1faed4d16b94af30b"
         });
+        yield flex_1.Trader.deployEverWallet(flex, {
+            clientAddress: clientAddress,
+            everWallet: {
+                address: clientAddress,
+                signer: "everWallet",
+            },
+            tokens: 100,
+            traderId: examples_1.CONFIG.trader.id,
+            wrapperAddress: "0:c072805ae38d548d4abbaddf929659d37584117b63b0969eb3f812c6252b12fb",
+        });
         console.log(`Trader wallets: ${JSON.stringify(flex_1.Trader.queryWallets(flex, { clientAddress: clientAddress, traderId: examples_1.CONFIG.trader.id }))}`);
         yield flex.close();
     }
@@ -39,4 +42,4 @@ const examples_1 = require("./examples");
         process.exit(1);
     }
 }))();
-//# sourceMappingURL=create-client.js.map
+//# sourceMappingURL=delegate-funds.js.map

@@ -13,7 +13,5 @@ declare type ExamplesConfig = {
     token: string;
 };
 export declare const DEFAULT_CONFIG: ExamplesConfig;
-export declare const DEVNET_CONFIG: ExamplesConfig;
-export declare const VPS21_CONFIG: ExamplesConfig;
 export {};
 //# sourceMappingURL=configs.d.ts.map
