@@ -26,12 +26,12 @@ export type DeployTraderEverWalletOptions = {
     tokens: number,
 
     /**
-     * TODO: Total fees for deposit
+     * Amount of native EVERs that the deposit message carries. Later on, DEX wallet will spend them to pay for gas. 
      */
     evers?: number,
     /**
      * Minimum amount of EVERs on DEX wallet. If balance drops below this amount,
-     * wallet is topped-up from Trader's Index wallet.
+     * wallet is automatically topped-up from the Trader's Index wallet.
      */
     keepEvers?: number,
 }
@@ -41,6 +41,7 @@ export type EverWalletInfo = {
 }
 
 const DEFAULTS = {
+    
     evers: 15,
     keepEvers: 12,
 };
@@ -77,7 +78,7 @@ export async function deployTraderEverWallet(
             },
         },
     });
-    await everWallet.topUp(walletAddress, evers);
+   // await everWallet.topUp(walletAddress, evers);
     return {
         address: walletAddress,
     };

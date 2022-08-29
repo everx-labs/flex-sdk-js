@@ -2,12 +2,12 @@ import { Flex } from "../flex";
 import { AccountOptionsEx } from "../../contracts/account-ex";
 export declare type DeployTraderTip31WalletOptions = {
     clientAddress: string;
+    everWallet: AccountOptionsEx;
     traderId: string;
     tokenWalletAddress: string;
     tokenWrapperAddress: string;
     tokenWrapperWalletAddress: string;
     tokenUnits: string;
-    everWallet: AccountOptionsEx;
     transferEvers?: number;
     evers?: number;
     keepEvers?: number;

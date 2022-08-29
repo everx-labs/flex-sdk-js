@@ -46,7 +46,6 @@ function deployTraderEverWallet(flex, options) {
                 },
             },
         });
-        yield everWallet.topUp(walletAddress, evers);
         return {
             address: walletAddress,
         };
