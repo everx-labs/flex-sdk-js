@@ -4,13 +4,13 @@ import {
     AbiContract,
     ResultOfQueryTransactionTree,
 } from "@eversdk/core";
-import {
+import { 
     deployHelper,
-    runHelper,
-    runLocalHelper,
-    Transaction,
-    ContractPackageEx,
-    Log,
+    runHelper, 
+    runLocalHelper, 
+    Transaction, 
+    ContractPackageEx, 
+    Log, 
 } from "../helpers";
 export type Tip31RootSupportsInterfaceInput = {
     answerId: number /* uint32 */,
@@ -81,6 +81,11 @@ export type Tip31RootSetBurnPausedOutput = {
 export type Tip31RootTransferOwnershipInput = {
     newOwner: string /* address */,
     remainingGasTo: string /* address */,
+    callbacks: {
+    [key: string]: {
+            value: string | number | bigint /* uint128 */,
+            payload: string /* cell */,
+        }    } /* map(address,tuple) */,
 };
 
 export type Tip31RootNameInput = {

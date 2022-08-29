@@ -25,7 +25,7 @@ export type DeployClientOptions = {
 
 const DEFAULTS = {
     transferEvers: 55,
-    deployEvers: 50,
+    deployEvers: 5,
 };
 
 /** @internal */

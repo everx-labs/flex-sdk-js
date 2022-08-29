@@ -1,19 +1,25 @@
 import { Flex, Trader } from "../flex";
 import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
-import { LogLevel } from "../contracts/helpers";
+//import { LogLevel } from "../contracts/helpers";
 
 (async () => {
     try {
         const flex = new Flex(EXAMPLES_FLEX_CONFIG);
-        flex.evr.log.level = LogLevel.DEBUG;
+       // flex.evr.log.level = LogLevel.DEBUG;
+       const clientAddress = CONFIG.trader.client;
+       const traderId = CONFIG.trader.id;
+       const marketAddress = CONFIG.market;
 
         await Trader.makeOrder(
             flex,
             {
-                clientAddress: CONFIG.trader.client,
-                trader: CONFIG.trader,
-                sell: false,
-                marketAddress: CONFIG.market,
+                clientAddress: clientAddress,
+                trader: {
+                    id: traderId,
+                    signer: 'trader_1'
+                },
+                sell: true,
+                marketAddress: marketAddress,
                 price: 2.6,
                 amount: 18,
             },

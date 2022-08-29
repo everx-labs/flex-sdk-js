@@ -13,6 +13,11 @@ export type DeployTraderTip31WalletOptions = {
     clientAddress: string,
 
     /**
+     * Ever Wallet, that is the owner of native TIP31 Wallet
+     */
+    everWallet: AccountOptionsEx,
+
+    /**
      * FLEX trader
      */
     traderId: string,
@@ -37,10 +42,7 @@ export type DeployTraderTip31WalletOptions = {
      */
     tokenUnits: string,
 
-    /**
-     * Ever Wallet, that is the owner of native TIP31 Wallet
-     */
-    everWallet: AccountOptionsEx,
+
 
     /**
      *  TODO: need to describe

@@ -107,8 +107,8 @@ async function update(
             await client.close();
         } catch (e) {
             console.log(e);
+            process.exit(1);
         }
-        process.exit(1);
     }
 )();
 

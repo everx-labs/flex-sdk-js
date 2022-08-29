@@ -195,9 +195,8 @@ function paramsDecl(params: AbiParam[], indent: string, isInput: boolean): strin
     return decl;
 }
 
-function paramDecl(param: AbiParam, indent: string, isInput: boolean): string {
-    const type = parseType(param.type);
-    let decl = `${param.name}${type.optional ? "?" : ""}: `;
+function paramTypeDecl(type: TypeInfo, indent: string, isInput: boolean, components?: AbiParam[]): string {
+    let decl = "";
     switch (type.name) {
     case "uint128":
     case "uint256":
@@ -221,19 +220,38 @@ function paramDecl(param: AbiParam, indent: string, isInput: boolean): string {
         break;
     case "tuple":
         decl += "{\n";
-        for (const field of param.components ?? []) {
+        for (const field of components ?? []) {
             decl += `${indent}    ${paramDecl(field, indent + "    ", isInput)},\n`;
         }
         decl += `${indent}}`;
         break;
+    case "map":
+
+        break;
     default:
-        decl += type.name;
+        if (type.name.startsWith("map")) {
+            const mapTypes = type.name.slice(4, -1).split(",");
+            const keyType = parseType(mapTypes[0]);
+            const valueType = parseType(mapTypes.slice(1).join(","));
+            decl += "{\n";
+            decl += `${indent}[key: ${paramTypeDecl(keyType, indent, isInput)}]: ${paramTypeDecl(valueType, indent + "    ", isInput, components)}`;
+            decl += `${indent}}`;
+        } else {
+            throw "Unknown ABI type";
+        }
         break;
     }
     if (type.array) {
         decl += "[]";
     }
-    decl += ` /* ${param.type} */`;
+    return decl;
+}
+
+function paramDecl(param: AbiParam, indent: string, isInput: boolean): string {
+    const type = parseType(param.type);
+    let decl = `${param.name}${type.optional ? "?" : ""}: `;
+    decl += paramTypeDecl(type, indent, isInput, param.components);
+    decl += ` /* ${param.type} */`
     return decl;
 }
 
