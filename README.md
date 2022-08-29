@@ -186,6 +186,17 @@ await Trader.makeOrder(
 # Examples
 
 You can examine the `examples` folder for a lot of examples. 
+To build run
+```
+npm run build
+```
+
+To run an example do
+ 
+```bash 
+cd dist/examples
+node <example name>
+```
 
 # CLI
 
