@@ -16,7 +16,7 @@ type ExamplesConfig = {
 
 export const DEFAULT_CONFIG: ExamplesConfig = {
     endpoints: ["https://test.flex.everos.dev"],
-    superRoot: "0:d3854bb948116fd6f23dbc761235f038dd2aed00f2312a2d70529fa88dbd19ba",
+    superRoot: "0:9120575adeae852d36b1ded9971281fa9907ac348fece95dea8a4e4328f77351",
     trader: {
         client: "0:ace889d877d998b4ad09fb3f563e82c13a825205c5c7ddd7ff76c0f3b5c15479",
         id: "a51a2ccb21eddfda9069aabc76faba5840f361b7a0c6eb51c925af44156a2802",

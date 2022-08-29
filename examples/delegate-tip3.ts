@@ -25,7 +25,7 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
         }
         );
 
-        console.log(`Trader EVER wallet address: ${trader_tip3_wallet} has beed topped-up.`);
+        console.log(`Trader Tip3 wallet address: ${trader_tip3_wallet} has beed topped-up.`);
         console.log(`Trader balances: ${JSON.stringify(await Trader.queryWallets(flex, {clientAddress: clientAddress, traderId: traderId}), null, 2)}`);
 
         await flex.close();
