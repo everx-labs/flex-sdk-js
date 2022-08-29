@@ -24,7 +24,7 @@ const examples_1 = require("./examples");
             name: "trader_1",
             pubkey: "162c6c708018da073729dd4a60118425dd917e44653383f1faed4d16b94af30b"
         });
-        yield flex_1.Trader.deployEverWallet(flex, {
+        let trader_ever_wallet = yield flex_1.Trader.deployEverWallet(flex, {
             clientAddress: clientAddress,
             everWallet: {
                 address: clientAddress,
@@ -34,6 +34,7 @@ const examples_1 = require("./examples");
             traderId: examples_1.CONFIG.trader.id,
             wrapperAddress: "0:c072805ae38d548d4abbaddf929659d37584117b63b0969eb3f812c6252b12fb",
         });
+        console.log(`Trader EVER wallet address: ${trader_ever_wallet}`);
         console.log(`Trader wallets: ${JSON.stringify(flex_1.Trader.queryWallets(flex, { clientAddress: clientAddress, traderId: examples_1.CONFIG.trader.id }))}`);
         yield flex.close();
     }

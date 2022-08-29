@@ -17,6 +17,8 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
             pubkey: "162c6c708018da073729dd4a60118425dd917e44653383f1faed4d16b94af30b" //await flex.evr.signers.resolvePublicKey(CONFIG.trader.signer),
         });
 
+        //{ pubkey: "0xa51a2ccb21eddfda9069aabc76faba5840f361b7a0c6eb51c925af44156a2802", owner: "0:d807caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526", evers: 15000000000, keepEvers: 12000000000 }
+
         let trader_ever_wallet =  await Trader.deployEverWallet(flex, {
             clientAddress: clientAddress,
             everWallet: {

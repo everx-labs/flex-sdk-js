@@ -1,5 +1,5 @@
 import { Flex } from "../flex";
-import { WrapperAccount } from "../../contracts";
+import { WrapperEverAccount } from "../../contracts";
 import { AccountOptionsEx } from "../../contracts/account-ex";
 import { EverWallet, toUnits, uint256 } from "../web3";
 
@@ -51,7 +51,7 @@ export async function deployTraderEverWallet(
     options: DeployTraderEverWalletOptions,
 ): Promise<EverWalletInfo> {
     const pubkey = uint256(options.traderId);
-    const wrapper = await flex.evr.accounts.get(WrapperAccount, options.wrapperAddress);
+    const wrapper = await flex.evr.accounts.get(WrapperEverAccount, options.wrapperAddress);
     const walletAddress = (await wrapper.getWalletAddress({
         owner: options.clientAddress,
         pubkey,
@@ -63,7 +63,7 @@ export async function deployTraderEverWallet(
         dest: options.wrapperAddress,
         value: toUnits(options.tokens + evers),
         payload: {
-            abi: WrapperAccount.package.abi,
+            abi: WrapperEverAccount.package.abi,
             fn: "onEverTransfer",
             params: {
                 tokens: toUnits(options.tokens),

@@ -20,7 +20,7 @@ function deployTraderEverWallet(flex, options) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
         const pubkey = (0, web3_1.uint256)(options.traderId);
-        const wrapper = yield flex.evr.accounts.get(contracts_1.WrapperAccount, options.wrapperAddress);
+        const wrapper = yield flex.evr.accounts.get(contracts_1.WrapperEverAccount, options.wrapperAddress);
         const walletAddress = (yield wrapper.getWalletAddress({
             owner: options.clientAddress,
             pubkey,
@@ -32,7 +32,7 @@ function deployTraderEverWallet(flex, options) {
             dest: options.wrapperAddress,
             value: (0, web3_1.toUnits)(options.tokens + evers),
             payload: {
-                abi: contracts_1.WrapperAccount.package.abi,
+                abi: contracts_1.WrapperEverAccount.package.abi,
                 fn: "onEverTransfer",
                 params: {
                     tokens: (0, web3_1.toUnits)(options.tokens),
