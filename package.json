@@ -1,19 +1,32 @@
 {
-	"name": "flex-sdk-js",
-	"version": "0.2.0",
-	"scripts": {
-		"docs": "typedoc --options typedoc.js",
-		"update-contracts": "node contracts/update.js"
-	},
-	"devDependencies": {
-		"@types/node": "^14.14.31",
-		"jest": "^28.1.0",
-		"typedoc": "^0.22.17",
-		"typescript": "^4.6.4"
-	},
-	"dependencies": {
-		"@eversdk/core": "^1.33.1",
-		"@eversdk/lib-node": "^1.33.1",
-		"@eversdk/appkit": "^0.3.1"
-	}
+    "name": "flex-sdk-js",
+    "version": "0.2.0",
+    "main": "dist/flex/index.js",
+    "scripts": {
+        "docs": "typedoc --options typedoc.js",
+        "build": "rimraf dist && tsc --project tsconfig.json",
+        "update-contracts": "node contracts/update.js"
+    },
+    "dependencies": {
+        "@eversdk/core": "^1.33.1",
+        "@eversdk/lib-node": "^1.33.1",
+        "@eversdk/appkit": "^0.3.1"
+    },
+    "devDependencies": {
+        "@eversdk/lib-node": "^1.37.0",
+        "@types/jest": "^27.4.1",
+        "@types/node": "^16.0.1",
+        "@typescript-eslint/eslint-plugin": "^5.19.0",
+        "@typescript-eslint/parser": "^5.19.0",
+        "eslint": "^7.30.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-jest": "^26.1.4",
+        "eslint-plugin-prettier": "^4.0.0",
+        "jest": "^27.5.1",
+        "prettier": "^2.3.2",
+        "rimraf": "^3.0.2",
+        "ts-jest": "^27.1.4",
+        "typedoc": "^0.23.11",
+        "typescript": "^4.6.3"
+    }
 }
