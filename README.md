@@ -70,16 +70,15 @@ One of the management funcstions is deploy of a Trader's contract.
 Let's deploy Flex Client and then a Trader: 
 
 ```ts
-
-    const clientAddress = await Client.deploy(flex, {
-        everWallet: {
-            address: "0:d807caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
-            signer: "everWallet private key",
-        },
-        signer: "Flex Client private key, can be the same with everWallet signer",
-        
-    });
-    console.log(`Client: ${clientAddress}}`);
+const clientAddress = await Client.deploy(flex, {
+    everWallet: {
+        address: "0:d807caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
+        signer: "everWallet private key",
+    },
+    signer: "Flex Client private key, can be the same with everWallet signer",
+    
+});
+console.log(`Client: ${clientAddress}}`);
 ```
 
 To deploy a Trader, a person or organization who becomes Trader must generate a pair of keys and profive Flex Client with
@@ -95,15 +94,15 @@ We already generated some ID and have a Trader pubkey, let's deploy Trader contr
 ```ts
 // Client deploys Trader's contract (`userIdIndex` contract)
 
-    await Trader.deploy(flex, {
-        client: {
-            address: clientAddress,
-            signer: "Client private key",
-        },
-        id: traderId,
-        name: "any name",
-        pubkey: "162c6c708018da073729dd4a60118425dd917e44653383f1faed4d16b94af30b" // Trader's pubkey
-    });
+await Trader.deploy(flex, {
+    client: {
+        address: clientAddress,
+        signer: "Client private key",
+    },
+    id: traderId,
+    name: "any name",
+    pubkey: "162c6c708018da073729dd4a60118425dd917e44653383f1faed4d16b94af30b" // Trader's pubkey
+});
 
 ```
 
@@ -116,20 +115,20 @@ You can deposit EVERs and Tip3 tokens on Flex.
 To deposit evers, transfer them to the Ever Vault contract. Specify Trader ID.
 
 ```ts
-    let trader_ever_wallet =  await Trader.deployEverWallet(flex, {
-        clientAddress: clientAddress,
-        everWallet: {
-            address: "0:d677caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
-            signer: "everWallet",
-        },
-        tokens: 100,
-        evers: 20,
-        keepEvers: 15,
-        traderId: traderId,
-        wrapperAddress: "0:c072805ae38d548d4abbaddf929659d37584117b63b0969eb3f812c6252b12fb", // EVER wrapper address
-    });
+let trader_ever_wallet =  await Trader.deployEverWallet(flex, {
+    clientAddress: clientAddress,
+    everWallet: {
+        address: "0:d677caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
+        signer: "everWallet",
+    },
+    tokens: 100,
+    evers: 20,
+    keepEvers: 15,
+    traderId: traderId,
+    wrapperAddress: "0:c072805ae38d548d4abbaddf929659d37584117b63b0969eb3f812c6252b12fb", // EVER wrapper address
+});
 
-    console.log(`Trader EVER wallet address: ${trader_ever_wallet} has beed topped-up.`);
+console.log(`Trader EVER wallet address: ${trader_ever_wallet} has beed topped-up.`);
 
 ```
 
@@ -139,25 +138,24 @@ To deposit Tip3 tokens, transfer them from Tip3 wallet to the Flex Vault contrac
 Specify Trader ID. 
 
 ```ts
+let trader_tip3_wallet =  await Trader.deployTip31Wallet(flex, {
+    clientAddress: clientAddress, 
+    everWallet: {
+        address: "0:d677caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
+        signer: "everWallet",
+    },
+    traderId: traderId,
+    tokenWalletAddress: "0:d4208262595226ac069b94d716ec6339882ec93a0e7e254186f3eb77b7d34c4b", // tip3 wallet owned by everWallet
+    tokenWrapperAddress: "0:d51c96406f74e4a1168f5ca3a936330beb7653782743cdce23c11d285c92f9ca", // Token Wrapper address on Flex
+    tokenWrapperWalletAddress: "0:ca4a6787b720f38745ec2a13f997061a7ba3dfa2e9b4432771a9cf61ea6ac984", // tip3 vault contract of the Token Wrapper
+    tokenUnits: "100000000000", // tokens to deposit
+    transferEvers: 21,
+    evers: 20,
+    keepEvers: 15
+}
+);
 
-        let trader_tip3_wallet =  await Trader.deployTip31Wallet(flex, {
-            clientAddress: clientAddress, 
-            everWallet: {
-                address: "0:d677caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
-                signer: "everWallet",
-            },
-            traderId: traderId,
-            tokenWalletAddress: "0:d4208262595226ac069b94d716ec6339882ec93a0e7e254186f3eb77b7d34c4b", // tip3 wallet owned by everWallet
-            tokenWrapperAddress: "0:d51c96406f74e4a1168f5ca3a936330beb7653782743cdce23c11d285c92f9ca", // Token Wrapper address on Flex
-            tokenWrapperWalletAddress: "0:ca4a6787b720f38745ec2a13f997061a7ba3dfa2e9b4432771a9cf61ea6ac984", // tip3 vault contract of the Token Wrapper
-            tokenUnits: "100000000000", // tokens to deposit
-            transferEvers: 21,
-            evers: 20,
-            keepEvers: 15
-        }
-        );
-
-        console.log(`Trader Tip3 wallet address: ${trader_tip3_wallet} has beed topped-up.`);
+console.log(`Trader Tip3 wallet address: ${trader_tip3_wallet} has beed topped-up.`);
 
 ```
 
@@ -169,21 +167,20 @@ Trader needs to have 2 wallets for each currency in a Pair to trade in that Pair
 Go to the Deposit sections to read how to top-up token wallets.
 
 ```ts
-
-    await Trader.makeOrder(
-        flex,
-        {
-            clientAddress: clientAddress,
-            trader: {
-                id: traderId,
-                signer: `Trader's private key`
-            },
-            sell: true,
-            marketAddress: marketAddress, // Trading pair address
-            price: 2.6,
-            amount: 18,
+await Trader.makeOrder(
+    flex,
+    {
+        clientAddress: clientAddress,
+        trader: {
+            id: traderId,
+            signer: `Trader's private key`
         },
-    );
+        sell: true,
+        marketAddress: marketAddress, // Trading pair address
+        price: 2.6,
+        amount: 18,
+    },
+);
 ```
 
 # Examples
