@@ -78,7 +78,7 @@ export async function deployTraderEverWallet(
             },
         },
     });
-   // await everWallet.topUp(walletAddress, evers);
+    
     return {
         address: walletAddress,
     };
