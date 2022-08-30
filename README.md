@@ -7,7 +7,7 @@ The library is targeted to be used with Node.js applications.
 
 Read the full Flex documentation here https://docs.everos.dev/flex
 
-# Setup Library
+# Initialize Flex object
 
 Library setup is simple, it includes setup for the Everscale client and configuration of the FLEX SDK.
 
@@ -20,31 +20,32 @@ query{
   }
 }
 ```
-Now specify the address of the endpoint and the Super Root in the config:
+Now specify the endpoint URL and Super Root address in the config
+and initialize `flex` object with it. You will need `flex` object later:
 
 ```ts
 import { TonClient } from "@eversdk/core";
 import { libNode } from "@eversdk/lib-node";
-import { Flex } from "../flex";
+import { Flex, FlexConfig } from "../flex";
 
 TonClient.useBinaryLibrary(libNode);
-Flex.config = {
+const FLEX_CONFIG: Partial<FlexConfig> = {
     evr: {
         sdk: {
             network: {
-                endpoints: "Insert FLEX endpoint here",
+                endpoints: ["FLEX ENDPOINT"],
             },
         },
     },
-    superRoot: "Insert Super Root address here",
+    superRoot: "Super Root address",
 };
-
- const flex = new Flex();
+const flex = new Flex(FLEX_CONFIG);
 
 ```
+# About Signer parameter
 
 Many functions of FLEX SDK accept parameters named `signer`.
-It is an object that has a secret, required to sign messages that will be sent to the blockchain accounts.
+It is an object that has a secret, required to sign messages that will be sent to the blockchain.
 
 `signer` parameter can accept these values:
 
@@ -192,7 +193,7 @@ npm run build
 ```
 
 To run an example do
- 
+
 ```bash 
 cd dist/examples
 node <example name>
