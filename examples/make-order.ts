@@ -10,20 +10,21 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
        const traderId = CONFIG.trader.id;
        const marketAddress = CONFIG.market;
 
-        await Trader.makeOrder(
-            flex,
-            {
-                clientAddress: clientAddress,
-                trader: {
-                    id: traderId,
-                    signer: 'trader_1'
-                },
-                sell: true,
-                marketAddress: marketAddress,
-                price: 2.6,
-                amount: 18,
+       let orderInfo = await Trader.makeOrder(
+        flex,
+        {
+            clientAddress: clientAddress,
+            trader: {
+                id: traderId,
+                signer: 'trader_1'
             },
-        );
+            sell: true,
+            marketAddress: marketAddress,
+            price: 240000,
+            amount: 10,
+        },
+    );
+    console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
 
         await flex.close();
     } catch (err) {

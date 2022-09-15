@@ -17,18 +17,16 @@ const examples_1 = require("./examples");
         const clientAddress = examples_1.CONFIG.trader.client;
         const traderId = examples_1.CONFIG.trader.id;
         const marketAddress = examples_1.CONFIG.market;
-        let orderInfo = yield flex_1.Trader.makeOrder(flex, {
+        yield flex_1.Trader.cancelOrder(flex, {
             clientAddress: clientAddress,
             trader: {
                 id: traderId,
                 signer: 'trader_1'
             },
-            sell: true,
             marketAddress: marketAddress,
-            price: 240000,
-            amount: 10,
+            price: 0.2,
+            orderId: "0x000000000000000000000000000000000000000000000000e9fa066a40045c7c",
         });
-        console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
         yield flex.close();
     }
     catch (err) {
@@ -36,4 +34,4 @@ const examples_1 = require("./examples");
         process.exit(1);
     }
 }))();
-//# sourceMappingURL=make-order.js.map
+//# sourceMappingURL=cancel-order.js.map
