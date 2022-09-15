@@ -83,15 +83,10 @@ export function priceToUnits(
 ): { num: string, denum: string } {
     const denom = Math.floor(Number(denominator));
 
-    console.log("price = " + price);
-    console.log("denominator = " + denom);
-    console.log("denom = " + denom);
-
     const price_num = Math.floor(price * denom * Math.pow(
         10,
         Number(minorDecimals) - Number(majorDecimals),
     ));
-    console.log("price_num = " + price_num);
     return {
         num: price_num.toString(),
         denum: denom.toString(),
