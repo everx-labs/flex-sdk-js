@@ -16,25 +16,25 @@ export type CancelOrderOptions = {
      * Flex Client address. If you are a trader, ask the person who lent you the money.
      */
     clientAddress: string,
-     /**
+    /**
      * Trader info
      */
     trader: TraderOptions,
-     /**
+    /**
      * Trading market
      */
     marketAddress: string,
-     /**
+    /**
      * Order price
      */
     price: number,
-     /**
+    /**
      * Optional order ID. If omitted, all orders with this price will be canceled.
      * Otherwise, only order with orderId will be canceled.
      *
      */
     orderId: number | string,
-     /**
+    /**
      * Evers for commission.
      */
     evers?: bigint | number | string,
@@ -44,7 +44,12 @@ export type CancelOrderOptions = {
 export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<void> {
     const pair = await evr.accounts.get(XchgPairAccount, options.marketAddress);
     const pairDetails = (await pair.getDetails()).output;
-    const price = priceToUnits(options.price, pairDetails.price_denum);
+    const price = priceToUnits(
+        options.price,
+        pairDetails.price_denum,
+        pairDetails.major_tip3cfg.decimals,
+        pairDetails.minor_tip3cfg.decimals,
+    );
     const priceDetails = await getPriceDetails(evr, options.clientAddress, pair, price.num);
     let sell: boolean;
     if (findOrder(options.orderId, priceDetails.sells)) {

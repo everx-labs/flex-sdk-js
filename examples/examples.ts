@@ -15,7 +15,7 @@ export const EXAMPLES_FLEX_CONFIG: Partial<FlexConfig> = {
         },
     },
     superRoot: CONFIG.superRoot,
-};
+}   ;
 
 export function examplesLog(title: string, value: any) {
     console.log(`${title}:`, JSON.stringify(value, undefined, "   "));

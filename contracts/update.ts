@@ -14,11 +14,11 @@ async function update(
     sources: (string | { relPath: string, name: string })[],
 ) {
     let index = "";
+    const packagePath = path.resolve(__dirname, "..", "..");
+    const generatedPath = path.resolve(packagePath, "contracts", "generated");
     for (const source of sources) {
         const relPath = typeof source === "string" ? source : source.relPath;
-        const sourcePath = path.resolve(
-            __dirname,
-            "../../ton-contracts/cpp/freetrade",
+        const sourcePath = path.resolve(packagePath, "../ton-contracts/cpp/freetrade",
             path.dirname(relPath),
         );
         const fileName = path.basename(relPath);
@@ -39,12 +39,12 @@ async function update(
             gen.code;
         index += `export { ${name}Account } from "./${name}Account";\n`;
         fs.writeFileSync(
-            path.resolve(__dirname, "generated", `${name}Account.ts`),
+            path.resolve(generatedPath, `${name}Account.ts`),
             contracts,
             "utf8",
         );
     }
-    fs.writeFileSync(path.resolve(__dirname, "generated", `index.ts`), index, "utf8");
+    fs.writeFileSync(path.resolve(generatedPath, `index.ts`), index, "utf8");
 }
 
 

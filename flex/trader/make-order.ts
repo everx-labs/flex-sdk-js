@@ -63,7 +63,12 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
     const orderId = options.orderId !== undefined
         ? options.orderId
         : await generateRandomOrderId(flex.evr);
-    const price = priceToUnits(options.price, pairDetails.price_denum);
+    const price = priceToUnits(
+        options.price,
+        pairDetails.price_denum,
+        pairDetails.major_tip3cfg.decimals,
+        pairDetails.minor_tip3cfg.decimals,
+    );
     const lend_balance = (await flexAccount.calcLendTokensForOrder({
         sell: options.sell,
         major_tokens: amount,
