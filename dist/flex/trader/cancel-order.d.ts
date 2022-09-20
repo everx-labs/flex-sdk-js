@@ -8,5 +8,8 @@ export declare type CancelOrderOptions = {
     orderId: number | string;
     evers?: bigint | number | string;
 };
-export declare function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<void>;
+export declare type CancelOrderResult = {
+    transactionId: string;
+};
+export declare function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<CancelOrderResult>;
 //# sourceMappingURL=cancel-order.d.ts.map
