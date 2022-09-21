@@ -17,16 +17,17 @@ const examples_1 = require("./examples");
         const clientAddress = examples_1.CONFIG.trader.client;
         const traderId = examples_1.CONFIG.trader.id;
         const marketAddress = examples_1.CONFIG.market;
-        yield flex_1.Trader.cancelOrder(flex, {
+        let orderInfo = yield flex_1.Trader.cancelOrder(flex, {
             clientAddress: clientAddress,
             trader: {
                 id: traderId,
                 signer: 'trader_1'
             },
             marketAddress: marketAddress,
-            price: 235000,
-            orderId: "0xa49cbc30cbbf2a44",
+            price: 240000,
+            orderId: "0x28a2d948c341473e",
         });
+        console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
         yield flex.close();
     }
     catch (err) {

@@ -10,7 +10,7 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
         const traderId = CONFIG.trader.id;
         const marketAddress = CONFIG.market;
 
-        await Trader.cancelOrder(
+        let orderInfo = await Trader.cancelOrder(
             flex,
             {
                 clientAddress: clientAddress,
@@ -19,10 +19,13 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
                     signer: 'trader_1'
                 },
                 marketAddress: marketAddress,
-                price: 235000,
-                orderId: "0xa49cbc30cbbf2a44",
+                price: 240000,
+                orderId: "0x28a2d948c341473e",
             },
         );
+
+        console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
+
 
         await flex.close();
     } catch (err) {
