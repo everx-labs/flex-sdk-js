@@ -7,7 +7,7 @@ import {
 } from "./internals";
 import { PriceXchgGetDetailsOutput } from "../../contracts/generated/PriceXchgAccount";
 import { TraderOptions } from "./types";
-import { Evr } from "../web3";
+import { Evr, TokenValue } from "../web3";
 import { priceToUnits } from "../flex";
 
 
@@ -27,7 +27,7 @@ export type CancelOrderOptions = {
     /**
      * Order price
      */
-    price: number,
+    price: TokenValue,
     /**
      * Optional order ID. If omitted, all orders with this price will be canceled.
      * Otherwise, only order with orderId will be canceled.

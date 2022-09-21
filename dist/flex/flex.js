@@ -65,7 +65,14 @@ class Flex {
 exports.Flex = Flex;
 function priceToUnits(price, denominator, majorDecimals, minorDecimals) {
     const denom = Math.floor(Number(denominator));
-    const price_num = Math.floor(price * denom * Math.pow(10, Number(minorDecimals) - Number(majorDecimals)));
+    if (typeof price === "number") {
+        const price_num = Math.floor(price * denom * Math.pow(10, Number(minorDecimals) - Number(majorDecimals)));
+        return {
+            num: price_num.toString(),
+            denum: denom.toString(),
+        };
+    }
+    const price_num = BigInt(price.units) * BigInt(denom);
     return {
         num: price_num.toString(),
         denum: denom.toString(),

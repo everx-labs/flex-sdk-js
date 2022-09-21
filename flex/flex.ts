@@ -5,7 +5,7 @@ import {
     SuperRootAccount,
     UserDataConfigAccount,
 } from "../contracts";
-import { Evr } from "./web3";
+import { Evr, TokenValue } from "./web3";
 
 export class Flex {
     /**
@@ -76,19 +76,25 @@ export class Flex {
 }
 
 export function priceToUnits(
-    price: number,
+    price: TokenValue,
     denominator: string | number,
     majorDecimals: string | number,
     minorDecimals: string | number,
 ): { num: string, denum: string } {
     const denom = Math.floor(Number(denominator));
-
-    const price_num = Math.floor(price * denom * Math.pow(
-        10,
-        Number(minorDecimals) - Number(majorDecimals),
-    ));
-    return {
-        num: price_num.toString(),
-        denum: denom.toString(),
-    };
+    if (typeof price === "number") {
+        const price_num = Math.floor(price * denom * Math.pow(
+            10,
+            Number(minorDecimals) - Number(majorDecimals),
+        ));
+        return {
+            num: price_num.toString(),
+            denum: denom.toString(),
+        };
+    }
+        const price_num = BigInt(price.units) * BigInt(denom);
+        return {
+            num: price_num.toString(),
+            denum: denom.toString(),
+        };
 }

@@ -1,10 +1,10 @@
 import { TraderOptions } from "./types";
-import { Evr } from "../web3";
+import { Evr, TokenValue } from "../web3";
 export declare type CancelOrderOptions = {
     clientAddress: string;
     trader: TraderOptions;
     marketAddress: string;
-    price: number;
+    price: TokenValue;
     orderId: number | string;
     evers?: bigint | number | string;
 };

@@ -1,8 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uint256 = exports.toUnits = void 0;
-function toUnits(tokens, decimals = 9) {
-    return Math.floor(tokens * Math.pow(10, Number(decimals))).toString();
+exports.uint256 = exports.toUnits = exports.units = void 0;
+function units(value) {
+    return { units: value };
+}
+exports.units = units;
+function toUnits(value, decimals = 9) {
+    if (typeof value === "number") {
+        return Math.floor(value * Math.pow(10, Number(decimals))).toString();
+    }
+    return value.units.toString();
 }
 exports.toUnits = toUnits;
 function uint256(value) {
