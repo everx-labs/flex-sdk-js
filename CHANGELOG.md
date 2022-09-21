@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## [0.4.0] – 2022-08-30
+## [0.4.0] – 2022-09-21
 
 ### New
 
