@@ -36,12 +36,16 @@ function cancelOrder(evr, options) {
             clientAddress: options.clientAddress,
             trader: options.trader,
         });
-        yield wallet.runCancelOrder({
+        const result = yield wallet.runCancelOrder({
             order_id: options.orderId,
             sell,
             price: priceDetails.address,
             evers: (_a = options.evers) !== null && _a !== void 0 ? _a : 3e9,
         });
+        evr.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
+        return {
+            transactionId: result.transaction.id,
+        };
     });
 }
 exports.cancelOrder = cancelOrder;

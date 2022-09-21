@@ -41,7 +41,12 @@ export type CancelOrderOptions = {
 
 };
 
-export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<void> {
+export type CancelOrderResult = {
+    /** Blockchain transaction in which the order was cancelled */
+    transactionId: string,
+};
+
+export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<CancelOrderResult> {
     const pair = await evr.accounts.get(XchgPairAccount, options.marketAddress);
     const pairDetails = (await pair.getDetails()).output;
     const price = priceToUnits(
@@ -65,12 +70,16 @@ export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promis
         clientAddress: options.clientAddress,
         trader: options.trader,
     });
-    await wallet.runCancelOrder({
+    const result = await wallet.runCancelOrder({
         order_id: options.orderId,
         sell,
         price: priceDetails.address,
         evers: options.evers ?? 3e9,
     });
+    evr.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
+    return {
+        transactionId: result.transaction.id,
+    };
 }
 
 function findOrder(id: number | string, orders: any[] | null | undefined): any | undefined {

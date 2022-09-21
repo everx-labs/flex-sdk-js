@@ -3,7 +3,7 @@
  */
 import { Flex } from "../flex";
 import { makeOrder, MakeOrderOptions, NewOrderInfo } from "./make-order";
-import { cancelOrder, CancelOrderOptions } from "./cancel-order";
+import { cancelOrder, CancelOrderOptions, CancelOrderResult } from "./cancel-order";
 import { OrderInfo, TradeInfo } from "./types";
 import { queryOrders, queryTrades, queryWallets, QueryWalletsOptions } from "./query";
 import { WalletInfo } from "../client/index";
@@ -102,7 +102,7 @@ export class Trader {
      * Cancel options
      * @returns
      */
-    static async cancelOrder(flex: Flex, options: CancelOrderOptions): Promise<void> {
+    static async cancelOrder(flex: Flex, options: CancelOrderOptions): Promise<CancelOrderResult> {
         return await cancelOrder(flex.evr, options);
     }
     /**
