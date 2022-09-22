@@ -1,10 +1,22 @@
+/**
+ * Amount or Price value that is enumerated in tokens
+ */
 export type ExplicitTokens = {
     tokens: number,
 }
 
+/**
+ * Amount or Price value that is enumerated in units
+ */
+
 export type ExplicitUnits = {
     units: number | bigint | string,
 }
+
+/**
+ * Amount or Price value that is enumerated in tokens or in units.
+ * If passed as `number` then treated as tokens. 
+ */
 
 export type TokenValue = number | ExplicitTokens | ExplicitUnits;
 
