@@ -24,8 +24,8 @@ const examples_1 = require("./examples");
                 signer: 'trader_1'
             },
             marketAddress: marketAddress,
-            price: 240000,
-            orderId: "0x28a2d948c341473e",
+            price: (0, flex_1.units)(240000),
+            orderId: "0xdc19e8ff42c514a2",
         });
         console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
         yield flex.close();

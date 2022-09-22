@@ -1,4 +1,4 @@
-import { Flex, Trader } from "../flex";
+import { Flex, Trader, units } from "../flex";
 import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
 //import { LogLevel } from "../contracts/helpers";
 
