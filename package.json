@@ -1,6 +1,6 @@
 {
     "name": "flex-sdk-js",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "main": "dist/flex/index.js",
     "scripts": {
         "docs": "typedoc --options typedoc.js",
