@@ -21,10 +21,10 @@ const examples_1 = require("./examples");
             clientAddress: clientAddress,
             trader: {
                 id: traderId,
-                signer: 'trader_1'
+                signer: "trader_1",
             },
             marketAddress: marketAddress,
-            price: (0, flex_1.units)(240000),
+            price: { units: 240000 },
             orderId: "0xdc19e8ff42c514a2",
         });
         console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));

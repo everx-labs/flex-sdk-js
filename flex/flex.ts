@@ -81,20 +81,40 @@ export function priceToUnits(
     majorDecimals: string | number,
     minorDecimals: string | number,
 ): { num: string, denum: string } {
-    const denom = Math.floor(Number(denominator));
     if (typeof price === "number") {
-        const price_num = Math.floor(price * denom * Math.pow(
-            10,
-            Number(minorDecimals) - Number(majorDecimals),
-        ));
-        return {
-            num: price_num.toString(),
-            denum: denom.toString(),
-        };
+        return tokenPriceToUnits(price, denominator, majorDecimals, minorDecimals);
     }
-        const price_num = BigInt(price.units) * BigInt(denom);
-        return {
-            num: price_num.toString(),
-            denum: denom.toString(),
-        };
+    if ("tokens" in price) {
+        return tokenPriceToUnits(price.tokens, denominator, majorDecimals, minorDecimals);
+    }
+    return unitPriceToUnits(price.units, denominator);
+}
+
+function tokenPriceToUnits(
+    price: number,
+    denominator: string | number,
+    majorDecimals: string | number,
+    minorDecimals: string | number,
+): { num: string, denum: string } {
+    const denom = Math.floor(Number(denominator));
+    const price_num = Math.floor(price * denom * Math.pow(
+        10,
+        Number(minorDecimals) - Number(majorDecimals),
+    ));
+    return {
+        num: price_num.toString(),
+        denum: denom.toString(),
+    };
+}
+
+function unitPriceToUnits(
+    price: number | bigint | string,
+    denominator: string | number,
+): { num: string, denum: string } {
+    const denom = Math.floor(Number(denominator));
+    const price_num = BigInt(price) * BigInt(denom);
+    return {
+        num: price_num.toString(),
+        denum: denom.toString(),
+    };
 }

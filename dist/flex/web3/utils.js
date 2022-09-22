@@ -1,17 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uint256 = exports.toUnits = exports.units = void 0;
-function units(value) {
-    return { units: value };
-}
-exports.units = units;
+exports.uint256 = exports.tokensToUnits = exports.toUnits = void 0;
 function toUnits(value, decimals = 9) {
     if (typeof value === "number") {
-        return Math.floor(value * Math.pow(10, Number(decimals))).toString();
+        return tokensToUnits(value, decimals);
+    }
+    if ("tokens" in value) {
+        return tokensToUnits(value.tokens, decimals);
     }
     return value.units.toString();
 }
 exports.toUnits = toUnits;
+function tokensToUnits(value, decimals) {
+    return Math.floor(value * Math.pow(10, Number(decimals))).toString();
+}
+exports.tokensToUnits = tokensToUnits;
 function uint256(value) {
     if (value.startsWith("0x") || value.startsWith("0X")) {
         return value;

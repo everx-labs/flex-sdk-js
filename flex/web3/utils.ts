@@ -1,16 +1,25 @@
-export type TokenValue = number | {
-    units: number | bigint | string
+export type ExplicitTokens = {
+    tokens: number,
 }
 
-export function units(value: number | bigint | string): TokenValue {
-    return { units: value };
+export type ExplicitUnits = {
+    units: number | bigint | string,
 }
+
+export type TokenValue = number | ExplicitTokens | ExplicitUnits;
 
 export function toUnits(value: TokenValue, decimals: string | number = 9): string {
     if (typeof value === "number") {
-        return Math.floor(value * Math.pow(10, Number(decimals))).toString();
+        return tokensToUnits(value, decimals);
+    }
+    if ("tokens" in value) {
+        return tokensToUnits(value.tokens, decimals);
     }
     return value.units.toString();
+}
+
+export function tokensToUnits(value: number, decimals: string | number): string {
+    return Math.floor(value * Math.pow(10, Number(decimals))).toString();
 }
 
 export function uint256(value: string): string {

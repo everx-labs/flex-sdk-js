@@ -25,8 +25,8 @@ const examples_1 = require("./examples");
             },
             sell: true,
             marketAddress: marketAddress,
-            price: (0, flex_1.units)(240000),
-            amount: (0, flex_1.units)(500),
+            price: { units: 240000 },
+            amount: { units: 500 },
         });
         console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
         yield flex.close();

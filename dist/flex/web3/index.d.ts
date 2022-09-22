@@ -3,6 +3,6 @@ import { EvrAccounts } from "./accounts";
 import { EvrSigners, SignerOption } from "./signers";
 import { EverWallet, TransferOptions } from "./ever-wallet";
 import { EvrConfig, Evr } from "./evr";
-import { toUnits, uint256, TokenValue, units } from "./utils";
-export { EvrSigners, EvrAccounts, Log, LogLevel, SignerOption, EverWallet, TransferOptions, Evr, EvrConfig, toUnits, uint256, TokenValue, units, };
+import { toUnits, uint256, TokenValue } from "./utils";
+export { EvrSigners, EvrAccounts, Log, LogLevel, SignerOption, EverWallet, TransferOptions, Evr, EvrConfig, toUnits, uint256, TokenValue, };
 //# sourceMappingURL=index.d.ts.map

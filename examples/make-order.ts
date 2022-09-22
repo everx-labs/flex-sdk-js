@@ -1,4 +1,4 @@
-import { Flex, Trader, units } from "../flex";
+import { Flex, Trader } from "../flex";
 import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
 //import { LogLevel } from "../contracts/helpers";
 
@@ -18,8 +18,8 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
             },
             sell: true,
             marketAddress: marketAddress,
-            price: units(240000),
-            amount: units(500),
+            price: { units: 240000 },
+            amount: { units: 500 },
         });
         console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
 

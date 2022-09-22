@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.units = exports.uint256 = exports.toUnits = exports.Evr = exports.EverWallet = exports.LogLevel = exports.Log = exports.EvrAccounts = exports.EvrSigners = void 0;
+exports.uint256 = exports.toUnits = exports.Evr = exports.EverWallet = exports.LogLevel = exports.Log = exports.EvrAccounts = exports.EvrSigners = void 0;
 const helpers_1 = require("../../contracts/helpers");
 Object.defineProperty(exports, "Log", { enumerable: true, get: function () { return helpers_1.Log; } });
 Object.defineProperty(exports, "LogLevel", { enumerable: true, get: function () { return helpers_1.LogLevel; } });
@@ -15,5 +15,4 @@ Object.defineProperty(exports, "Evr", { enumerable: true, get: function () { ret
 const utils_1 = require("./utils");
 Object.defineProperty(exports, "toUnits", { enumerable: true, get: function () { return utils_1.toUnits; } });
 Object.defineProperty(exports, "uint256", { enumerable: true, get: function () { return utils_1.uint256; } });
-Object.defineProperty(exports, "units", { enumerable: true, get: function () { return utils_1.units; } });
 //# sourceMappingURL=index.js.map

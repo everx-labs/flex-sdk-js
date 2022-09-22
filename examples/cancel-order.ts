@@ -1,4 +1,4 @@
-import { Flex, Trader, units } from "../flex";
+import { Flex, Trader } from "../flex";
 import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
 //import { LogLevel } from "../contracts/helpers";
 
@@ -16,10 +16,10 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
                 clientAddress: clientAddress,
                 trader: {
                     id: traderId,
-                    signer: 'trader_1'
+                    signer: "trader_1",
                 },
                 marketAddress: marketAddress,
-                price: units(240000),
+                price: { units: 240000 },
                 orderId: "0xdc19e8ff42c514a2",
             },
         );
