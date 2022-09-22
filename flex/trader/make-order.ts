@@ -7,7 +7,7 @@ import {
     getWallet,
 } from "./internals";
 import { TraderOptions } from "./types";
-import { toUnits, Evr } from "../web3";
+import { toUnits, Evr, TokenValue } from "../web3";
 import { priceToUnits } from "../flex";
 
 export type MakeOrderOptions = {
@@ -17,9 +17,9 @@ export type MakeOrderOptions = {
     /** Trade direction */
     sell: boolean,
     /** Amount of Major token to buy or sell */
-    amount: number,
+    amount: TokenValue,
     /** Price of Major token */
-    price: number,
+    price: TokenValue,
     /**
      * Optional uint64 size number, MUST be unique for each Trader's order.
      * If omitted library uses random generator.
@@ -76,12 +76,8 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
     })).output.value0;
     const finishTime = options.finishTime ?? Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
 
-    const minAmount = Number(pairDetails.min_amount) / Math.pow(
-        10,
-        Number(pairDetails.major_tip3cfg.decimals),
-    );
-    if (options.amount < minAmount) {
-        throw new Error(`Specified amount ${options.amount} is less that market min amount ${minAmount}`);
+    if (BigInt(amount) < BigInt(pairDetails.min_amount)) {
+        throw new Error(`Specified amount ${amount} is less that market min amount ${pairDetails.min_amount}`);
     }
     const mode = options.mode ?? defaults.mode;
     try {

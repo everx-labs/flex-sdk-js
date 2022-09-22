@@ -1,13 +1,13 @@
 import { Flex, MakeOrderMode } from "../exchange";
 import { TraderOptions } from "./types";
-import { Evr } from "../web3";
+import { Evr, TokenValue } from "../web3";
 export declare type MakeOrderOptions = {
     clientAddress: string;
     trader: TraderOptions;
     marketAddress: string;
     sell: boolean;
-    amount: number;
-    price: number;
+    amount: TokenValue;
+    price: TokenValue;
     orderId?: number | string;
     evers?: bigint | number | string;
     finishTime?: number;

@@ -6,7 +6,7 @@ import { EvrAccounts } from "./accounts";
 import { EvrSigners, SignerOption } from "./signers";
 import { EverWallet, TransferOptions } from "./ever-wallet";
 import { EvrConfig, Evr } from "./evr";
-import { toUnits, uint256 } from "./utils";
+import { toUnits, uint256, TokenValue } from "./utils";
 
 export {
     EvrSigners,
@@ -20,4 +20,5 @@ export {
     EvrConfig,
     toUnits,
     uint256,
+    TokenValue,
 };

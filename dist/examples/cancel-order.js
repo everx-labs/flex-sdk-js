@@ -21,11 +21,11 @@ const examples_1 = require("./examples");
             clientAddress: clientAddress,
             trader: {
                 id: traderId,
-                signer: 'trader_1'
+                signer: "trader_1",
             },
             marketAddress: marketAddress,
-            price: 240000,
-            orderId: "0x28a2d948c341473e",
+            price: { tokens: 240000 },
+            orderId: "0xcd87833099febfe2",
         });
         console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
         yield flex.close();

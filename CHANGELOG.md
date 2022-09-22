@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.5.0] – 2022-09-22
+
+### New
+
+- `Trader.cancelOrder`  and `Trader.makeOrder` now accept price and amount also in units. See the documentation and tests for more info. 
+
 ## [0.4.0] – 2022-09-21
 
 ### New

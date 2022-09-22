@@ -18,8 +18,8 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
             },
             sell: true,
             marketAddress: marketAddress,
-            price: 240000,
-            amount: 0.0005,
+            price: { units: 240000 },
+            amount: { units: 500 },
         });
         console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
 

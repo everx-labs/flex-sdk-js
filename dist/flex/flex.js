@@ -64,6 +64,16 @@ class Flex {
 }
 exports.Flex = Flex;
 function priceToUnits(price, denominator, majorDecimals, minorDecimals) {
+    if (typeof price === "number") {
+        return tokenPriceToUnits(price, denominator, majorDecimals, minorDecimals);
+    }
+    if ("tokens" in price) {
+        return tokenPriceToUnits(price.tokens, denominator, majorDecimals, minorDecimals);
+    }
+    return unitPriceToUnits(price.units, denominator);
+}
+exports.priceToUnits = priceToUnits;
+function tokenPriceToUnits(price, denominator, majorDecimals, minorDecimals) {
     const denom = Math.floor(Number(denominator));
     const price_num = Math.floor(price * denom * Math.pow(10, Number(minorDecimals) - Number(majorDecimals)));
     return {
@@ -71,5 +81,12 @@ function priceToUnits(price, denominator, majorDecimals, minorDecimals) {
         denum: denom.toString(),
     };
 }
-exports.priceToUnits = priceToUnits;
+function unitPriceToUnits(price, denominator) {
+    const denom = Math.floor(Number(denominator));
+    const price_num = BigInt(price) * BigInt(denom);
+    return {
+        num: price_num.toString(),
+        denum: denom.toString(),
+    };
+}
 //# sourceMappingURL=flex.js.map
