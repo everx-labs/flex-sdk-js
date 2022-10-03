@@ -19,7 +19,7 @@ function cancelOrder(evr, options) {
         const pair = yield evr.accounts.get(contracts_1.XchgPairAccount, options.marketAddress);
         const pairDetails = (yield pair.getDetails()).output;
         const price = (0, flex_1.priceToUnits)(options.price, pairDetails.price_denum, pairDetails.major_tip3cfg.decimals, pairDetails.minor_tip3cfg.decimals);
-        const priceDetails = yield getPriceDetails(evr, options.clientAddress, pair, price.num);
+        const priceDetails = yield getPriceDetails(evr, options.clientAddress, pair, price.num, options.price);
         let sell;
         if (findOrder(options.orderId, priceDetails.sells)) {
             sell = true;
@@ -64,7 +64,7 @@ function findOrder(id, orders) {
     const numId = Number(id);
     return orders.find(x => Number(x.order_id) === numId);
 }
-function getPriceDetails(evr, client, pair, priceNum) {
+function getPriceDetails(evr, client, pair, priceNum, price) {
     return __awaiter(this, void 0, void 0, function* () {
         const saltedPriceCode = (yield pair.getPriceXchgCode({ salted: true })).output.value0;
         const clientAccount = yield evr.accounts.get(contracts_1.FlexClientAccount, client);
@@ -72,6 +72,9 @@ function getPriceDetails(evr, client, pair, priceNum) {
             price_num: priceNum,
             salted_price_code: saltedPriceCode,
         })).output.value0;
+        if (!(yield evr.accounts.isActive(address))) {
+            throw new Error(`Orderbook's price account [${address}] does not exist. Please check price (${JSON.stringify(price)}).`);
+        }
         const priceAccount = yield evr.accounts.get(contracts_1.PriceXchgAccount, address);
         const details = (yield priceAccount.getDetails()).output;
         return Object.assign({ address }, details);
