@@ -73,7 +73,7 @@ function getPriceDetails(evr, client, pair, priceNum, price) {
             salted_price_code: saltedPriceCode,
         })).output.value0;
         if (!(yield evr.accounts.isActive(address))) {
-            throw new Error(`Orderbook's price account [${address}] does not exist. Please check price (${JSON.stringify(price)}).`);
+            throw new Error(`Orderbook's price account [${address}] does not exist. Please check that the price (${JSON.stringify(price)}) is correct.`);
         }
         const priceAccount = yield evr.accounts.get(contracts_1.PriceXchgAccount, address);
         const details = (yield priceAccount.getDetails()).output;

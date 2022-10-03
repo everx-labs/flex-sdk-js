@@ -44,10 +44,10 @@ export type CancelOrderOptions = {
 };
 
 export type CancelOrderResult = {
-    /** Blockchain transaction in which the order was cancelled */
+    /** Wallet transaction in which the order cancelation was initiated */
     transactionId: string,
 
-    /** Blockchain transaction in which the order was created */
+    /** Orderbook (price) transaction in which the order was cancelled */
     orderbookTransactionId?: string,
 };
 
@@ -122,7 +122,7 @@ async function getPriceDetails(
         salted_price_code: saltedPriceCode,
     })).output.value0;
     if (!await evr.accounts.isActive(address)) {
-        throw new Error(`Orderbook's price account [${address}] does not exist. Please check price (${JSON.stringify(price)}).`);
+        throw new Error(`Orderbook's price account [${address}] does not exist. Please check that the price (${JSON.stringify(price)}) is correct.`);
     }
     const priceAccount = await evr.accounts.get(PriceXchgAccount, address);
     const details = (await priceAccount.getDetails()).output;

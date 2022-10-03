@@ -44,10 +44,10 @@ export type NewOrderInfo = {
      */
     orderId: string,
 
-    /** Blockchain transaction in which the order was created */
+    /** Wallet transaction in which the order creation was initiated */
     transactionId: string,
 
-    /** Blockchain transaction in which the order was created */
+    /** Orderbook (price) transaction in which the order was created */
     orderbookTransactionId?: string,
 }
 
