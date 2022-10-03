@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -59,46 +61,27 @@ export class GlobalConfigAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: GlobalConfigOnDeployInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onDeploy", input);
+    async runOnDeploy(input: GlobalConfigOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onDeploy", input, options);
     }
 
-    async onDeploy(input: GlobalConfigOnDeployInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onDeploy(input: GlobalConfigOnDeployInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: GlobalConfigGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<GlobalConfigGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: GlobalConfigGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<GlobalConfigGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runGetConfig(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: GlobalConfigGetConfigOutput,
-    }> {
-        return await runHelper(this, "getConfig", {});
+    async runGetConfig(options?: RunHelperOptions): Promise<RunHelperResult<GlobalConfigGetConfigOutput>> {
+        return await runHelper(this, "getConfig", {}, options);
     }
 
-    async getConfig(): Promise<{
-        transaction: Transaction,
-        output: GlobalConfigGetConfigOutput,
-    }> {
+    async getConfig(): Promise<RunLocalHelperResult<GlobalConfigGetConfigOutput>> {
         return await runLocalHelper(this, "getConfig", {});
     }
 

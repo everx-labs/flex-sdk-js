@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -152,72 +154,43 @@ export class PriceXchgAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: PriceXchgOnTip3LendOwnershipOutput,
-    }> {
-        return await runHelper(this, "onTip3LendOwnership", input);
+    async runOnTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput, options?: RunHelperOptions): Promise<RunHelperResult<PriceXchgOnTip3LendOwnershipOutput>> {
+        return await runHelper(this, "onTip3LendOwnership", input, options);
     }
 
-    async onTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput): Promise<{
-        transaction: Transaction,
-        output: PriceXchgOnTip3LendOwnershipOutput,
-    }> {
+    async onTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput): Promise<RunLocalHelperResult<PriceXchgOnTip3LendOwnershipOutput>> {
         return await runLocalHelper(this, "onTip3LendOwnership", input);
     }
 
-    async runProcessQueue(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "processQueue", {});
+    async runProcessQueue(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "processQueue", {}, options);
     }
 
-    async processQueue(): Promise<{
-        transaction: Transaction,
-    }> {
+    async processQueue(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "processQueue", {});
     }
 
-    async runCancelOrder(input: PriceXchgCancelOrderInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "cancelOrder", input);
+    async runCancelOrder(input: PriceXchgCancelOrderInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "cancelOrder", input, options);
     }
 
-    async cancelOrder(input: PriceXchgCancelOrderInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async cancelOrder(input: PriceXchgCancelOrderInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "cancelOrder", input);
     }
 
-    async runCancelWalletOrder(input: PriceXchgCancelWalletOrderInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "cancelWalletOrder", input);
+    async runCancelWalletOrder(input: PriceXchgCancelWalletOrderInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "cancelWalletOrder", input, options);
     }
 
-    async cancelWalletOrder(input: PriceXchgCancelWalletOrderInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async cancelWalletOrder(input: PriceXchgCancelWalletOrderInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "cancelWalletOrder", input);
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: PriceXchgGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<PriceXchgGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: PriceXchgGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<PriceXchgGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 

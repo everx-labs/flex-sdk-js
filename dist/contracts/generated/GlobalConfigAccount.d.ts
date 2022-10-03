@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type GlobalConfigOnDeployInput = {
     keep_evers: string | number | bigint;
     wrappers_cfg: string;
@@ -31,30 +30,11 @@ export declare class GlobalConfigAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(input: GlobalConfigOnDeployInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onDeploy(input: GlobalConfigOnDeployInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: GlobalConfigGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: GlobalConfigGetDetailsOutput;
-    }>;
-    runGetConfig(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: GlobalConfigGetConfigOutput;
-    }>;
-    getConfig(): Promise<{
-        transaction: Transaction;
-        output: GlobalConfigGetConfigOutput;
-    }>;
+    runOnDeploy(input: GlobalConfigOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onDeploy(input: GlobalConfigOnDeployInput): Promise<RunLocalHelperResult<void>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<GlobalConfigGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<GlobalConfigGetDetailsOutput>>;
+    runGetConfig(options?: RunHelperOptions): Promise<RunHelperResult<GlobalConfigGetConfigOutput>>;
+    getConfig(): Promise<RunLocalHelperResult<GlobalConfigGetConfigOutput>>;
 }
 //# sourceMappingURL=GlobalConfigAccount.d.ts.map

@@ -14,7 +14,7 @@ const contracts_1 = require("../../contracts");
 const internals_1 = require("./internals");
 const flex_1 = require("../flex");
 function cancelOrder(evr, options) {
-    var _a;
+    var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
         const pair = yield evr.accounts.get(contracts_1.XchgPairAccount, options.marketAddress);
         const pairDetails = (yield pair.getDetails()).output;
@@ -36,16 +36,24 @@ function cancelOrder(evr, options) {
             clientAddress: options.clientAddress,
             trader: options.trader,
         });
-        const result = yield wallet.runCancelOrder({
+        const transaction = (yield wallet.runCancelOrder({
             order_id: options.orderId,
             sell,
             price: priceDetails.address,
             evers: (_a = options.evers) !== null && _a !== void 0 ? _a : 3e9,
-        });
-        evr.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
-        return {
-            transactionId: result.transaction.id,
+        }, {
+            skipTransactionTree: true,
+        })).transaction;
+        const result = {
+            transactionId: transaction.id,
         };
+        if ((_b = options.waitForOrderbookUpdate) !== null && _b !== void 0 ? _b : false) {
+            result.orderbookTransactionId = (yield evr.accounts.waitForDerivativeTransactionOnAccount({
+                originTransactionId: transaction.id,
+                accountAddress: priceDetails.address,
+            })).id;
+        }
+        return result;
     });
 }
 exports.cancelOrder = cancelOrder;

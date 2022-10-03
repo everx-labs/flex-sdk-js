@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type DePoolMockSendOnTransferInput = {
     dst: string;
     src: string;
@@ -36,28 +35,11 @@ export declare class DePoolMockAccount extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runSendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    sendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runTransferStake(input: DePoolMockTransferStakeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transferStake(input: DePoolMockTransferStakeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: DePoolMockGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: DePoolMockGetDetailsOutput;
-    }>;
+    runSendOnTransfer(input: DePoolMockSendOnTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    sendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<RunLocalHelperResult<void>>;
+    runTransferStake(input: DePoolMockTransferStakeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transferStake(input: DePoolMockTransferStakeInput): Promise<RunLocalHelperResult<void>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<DePoolMockGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<DePoolMockGetDetailsOutput>>;
 }
 //# sourceMappingURL=DePoolMockAccount.d.ts.map

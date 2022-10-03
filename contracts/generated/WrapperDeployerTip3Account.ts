@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -80,72 +82,43 @@ export class WrapperDeployerTip3Account extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSetWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setWrapperCode", input);
+    async runSetWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setWrapperCode", input, options);
     }
 
-    async setWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setWrapperCode", input);
     }
 
-    async runSetExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setExtWalletCode", input);
+    async runSetExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setExtWalletCode", input, options);
     }
 
-    async setExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setExtWalletCode", input);
     }
 
-    async runSetFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setFlexWalletCode", input);
+    async runSetFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setFlexWalletCode", input, options);
     }
 
-    async setFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setFlexWalletCode", input);
     }
 
-    async runDeploy(input: WrapperDeployerTip3DeployInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: WrapperDeployerTip3DeployOutput,
-    }> {
-        return await runHelper(this, "deploy", input);
+    async runDeploy(input: WrapperDeployerTip3DeployInput, options?: RunHelperOptions): Promise<RunHelperResult<WrapperDeployerTip3DeployOutput>> {
+        return await runHelper(this, "deploy", input, options);
     }
 
-    async deploy_(input: WrapperDeployerTip3DeployInput): Promise<{
-        transaction: Transaction,
-        output: WrapperDeployerTip3DeployOutput,
-    }> {
+    async deploy_(input: WrapperDeployerTip3DeployInput): Promise<RunLocalHelperResult<WrapperDeployerTip3DeployOutput>> {
         return await runLocalHelper(this, "deploy", input);
     }
 
-    async runGetArgs(input: WrapperDeployerTip3GetArgsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: WrapperDeployerTip3GetArgsOutput,
-    }> {
-        return await runHelper(this, "getArgs", input);
+    async runGetArgs(input: WrapperDeployerTip3GetArgsInput, options?: RunHelperOptions): Promise<RunHelperResult<WrapperDeployerTip3GetArgsOutput>> {
+        return await runHelper(this, "getArgs", input, options);
     }
 
-    async getArgs(input: WrapperDeployerTip3GetArgsInput): Promise<{
-        transaction: Transaction,
-        output: WrapperDeployerTip3GetArgsOutput,
-    }> {
+    async getArgs(input: WrapperDeployerTip3GetArgsInput): Promise<RunLocalHelperResult<WrapperDeployerTip3GetArgsOutput>> {
         return await runLocalHelper(this, "getArgs", input);
     }
 

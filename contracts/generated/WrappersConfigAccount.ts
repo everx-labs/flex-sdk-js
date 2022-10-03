@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -109,113 +111,67 @@ export class WrappersConfigAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: WrappersConfigOnDeployInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onDeploy", input);
+    async runOnDeploy(input: WrappersConfigOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onDeploy", input, options);
     }
 
-    async onDeploy(input: WrappersConfigOnDeployInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onDeploy(input: WrappersConfigOnDeployInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runOnWICsCloned(input: WrappersConfigOnWICsClonedInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onWICsCloned", input);
+    async runOnWICsCloned(input: WrappersConfigOnWICsClonedInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onWICsCloned", input, options);
     }
 
-    async onWICsCloned(input: WrappersConfigOnWICsClonedInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onWICsCloned(input: WrappersConfigOnWICsClonedInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onWICsCloned", input);
     }
 
-    async runAddWrapperType(input: WrappersConfigAddWrapperTypeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "addWrapperType", input);
+    async runAddWrapperType(input: WrappersConfigAddWrapperTypeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "addWrapperType", input, options);
     }
 
-    async addWrapperType(input: WrappersConfigAddWrapperTypeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async addWrapperType(input: WrappersConfigAddWrapperTypeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "addWrapperType", input);
     }
 
-    async runAddWrapper(input: WrappersConfigAddWrapperInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "addWrapper", input);
+    async runAddWrapper(input: WrappersConfigAddWrapperInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "addWrapper", input, options);
     }
 
-    async addWrapper(input: WrappersConfigAddWrapperInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async addWrapper(input: WrappersConfigAddWrapperInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "addWrapper", input);
     }
 
-    async runUnlistWrapper(input: WrappersConfigUnlistWrapperInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "unlistWrapper", input);
+    async runUnlistWrapper(input: WrappersConfigUnlistWrapperInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "unlistWrapper", input, options);
     }
 
-    async unlistWrapper(input: WrappersConfigUnlistWrapperInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async unlistWrapper(input: WrappersConfigUnlistWrapperInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "unlistWrapper", input);
     }
 
-    async runCloneUpgrade(input: WrappersConfigCloneUpgradeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: WrappersConfigCloneUpgradeOutput,
-    }> {
-        return await runHelper(this, "cloneUpgrade", input);
+    async runCloneUpgrade(input: WrappersConfigCloneUpgradeInput, options?: RunHelperOptions): Promise<RunHelperResult<WrappersConfigCloneUpgradeOutput>> {
+        return await runHelper(this, "cloneUpgrade", input, options);
     }
 
-    async cloneUpgrade(input: WrappersConfigCloneUpgradeInput): Promise<{
-        transaction: Transaction,
-        output: WrappersConfigCloneUpgradeOutput,
-    }> {
+    async cloneUpgrade(input: WrappersConfigCloneUpgradeInput): Promise<RunLocalHelperResult<WrappersConfigCloneUpgradeOutput>> {
         return await runLocalHelper(this, "cloneUpgrade", input);
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: WrappersConfigGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<WrappersConfigGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: WrappersConfigGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<WrappersConfigGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runGetConfig(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: WrappersConfigGetConfigOutput,
-    }> {
-        return await runHelper(this, "getConfig", {});
+    async runGetConfig(options?: RunHelperOptions): Promise<RunHelperResult<WrappersConfigGetConfigOutput>> {
+        return await runHelper(this, "getConfig", {}, options);
     }
 
-    async getConfig(): Promise<{
-        transaction: Transaction,
-        output: WrappersConfigGetConfigOutput,
-    }> {
+    async getConfig(): Promise<RunLocalHelperResult<WrappersConfigGetConfigOutput>> {
         return await runLocalHelper(this, "getConfig", {});
     }
 

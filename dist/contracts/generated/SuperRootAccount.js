@@ -23,9 +23,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "", {});
         });
     }
-    runOnDeploy(input) {
+    runOnDeploy(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
+            return yield (0, helpers_1.runHelper)(this, "onDeploy", input, options);
         });
     }
     onDeploy(input) {
@@ -33,9 +33,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
     }
-    runUpdate(input) {
+    runUpdate(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "update", input);
+            return yield (0, helpers_1.runHelper)(this, "update", input, options);
         });
     }
     update(input) {
@@ -43,9 +43,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "update", input);
         });
     }
-    runUpdateConfirmed(input) {
+    runUpdateConfirmed(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "updateConfirmed", input);
+            return yield (0, helpers_1.runHelper)(this, "updateConfirmed", input, options);
         });
     }
     updateConfirmed(input) {
@@ -53,9 +53,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "updateConfirmed", input);
         });
     }
-    runRelease() {
+    runRelease(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "release", {});
+            return yield (0, helpers_1.runHelper)(this, "release", {}, options);
         });
     }
     release() {
@@ -63,9 +63,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "release", {});
         });
     }
-    runProxy(input) {
+    runProxy(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "proxy", input);
+            return yield (0, helpers_1.runHelper)(this, "proxy", input, options);
         });
     }
     proxy(input) {
@@ -73,9 +73,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "proxy", input);
         });
     }
-    runDeployWrappersConfig(input) {
+    runDeployWrappersConfig(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "deployWrappersConfig", input);
+            return yield (0, helpers_1.runHelper)(this, "deployWrappersConfig", input, options);
         });
     }
     deployWrappersConfig(input) {
@@ -83,9 +83,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "deployWrappersConfig", input);
         });
     }
-    runDeployFlex(input) {
+    runDeployFlex(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "deployFlex", input);
+            return yield (0, helpers_1.runHelper)(this, "deployFlex", input, options);
         });
     }
     deployFlex(input) {
@@ -93,9 +93,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "deployFlex", input);
         });
     }
-    runDeployUserDataConfig(input) {
+    runDeployUserDataConfig(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "deployUserDataConfig", input);
+            return yield (0, helpers_1.runHelper)(this, "deployUserDataConfig", input, options);
         });
     }
     deployUserDataConfig(input) {
@@ -103,9 +103,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "deployUserDataConfig", input);
         });
     }
-    runCloneWrappersConfig(input) {
+    runCloneWrappersConfig(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "cloneWrappersConfig", input);
+            return yield (0, helpers_1.runHelper)(this, "cloneWrappersConfig", input, options);
         });
     }
     cloneWrappersConfig(input) {
@@ -113,9 +113,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "cloneWrappersConfig", input);
         });
     }
-    runTransfer(input) {
+    runTransfer(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "transfer", input);
+            return yield (0, helpers_1.runHelper)(this, "transfer", input, options);
         });
     }
     transfer(input) {
@@ -123,9 +123,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "transfer", input);
         });
     }
-    runTransferReserveTokens(input) {
+    runTransferReserveTokens(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "transferReserveTokens", input);
+            return yield (0, helpers_1.runHelper)(this, "transferReserveTokens", input, options);
         });
     }
     transferReserveTokens(input) {
@@ -133,9 +133,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "transferReserveTokens", input);
         });
     }
-    runSetFlags(input) {
+    runSetFlags(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setFlags", input);
+            return yield (0, helpers_1.runHelper)(this, "setFlags", input, options);
         });
     }
     setFlags(input) {
@@ -143,9 +143,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setFlags", input);
         });
     }
-    runSetOwner(input) {
+    runSetOwner(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setOwner", input);
+            return yield (0, helpers_1.runHelper)(this, "setOwner", input, options);
         });
     }
     setOwner(input) {
@@ -153,9 +153,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setOwner", input);
         });
     }
-    runSetUpdateTeam(input) {
+    runSetUpdateTeam(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setUpdateTeam", input);
+            return yield (0, helpers_1.runHelper)(this, "setUpdateTeam", input, options);
         });
     }
     setUpdateTeam(input) {
@@ -163,9 +163,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setUpdateTeam", input);
         });
     }
-    runSetNextSuperRoot(input) {
+    runSetNextSuperRoot(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setNextSuperRoot", input);
+            return yield (0, helpers_1.runHelper)(this, "setNextSuperRoot", input, options);
         });
     }
     setNextSuperRoot(input) {
@@ -173,9 +173,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setNextSuperRoot", input);
         });
     }
-    runGetDetails() {
+    runGetDetails(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getDetails", {});
+            return yield (0, helpers_1.runHelper)(this, "getDetails", {}, options);
         });
     }
     getDetails() {
@@ -183,9 +183,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
     }
-    runGetGlobalConfig(input) {
+    runGetGlobalConfig(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getGlobalConfig", input);
+            return yield (0, helpers_1.runHelper)(this, "getGlobalConfig", input, options);
         });
     }
     getGlobalConfig(input) {
@@ -193,9 +193,9 @@ class SuperRootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getGlobalConfig", input);
         });
     }
-    runGetCurrentGlobalConfig() {
+    runGetCurrentGlobalConfig(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getCurrentGlobalConfig", {});
+            return yield (0, helpers_1.runHelper)(this, "getCurrentGlobalConfig", {}, options);
         });
     }
     getCurrentGlobalConfig() {

@@ -62,23 +62,30 @@ function errorWith(err, method, account, fn, params) {
         } });
     return err;
 }
-function runHelper(account, fn, params) {
-    var _b, _c, _d, _e;
+function runHelper(account, fn, params, options) {
+    var _b, _c, _d, _e, _f;
     return __awaiter(this, void 0, void 0, function* () {
         (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Run ${account.constructor.name}.${fn}`);
         try {
-            const result = yield account.run(fn, params);
-            const transactionTree = yield account.client.net.query_transaction_tree({
-                in_msg: result.transaction.in_msg,
-                timeout: 60000 * 5,
-            });
-            (_c = account.log) === null || _c === void 0 ? void 0 : _c.info(` TX: ${result.transaction.id}`);
-            (_d = account.log) === null || _d === void 0 ? void 0 : _d.processingDone();
-            return {
-                transaction: result.transaction,
-                transactionTree,
-                output: (_e = result.decoded) === null || _e === void 0 ? void 0 : _e.output,
+            const runResult = yield account.run(fn, params);
+            const result = {
+                transaction: runResult.transaction,
+                transactionTree: {
+                    transactions: [],
+                    messages: [],
+                },
+                output: (_c = runResult.decoded) === null || _c === void 0 ? void 0 : _c.output,
             };
+            if (!((_d = options === null || options === void 0 ? void 0 : options.skipTransactionTree) !== null && _d !== void 0 ? _d : false)) {
+                result.transactionTree =
+                    yield account.client.net.query_transaction_tree({
+                        in_msg: runResult.transaction.in_msg,
+                        timeout: 60000 * 5,
+                    });
+            }
+            (_e = account.log) === null || _e === void 0 ? void 0 : _e.info(` TX: ${runResult.transaction.id}`);
+            (_f = account.log) === null || _f === void 0 ? void 0 : _f.processingDone();
+            return result;
         }
         catch (err) {
             throw errorWith(err, "run", account, fn, params);

@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -145,117 +147,67 @@ export class XchgPairAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: XchgPairOnDeployInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onDeploy", input);
+    async runOnDeploy(input: XchgPairOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onDeploy", input, options);
     }
 
-    async onDeploy(input: XchgPairOnDeployInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onDeploy(input: XchgPairOnDeployInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runRequestDetails(input: XchgPairRequestDetailsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: XchgPairRequestDetailsOutput,
-    }> {
-        return await runHelper(this, "requestDetails", input);
+    async runRequestDetails(input: XchgPairRequestDetailsInput, options?: RunHelperOptions): Promise<RunHelperResult<XchgPairRequestDetailsOutput>> {
+        return await runHelper(this, "requestDetails", input, options);
     }
 
-    async requestDetails(input: XchgPairRequestDetailsInput): Promise<{
-        transaction: Transaction,
-        output: XchgPairRequestDetailsOutput,
-    }> {
+    async requestDetails(input: XchgPairRequestDetailsInput): Promise<RunLocalHelperResult<XchgPairRequestDetailsOutput>> {
         return await runLocalHelper(this, "requestDetails", input);
     }
 
-    async runSetNext(input: XchgPairSetNextInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setNext", input);
+    async runSetNext(input: XchgPairSetNextInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setNext", input, options);
     }
 
-    async setNext(input: XchgPairSetNextInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setNext(input: XchgPairSetNextInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setNext", input);
     }
 
-    async runUnlist(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "unlist", {});
+    async runUnlist(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "unlist", {}, options);
     }
 
-    async unlist(): Promise<{
-        transaction: Transaction,
-    }> {
+    async unlist(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "unlist", {});
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: XchgPairGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<XchgPairGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: XchgPairGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<XchgPairGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runGetConfig(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: XchgPairGetConfigOutput,
-    }> {
-        return await runHelper(this, "getConfig", {});
+    async runGetConfig(options?: RunHelperOptions): Promise<RunHelperResult<XchgPairGetConfigOutput>> {
+        return await runHelper(this, "getConfig", {}, options);
     }
 
-    async getConfig(): Promise<{
-        transaction: Transaction,
-        output: XchgPairGetConfigOutput,
-    }> {
+    async getConfig(): Promise<RunLocalHelperResult<XchgPairGetConfigOutput>> {
         return await runLocalHelper(this, "getConfig", {});
     }
 
-    async runGetPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: XchgPairGetPriceXchgCodeOutput,
-    }> {
-        return await runHelper(this, "getPriceXchgCode", input);
+    async runGetPriceXchgCode(input: XchgPairGetPriceXchgCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<XchgPairGetPriceXchgCodeOutput>> {
+        return await runHelper(this, "getPriceXchgCode", input, options);
     }
 
-    async getPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<{
-        transaction: Transaction,
-        output: XchgPairGetPriceXchgCodeOutput,
-    }> {
+    async getPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<RunLocalHelperResult<XchgPairGetPriceXchgCodeOutput>> {
         return await runLocalHelper(this, "getPriceXchgCode", input);
     }
 
-    async runGetPriceXchgSalt(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: XchgPairGetPriceXchgSaltOutput,
-    }> {
-        return await runHelper(this, "getPriceXchgSalt", {});
+    async runGetPriceXchgSalt(options?: RunHelperOptions): Promise<RunHelperResult<XchgPairGetPriceXchgSaltOutput>> {
+        return await runHelper(this, "getPriceXchgSalt", {}, options);
     }
 
-    async getPriceXchgSalt(): Promise<{
-        transaction: Transaction,
-        output: XchgPairGetPriceXchgSaltOutput,
-    }> {
+    async getPriceXchgSalt(): Promise<RunLocalHelperResult<XchgPairGetPriceXchgSaltOutput>> {
         return await runLocalHelper(this, "getPriceXchgSalt", {});
     }
 

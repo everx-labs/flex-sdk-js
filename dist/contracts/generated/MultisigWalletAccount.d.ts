@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type MultisigWalletAcceptTransferInput = {
     payload: string;
 };
@@ -217,189 +216,49 @@ export declare class MultisigWalletAccount extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runAcceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    acceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    sendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSubmitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletSubmitTransactionOutput;
-    }>;
-    submitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletSubmitTransactionOutput;
-    }>;
-    runConfirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    confirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runIsConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletIsConfirmedOutput;
-    }>;
-    isConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletIsConfirmedOutput;
-    }>;
-    runGetParameters(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletGetParametersOutput;
-    }>;
-    getParameters(): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletGetParametersOutput;
-    }>;
-    runGetTransaction(input: MultisigWalletGetTransactionInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletGetTransactionOutput;
-    }>;
-    getTransaction(input: MultisigWalletGetTransactionInput): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletGetTransactionOutput;
-    }>;
-    runGetTransactions(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletGetTransactionsOutput;
-    }>;
-    getTransactions(): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletGetTransactionsOutput;
-    }>;
-    runGetTransactionIds(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletGetTransactionIdsOutput;
-    }>;
-    getTransactionIds(): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletGetTransactionIdsOutput;
-    }>;
-    runGetCustodians(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletGetCustodiansOutput;
-    }>;
-    getCustodians(): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletGetCustodiansOutput;
-    }>;
-    runCreateLimit(input: MultisigWalletCreateLimitInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletCreateLimitOutput;
-    }>;
-    createLimit(input: MultisigWalletCreateLimitInput): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletCreateLimitOutput;
-    }>;
-    runConfirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    confirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runChangeLimit(input: MultisigWalletChangeLimitInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletChangeLimitOutput;
-    }>;
-    changeLimit(input: MultisigWalletChangeLimitInput): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletChangeLimitOutput;
-    }>;
-    runDeleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    deleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetLimits(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletGetLimitsOutput;
-    }>;
-    getLimits(): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletGetLimitsOutput;
-    }>;
-    runGetPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletGetPendingLimitOutput;
-    }>;
-    getPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletGetPendingLimitOutput;
-    }>;
-    runGetPendingLimits(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletGetPendingLimitsOutput;
-    }>;
-    getPendingLimits(): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletGetPendingLimitsOutput;
-    }>;
-    runGetLimit(input: MultisigWalletGetLimitInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletGetLimitOutput;
-    }>;
-    getLimit(input: MultisigWalletGetLimitInput): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletGetLimitOutput;
-    }>;
-    runSubmitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletSubmitUpdateOutput;
-    }>;
-    submitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletSubmitUpdateOutput;
-    }>;
-    runConfirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    confirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runExecuteUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    executeUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetUpdateRequests(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: MultisigWalletGetUpdateRequestsOutput;
-    }>;
-    getUpdateRequests(): Promise<{
-        transaction: Transaction;
-        output: MultisigWalletGetUpdateRequestsOutput;
-    }>;
+    runAcceptTransfer(input: MultisigWalletAcceptTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    acceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<RunLocalHelperResult<void>>;
+    runSendTransaction(input: MultisigWalletSendTransactionInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    sendTransaction(input: MultisigWalletSendTransactionInput): Promise<RunLocalHelperResult<void>>;
+    runSubmitTransaction(input: MultisigWalletSubmitTransactionInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletSubmitTransactionOutput>>;
+    submitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<RunLocalHelperResult<MultisigWalletSubmitTransactionOutput>>;
+    runConfirmTransaction(input: MultisigWalletConfirmTransactionInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    confirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<RunLocalHelperResult<void>>;
+    runIsConfirmed(input: MultisigWalletIsConfirmedInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletIsConfirmedOutput>>;
+    isConfirmed(input: MultisigWalletIsConfirmedInput): Promise<RunLocalHelperResult<MultisigWalletIsConfirmedOutput>>;
+    runGetParameters(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetParametersOutput>>;
+    getParameters(): Promise<RunLocalHelperResult<MultisigWalletGetParametersOutput>>;
+    runGetTransaction(input: MultisigWalletGetTransactionInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetTransactionOutput>>;
+    getTransaction(input: MultisigWalletGetTransactionInput): Promise<RunLocalHelperResult<MultisigWalletGetTransactionOutput>>;
+    runGetTransactions(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetTransactionsOutput>>;
+    getTransactions(): Promise<RunLocalHelperResult<MultisigWalletGetTransactionsOutput>>;
+    runGetTransactionIds(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetTransactionIdsOutput>>;
+    getTransactionIds(): Promise<RunLocalHelperResult<MultisigWalletGetTransactionIdsOutput>>;
+    runGetCustodians(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetCustodiansOutput>>;
+    getCustodians(): Promise<RunLocalHelperResult<MultisigWalletGetCustodiansOutput>>;
+    runCreateLimit(input: MultisigWalletCreateLimitInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletCreateLimitOutput>>;
+    createLimit(input: MultisigWalletCreateLimitInput): Promise<RunLocalHelperResult<MultisigWalletCreateLimitOutput>>;
+    runConfirmLimit(input: MultisigWalletConfirmLimitInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    confirmLimit(input: MultisigWalletConfirmLimitInput): Promise<RunLocalHelperResult<void>>;
+    runChangeLimit(input: MultisigWalletChangeLimitInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletChangeLimitOutput>>;
+    changeLimit(input: MultisigWalletChangeLimitInput): Promise<RunLocalHelperResult<MultisigWalletChangeLimitOutput>>;
+    runDeleteLimit(input: MultisigWalletDeleteLimitInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    deleteLimit(input: MultisigWalletDeleteLimitInput): Promise<RunLocalHelperResult<void>>;
+    runGetLimits(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetLimitsOutput>>;
+    getLimits(): Promise<RunLocalHelperResult<MultisigWalletGetLimitsOutput>>;
+    runGetPendingLimit(input: MultisigWalletGetPendingLimitInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetPendingLimitOutput>>;
+    getPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<RunLocalHelperResult<MultisigWalletGetPendingLimitOutput>>;
+    runGetPendingLimits(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetPendingLimitsOutput>>;
+    getPendingLimits(): Promise<RunLocalHelperResult<MultisigWalletGetPendingLimitsOutput>>;
+    runGetLimit(input: MultisigWalletGetLimitInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetLimitOutput>>;
+    getLimit(input: MultisigWalletGetLimitInput): Promise<RunLocalHelperResult<MultisigWalletGetLimitOutput>>;
+    runSubmitUpdate(input: MultisigWalletSubmitUpdateInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletSubmitUpdateOutput>>;
+    submitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<RunLocalHelperResult<MultisigWalletSubmitUpdateOutput>>;
+    runConfirmUpdate(input: MultisigWalletConfirmUpdateInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    confirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<RunLocalHelperResult<void>>;
+    runExecuteUpdate(input: MultisigWalletExecuteUpdateInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    executeUpdate(input: MultisigWalletExecuteUpdateInput): Promise<RunLocalHelperResult<void>>;
+    runGetUpdateRequests(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetUpdateRequestsOutput>>;
+    getUpdateRequests(): Promise<RunLocalHelperResult<MultisigWalletGetUpdateRequestsOutput>>;
 }
 //# sourceMappingURL=MultisigWalletAccount.d.ts.map

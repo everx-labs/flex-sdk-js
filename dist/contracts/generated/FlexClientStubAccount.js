@@ -23,9 +23,9 @@ class FlexClientStubAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "", {});
         });
     }
-    runOnDeploy(input) {
+    runOnDeploy(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
+            return yield (0, helpers_1.runHelper)(this, "onDeploy", input, options);
         });
     }
     onDeploy(input) {
@@ -33,9 +33,9 @@ class FlexClientStubAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
     }
-    runUnused() {
+    runUnused(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "unused", {});
+            return yield (0, helpers_1.runHelper)(this, "unused", {}, options);
         });
     }
     unused() {

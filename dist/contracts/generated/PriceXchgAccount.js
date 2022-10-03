@@ -23,9 +23,9 @@ class PriceXchgAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "", {});
         });
     }
-    runOnTip3LendOwnership(input) {
+    runOnTip3LendOwnership(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "onTip3LendOwnership", input);
+            return yield (0, helpers_1.runHelper)(this, "onTip3LendOwnership", input, options);
         });
     }
     onTip3LendOwnership(input) {
@@ -33,9 +33,9 @@ class PriceXchgAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "onTip3LendOwnership", input);
         });
     }
-    runProcessQueue() {
+    runProcessQueue(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "processQueue", {});
+            return yield (0, helpers_1.runHelper)(this, "processQueue", {}, options);
         });
     }
     processQueue() {
@@ -43,9 +43,9 @@ class PriceXchgAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "processQueue", {});
         });
     }
-    runCancelOrder(input) {
+    runCancelOrder(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "cancelOrder", input);
+            return yield (0, helpers_1.runHelper)(this, "cancelOrder", input, options);
         });
     }
     cancelOrder(input) {
@@ -53,9 +53,9 @@ class PriceXchgAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "cancelOrder", input);
         });
     }
-    runCancelWalletOrder(input) {
+    runCancelWalletOrder(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "cancelWalletOrder", input);
+            return yield (0, helpers_1.runHelper)(this, "cancelWalletOrder", input, options);
         });
     }
     cancelWalletOrder(input) {
@@ -63,9 +63,9 @@ class PriceXchgAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "cancelWalletOrder", input);
         });
     }
-    runGetDetails() {
+    runGetDetails(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getDetails", {});
+            return yield (0, helpers_1.runHelper)(this, "getDetails", {}, options);
         });
     }
     getDetails() {

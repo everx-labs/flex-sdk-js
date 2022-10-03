@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type WICOnDeployInput = {
     keep_evers: string | number | bigint;
     old_wrappers_cfg?: string;
@@ -48,42 +47,15 @@ export declare class WICAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(input: WICOnDeployInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onDeploy(input: WICOnDeployInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSetNext(input: WICSetNextInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setNext(input: WICSetNextInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runCloneUpgrade(input: WICCloneUpgradeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    cloneUpgrade(input: WICCloneUpgradeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runUnlist(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    unlist(): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WICGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: WICGetDetailsOutput;
-    }>;
+    runOnDeploy(input: WICOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onDeploy(input: WICOnDeployInput): Promise<RunLocalHelperResult<void>>;
+    runSetNext(input: WICSetNextInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setNext(input: WICSetNextInput): Promise<RunLocalHelperResult<void>>;
+    runCloneUpgrade(input: WICCloneUpgradeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    cloneUpgrade(input: WICCloneUpgradeInput): Promise<RunLocalHelperResult<void>>;
+    runUnlist(options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    unlist(): Promise<RunLocalHelperResult<void>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<WICGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<WICGetDetailsOutput>>;
 }
 //# sourceMappingURL=WICAccount.d.ts.map

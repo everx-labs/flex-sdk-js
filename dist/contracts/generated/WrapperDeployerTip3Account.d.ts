@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type WrapperDeployerTip3SetWrapperCodeInput = {
     code: string;
 };
@@ -48,44 +47,15 @@ export declare class WrapperDeployerTip3Account extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runSetWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSetExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSetFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDeploy(input: WrapperDeployerTip3DeployInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperDeployerTip3DeployOutput;
-    }>;
-    deploy_(input: WrapperDeployerTip3DeployInput): Promise<{
-        transaction: Transaction;
-        output: WrapperDeployerTip3DeployOutput;
-    }>;
-    runGetArgs(input: WrapperDeployerTip3GetArgsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperDeployerTip3GetArgsOutput;
-    }>;
-    getArgs(input: WrapperDeployerTip3GetArgsInput): Promise<{
-        transaction: Transaction;
-        output: WrapperDeployerTip3GetArgsOutput;
-    }>;
+    runSetWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setWrapperCode(input: WrapperDeployerTip3SetWrapperCodeInput): Promise<RunLocalHelperResult<void>>;
+    runSetExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setExtWalletCode(input: WrapperDeployerTip3SetExtWalletCodeInput): Promise<RunLocalHelperResult<void>>;
+    runSetFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setFlexWalletCode(input: WrapperDeployerTip3SetFlexWalletCodeInput): Promise<RunLocalHelperResult<void>>;
+    runDeploy(input: WrapperDeployerTip3DeployInput, options?: RunHelperOptions): Promise<RunHelperResult<WrapperDeployerTip3DeployOutput>>;
+    deploy_(input: WrapperDeployerTip3DeployInput): Promise<RunLocalHelperResult<WrapperDeployerTip3DeployOutput>>;
+    runGetArgs(input: WrapperDeployerTip3GetArgsInput, options?: RunHelperOptions): Promise<RunHelperResult<WrapperDeployerTip3GetArgsOutput>>;
+    getArgs(input: WrapperDeployerTip3GetArgsInput): Promise<RunLocalHelperResult<WrapperDeployerTip3GetArgsOutput>>;
 }
 //# sourceMappingURL=WrapperDeployerTip3Account.d.ts.map

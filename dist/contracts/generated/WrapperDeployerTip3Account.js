@@ -23,9 +23,9 @@ class WrapperDeployerTip3Account extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "constructor", input);
         });
     }
-    runSetWrapperCode(input) {
+    runSetWrapperCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setWrapperCode", input);
+            return yield (0, helpers_1.runHelper)(this, "setWrapperCode", input, options);
         });
     }
     setWrapperCode(input) {
@@ -33,9 +33,9 @@ class WrapperDeployerTip3Account extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setWrapperCode", input);
         });
     }
-    runSetExtWalletCode(input) {
+    runSetExtWalletCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setExtWalletCode", input);
+            return yield (0, helpers_1.runHelper)(this, "setExtWalletCode", input, options);
         });
     }
     setExtWalletCode(input) {
@@ -43,9 +43,9 @@ class WrapperDeployerTip3Account extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setExtWalletCode", input);
         });
     }
-    runSetFlexWalletCode(input) {
+    runSetFlexWalletCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setFlexWalletCode", input);
+            return yield (0, helpers_1.runHelper)(this, "setFlexWalletCode", input, options);
         });
     }
     setFlexWalletCode(input) {
@@ -53,9 +53,9 @@ class WrapperDeployerTip3Account extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setFlexWalletCode", input);
         });
     }
-    runDeploy(input) {
+    runDeploy(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "deploy", input);
+            return yield (0, helpers_1.runHelper)(this, "deploy", input, options);
         });
     }
     deploy_(input) {
@@ -63,9 +63,9 @@ class WrapperDeployerTip3Account extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "deploy", input);
         });
     }
-    runGetArgs(input) {
+    runGetArgs(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getArgs", input);
+            return yield (0, helpers_1.runHelper)(this, "getArgs", input, options);
         });
     }
     getArgs(input) {

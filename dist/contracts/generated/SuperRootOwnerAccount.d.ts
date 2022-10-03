@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type SuperRootOwnerSetCodeInput = {
     type: number;
     code: string;
@@ -209,164 +208,47 @@ export declare class SuperRootOwnerAccount extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runSetCode(input: SuperRootOwnerSetCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setCode(input: SuperRootOwnerSetCodeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDeploySuperRoot(input: SuperRootOwnerDeploySuperRootInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: SuperRootOwnerDeploySuperRootOutput;
-    }>;
-    deploySuperRoot(input: SuperRootOwnerDeploySuperRootInput): Promise<{
-        transaction: Transaction;
-        output: SuperRootOwnerDeploySuperRootOutput;
-    }>;
-    runUpdate(input: SuperRootOwnerUpdateInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    update(input: SuperRootOwnerUpdateInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runRelease(input: SuperRootOwnerReleaseInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    release(input: SuperRootOwnerReleaseInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runAddWrapperType(input: SuperRootOwnerAddWrapperTypeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    addWrapperType(input: SuperRootOwnerAddWrapperTypeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runAddWrapper(input: SuperRootOwnerAddWrapperInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    addWrapper(input: SuperRootOwnerAddWrapperInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runAddXchgPair(input: SuperRootOwnerAddXchgPairInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    addXchgPair(input: SuperRootOwnerAddXchgPairInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runUnlistWrapper(input: SuperRootOwnerUnlistWrapperInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    unlistWrapper(input: SuperRootOwnerUnlistWrapperInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runUnlistXchgPair(input: SuperRootOwnerUnlistXchgPairInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    unlistXchgPair(input: SuperRootOwnerUnlistXchgPairInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runUpgradeBroxusWrapperWallet(input: SuperRootOwnerUpgradeBroxusWrapperWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    upgradeBroxusWrapperWallet(input: SuperRootOwnerUpgradeBroxusWrapperWalletInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDeployWrappersConfig(input: SuperRootOwnerDeployWrappersConfigInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: SuperRootOwnerDeployWrappersConfigOutput;
-    }>;
-    deployWrappersConfig(input: SuperRootOwnerDeployWrappersConfigInput): Promise<{
-        transaction: Transaction;
-        output: SuperRootOwnerDeployWrappersConfigOutput;
-    }>;
-    runDeployFlex(input: SuperRootOwnerDeployFlexInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: SuperRootOwnerDeployFlexOutput;
-    }>;
-    deployFlex(input: SuperRootOwnerDeployFlexInput): Promise<{
-        transaction: Transaction;
-        output: SuperRootOwnerDeployFlexOutput;
-    }>;
-    runDeployUserDataConfig(input: SuperRootOwnerDeployUserDataConfigInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: SuperRootOwnerDeployUserDataConfigOutput;
-    }>;
-    deployUserDataConfig(input: SuperRootOwnerDeployUserDataConfigInput): Promise<{
-        transaction: Transaction;
-        output: SuperRootOwnerDeployUserDataConfigOutput;
-    }>;
-    runCloneWrappersConfig(input: SuperRootOwnerCloneWrappersConfigInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: SuperRootOwnerCloneWrappersConfigOutput;
-    }>;
-    cloneWrappersConfig(input: SuperRootOwnerCloneWrappersConfigInput): Promise<{
-        transaction: Transaction;
-        output: SuperRootOwnerCloneWrappersConfigOutput;
-    }>;
-    runSetFlags(input: SuperRootOwnerSetFlagsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setFlags(input: SuperRootOwnerSetFlagsInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runTransfer(input: SuperRootOwnerTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transfer(input: SuperRootOwnerTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runTransferReserveTokens(input: SuperRootOwnerTransferReserveTokensInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transferReserveTokens(input: SuperRootOwnerTransferReserveTokensInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSetOwner(input: SuperRootOwnerSetOwnerInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setOwner(input: SuperRootOwnerSetOwnerInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSetUpdateTeam(input: SuperRootOwnerSetUpdateTeamInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setUpdateTeam(input: SuperRootOwnerSetUpdateTeamInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSetNextSuperRoot(input: SuperRootOwnerSetNextSuperRootInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setNextSuperRoot(input: SuperRootOwnerSetNextSuperRootInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: SuperRootOwnerGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: SuperRootOwnerGetDetailsOutput;
-    }>;
+    runSetCode(input: SuperRootOwnerSetCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setCode(input: SuperRootOwnerSetCodeInput): Promise<RunLocalHelperResult<void>>;
+    runDeploySuperRoot(input: SuperRootOwnerDeploySuperRootInput, options?: RunHelperOptions): Promise<RunHelperResult<SuperRootOwnerDeploySuperRootOutput>>;
+    deploySuperRoot(input: SuperRootOwnerDeploySuperRootInput): Promise<RunLocalHelperResult<SuperRootOwnerDeploySuperRootOutput>>;
+    runUpdate(input: SuperRootOwnerUpdateInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    update(input: SuperRootOwnerUpdateInput): Promise<RunLocalHelperResult<void>>;
+    runRelease(input: SuperRootOwnerReleaseInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    release(input: SuperRootOwnerReleaseInput): Promise<RunLocalHelperResult<void>>;
+    runAddWrapperType(input: SuperRootOwnerAddWrapperTypeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    addWrapperType(input: SuperRootOwnerAddWrapperTypeInput): Promise<RunLocalHelperResult<void>>;
+    runAddWrapper(input: SuperRootOwnerAddWrapperInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    addWrapper(input: SuperRootOwnerAddWrapperInput): Promise<RunLocalHelperResult<void>>;
+    runAddXchgPair(input: SuperRootOwnerAddXchgPairInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    addXchgPair(input: SuperRootOwnerAddXchgPairInput): Promise<RunLocalHelperResult<void>>;
+    runUnlistWrapper(input: SuperRootOwnerUnlistWrapperInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    unlistWrapper(input: SuperRootOwnerUnlistWrapperInput): Promise<RunLocalHelperResult<void>>;
+    runUnlistXchgPair(input: SuperRootOwnerUnlistXchgPairInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    unlistXchgPair(input: SuperRootOwnerUnlistXchgPairInput): Promise<RunLocalHelperResult<void>>;
+    runUpgradeBroxusWrapperWallet(input: SuperRootOwnerUpgradeBroxusWrapperWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    upgradeBroxusWrapperWallet(input: SuperRootOwnerUpgradeBroxusWrapperWalletInput): Promise<RunLocalHelperResult<void>>;
+    runDeployWrappersConfig(input: SuperRootOwnerDeployWrappersConfigInput, options?: RunHelperOptions): Promise<RunHelperResult<SuperRootOwnerDeployWrappersConfigOutput>>;
+    deployWrappersConfig(input: SuperRootOwnerDeployWrappersConfigInput): Promise<RunLocalHelperResult<SuperRootOwnerDeployWrappersConfigOutput>>;
+    runDeployFlex(input: SuperRootOwnerDeployFlexInput, options?: RunHelperOptions): Promise<RunHelperResult<SuperRootOwnerDeployFlexOutput>>;
+    deployFlex(input: SuperRootOwnerDeployFlexInput): Promise<RunLocalHelperResult<SuperRootOwnerDeployFlexOutput>>;
+    runDeployUserDataConfig(input: SuperRootOwnerDeployUserDataConfigInput, options?: RunHelperOptions): Promise<RunHelperResult<SuperRootOwnerDeployUserDataConfigOutput>>;
+    deployUserDataConfig(input: SuperRootOwnerDeployUserDataConfigInput): Promise<RunLocalHelperResult<SuperRootOwnerDeployUserDataConfigOutput>>;
+    runCloneWrappersConfig(input: SuperRootOwnerCloneWrappersConfigInput, options?: RunHelperOptions): Promise<RunHelperResult<SuperRootOwnerCloneWrappersConfigOutput>>;
+    cloneWrappersConfig(input: SuperRootOwnerCloneWrappersConfigInput): Promise<RunLocalHelperResult<SuperRootOwnerCloneWrappersConfigOutput>>;
+    runSetFlags(input: SuperRootOwnerSetFlagsInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setFlags(input: SuperRootOwnerSetFlagsInput): Promise<RunLocalHelperResult<void>>;
+    runTransfer(input: SuperRootOwnerTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transfer(input: SuperRootOwnerTransferInput): Promise<RunLocalHelperResult<void>>;
+    runTransferReserveTokens(input: SuperRootOwnerTransferReserveTokensInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transferReserveTokens(input: SuperRootOwnerTransferReserveTokensInput): Promise<RunLocalHelperResult<void>>;
+    runSetOwner(input: SuperRootOwnerSetOwnerInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setOwner(input: SuperRootOwnerSetOwnerInput): Promise<RunLocalHelperResult<void>>;
+    runSetUpdateTeam(input: SuperRootOwnerSetUpdateTeamInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setUpdateTeam(input: SuperRootOwnerSetUpdateTeamInput): Promise<RunLocalHelperResult<void>>;
+    runSetNextSuperRoot(input: SuperRootOwnerSetNextSuperRootInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setNextSuperRoot(input: SuperRootOwnerSetNextSuperRootInput): Promise<RunLocalHelperResult<void>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<SuperRootOwnerGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<SuperRootOwnerGetDetailsOutput>>;
 }
 //# sourceMappingURL=SuperRootOwnerAccount.d.ts.map

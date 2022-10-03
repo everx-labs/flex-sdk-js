@@ -23,9 +23,9 @@ class WrapperDeployerEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "constructor", input);
         });
     }
-    runSetWrapperEverCode(input) {
+    runSetWrapperEverCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setWrapperEverCode", input);
+            return yield (0, helpers_1.runHelper)(this, "setWrapperEverCode", input, options);
         });
     }
     setWrapperEverCode(input) {
@@ -33,9 +33,9 @@ class WrapperDeployerEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setWrapperEverCode", input);
         });
     }
-    runSetFlexWalletCode(input) {
+    runSetFlexWalletCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setFlexWalletCode", input);
+            return yield (0, helpers_1.runHelper)(this, "setFlexWalletCode", input, options);
         });
     }
     setFlexWalletCode(input) {
@@ -43,9 +43,9 @@ class WrapperDeployerEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setFlexWalletCode", input);
         });
     }
-    runDeploy(input) {
+    runDeploy(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "deploy", input);
+            return yield (0, helpers_1.runHelper)(this, "deploy", input, options);
         });
     }
     deploy_(input) {

@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type FlexClientDeployPriceXchgInput = {
     sell: boolean;
     immediate_client: boolean;
@@ -205,173 +204,49 @@ export declare class FlexClientAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runDeployPriceXchg(input: FlexClientDeployPriceXchgInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientDeployPriceXchgOutput;
-    }>;
-    deployPriceXchg(input: FlexClientDeployPriceXchgInput): Promise<{
-        transaction: Transaction;
-        output: FlexClientDeployPriceXchgOutput;
-    }>;
-    runCancelXchgOrder(input: FlexClientCancelXchgOrderInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    cancelXchgOrder(input: FlexClientCancelXchgOrderInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runTransfer(input: FlexClientTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transfer(input: FlexClientTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runTransferTokens(input: FlexClientTransferTokensInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transferTokens(input: FlexClientTransferTokensInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDeployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientDeployEmptyFlexWalletOutput;
-    }>;
-    deployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput): Promise<{
-        transaction: Transaction;
-        output: FlexClientDeployEmptyFlexWalletOutput;
-    }>;
-    runDeployIndex(input: FlexClientDeployIndexInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    deployIndex(input: FlexClientDeployIndexInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runReBindWallets(input: FlexClientReBindWalletsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    reBindWallets(input: FlexClientReBindWalletsInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDestroyIndex(input: FlexClientDestroyIndexInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    destroyIndex(input: FlexClientDestroyIndexInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBurnWallet(input: FlexClientBurnWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    burnWallet(input: FlexClientBurnWalletInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBurnThemAll(input: FlexClientBurnThemAllInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    burnThemAll(input: FlexClientBurnThemAllInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runContinueBurnThemAll(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    continueBurnThemAll(): Promise<{
-        transaction: Transaction;
-    }>;
-    runCancelThemAll(input: FlexClientCancelThemAllInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    cancelThemAll(input: FlexClientCancelThemAllInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runContinueCancelThemAll(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    continueCancelThemAll(): Promise<{
-        transaction: Transaction;
-    }>;
-    runUnwrapWallet(input: FlexClientUnwrapWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    unwrapWallet(input: FlexClientUnwrapWalletInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBindWallet(input: FlexClientBindWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    bindWallet(input: FlexClientBindWalletInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runOnTip3Transfer(input: FlexClientOnTip3TransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onTip3Transfer(input: FlexClientOnTip3TransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runUpgrade(input: FlexClientUpgradeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    upgrade(input: FlexClientUpgradeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientGetPayloadForDeployInternalWalletOutput;
-    }>;
-    getPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput): Promise<{
-        transaction: Transaction;
-        output: FlexClientGetPayloadForDeployInternalWalletOutput;
-    }>;
-    runGetPayloadForEverReTransferArgs(input: FlexClientGetPayloadForEverReTransferArgsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientGetPayloadForEverReTransferArgsOutput;
-    }>;
-    getPayloadForEverReTransferArgs(input: FlexClientGetPayloadForEverReTransferArgsInput): Promise<{
-        transaction: Transaction;
-        output: FlexClientGetPayloadForEverReTransferArgsOutput;
-    }>;
-    runGetPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientGetPriceXchgAddressOutput;
-    }>;
-    getPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput): Promise<{
-        transaction: Transaction;
-        output: FlexClientGetPriceXchgAddressOutput;
-    }>;
-    runGetUserIdIndex(input: FlexClientGetUserIdIndexInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientGetUserIdIndexOutput;
-    }>;
-    getUserIdIndex(input: FlexClientGetUserIdIndexInput): Promise<{
-        transaction: Transaction;
-        output: FlexClientGetUserIdIndexOutput;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: FlexClientGetDetailsOutput;
-    }>;
+    runDeployPriceXchg(input: FlexClientDeployPriceXchgInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientDeployPriceXchgOutput>>;
+    deployPriceXchg(input: FlexClientDeployPriceXchgInput): Promise<RunLocalHelperResult<FlexClientDeployPriceXchgOutput>>;
+    runCancelXchgOrder(input: FlexClientCancelXchgOrderInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    cancelXchgOrder(input: FlexClientCancelXchgOrderInput): Promise<RunLocalHelperResult<void>>;
+    runTransfer(input: FlexClientTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transfer(input: FlexClientTransferInput): Promise<RunLocalHelperResult<void>>;
+    runTransferTokens(input: FlexClientTransferTokensInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transferTokens(input: FlexClientTransferTokensInput): Promise<RunLocalHelperResult<void>>;
+    runDeployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientDeployEmptyFlexWalletOutput>>;
+    deployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput): Promise<RunLocalHelperResult<FlexClientDeployEmptyFlexWalletOutput>>;
+    runDeployIndex(input: FlexClientDeployIndexInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    deployIndex(input: FlexClientDeployIndexInput): Promise<RunLocalHelperResult<void>>;
+    runReBindWallets(input: FlexClientReBindWalletsInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    reBindWallets(input: FlexClientReBindWalletsInput): Promise<RunLocalHelperResult<void>>;
+    runDestroyIndex(input: FlexClientDestroyIndexInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    destroyIndex(input: FlexClientDestroyIndexInput): Promise<RunLocalHelperResult<void>>;
+    runBurnWallet(input: FlexClientBurnWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    burnWallet(input: FlexClientBurnWalletInput): Promise<RunLocalHelperResult<void>>;
+    runBurnThemAll(input: FlexClientBurnThemAllInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    burnThemAll(input: FlexClientBurnThemAllInput): Promise<RunLocalHelperResult<void>>;
+    runContinueBurnThemAll(options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    continueBurnThemAll(): Promise<RunLocalHelperResult<void>>;
+    runCancelThemAll(input: FlexClientCancelThemAllInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    cancelThemAll(input: FlexClientCancelThemAllInput): Promise<RunLocalHelperResult<void>>;
+    runContinueCancelThemAll(options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    continueCancelThemAll(): Promise<RunLocalHelperResult<void>>;
+    runUnwrapWallet(input: FlexClientUnwrapWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    unwrapWallet(input: FlexClientUnwrapWalletInput): Promise<RunLocalHelperResult<void>>;
+    runBindWallet(input: FlexClientBindWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    bindWallet(input: FlexClientBindWalletInput): Promise<RunLocalHelperResult<void>>;
+    runOnTip3Transfer(input: FlexClientOnTip3TransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onTip3Transfer(input: FlexClientOnTip3TransferInput): Promise<RunLocalHelperResult<void>>;
+    runUpgrade(input: FlexClientUpgradeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    upgrade(input: FlexClientUpgradeInput): Promise<RunLocalHelperResult<void>>;
+    runGetPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientGetPayloadForDeployInternalWalletOutput>>;
+    getPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput): Promise<RunLocalHelperResult<FlexClientGetPayloadForDeployInternalWalletOutput>>;
+    runGetPayloadForEverReTransferArgs(input: FlexClientGetPayloadForEverReTransferArgsInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientGetPayloadForEverReTransferArgsOutput>>;
+    getPayloadForEverReTransferArgs(input: FlexClientGetPayloadForEverReTransferArgsInput): Promise<RunLocalHelperResult<FlexClientGetPayloadForEverReTransferArgsOutput>>;
+    runGetPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientGetPriceXchgAddressOutput>>;
+    getPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput): Promise<RunLocalHelperResult<FlexClientGetPriceXchgAddressOutput>>;
+    runGetUserIdIndex(input: FlexClientGetUserIdIndexInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientGetUserIdIndexOutput>>;
+    getUserIdIndex(input: FlexClientGetUserIdIndexInput): Promise<RunLocalHelperResult<FlexClientGetUserIdIndexOutput>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<FlexClientGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<FlexClientGetDetailsOutput>>;
 }
 //# sourceMappingURL=FlexClientAccount.d.ts.map

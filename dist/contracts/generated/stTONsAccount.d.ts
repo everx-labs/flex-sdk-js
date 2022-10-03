@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type stTONsLendOwnershipInput = {
     _answer_id: number;
     answer_addr: string;
@@ -64,72 +63,23 @@ export declare class stTONsAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onDeploy(): Promise<{
-        transaction: Transaction;
-    }>;
-    runLendOwnership(input: stTONsLendOwnershipInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    lendOwnership(input: stTONsLendOwnershipInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runReturnOwnership(input: stTONsReturnOwnershipInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    returnOwnership(input: stTONsReturnOwnershipInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runReturnStake(input: stTONsReturnStakeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    returnStake(input: stTONsReturnStakeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runFinalize(input: stTONsFinalizeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    finalize(input: stTONsFinalizeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runReceiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    receiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runReceiveAnswer(input: stTONsReceiveAnswerInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    receiveAnswer(input: stTONsReceiveAnswerInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: stTONsGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: stTONsGetDetailsOutput;
-    }>;
-    runCalcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: stTONsCalcStTONsAddrOutput;
-    }>;
-    calcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<{
-        transaction: Transaction;
-        output: stTONsCalcStTONsAddrOutput;
-    }>;
+    runOnDeploy(options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onDeploy(): Promise<RunLocalHelperResult<void>>;
+    runLendOwnership(input: stTONsLendOwnershipInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    lendOwnership(input: stTONsLendOwnershipInput): Promise<RunLocalHelperResult<void>>;
+    runReturnOwnership(input: stTONsReturnOwnershipInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    returnOwnership(input: stTONsReturnOwnershipInput): Promise<RunLocalHelperResult<void>>;
+    runReturnStake(input: stTONsReturnStakeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    returnStake(input: stTONsReturnStakeInput): Promise<RunLocalHelperResult<void>>;
+    runFinalize(input: stTONsFinalizeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    finalize(input: stTONsFinalizeInput): Promise<RunLocalHelperResult<void>>;
+    runReceiveStakeTransfer(input: stTONsReceiveStakeTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    receiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<RunLocalHelperResult<void>>;
+    runReceiveAnswer(input: stTONsReceiveAnswerInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    receiveAnswer(input: stTONsReceiveAnswerInput): Promise<RunLocalHelperResult<void>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<stTONsGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<stTONsGetDetailsOutput>>;
+    runCalcStTONsAddr(input: stTONsCalcStTONsAddrInput, options?: RunHelperOptions): Promise<RunHelperResult<stTONsCalcStTONsAddrOutput>>;
+    calcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<RunLocalHelperResult<stTONsCalcStTONsAddrOutput>>;
 }
 //# sourceMappingURL=stTONsAccount.d.ts.map

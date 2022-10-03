@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type FlexClientTestUpdateDeployPriceXchgInput = {
     sell: boolean;
     immediate_client: boolean;
@@ -204,168 +203,47 @@ export declare class FlexClientTestUpdateAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runDeployPriceXchg(input: FlexClientTestUpdateDeployPriceXchgInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientTestUpdateDeployPriceXchgOutput;
-    }>;
-    deployPriceXchg(input: FlexClientTestUpdateDeployPriceXchgInput): Promise<{
-        transaction: Transaction;
-        output: FlexClientTestUpdateDeployPriceXchgOutput;
-    }>;
-    runCancelXchgOrder(input: FlexClientTestUpdateCancelXchgOrderInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    cancelXchgOrder(input: FlexClientTestUpdateCancelXchgOrderInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runTransfer(input: FlexClientTestUpdateTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transfer(input: FlexClientTestUpdateTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runTransferTokens(input: FlexClientTestUpdateTransferTokensInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transferTokens(input: FlexClientTestUpdateTransferTokensInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDeployEmptyFlexWallet(input: FlexClientTestUpdateDeployEmptyFlexWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientTestUpdateDeployEmptyFlexWalletOutput;
-    }>;
-    deployEmptyFlexWallet(input: FlexClientTestUpdateDeployEmptyFlexWalletInput): Promise<{
-        transaction: Transaction;
-        output: FlexClientTestUpdateDeployEmptyFlexWalletOutput;
-    }>;
-    runDeployIndex(input: FlexClientTestUpdateDeployIndexInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    deployIndex(input: FlexClientTestUpdateDeployIndexInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runReBindWallets(input: FlexClientTestUpdateReBindWalletsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    reBindWallets(input: FlexClientTestUpdateReBindWalletsInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDestroyIndex(input: FlexClientTestUpdateDestroyIndexInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    destroyIndex(input: FlexClientTestUpdateDestroyIndexInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBurnWallet(input: FlexClientTestUpdateBurnWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    burnWallet(input: FlexClientTestUpdateBurnWalletInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBurnThemAll(input: FlexClientTestUpdateBurnThemAllInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    burnThemAll(input: FlexClientTestUpdateBurnThemAllInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runContinueBurnThemAll(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    continueBurnThemAll(): Promise<{
-        transaction: Transaction;
-    }>;
-    runUnwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    unwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBindWallet(input: FlexClientTestUpdateBindWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    bindWallet(input: FlexClientTestUpdateBindWalletInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runOnTip3Transfer(input: FlexClientTestUpdateOnTip3TransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onTip3Transfer(input: FlexClientTestUpdateOnTip3TransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runUpgrade(input: FlexClientTestUpdateUpgradeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    upgrade(input: FlexClientTestUpdateUpgradeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput;
-    }>;
-    getPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput): Promise<{
-        transaction: Transaction;
-        output: FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput;
-    }>;
-    runGetPayloadForEverReTransferArgs(input: FlexClientTestUpdateGetPayloadForEverReTransferArgsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientTestUpdateGetPayloadForEverReTransferArgsOutput;
-    }>;
-    getPayloadForEverReTransferArgs(input: FlexClientTestUpdateGetPayloadForEverReTransferArgsInput): Promise<{
-        transaction: Transaction;
-        output: FlexClientTestUpdateGetPayloadForEverReTransferArgsOutput;
-    }>;
-    runGetPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientTestUpdateGetPriceXchgAddressOutput;
-    }>;
-    getPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput): Promise<{
-        transaction: Transaction;
-        output: FlexClientTestUpdateGetPriceXchgAddressOutput;
-    }>;
-    runGetUserIdIndex(input: FlexClientTestUpdateGetUserIdIndexInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientTestUpdateGetUserIdIndexOutput;
-    }>;
-    getUserIdIndex(input: FlexClientTestUpdateGetUserIdIndexInput): Promise<{
-        transaction: Transaction;
-        output: FlexClientTestUpdateGetUserIdIndexOutput;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientTestUpdateGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: FlexClientTestUpdateGetDetailsOutput;
-    }>;
-    runGetTestValue(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexClientTestUpdateGetTestValueOutput;
-    }>;
-    getTestValue(): Promise<{
-        transaction: Transaction;
-        output: FlexClientTestUpdateGetTestValueOutput;
-    }>;
+    runDeployPriceXchg(input: FlexClientTestUpdateDeployPriceXchgInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateDeployPriceXchgOutput>>;
+    deployPriceXchg(input: FlexClientTestUpdateDeployPriceXchgInput): Promise<RunLocalHelperResult<FlexClientTestUpdateDeployPriceXchgOutput>>;
+    runCancelXchgOrder(input: FlexClientTestUpdateCancelXchgOrderInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    cancelXchgOrder(input: FlexClientTestUpdateCancelXchgOrderInput): Promise<RunLocalHelperResult<void>>;
+    runTransfer(input: FlexClientTestUpdateTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transfer(input: FlexClientTestUpdateTransferInput): Promise<RunLocalHelperResult<void>>;
+    runTransferTokens(input: FlexClientTestUpdateTransferTokensInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transferTokens(input: FlexClientTestUpdateTransferTokensInput): Promise<RunLocalHelperResult<void>>;
+    runDeployEmptyFlexWallet(input: FlexClientTestUpdateDeployEmptyFlexWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateDeployEmptyFlexWalletOutput>>;
+    deployEmptyFlexWallet(input: FlexClientTestUpdateDeployEmptyFlexWalletInput): Promise<RunLocalHelperResult<FlexClientTestUpdateDeployEmptyFlexWalletOutput>>;
+    runDeployIndex(input: FlexClientTestUpdateDeployIndexInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    deployIndex(input: FlexClientTestUpdateDeployIndexInput): Promise<RunLocalHelperResult<void>>;
+    runReBindWallets(input: FlexClientTestUpdateReBindWalletsInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    reBindWallets(input: FlexClientTestUpdateReBindWalletsInput): Promise<RunLocalHelperResult<void>>;
+    runDestroyIndex(input: FlexClientTestUpdateDestroyIndexInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    destroyIndex(input: FlexClientTestUpdateDestroyIndexInput): Promise<RunLocalHelperResult<void>>;
+    runBurnWallet(input: FlexClientTestUpdateBurnWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    burnWallet(input: FlexClientTestUpdateBurnWalletInput): Promise<RunLocalHelperResult<void>>;
+    runBurnThemAll(input: FlexClientTestUpdateBurnThemAllInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    burnThemAll(input: FlexClientTestUpdateBurnThemAllInput): Promise<RunLocalHelperResult<void>>;
+    runContinueBurnThemAll(options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    continueBurnThemAll(): Promise<RunLocalHelperResult<void>>;
+    runUnwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    unwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput): Promise<RunLocalHelperResult<void>>;
+    runBindWallet(input: FlexClientTestUpdateBindWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    bindWallet(input: FlexClientTestUpdateBindWalletInput): Promise<RunLocalHelperResult<void>>;
+    runOnTip3Transfer(input: FlexClientTestUpdateOnTip3TransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onTip3Transfer(input: FlexClientTestUpdateOnTip3TransferInput): Promise<RunLocalHelperResult<void>>;
+    runUpgrade(input: FlexClientTestUpdateUpgradeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    upgrade(input: FlexClientTestUpdateUpgradeInput): Promise<RunLocalHelperResult<void>>;
+    runGetPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput>>;
+    getPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput): Promise<RunLocalHelperResult<FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput>>;
+    runGetPayloadForEverReTransferArgs(input: FlexClientTestUpdateGetPayloadForEverReTransferArgsInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateGetPayloadForEverReTransferArgsOutput>>;
+    getPayloadForEverReTransferArgs(input: FlexClientTestUpdateGetPayloadForEverReTransferArgsInput): Promise<RunLocalHelperResult<FlexClientTestUpdateGetPayloadForEverReTransferArgsOutput>>;
+    runGetPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateGetPriceXchgAddressOutput>>;
+    getPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput): Promise<RunLocalHelperResult<FlexClientTestUpdateGetPriceXchgAddressOutput>>;
+    runGetUserIdIndex(input: FlexClientTestUpdateGetUserIdIndexInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateGetUserIdIndexOutput>>;
+    getUserIdIndex(input: FlexClientTestUpdateGetUserIdIndexInput): Promise<RunLocalHelperResult<FlexClientTestUpdateGetUserIdIndexOutput>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<FlexClientTestUpdateGetDetailsOutput>>;
+    runGetTestValue(options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateGetTestValueOutput>>;
+    getTestValue(): Promise<RunLocalHelperResult<FlexClientTestUpdateGetTestValueOutput>>;
 }
 //# sourceMappingURL=FlexClientTestUpdateAccount.d.ts.map

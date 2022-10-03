@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type Tip31WrapperDeployerSetWrapperCodeInput = {
     code: string;
 };
@@ -46,37 +45,13 @@ export declare class Tip31WrapperDeployerAccount extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runSetWrapperCode(input: Tip31WrapperDeployerSetWrapperCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setWrapperCode(input: Tip31WrapperDeployerSetWrapperCodeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSetFlexWalletCode(input: Tip31WrapperDeployerSetFlexWalletCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setFlexWalletCode(input: Tip31WrapperDeployerSetFlexWalletCodeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDeploy(input: Tip31WrapperDeployerDeployInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WrapperDeployerDeployOutput;
-    }>;
-    deploy_(input: Tip31WrapperDeployerDeployInput): Promise<{
-        transaction: Transaction;
-        output: Tip31WrapperDeployerDeployOutput;
-    }>;
-    runGetArgs(input: Tip31WrapperDeployerGetArgsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WrapperDeployerGetArgsOutput;
-    }>;
-    getArgs(input: Tip31WrapperDeployerGetArgsInput): Promise<{
-        transaction: Transaction;
-        output: Tip31WrapperDeployerGetArgsOutput;
-    }>;
+    runSetWrapperCode(input: Tip31WrapperDeployerSetWrapperCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setWrapperCode(input: Tip31WrapperDeployerSetWrapperCodeInput): Promise<RunLocalHelperResult<void>>;
+    runSetFlexWalletCode(input: Tip31WrapperDeployerSetFlexWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setFlexWalletCode(input: Tip31WrapperDeployerSetFlexWalletCodeInput): Promise<RunLocalHelperResult<void>>;
+    runDeploy(input: Tip31WrapperDeployerDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperDeployerDeployOutput>>;
+    deploy_(input: Tip31WrapperDeployerDeployInput): Promise<RunLocalHelperResult<Tip31WrapperDeployerDeployOutput>>;
+    runGetArgs(input: Tip31WrapperDeployerGetArgsInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperDeployerGetArgsOutput>>;
+    getArgs(input: Tip31WrapperDeployerGetArgsInput): Promise<RunLocalHelperResult<Tip31WrapperDeployerGetArgsOutput>>;
 }
 //# sourceMappingURL=Tip31WrapperDeployerAccount.d.ts.map

@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -255,292 +257,171 @@ export class FlexClientTestUpdateAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runDeployPriceXchg(input: FlexClientTestUpdateDeployPriceXchgInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientTestUpdateDeployPriceXchgOutput,
-    }> {
-        return await runHelper(this, "deployPriceXchg", input);
+    async runDeployPriceXchg(input: FlexClientTestUpdateDeployPriceXchgInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateDeployPriceXchgOutput>> {
+        return await runHelper(this, "deployPriceXchg", input, options);
     }
 
-    async deployPriceXchg(input: FlexClientTestUpdateDeployPriceXchgInput): Promise<{
-        transaction: Transaction,
-        output: FlexClientTestUpdateDeployPriceXchgOutput,
-    }> {
+    async deployPriceXchg(input: FlexClientTestUpdateDeployPriceXchgInput): Promise<RunLocalHelperResult<FlexClientTestUpdateDeployPriceXchgOutput>> {
         return await runLocalHelper(this, "deployPriceXchg", input);
     }
 
-    async runCancelXchgOrder(input: FlexClientTestUpdateCancelXchgOrderInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "cancelXchgOrder", input);
+    async runCancelXchgOrder(input: FlexClientTestUpdateCancelXchgOrderInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "cancelXchgOrder", input, options);
     }
 
-    async cancelXchgOrder(input: FlexClientTestUpdateCancelXchgOrderInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async cancelXchgOrder(input: FlexClientTestUpdateCancelXchgOrderInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "cancelXchgOrder", input);
     }
 
-    async runTransfer(input: FlexClientTestUpdateTransferInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transfer", input);
+    async runTransfer(input: FlexClientTestUpdateTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transfer", input, options);
     }
 
-    async transfer(input: FlexClientTestUpdateTransferInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transfer(input: FlexClientTestUpdateTransferInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transfer", input);
     }
 
-    async runTransferTokens(input: FlexClientTestUpdateTransferTokensInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transferTokens", input);
+    async runTransferTokens(input: FlexClientTestUpdateTransferTokensInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transferTokens", input, options);
     }
 
-    async transferTokens(input: FlexClientTestUpdateTransferTokensInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transferTokens(input: FlexClientTestUpdateTransferTokensInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transferTokens", input);
     }
 
-    async runDeployEmptyFlexWallet(input: FlexClientTestUpdateDeployEmptyFlexWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientTestUpdateDeployEmptyFlexWalletOutput,
-    }> {
-        return await runHelper(this, "deployEmptyFlexWallet", input);
+    async runDeployEmptyFlexWallet(input: FlexClientTestUpdateDeployEmptyFlexWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateDeployEmptyFlexWalletOutput>> {
+        return await runHelper(this, "deployEmptyFlexWallet", input, options);
     }
 
-    async deployEmptyFlexWallet(input: FlexClientTestUpdateDeployEmptyFlexWalletInput): Promise<{
-        transaction: Transaction,
-        output: FlexClientTestUpdateDeployEmptyFlexWalletOutput,
-    }> {
+    async deployEmptyFlexWallet(input: FlexClientTestUpdateDeployEmptyFlexWalletInput): Promise<RunLocalHelperResult<FlexClientTestUpdateDeployEmptyFlexWalletOutput>> {
         return await runLocalHelper(this, "deployEmptyFlexWallet", input);
     }
 
-    async runDeployIndex(input: FlexClientTestUpdateDeployIndexInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "deployIndex", input);
+    async runDeployIndex(input: FlexClientTestUpdateDeployIndexInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "deployIndex", input, options);
     }
 
-    async deployIndex(input: FlexClientTestUpdateDeployIndexInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async deployIndex(input: FlexClientTestUpdateDeployIndexInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "deployIndex", input);
     }
 
-    async runReBindWallets(input: FlexClientTestUpdateReBindWalletsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "reBindWallets", input);
+    async runReBindWallets(input: FlexClientTestUpdateReBindWalletsInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "reBindWallets", input, options);
     }
 
-    async reBindWallets(input: FlexClientTestUpdateReBindWalletsInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async reBindWallets(input: FlexClientTestUpdateReBindWalletsInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "reBindWallets", input);
     }
 
-    async runDestroyIndex(input: FlexClientTestUpdateDestroyIndexInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "destroyIndex", input);
+    async runDestroyIndex(input: FlexClientTestUpdateDestroyIndexInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "destroyIndex", input, options);
     }
 
-    async destroyIndex(input: FlexClientTestUpdateDestroyIndexInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async destroyIndex(input: FlexClientTestUpdateDestroyIndexInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "destroyIndex", input);
     }
 
-    async runBurnWallet(input: FlexClientTestUpdateBurnWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "burnWallet", input);
+    async runBurnWallet(input: FlexClientTestUpdateBurnWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "burnWallet", input, options);
     }
 
-    async burnWallet(input: FlexClientTestUpdateBurnWalletInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async burnWallet(input: FlexClientTestUpdateBurnWalletInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "burnWallet", input);
     }
 
-    async runBurnThemAll(input: FlexClientTestUpdateBurnThemAllInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "burnThemAll", input);
+    async runBurnThemAll(input: FlexClientTestUpdateBurnThemAllInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "burnThemAll", input, options);
     }
 
-    async burnThemAll(input: FlexClientTestUpdateBurnThemAllInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async burnThemAll(input: FlexClientTestUpdateBurnThemAllInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "burnThemAll", input);
     }
 
-    async runContinueBurnThemAll(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "continueBurnThemAll", {});
+    async runContinueBurnThemAll(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "continueBurnThemAll", {}, options);
     }
 
-    async continueBurnThemAll(): Promise<{
-        transaction: Transaction,
-    }> {
+    async continueBurnThemAll(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "continueBurnThemAll", {});
     }
 
-    async runUnwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "unwrapWallet", input);
+    async runUnwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "unwrapWallet", input, options);
     }
 
-    async unwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async unwrapWallet(input: FlexClientTestUpdateUnwrapWalletInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "unwrapWallet", input);
     }
 
-    async runBindWallet(input: FlexClientTestUpdateBindWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "bindWallet", input);
+    async runBindWallet(input: FlexClientTestUpdateBindWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "bindWallet", input, options);
     }
 
-    async bindWallet(input: FlexClientTestUpdateBindWalletInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async bindWallet(input: FlexClientTestUpdateBindWalletInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "bindWallet", input);
     }
 
-    async runOnTip3Transfer(input: FlexClientTestUpdateOnTip3TransferInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onTip3Transfer", input);
+    async runOnTip3Transfer(input: FlexClientTestUpdateOnTip3TransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onTip3Transfer", input, options);
     }
 
-    async onTip3Transfer(input: FlexClientTestUpdateOnTip3TransferInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onTip3Transfer(input: FlexClientTestUpdateOnTip3TransferInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onTip3Transfer", input);
     }
 
-    async runUpgrade(input: FlexClientTestUpdateUpgradeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "upgrade", input);
+    async runUpgrade(input: FlexClientTestUpdateUpgradeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "upgrade", input, options);
     }
 
-    async upgrade(input: FlexClientTestUpdateUpgradeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async upgrade(input: FlexClientTestUpdateUpgradeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "upgrade", input);
     }
 
-    async runGetPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput,
-    }> {
-        return await runHelper(this, "getPayloadForDeployInternalWallet", input);
+    async runGetPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput>> {
+        return await runHelper(this, "getPayloadForDeployInternalWallet", input, options);
     }
 
-    async getPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput): Promise<{
-        transaction: Transaction,
-        output: FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput,
-    }> {
+    async getPayloadForDeployInternalWallet(input: FlexClientTestUpdateGetPayloadForDeployInternalWalletInput): Promise<RunLocalHelperResult<FlexClientTestUpdateGetPayloadForDeployInternalWalletOutput>> {
         return await runLocalHelper(this, "getPayloadForDeployInternalWallet", input);
     }
 
-    async runGetPayloadForEverReTransferArgs(input: FlexClientTestUpdateGetPayloadForEverReTransferArgsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientTestUpdateGetPayloadForEverReTransferArgsOutput,
-    }> {
-        return await runHelper(this, "getPayloadForEverReTransferArgs", input);
+    async runGetPayloadForEverReTransferArgs(input: FlexClientTestUpdateGetPayloadForEverReTransferArgsInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateGetPayloadForEverReTransferArgsOutput>> {
+        return await runHelper(this, "getPayloadForEverReTransferArgs", input, options);
     }
 
-    async getPayloadForEverReTransferArgs(input: FlexClientTestUpdateGetPayloadForEverReTransferArgsInput): Promise<{
-        transaction: Transaction,
-        output: FlexClientTestUpdateGetPayloadForEverReTransferArgsOutput,
-    }> {
+    async getPayloadForEverReTransferArgs(input: FlexClientTestUpdateGetPayloadForEverReTransferArgsInput): Promise<RunLocalHelperResult<FlexClientTestUpdateGetPayloadForEverReTransferArgsOutput>> {
         return await runLocalHelper(this, "getPayloadForEverReTransferArgs", input);
     }
 
-    async runGetPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientTestUpdateGetPriceXchgAddressOutput,
-    }> {
-        return await runHelper(this, "getPriceXchgAddress", input);
+    async runGetPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateGetPriceXchgAddressOutput>> {
+        return await runHelper(this, "getPriceXchgAddress", input, options);
     }
 
-    async getPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput): Promise<{
-        transaction: Transaction,
-        output: FlexClientTestUpdateGetPriceXchgAddressOutput,
-    }> {
+    async getPriceXchgAddress(input: FlexClientTestUpdateGetPriceXchgAddressInput): Promise<RunLocalHelperResult<FlexClientTestUpdateGetPriceXchgAddressOutput>> {
         return await runLocalHelper(this, "getPriceXchgAddress", input);
     }
 
-    async runGetUserIdIndex(input: FlexClientTestUpdateGetUserIdIndexInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientTestUpdateGetUserIdIndexOutput,
-    }> {
-        return await runHelper(this, "getUserIdIndex", input);
+    async runGetUserIdIndex(input: FlexClientTestUpdateGetUserIdIndexInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateGetUserIdIndexOutput>> {
+        return await runHelper(this, "getUserIdIndex", input, options);
     }
 
-    async getUserIdIndex(input: FlexClientTestUpdateGetUserIdIndexInput): Promise<{
-        transaction: Transaction,
-        output: FlexClientTestUpdateGetUserIdIndexOutput,
-    }> {
+    async getUserIdIndex(input: FlexClientTestUpdateGetUserIdIndexInput): Promise<RunLocalHelperResult<FlexClientTestUpdateGetUserIdIndexOutput>> {
         return await runLocalHelper(this, "getUserIdIndex", input);
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientTestUpdateGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: FlexClientTestUpdateGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<FlexClientTestUpdateGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runGetTestValue(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientTestUpdateGetTestValueOutput,
-    }> {
-        return await runHelper(this, "getTestValue", {});
+    async runGetTestValue(options?: RunHelperOptions): Promise<RunHelperResult<FlexClientTestUpdateGetTestValueOutput>> {
+        return await runHelper(this, "getTestValue", {}, options);
     }
 
-    async getTestValue(): Promise<{
-        transaction: Transaction,
-        output: FlexClientTestUpdateGetTestValueOutput,
-    }> {
+    async getTestValue(): Promise<RunLocalHelperResult<FlexClientTestUpdateGetTestValueOutput>> {
         return await runLocalHelper(this, "getTestValue", {});
     }
 

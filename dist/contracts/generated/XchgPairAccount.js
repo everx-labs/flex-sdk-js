@@ -23,9 +23,9 @@ class XchgPairAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "", {});
         });
     }
-    runOnDeploy(input) {
+    runOnDeploy(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
+            return yield (0, helpers_1.runHelper)(this, "onDeploy", input, options);
         });
     }
     onDeploy(input) {
@@ -33,9 +33,9 @@ class XchgPairAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
     }
-    runRequestDetails(input) {
+    runRequestDetails(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "requestDetails", input);
+            return yield (0, helpers_1.runHelper)(this, "requestDetails", input, options);
         });
     }
     requestDetails(input) {
@@ -43,9 +43,9 @@ class XchgPairAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "requestDetails", input);
         });
     }
-    runSetNext(input) {
+    runSetNext(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setNext", input);
+            return yield (0, helpers_1.runHelper)(this, "setNext", input, options);
         });
     }
     setNext(input) {
@@ -53,9 +53,9 @@ class XchgPairAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setNext", input);
         });
     }
-    runUnlist() {
+    runUnlist(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "unlist", {});
+            return yield (0, helpers_1.runHelper)(this, "unlist", {}, options);
         });
     }
     unlist() {
@@ -63,9 +63,9 @@ class XchgPairAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "unlist", {});
         });
     }
-    runGetDetails() {
+    runGetDetails(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getDetails", {});
+            return yield (0, helpers_1.runHelper)(this, "getDetails", {}, options);
         });
     }
     getDetails() {
@@ -73,9 +73,9 @@ class XchgPairAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
     }
-    runGetConfig() {
+    runGetConfig(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getConfig", {});
+            return yield (0, helpers_1.runHelper)(this, "getConfig", {}, options);
         });
     }
     getConfig() {
@@ -83,9 +83,9 @@ class XchgPairAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getConfig", {});
         });
     }
-    runGetPriceXchgCode(input) {
+    runGetPriceXchgCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getPriceXchgCode", input);
+            return yield (0, helpers_1.runHelper)(this, "getPriceXchgCode", input, options);
         });
     }
     getPriceXchgCode(input) {
@@ -93,9 +93,9 @@ class XchgPairAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getPriceXchgCode", input);
         });
     }
-    runGetPriceXchgSalt() {
+    runGetPriceXchgSalt(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getPriceXchgSalt", {});
+            return yield (0, helpers_1.runHelper)(this, "getPriceXchgSalt", {}, options);
         });
     }
     getPriceXchgSalt() {

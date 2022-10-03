@@ -7,9 +7,11 @@ export declare type CancelOrderOptions = {
     price: TokenValue;
     orderId: number | string;
     evers?: bigint | number | string;
+    waitForOrderbookUpdate?: boolean;
 };
 export declare type CancelOrderResult = {
     transactionId: string;
+    orderbookTransactionId?: string;
 };
 export declare function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<CancelOrderResult>;
 //# sourceMappingURL=cancel-order.d.ts.map

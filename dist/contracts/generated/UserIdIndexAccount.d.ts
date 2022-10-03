@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type UserIdIndexOnDeployInput = {
     lend_pubkey: string | number | bigint;
     name: string;
@@ -42,58 +41,19 @@ export declare class UserIdIndexAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(input: UserIdIndexOnDeployInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onDeploy(input: UserIdIndexOnDeployInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runReLendPubkey(input: UserIdIndexReLendPubkeyInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    reLendPubkey(input: UserIdIndexReLendPubkeyInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runRemove(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    remove(): Promise<{
-        transaction: Transaction;
-    }>;
-    runRequestLendPubkey(input: UserIdIndexRequestLendPubkeyInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: UserIdIndexRequestLendPubkeyOutput;
-    }>;
-    requestLendPubkey(input: UserIdIndexRequestLendPubkeyInput): Promise<{
-        transaction: Transaction;
-        output: UserIdIndexRequestLendPubkeyOutput;
-    }>;
-    runTransfer(input: UserIdIndexTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transfer(input: UserIdIndexTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSetRefillWallet(input: UserIdIndexSetRefillWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setRefillWallet(input: UserIdIndexSetRefillWalletInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetConfig(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: UserIdIndexGetConfigOutput;
-    }>;
-    getConfig(): Promise<{
-        transaction: Transaction;
-        output: UserIdIndexGetConfigOutput;
-    }>;
+    runOnDeploy(input: UserIdIndexOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onDeploy(input: UserIdIndexOnDeployInput): Promise<RunLocalHelperResult<void>>;
+    runReLendPubkey(input: UserIdIndexReLendPubkeyInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    reLendPubkey(input: UserIdIndexReLendPubkeyInput): Promise<RunLocalHelperResult<void>>;
+    runRemove(options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    remove(): Promise<RunLocalHelperResult<void>>;
+    runRequestLendPubkey(input: UserIdIndexRequestLendPubkeyInput, options?: RunHelperOptions): Promise<RunHelperResult<UserIdIndexRequestLendPubkeyOutput>>;
+    requestLendPubkey(input: UserIdIndexRequestLendPubkeyInput): Promise<RunLocalHelperResult<UserIdIndexRequestLendPubkeyOutput>>;
+    runTransfer(input: UserIdIndexTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transfer(input: UserIdIndexTransferInput): Promise<RunLocalHelperResult<void>>;
+    runSetRefillWallet(input: UserIdIndexSetRefillWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setRefillWallet(input: UserIdIndexSetRefillWalletInput): Promise<RunLocalHelperResult<void>>;
+    runGetConfig(options?: RunHelperOptions): Promise<RunHelperResult<UserIdIndexGetConfigOutput>>;
+    getConfig(): Promise<RunLocalHelperResult<UserIdIndexGetConfigOutput>>;
 }
 //# sourceMappingURL=UserIdIndexAccount.d.ts.map

@@ -12,10 +12,12 @@ export declare type MakeOrderOptions = {
     evers?: bigint | number | string;
     finishTime?: number;
     mode?: MakeOrderMode;
+    waitForOrderbookUpdate?: boolean;
 };
 export declare type NewOrderInfo = {
     orderId: string;
     transactionId: string;
+    orderbookTransactionId?: string;
 };
 export declare function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<NewOrderInfo>;
 export declare function generateRandomOrderId(evr: Evr): Promise<string>;

@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type XchgPairOnDeployInput = {
     min_amount: string | number | bigint;
     minmove: string | number | bigint;
@@ -111,71 +110,21 @@ export declare class XchgPairAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(input: XchgPairOnDeployInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onDeploy(input: XchgPairOnDeployInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runRequestDetails(input: XchgPairRequestDetailsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: XchgPairRequestDetailsOutput;
-    }>;
-    requestDetails(input: XchgPairRequestDetailsInput): Promise<{
-        transaction: Transaction;
-        output: XchgPairRequestDetailsOutput;
-    }>;
-    runSetNext(input: XchgPairSetNextInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setNext(input: XchgPairSetNextInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runUnlist(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    unlist(): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: XchgPairGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: XchgPairGetDetailsOutput;
-    }>;
-    runGetConfig(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: XchgPairGetConfigOutput;
-    }>;
-    getConfig(): Promise<{
-        transaction: Transaction;
-        output: XchgPairGetConfigOutput;
-    }>;
-    runGetPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: XchgPairGetPriceXchgCodeOutput;
-    }>;
-    getPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<{
-        transaction: Transaction;
-        output: XchgPairGetPriceXchgCodeOutput;
-    }>;
-    runGetPriceXchgSalt(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: XchgPairGetPriceXchgSaltOutput;
-    }>;
-    getPriceXchgSalt(): Promise<{
-        transaction: Transaction;
-        output: XchgPairGetPriceXchgSaltOutput;
-    }>;
+    runOnDeploy(input: XchgPairOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onDeploy(input: XchgPairOnDeployInput): Promise<RunLocalHelperResult<void>>;
+    runRequestDetails(input: XchgPairRequestDetailsInput, options?: RunHelperOptions): Promise<RunHelperResult<XchgPairRequestDetailsOutput>>;
+    requestDetails(input: XchgPairRequestDetailsInput): Promise<RunLocalHelperResult<XchgPairRequestDetailsOutput>>;
+    runSetNext(input: XchgPairSetNextInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setNext(input: XchgPairSetNextInput): Promise<RunLocalHelperResult<void>>;
+    runUnlist(options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    unlist(): Promise<RunLocalHelperResult<void>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<XchgPairGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<XchgPairGetDetailsOutput>>;
+    runGetConfig(options?: RunHelperOptions): Promise<RunHelperResult<XchgPairGetConfigOutput>>;
+    getConfig(): Promise<RunLocalHelperResult<XchgPairGetConfigOutput>>;
+    runGetPriceXchgCode(input: XchgPairGetPriceXchgCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<XchgPairGetPriceXchgCodeOutput>>;
+    getPriceXchgCode(input: XchgPairGetPriceXchgCodeInput): Promise<RunLocalHelperResult<XchgPairGetPriceXchgCodeOutput>>;
+    runGetPriceXchgSalt(options?: RunHelperOptions): Promise<RunHelperResult<XchgPairGetPriceXchgSaltOutput>>;
+    getPriceXchgSalt(): Promise<RunLocalHelperResult<XchgPairGetPriceXchgSaltOutput>>;
 }
 //# sourceMappingURL=XchgPairAccount.d.ts.map

@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -39,29 +41,19 @@ export class AuthIndexAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onDeploy", {});
+    async runOnDeploy(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onDeploy", {}, options);
     }
 
-    async onDeploy(): Promise<{
-        transaction: Transaction,
-    }> {
+    async onDeploy(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onDeploy", {});
     }
 
-    async runRemove(input: AuthIndexRemoveInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "remove", input);
+    async runRemove(input: AuthIndexRemoveInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "remove", input, options);
     }
 
-    async remove(input: AuthIndexRemoveInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async remove(input: AuthIndexRemoveInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "remove", input);
     }
 

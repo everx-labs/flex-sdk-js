@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type WrapperInitInput = {
     external_wallet: string;
     reserve_wallet_evers: string | number | bigint;
@@ -118,114 +117,31 @@ export declare class WrapperAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runInit(input: WrapperInitInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    init(input: WrapperInitInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDeployEmptyWallet(input: WrapperDeployEmptyWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperDeployEmptyWalletOutput;
-    }>;
-    deployEmptyWallet(input: WrapperDeployEmptyWalletInput): Promise<{
-        transaction: Transaction;
-        output: WrapperDeployEmptyWalletOutput;
-    }>;
-    runOnTip3Transfer(input: WrapperOnTip3TransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperOnTip3TransferOutput;
-    }>;
-    onTip3Transfer(input: WrapperOnTip3TransferInput): Promise<{
-        transaction: Transaction;
-        output: WrapperOnTip3TransferOutput;
-    }>;
-    runBurn(input: WrapperBurnInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    burn(input: WrapperBurnInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runTransferFromReserveWallet(input: WrapperTransferFromReserveWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transferFromReserveWallet(input: WrapperTransferFromReserveWalletInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runRequestTotalGranted(input: WrapperRequestTotalGrantedInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperRequestTotalGrantedOutput;
-    }>;
-    requestTotalGranted(input: WrapperRequestTotalGrantedInput): Promise<{
-        transaction: Transaction;
-        output: WrapperRequestTotalGrantedOutput;
-    }>;
-    runCloned(input: WrapperClonedInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperClonedOutput;
-    }>;
-    cloned(input: WrapperClonedInput): Promise<{
-        transaction: Transaction;
-        output: WrapperClonedOutput;
-    }>;
-    runSetCloned(input: WrapperSetClonedInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setCloned(input: WrapperSetClonedInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: WrapperGetDetailsOutput;
-    }>;
-    runGetTip3Config(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperGetTip3ConfigOutput;
-    }>;
-    getTip3Config(): Promise<{
-        transaction: Transaction;
-        output: WrapperGetTip3ConfigOutput;
-    }>;
-    runHasInternalWalletCode(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperHasInternalWalletCodeOutput;
-    }>;
-    hasInternalWalletCode(): Promise<{
-        transaction: Transaction;
-        output: WrapperHasInternalWalletCodeOutput;
-    }>;
-    runGetWalletAddress(input: WrapperGetWalletAddressInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperGetWalletAddressOutput;
-    }>;
-    getWalletAddress(input: WrapperGetWalletAddressInput): Promise<{
-        transaction: Transaction;
-        output: WrapperGetWalletAddressOutput;
-    }>;
-    runGetReserveWallet(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperGetReserveWalletOutput;
-    }>;
-    getReserveWallet(): Promise<{
-        transaction: Transaction;
-        output: WrapperGetReserveWalletOutput;
-    }>;
+    runInit(input: WrapperInitInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    init(input: WrapperInitInput): Promise<RunLocalHelperResult<void>>;
+    runDeployEmptyWallet(input: WrapperDeployEmptyWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<WrapperDeployEmptyWalletOutput>>;
+    deployEmptyWallet(input: WrapperDeployEmptyWalletInput): Promise<RunLocalHelperResult<WrapperDeployEmptyWalletOutput>>;
+    runOnTip3Transfer(input: WrapperOnTip3TransferInput, options?: RunHelperOptions): Promise<RunHelperResult<WrapperOnTip3TransferOutput>>;
+    onTip3Transfer(input: WrapperOnTip3TransferInput): Promise<RunLocalHelperResult<WrapperOnTip3TransferOutput>>;
+    runBurn(input: WrapperBurnInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    burn(input: WrapperBurnInput): Promise<RunLocalHelperResult<void>>;
+    runTransferFromReserveWallet(input: WrapperTransferFromReserveWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transferFromReserveWallet(input: WrapperTransferFromReserveWalletInput): Promise<RunLocalHelperResult<void>>;
+    runRequestTotalGranted(input: WrapperRequestTotalGrantedInput, options?: RunHelperOptions): Promise<RunHelperResult<WrapperRequestTotalGrantedOutput>>;
+    requestTotalGranted(input: WrapperRequestTotalGrantedInput): Promise<RunLocalHelperResult<WrapperRequestTotalGrantedOutput>>;
+    runCloned(input: WrapperClonedInput, options?: RunHelperOptions): Promise<RunHelperResult<WrapperClonedOutput>>;
+    cloned(input: WrapperClonedInput): Promise<RunLocalHelperResult<WrapperClonedOutput>>;
+    runSetCloned(input: WrapperSetClonedInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setCloned(input: WrapperSetClonedInput): Promise<RunLocalHelperResult<void>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<WrapperGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<WrapperGetDetailsOutput>>;
+    runGetTip3Config(options?: RunHelperOptions): Promise<RunHelperResult<WrapperGetTip3ConfigOutput>>;
+    getTip3Config(): Promise<RunLocalHelperResult<WrapperGetTip3ConfigOutput>>;
+    runHasInternalWalletCode(options?: RunHelperOptions): Promise<RunHelperResult<WrapperHasInternalWalletCodeOutput>>;
+    hasInternalWalletCode(): Promise<RunLocalHelperResult<WrapperHasInternalWalletCodeOutput>>;
+    runGetWalletAddress(input: WrapperGetWalletAddressInput, options?: RunHelperOptions): Promise<RunHelperResult<WrapperGetWalletAddressOutput>>;
+    getWalletAddress(input: WrapperGetWalletAddressInput): Promise<RunLocalHelperResult<WrapperGetWalletAddressOutput>>;
+    runGetReserveWallet(options?: RunHelperOptions): Promise<RunHelperResult<WrapperGetReserveWalletOutput>>;
+    getReserveWallet(): Promise<RunLocalHelperResult<WrapperGetReserveWalletOutput>>;
 }
 //# sourceMappingURL=WrapperAccount.d.ts.map

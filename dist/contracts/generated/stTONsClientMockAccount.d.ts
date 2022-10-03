@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type stTONsClientMockDeployStTONsInput = {
     evers: string | number | bigint;
     code: string;
@@ -38,37 +37,13 @@ export declare class stTONsClientMockAccount extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runDeployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: stTONsClientMockDeployStTONsOutput;
-    }>;
-    deployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<{
-        transaction: Transaction;
-        output: stTONsClientMockDeployStTONsOutput;
-    }>;
-    runReturnStake(input: stTONsClientMockReturnStakeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    returnStake(input: stTONsClientMockReturnStakeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runFinalize(input: stTONsClientMockFinalizeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    finalize(input: stTONsClientMockFinalizeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetOwnerPubkey(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: stTONsClientMockGetOwnerPubkeyOutput;
-    }>;
-    getOwnerPubkey(): Promise<{
-        transaction: Transaction;
-        output: stTONsClientMockGetOwnerPubkeyOutput;
-    }>;
+    runDeployStTONs(input: stTONsClientMockDeployStTONsInput, options?: RunHelperOptions): Promise<RunHelperResult<stTONsClientMockDeployStTONsOutput>>;
+    deployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<RunLocalHelperResult<stTONsClientMockDeployStTONsOutput>>;
+    runReturnStake(input: stTONsClientMockReturnStakeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    returnStake(input: stTONsClientMockReturnStakeInput): Promise<RunLocalHelperResult<void>>;
+    runFinalize(input: stTONsClientMockFinalizeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    finalize(input: stTONsClientMockFinalizeInput): Promise<RunLocalHelperResult<void>>;
+    runGetOwnerPubkey(options?: RunHelperOptions): Promise<RunHelperResult<stTONsClientMockGetOwnerPubkeyOutput>>;
+    getOwnerPubkey(): Promise<RunLocalHelperResult<stTONsClientMockGetOwnerPubkeyOutput>>;
 }
 //# sourceMappingURL=stTONsClientMockAccount.d.ts.map

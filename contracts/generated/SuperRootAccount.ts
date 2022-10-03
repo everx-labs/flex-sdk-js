@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -220,249 +222,147 @@ export class SuperRootAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: SuperRootOnDeployInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onDeploy", input);
+    async runOnDeploy(input: SuperRootOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onDeploy", input, options);
     }
 
-    async onDeploy(input: SuperRootOnDeployInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onDeploy(input: SuperRootOnDeployInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runUpdate(input: SuperRootUpdateInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "update", input);
+    async runUpdate(input: SuperRootUpdateInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "update", input, options);
     }
 
-    async update(input: SuperRootUpdateInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async update(input: SuperRootUpdateInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "update", input);
     }
 
-    async runUpdateConfirmed(input: SuperRootUpdateConfirmedInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "updateConfirmed", input);
+    async runUpdateConfirmed(input: SuperRootUpdateConfirmedInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "updateConfirmed", input, options);
     }
 
-    async updateConfirmed(input: SuperRootUpdateConfirmedInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async updateConfirmed(input: SuperRootUpdateConfirmedInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "updateConfirmed", input);
     }
 
-    async runRelease(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "release", {});
+    async runRelease(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "release", {}, options);
     }
 
-    async release(): Promise<{
-        transaction: Transaction,
-    }> {
+    async release(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "release", {});
     }
 
-    async runProxy(input: SuperRootProxyInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "proxy", input);
+    async runProxy(input: SuperRootProxyInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "proxy", input, options);
     }
 
-    async proxy(input: SuperRootProxyInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async proxy(input: SuperRootProxyInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "proxy", input);
     }
 
-    async runDeployWrappersConfig(input: SuperRootDeployWrappersConfigInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: SuperRootDeployWrappersConfigOutput,
-    }> {
-        return await runHelper(this, "deployWrappersConfig", input);
+    async runDeployWrappersConfig(input: SuperRootDeployWrappersConfigInput, options?: RunHelperOptions): Promise<RunHelperResult<SuperRootDeployWrappersConfigOutput>> {
+        return await runHelper(this, "deployWrappersConfig", input, options);
     }
 
-    async deployWrappersConfig(input: SuperRootDeployWrappersConfigInput): Promise<{
-        transaction: Transaction,
-        output: SuperRootDeployWrappersConfigOutput,
-    }> {
+    async deployWrappersConfig(input: SuperRootDeployWrappersConfigInput): Promise<RunLocalHelperResult<SuperRootDeployWrappersConfigOutput>> {
         return await runLocalHelper(this, "deployWrappersConfig", input);
     }
 
-    async runDeployFlex(input: SuperRootDeployFlexInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: SuperRootDeployFlexOutput,
-    }> {
-        return await runHelper(this, "deployFlex", input);
+    async runDeployFlex(input: SuperRootDeployFlexInput, options?: RunHelperOptions): Promise<RunHelperResult<SuperRootDeployFlexOutput>> {
+        return await runHelper(this, "deployFlex", input, options);
     }
 
-    async deployFlex(input: SuperRootDeployFlexInput): Promise<{
-        transaction: Transaction,
-        output: SuperRootDeployFlexOutput,
-    }> {
+    async deployFlex(input: SuperRootDeployFlexInput): Promise<RunLocalHelperResult<SuperRootDeployFlexOutput>> {
         return await runLocalHelper(this, "deployFlex", input);
     }
 
-    async runDeployUserDataConfig(input: SuperRootDeployUserDataConfigInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: SuperRootDeployUserDataConfigOutput,
-    }> {
-        return await runHelper(this, "deployUserDataConfig", input);
+    async runDeployUserDataConfig(input: SuperRootDeployUserDataConfigInput, options?: RunHelperOptions): Promise<RunHelperResult<SuperRootDeployUserDataConfigOutput>> {
+        return await runHelper(this, "deployUserDataConfig", input, options);
     }
 
-    async deployUserDataConfig(input: SuperRootDeployUserDataConfigInput): Promise<{
-        transaction: Transaction,
-        output: SuperRootDeployUserDataConfigOutput,
-    }> {
+    async deployUserDataConfig(input: SuperRootDeployUserDataConfigInput): Promise<RunLocalHelperResult<SuperRootDeployUserDataConfigOutput>> {
         return await runLocalHelper(this, "deployUserDataConfig", input);
     }
 
-    async runCloneWrappersConfig(input: SuperRootCloneWrappersConfigInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "cloneWrappersConfig", input);
+    async runCloneWrappersConfig(input: SuperRootCloneWrappersConfigInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "cloneWrappersConfig", input, options);
     }
 
-    async cloneWrappersConfig(input: SuperRootCloneWrappersConfigInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async cloneWrappersConfig(input: SuperRootCloneWrappersConfigInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "cloneWrappersConfig", input);
     }
 
-    async runTransfer(input: SuperRootTransferInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transfer", input);
+    async runTransfer(input: SuperRootTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transfer", input, options);
     }
 
-    async transfer(input: SuperRootTransferInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transfer(input: SuperRootTransferInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transfer", input);
     }
 
-    async runTransferReserveTokens(input: SuperRootTransferReserveTokensInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transferReserveTokens", input);
+    async runTransferReserveTokens(input: SuperRootTransferReserveTokensInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transferReserveTokens", input, options);
     }
 
-    async transferReserveTokens(input: SuperRootTransferReserveTokensInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transferReserveTokens(input: SuperRootTransferReserveTokensInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transferReserveTokens", input);
     }
 
-    async runSetFlags(input: SuperRootSetFlagsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setFlags", input);
+    async runSetFlags(input: SuperRootSetFlagsInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setFlags", input, options);
     }
 
-    async setFlags(input: SuperRootSetFlagsInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setFlags(input: SuperRootSetFlagsInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setFlags", input);
     }
 
-    async runSetOwner(input: SuperRootSetOwnerInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setOwner", input);
+    async runSetOwner(input: SuperRootSetOwnerInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setOwner", input, options);
     }
 
-    async setOwner(input: SuperRootSetOwnerInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setOwner(input: SuperRootSetOwnerInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setOwner", input);
     }
 
-    async runSetUpdateTeam(input: SuperRootSetUpdateTeamInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setUpdateTeam", input);
+    async runSetUpdateTeam(input: SuperRootSetUpdateTeamInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setUpdateTeam", input, options);
     }
 
-    async setUpdateTeam(input: SuperRootSetUpdateTeamInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setUpdateTeam(input: SuperRootSetUpdateTeamInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setUpdateTeam", input);
     }
 
-    async runSetNextSuperRoot(input: SuperRootSetNextSuperRootInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setNextSuperRoot", input);
+    async runSetNextSuperRoot(input: SuperRootSetNextSuperRootInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setNextSuperRoot", input, options);
     }
 
-    async setNextSuperRoot(input: SuperRootSetNextSuperRootInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setNextSuperRoot(input: SuperRootSetNextSuperRootInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setNextSuperRoot", input);
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: SuperRootGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<SuperRootGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: SuperRootGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<SuperRootGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runGetGlobalConfig(input: SuperRootGetGlobalConfigInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: SuperRootGetGlobalConfigOutput,
-    }> {
-        return await runHelper(this, "getGlobalConfig", input);
+    async runGetGlobalConfig(input: SuperRootGetGlobalConfigInput, options?: RunHelperOptions): Promise<RunHelperResult<SuperRootGetGlobalConfigOutput>> {
+        return await runHelper(this, "getGlobalConfig", input, options);
     }
 
-    async getGlobalConfig(input: SuperRootGetGlobalConfigInput): Promise<{
-        transaction: Transaction,
-        output: SuperRootGetGlobalConfigOutput,
-    }> {
+    async getGlobalConfig(input: SuperRootGetGlobalConfigInput): Promise<RunLocalHelperResult<SuperRootGetGlobalConfigOutput>> {
         return await runLocalHelper(this, "getGlobalConfig", input);
     }
 
-    async runGetCurrentGlobalConfig(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: SuperRootGetCurrentGlobalConfigOutput,
-    }> {
-        return await runHelper(this, "getCurrentGlobalConfig", {});
+    async runGetCurrentGlobalConfig(options?: RunHelperOptions): Promise<RunHelperResult<SuperRootGetCurrentGlobalConfigOutput>> {
+        return await runHelper(this, "getCurrentGlobalConfig", {}, options);
     }
 
-    async getCurrentGlobalConfig(): Promise<{
-        transaction: Transaction,
-        output: SuperRootGetCurrentGlobalConfigOutput,
-    }> {
+    async getCurrentGlobalConfig(): Promise<RunLocalHelperResult<SuperRootGetCurrentGlobalConfigOutput>> {
         return await runLocalHelper(this, "getCurrentGlobalConfig", {});
     }
 

@@ -23,9 +23,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "constructor", input);
         });
     }
-    runDeployRoot(input) {
+    runDeployRoot(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "deployRoot", input);
+            return yield (0, helpers_1.runHelper)(this, "deployRoot", input, options);
         });
     }
     deployRoot(input) {
@@ -33,9 +33,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "deployRoot", input);
         });
     }
-    runChangeDeployValue(input) {
+    runChangeDeployValue(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "changeDeployValue", input);
+            return yield (0, helpers_1.runHelper)(this, "changeDeployValue", input, options);
         });
     }
     changeDeployValue(input) {
@@ -43,9 +43,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "changeDeployValue", input);
         });
     }
-    runChangeRootCode(input) {
+    runChangeRootCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "changeRootCode", input);
+            return yield (0, helpers_1.runHelper)(this, "changeRootCode", input, options);
         });
     }
     changeRootCode(input) {
@@ -53,9 +53,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "changeRootCode", input);
         });
     }
-    runChangeWalletCode(input) {
+    runChangeWalletCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "changeWalletCode", input);
+            return yield (0, helpers_1.runHelper)(this, "changeWalletCode", input, options);
         });
     }
     changeWalletCode(input) {
@@ -63,9 +63,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "changeWalletCode", input);
         });
     }
-    runChangeRootUpgradeableCode(input) {
+    runChangeRootUpgradeableCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "changeRootUpgradeableCode", input);
+            return yield (0, helpers_1.runHelper)(this, "changeRootUpgradeableCode", input, options);
         });
     }
     changeRootUpgradeableCode(input) {
@@ -73,9 +73,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "changeRootUpgradeableCode", input);
         });
     }
-    runChangeWalletUpgradeableCode(input) {
+    runChangeWalletUpgradeableCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "changeWalletUpgradeableCode", input);
+            return yield (0, helpers_1.runHelper)(this, "changeWalletUpgradeableCode", input, options);
         });
     }
     changeWalletUpgradeableCode(input) {
@@ -83,9 +83,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "changeWalletUpgradeableCode", input);
         });
     }
-    runChangePlatformCode(input) {
+    runChangePlatformCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "changePlatformCode", input);
+            return yield (0, helpers_1.runHelper)(this, "changePlatformCode", input, options);
         });
     }
     changePlatformCode(input) {
@@ -93,9 +93,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "changePlatformCode", input);
         });
     }
-    runTransferOwner(input) {
+    runTransferOwner(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "transferOwner", input);
+            return yield (0, helpers_1.runHelper)(this, "transferOwner", input, options);
         });
     }
     transferOwner(input) {
@@ -103,9 +103,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "transferOwner", input);
         });
     }
-    runAcceptOwner() {
+    runAcceptOwner(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "acceptOwner", {});
+            return yield (0, helpers_1.runHelper)(this, "acceptOwner", {}, options);
         });
     }
     acceptOwner() {
@@ -113,9 +113,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "acceptOwner", {});
         });
     }
-    runUpgrade(input) {
+    runUpgrade(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "upgrade", input);
+            return yield (0, helpers_1.runHelper)(this, "upgrade", input, options);
         });
     }
     upgrade(input) {
@@ -123,9 +123,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "upgrade", input);
         });
     }
-    run_owner() {
+    run_owner(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "_owner", {});
+            return yield (0, helpers_1.runHelper)(this, "_owner", {}, options);
         });
     }
     _owner() {
@@ -133,9 +133,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "_owner", {});
         });
     }
-    run_pendingOwner() {
+    run_pendingOwner(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "_pendingOwner", {});
+            return yield (0, helpers_1.runHelper)(this, "_pendingOwner", {}, options);
         });
     }
     _pendingOwner() {
@@ -143,9 +143,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "_pendingOwner", {});
         });
     }
-    run_tokenNonce() {
+    run_tokenNonce(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "_tokenNonce", {});
+            return yield (0, helpers_1.runHelper)(this, "_tokenNonce", {}, options);
         });
     }
     _tokenNonce() {
@@ -153,9 +153,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "_tokenNonce", {});
         });
     }
-    run_deployValue() {
+    run_deployValue(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "_deployValue", {});
+            return yield (0, helpers_1.runHelper)(this, "_deployValue", {}, options);
         });
     }
     _deployValue() {
@@ -163,9 +163,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "_deployValue", {});
         });
     }
-    run_rootCode() {
+    run_rootCode(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "_rootCode", {});
+            return yield (0, helpers_1.runHelper)(this, "_rootCode", {}, options);
         });
     }
     _rootCode() {
@@ -173,9 +173,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "_rootCode", {});
         });
     }
-    run_walletCode() {
+    run_walletCode(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "_walletCode", {});
+            return yield (0, helpers_1.runHelper)(this, "_walletCode", {}, options);
         });
     }
     _walletCode() {
@@ -183,9 +183,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "_walletCode", {});
         });
     }
-    run_rootUpgradeableCode() {
+    run_rootUpgradeableCode(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "_rootUpgradeableCode", {});
+            return yield (0, helpers_1.runHelper)(this, "_rootUpgradeableCode", {}, options);
         });
     }
     _rootUpgradeableCode() {
@@ -193,9 +193,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "_rootUpgradeableCode", {});
         });
     }
-    run_walletUpgradeableCode() {
+    run_walletUpgradeableCode(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "_walletUpgradeableCode", {});
+            return yield (0, helpers_1.runHelper)(this, "_walletUpgradeableCode", {}, options);
         });
     }
     _walletUpgradeableCode() {
@@ -203,9 +203,9 @@ class Tip31FactoryAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "_walletUpgradeableCode", {});
         });
     }
-    run_platformCode() {
+    run_platformCode(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "_platformCode", {});
+            return yield (0, helpers_1.runHelper)(this, "_platformCode", {}, options);
         });
     }
     _platformCode() {

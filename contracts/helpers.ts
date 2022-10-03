@@ -78,29 +78,44 @@ function errorWith(
     return err;
 }
 
+export type RunHelperOptions = {
+    skipTransactionTree?: boolean,
+};
+
+export type RunHelperResult<O> = {
+    transaction: Transaction,
+    transactionTree: ResultOfQueryTransactionTree,
+    output: O,
+};
+
 export async function runHelper<O>(
     account: Account & { log?: Log },
     fn: string,
     params: object,
-): Promise<{
-    transaction: Transaction,
-    transactionTree: ResultOfQueryTransactionTree,
-    output: O,
-}> {
+    options?: RunHelperOptions,
+): Promise<RunHelperResult<O>> {
     account.log?.processingStart(`Run ${account.constructor.name}.${fn}`);
     try {
-        const result = await account.run(fn, params);
-        const transactionTree = await account.client.net.query_transaction_tree({
-            in_msg: result.transaction.in_msg,
-            timeout: 60000 * 5,
-        });
-        account.log?.info(` TX: ${result.transaction.id}`);
-        account.log?.processingDone();
-        return {
-            transaction: result.transaction,
-            transactionTree,
-            output: result.decoded?.output,
+        const runResult = await account.run(fn, params);
+        const result: RunHelperResult<O> = {
+            transaction: runResult.transaction,
+            transactionTree: {
+                transactions: [],
+                messages: [],
+            },
+            output: runResult.decoded?.output,
         };
+
+        if (!(options?.skipTransactionTree ?? false)) {
+            result.transactionTree =
+                await account.client.net.query_transaction_tree({
+                    in_msg: runResult.transaction.in_msg,
+                    timeout: 60000 * 5,
+                });
+        }
+        account.log?.info(` TX: ${runResult.transaction.id}`);
+        account.log?.processingDone();
+        return result;
     } catch (err: any) {
         throw errorWith(err, "run", account, fn, params);
     }
@@ -128,14 +143,16 @@ export async function deployHelper(
     }
 }
 
+export type RunLocalHelperResult<O> = {
+    transaction: Transaction,
+    output: O,
+};
+
 export async function runLocalHelper<O>(
     account: Account & { log?: Log },
     fn: string,
     params: object,
-): Promise<{
-    transaction: Transaction,
-    output: O,
-}> {
+): Promise<RunLocalHelperResult<O>> {
     try {
         account.log?.processingStart(`RunLocal ${account.constructor.name}.${fn}`);
         const result = await account.runLocal(fn, params);

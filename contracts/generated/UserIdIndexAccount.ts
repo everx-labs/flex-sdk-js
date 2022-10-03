@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -74,98 +76,59 @@ export class UserIdIndexAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: UserIdIndexOnDeployInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onDeploy", input);
+    async runOnDeploy(input: UserIdIndexOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onDeploy", input, options);
     }
 
-    async onDeploy(input: UserIdIndexOnDeployInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onDeploy(input: UserIdIndexOnDeployInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runReLendPubkey(input: UserIdIndexReLendPubkeyInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "reLendPubkey", input);
+    async runReLendPubkey(input: UserIdIndexReLendPubkeyInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "reLendPubkey", input, options);
     }
 
-    async reLendPubkey(input: UserIdIndexReLendPubkeyInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async reLendPubkey(input: UserIdIndexReLendPubkeyInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "reLendPubkey", input);
     }
 
-    async runRemove(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "remove", {});
+    async runRemove(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "remove", {}, options);
     }
 
-    async remove(): Promise<{
-        transaction: Transaction,
-    }> {
+    async remove(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "remove", {});
     }
 
-    async runRequestLendPubkey(input: UserIdIndexRequestLendPubkeyInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: UserIdIndexRequestLendPubkeyOutput,
-    }> {
-        return await runHelper(this, "requestLendPubkey", input);
+    async runRequestLendPubkey(input: UserIdIndexRequestLendPubkeyInput, options?: RunHelperOptions): Promise<RunHelperResult<UserIdIndexRequestLendPubkeyOutput>> {
+        return await runHelper(this, "requestLendPubkey", input, options);
     }
 
-    async requestLendPubkey(input: UserIdIndexRequestLendPubkeyInput): Promise<{
-        transaction: Transaction,
-        output: UserIdIndexRequestLendPubkeyOutput,
-    }> {
+    async requestLendPubkey(input: UserIdIndexRequestLendPubkeyInput): Promise<RunLocalHelperResult<UserIdIndexRequestLendPubkeyOutput>> {
         return await runLocalHelper(this, "requestLendPubkey", input);
     }
 
-    async runTransfer(input: UserIdIndexTransferInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transfer", input);
+    async runTransfer(input: UserIdIndexTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transfer", input, options);
     }
 
-    async transfer(input: UserIdIndexTransferInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transfer(input: UserIdIndexTransferInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transfer", input);
     }
 
-    async runSetRefillWallet(input: UserIdIndexSetRefillWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setRefillWallet", input);
+    async runSetRefillWallet(input: UserIdIndexSetRefillWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setRefillWallet", input, options);
     }
 
-    async setRefillWallet(input: UserIdIndexSetRefillWalletInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setRefillWallet(input: UserIdIndexSetRefillWalletInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setRefillWallet", input);
     }
 
-    async runGetConfig(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: UserIdIndexGetConfigOutput,
-    }> {
-        return await runHelper(this, "getConfig", {});
+    async runGetConfig(options?: RunHelperOptions): Promise<RunHelperResult<UserIdIndexGetConfigOutput>> {
+        return await runHelper(this, "getConfig", {}, options);
     }
 
-    async getConfig(): Promise<{
-        transaction: Transaction,
-        output: UserIdIndexGetConfigOutput,
-    }> {
+    async getConfig(): Promise<RunLocalHelperResult<UserIdIndexGetConfigOutput>> {
         return await runLocalHelper(this, "getConfig", {});
     }
 

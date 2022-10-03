@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -64,44 +66,27 @@ export class DePoolMockAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "sendOnTransfer", input);
+    async runSendOnTransfer(input: DePoolMockSendOnTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "sendOnTransfer", input, options);
     }
 
-    async sendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async sendOnTransfer(input: DePoolMockSendOnTransferInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "sendOnTransfer", input);
     }
 
-    async runTransferStake(input: DePoolMockTransferStakeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transferStake", input);
+    async runTransferStake(input: DePoolMockTransferStakeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transferStake", input, options);
     }
 
-    async transferStake(input: DePoolMockTransferStakeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transferStake(input: DePoolMockTransferStakeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transferStake", input);
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: DePoolMockGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<DePoolMockGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: DePoolMockGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<DePoolMockGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 

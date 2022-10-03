@@ -27,6 +27,7 @@ const examples_1 = require("./examples");
             marketAddress: marketAddress,
             price: { units: 240000 },
             amount: { units: 500 },
+            waitForOrderbookUpdate: true,
         });
         console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
         yield flex.close();

@@ -16,5 +16,9 @@ export declare class EvrAccounts {
     isActive(address: string): Promise<boolean>;
     waitForFinalExternalAnswer(transaction: TransactionNode, abi: AbiContract): Promise<any>;
     waitForInternalAnswer(transaction: TransactionNode, abi: AbiContract[]): Promise<import("@eversdk/core").MessageNode>;
+    waitForDerivativeTransactionOnAccount(options: {
+        originTransactionId: string;
+        accountAddress: string;
+    }): Promise<TransactionNode>;
 }
 //# sourceMappingURL=accounts.d.ts.map

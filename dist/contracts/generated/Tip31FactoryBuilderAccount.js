@@ -23,9 +23,9 @@ class Tip31FactoryBuilderAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "constructor", {});
         });
     }
-    runSetRootCode(input) {
+    runSetRootCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setRootCode", input);
+            return yield (0, helpers_1.runHelper)(this, "setRootCode", input, options);
         });
     }
     setRootCode(input) {
@@ -33,9 +33,9 @@ class Tip31FactoryBuilderAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setRootCode", input);
         });
     }
-    runSetWalletCode(input) {
+    runSetWalletCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setWalletCode", input);
+            return yield (0, helpers_1.runHelper)(this, "setWalletCode", input, options);
         });
     }
     setWalletCode(input) {
@@ -43,9 +43,9 @@ class Tip31FactoryBuilderAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setWalletCode", input);
         });
     }
-    runDeployTokenFactory(input) {
+    runDeployTokenFactory(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "deployTokenFactory", input);
+            return yield (0, helpers_1.runHelper)(this, "deployTokenFactory", input, options);
         });
     }
     deployTokenFactory(input) {
@@ -53,9 +53,9 @@ class Tip31FactoryBuilderAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "deployTokenFactory", input);
         });
     }
-    run_rootCode() {
+    run_rootCode(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "_rootCode", {});
+            return yield (0, helpers_1.runHelper)(this, "_rootCode", {}, options);
         });
     }
     _rootCode() {
@@ -63,9 +63,9 @@ class Tip31FactoryBuilderAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "_rootCode", {});
         });
     }
-    run_walletCode() {
+    run_walletCode(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "_walletCode", {});
+            return yield (0, helpers_1.runHelper)(this, "_walletCode", {}, options);
         });
     }
     _walletCode() {

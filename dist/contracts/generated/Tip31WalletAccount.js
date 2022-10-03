@@ -23,9 +23,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "constructor", {});
         });
     }
-    runSupportsInterface(input) {
+    runSupportsInterface(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "supportsInterface", input);
+            return yield (0, helpers_1.runHelper)(this, "supportsInterface", input, options);
         });
     }
     supportsInterface(input) {
@@ -33,9 +33,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "supportsInterface", input);
         });
     }
-    runDestroy(input) {
+    runDestroy(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "destroy", input);
+            return yield (0, helpers_1.runHelper)(this, "destroy", input, options);
         });
     }
     destroy(input) {
@@ -43,9 +43,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "destroy", input);
         });
     }
-    runBurnByRoot(input) {
+    runBurnByRoot(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "burnByRoot", input);
+            return yield (0, helpers_1.runHelper)(this, "burnByRoot", input, options);
         });
     }
     burnByRoot(input) {
@@ -53,9 +53,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "burnByRoot", input);
         });
     }
-    runBurn(input) {
+    runBurn(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "burn", input);
+            return yield (0, helpers_1.runHelper)(this, "burn", input, options);
         });
     }
     burn(input) {
@@ -63,9 +63,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "burn", input);
         });
     }
-    runBalance(input) {
+    runBalance(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "balance", input);
+            return yield (0, helpers_1.runHelper)(this, "balance", input, options);
         });
     }
     balance(input) {
@@ -73,9 +73,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "balance", input);
         });
     }
-    runOwner(input) {
+    runOwner(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "owner", input);
+            return yield (0, helpers_1.runHelper)(this, "owner", input, options);
         });
     }
     owner(input) {
@@ -83,9 +83,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "owner", input);
         });
     }
-    runRoot(input) {
+    runRoot(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "root", input);
+            return yield (0, helpers_1.runHelper)(this, "root", input, options);
         });
     }
     root(input) {
@@ -93,9 +93,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "root", input);
         });
     }
-    runWalletCode(input) {
+    runWalletCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "walletCode", input);
+            return yield (0, helpers_1.runHelper)(this, "walletCode", input, options);
         });
     }
     walletCode(input) {
@@ -103,9 +103,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "walletCode", input);
         });
     }
-    runTransfer(input) {
+    runTransfer(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "transfer", input);
+            return yield (0, helpers_1.runHelper)(this, "transfer", input, options);
         });
     }
     transfer(input) {
@@ -113,9 +113,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "transfer", input);
         });
     }
-    runTransferToWallet(input) {
+    runTransferToWallet(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "transferToWallet", input);
+            return yield (0, helpers_1.runHelper)(this, "transferToWallet", input, options);
         });
     }
     transferToWallet(input) {
@@ -123,9 +123,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "transferToWallet", input);
         });
     }
-    runAcceptTransfer(input) {
+    runAcceptTransfer(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "acceptTransfer", input);
+            return yield (0, helpers_1.runHelper)(this, "acceptTransfer", input, options);
         });
     }
     acceptTransfer(input) {
@@ -133,9 +133,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "acceptTransfer", input);
         });
     }
-    runAcceptMint(input) {
+    runAcceptMint(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "acceptMint", input);
+            return yield (0, helpers_1.runHelper)(this, "acceptMint", input, options);
         });
     }
     acceptMint(input) {
@@ -143,9 +143,9 @@ class Tip31WalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "acceptMint", input);
         });
     }
-    runSendSurplusGas(input) {
+    runSendSurplusGas(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "sendSurplusGas", input);
+            return yield (0, helpers_1.runHelper)(this, "sendSurplusGas", input, options);
         });
     }
     sendSurplusGas(input) {

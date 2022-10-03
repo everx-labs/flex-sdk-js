@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -77,70 +79,43 @@ export class WICAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: WICOnDeployInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onDeploy", input);
+    async runOnDeploy(input: WICOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onDeploy", input, options);
     }
 
-    async onDeploy(input: WICOnDeployInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onDeploy(input: WICOnDeployInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runSetNext(input: WICSetNextInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setNext", input);
+    async runSetNext(input: WICSetNextInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setNext", input, options);
     }
 
-    async setNext(input: WICSetNextInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setNext(input: WICSetNextInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setNext", input);
     }
 
-    async runCloneUpgrade(input: WICCloneUpgradeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "cloneUpgrade", input);
+    async runCloneUpgrade(input: WICCloneUpgradeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "cloneUpgrade", input, options);
     }
 
-    async cloneUpgrade(input: WICCloneUpgradeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async cloneUpgrade(input: WICCloneUpgradeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "cloneUpgrade", input);
     }
 
-    async runUnlist(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "unlist", {});
+    async runUnlist(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "unlist", {}, options);
     }
 
-    async unlist(): Promise<{
-        transaction: Transaction,
-    }> {
+    async unlist(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "unlist", {});
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: WICGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<WICGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: WICGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<WICGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 

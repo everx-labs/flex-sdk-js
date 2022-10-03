@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type FlexClientStubOnDeployInput = {
     triplet: {
         wallet: number;
@@ -24,19 +23,9 @@ export declare class FlexClientStubAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(input: FlexClientStubOnDeployInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onDeploy(input: FlexClientStubOnDeployInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runUnused(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    unused(): Promise<{
-        transaction: Transaction;
-    }>;
+    runOnDeploy(input: FlexClientStubOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onDeploy(input: FlexClientStubOnDeployInput): Promise<RunLocalHelperResult<void>>;
+    runUnused(options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    unused(): Promise<RunLocalHelperResult<void>>;
 }
 //# sourceMappingURL=FlexClientStubAccount.d.ts.map

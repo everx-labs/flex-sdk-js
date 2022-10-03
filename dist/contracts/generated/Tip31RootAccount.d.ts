@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type Tip31RootSupportsInterfaceInput = {
     answerId: number;
     interfaceID: number;
@@ -148,175 +147,45 @@ export declare class Tip31RootAccount extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runSupportsInterface(input: Tip31RootSupportsInterfaceInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootSupportsInterfaceOutput;
-    }>;
-    supportsInterface(input: Tip31RootSupportsInterfaceInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootSupportsInterfaceOutput;
-    }>;
-    runDisableMint(input: Tip31RootDisableMintInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootDisableMintOutput;
-    }>;
-    disableMint(input: Tip31RootDisableMintInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootDisableMintOutput;
-    }>;
-    runMintDisabled(input: Tip31RootMintDisabledInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootMintDisabledOutput;
-    }>;
-    mintDisabled(input: Tip31RootMintDisabledInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootMintDisabledOutput;
-    }>;
-    runBurnTokens(input: Tip31RootBurnTokensInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    burnTokens(input: Tip31RootBurnTokensInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDisableBurnByRoot(input: Tip31RootDisableBurnByRootInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootDisableBurnByRootOutput;
-    }>;
-    disableBurnByRoot(input: Tip31RootDisableBurnByRootInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootDisableBurnByRootOutput;
-    }>;
-    runBurnByRootDisabled(input: Tip31RootBurnByRootDisabledInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootBurnByRootDisabledOutput;
-    }>;
-    burnByRootDisabled(input: Tip31RootBurnByRootDisabledInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootBurnByRootDisabledOutput;
-    }>;
-    runBurnPaused(input: Tip31RootBurnPausedInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootBurnPausedOutput;
-    }>;
-    burnPaused(input: Tip31RootBurnPausedInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootBurnPausedOutput;
-    }>;
-    runSetBurnPaused(input: Tip31RootSetBurnPausedInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootSetBurnPausedOutput;
-    }>;
-    setBurnPaused(input: Tip31RootSetBurnPausedInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootSetBurnPausedOutput;
-    }>;
-    runTransferOwnership(input: Tip31RootTransferOwnershipInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transferOwnership(input: Tip31RootTransferOwnershipInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runName(input: Tip31RootNameInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootNameOutput;
-    }>;
-    name(input: Tip31RootNameInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootNameOutput;
-    }>;
-    runSymbol(input: Tip31RootSymbolInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootSymbolOutput;
-    }>;
-    symbol(input: Tip31RootSymbolInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootSymbolOutput;
-    }>;
-    runDecimals(input: Tip31RootDecimalsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootDecimalsOutput;
-    }>;
-    decimals(input: Tip31RootDecimalsInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootDecimalsOutput;
-    }>;
-    runTotalSupply(input: Tip31RootTotalSupplyInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootTotalSupplyOutput;
-    }>;
-    totalSupply(input: Tip31RootTotalSupplyInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootTotalSupplyOutput;
-    }>;
-    runWalletCode(input: Tip31RootWalletCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootWalletCodeOutput;
-    }>;
-    walletCode(input: Tip31RootWalletCodeInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootWalletCodeOutput;
-    }>;
-    runRootOwner(input: Tip31RootRootOwnerInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootRootOwnerOutput;
-    }>;
-    rootOwner(input: Tip31RootRootOwnerInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootRootOwnerOutput;
-    }>;
-    runWalletOf(input: Tip31RootWalletOfInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootWalletOfOutput;
-    }>;
-    walletOf(input: Tip31RootWalletOfInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootWalletOfOutput;
-    }>;
-    runDeployWallet(input: Tip31RootDeployWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31RootDeployWalletOutput;
-    }>;
-    deployWallet(input: Tip31RootDeployWalletInput): Promise<{
-        transaction: Transaction;
-        output: Tip31RootDeployWalletOutput;
-    }>;
-    runMint(input: Tip31RootMintInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    mint(input: Tip31RootMintInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runAcceptBurn(input: Tip31RootAcceptBurnInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    acceptBurn(input: Tip31RootAcceptBurnInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSendSurplusGas(input: Tip31RootSendSurplusGasInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    sendSurplusGas(input: Tip31RootSendSurplusGasInput): Promise<{
-        transaction: Transaction;
-    }>;
+    runSupportsInterface(input: Tip31RootSupportsInterfaceInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootSupportsInterfaceOutput>>;
+    supportsInterface(input: Tip31RootSupportsInterfaceInput): Promise<RunLocalHelperResult<Tip31RootSupportsInterfaceOutput>>;
+    runDisableMint(input: Tip31RootDisableMintInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootDisableMintOutput>>;
+    disableMint(input: Tip31RootDisableMintInput): Promise<RunLocalHelperResult<Tip31RootDisableMintOutput>>;
+    runMintDisabled(input: Tip31RootMintDisabledInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootMintDisabledOutput>>;
+    mintDisabled(input: Tip31RootMintDisabledInput): Promise<RunLocalHelperResult<Tip31RootMintDisabledOutput>>;
+    runBurnTokens(input: Tip31RootBurnTokensInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    burnTokens(input: Tip31RootBurnTokensInput): Promise<RunLocalHelperResult<void>>;
+    runDisableBurnByRoot(input: Tip31RootDisableBurnByRootInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootDisableBurnByRootOutput>>;
+    disableBurnByRoot(input: Tip31RootDisableBurnByRootInput): Promise<RunLocalHelperResult<Tip31RootDisableBurnByRootOutput>>;
+    runBurnByRootDisabled(input: Tip31RootBurnByRootDisabledInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootBurnByRootDisabledOutput>>;
+    burnByRootDisabled(input: Tip31RootBurnByRootDisabledInput): Promise<RunLocalHelperResult<Tip31RootBurnByRootDisabledOutput>>;
+    runBurnPaused(input: Tip31RootBurnPausedInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootBurnPausedOutput>>;
+    burnPaused(input: Tip31RootBurnPausedInput): Promise<RunLocalHelperResult<Tip31RootBurnPausedOutput>>;
+    runSetBurnPaused(input: Tip31RootSetBurnPausedInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootSetBurnPausedOutput>>;
+    setBurnPaused(input: Tip31RootSetBurnPausedInput): Promise<RunLocalHelperResult<Tip31RootSetBurnPausedOutput>>;
+    runTransferOwnership(input: Tip31RootTransferOwnershipInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transferOwnership(input: Tip31RootTransferOwnershipInput): Promise<RunLocalHelperResult<void>>;
+    runName(input: Tip31RootNameInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootNameOutput>>;
+    name(input: Tip31RootNameInput): Promise<RunLocalHelperResult<Tip31RootNameOutput>>;
+    runSymbol(input: Tip31RootSymbolInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootSymbolOutput>>;
+    symbol(input: Tip31RootSymbolInput): Promise<RunLocalHelperResult<Tip31RootSymbolOutput>>;
+    runDecimals(input: Tip31RootDecimalsInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootDecimalsOutput>>;
+    decimals(input: Tip31RootDecimalsInput): Promise<RunLocalHelperResult<Tip31RootDecimalsOutput>>;
+    runTotalSupply(input: Tip31RootTotalSupplyInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootTotalSupplyOutput>>;
+    totalSupply(input: Tip31RootTotalSupplyInput): Promise<RunLocalHelperResult<Tip31RootTotalSupplyOutput>>;
+    runWalletCode(input: Tip31RootWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootWalletCodeOutput>>;
+    walletCode(input: Tip31RootWalletCodeInput): Promise<RunLocalHelperResult<Tip31RootWalletCodeOutput>>;
+    runRootOwner(input: Tip31RootRootOwnerInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootRootOwnerOutput>>;
+    rootOwner(input: Tip31RootRootOwnerInput): Promise<RunLocalHelperResult<Tip31RootRootOwnerOutput>>;
+    runWalletOf(input: Tip31RootWalletOfInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootWalletOfOutput>>;
+    walletOf(input: Tip31RootWalletOfInput): Promise<RunLocalHelperResult<Tip31RootWalletOfOutput>>;
+    runDeployWallet(input: Tip31RootDeployWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootDeployWalletOutput>>;
+    deployWallet(input: Tip31RootDeployWalletInput): Promise<RunLocalHelperResult<Tip31RootDeployWalletOutput>>;
+    runMint(input: Tip31RootMintInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    mint(input: Tip31RootMintInput): Promise<RunLocalHelperResult<void>>;
+    runAcceptBurn(input: Tip31RootAcceptBurnInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    acceptBurn(input: Tip31RootAcceptBurnInput): Promise<RunLocalHelperResult<void>>;
+    runSendSurplusGas(input: Tip31RootSendSurplusGasInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    sendSurplusGas(input: Tip31RootSendSurplusGasInput): Promise<RunLocalHelperResult<void>>;
 }
 //# sourceMappingURL=Tip31RootAccount.d.ts.map

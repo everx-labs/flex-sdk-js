@@ -84,4 +84,60 @@ export class EvrAccounts {
         }
         return answerMessages[0];
     }
+
+    async waitForDerivativeTransactionOnAccount(options: {
+            originTransactionId: string,
+            accountAddress: string,
+        },
+    ): Promise<TransactionNode> {
+        const originTransaction: { out_messages: { id: string, dst: string }[] } | undefined = (await this.everos.net.query_collection(
+            {
+                collection: "transactions",
+                filter: {
+                    id: { eq: options.originTransactionId },
+                },
+                result: "out_messages { id dst }",
+            })).result[0];
+        if (!originTransaction) {
+            throw new Error(`Can not wait for derivative transaction: origin transaction ${options.originTransactionId} is missing on the blockchain.`);
+        }
+        const msg = originTransaction.out_messages.find(x => x.dst === options.accountAddress);
+        if (!msg) {
+            throw new Error(`Can not wait for derivative transaction: origin transaction ${options.originTransactionId} has not out message to account ${options.accountAddress}.`);
+        }
+
+        // Wait for the transaction to target account will be appeared in the cloud
+        let targetTransaction: (TransactionNode & { lt: string }) | undefined = undefined;
+        while (!targetTransaction) {
+            targetTransaction = (await this.everos.net.query_collection(
+                {
+                    collection: "transactions",
+                    filter: {
+                        in_msg: { eq: msg.id },
+                    },
+                    result: "id in_msg out_msgs account_addr total_fees aborted compute { exit_code } lt",
+                })).result[0];
+            if (!targetTransaction) {
+                await new Promise(resolve => setTimeout(resolve, 2000));
+            }
+        }
+
+        // Wait for the target account will be updated in the cloud
+        const transactionLt = Number(targetTransaction.lt);
+        while (true) {
+            const account: { last_trans_lt: string } | undefined = (await this.everos.net.query_collection(
+                {
+                    collection: "accounts",
+                    filter: {
+                        id: { eq: options.accountAddress },
+                    },
+                    result: "last_trans_lt",
+                })).result[0];
+            if (account && Number(account.last_trans_lt) > transactionLt) {
+                break;
+            }
+            await new Promise(resolve => setTimeout(resolve, 2000));
+        }
+        return targetTransaction;
+    }
 }

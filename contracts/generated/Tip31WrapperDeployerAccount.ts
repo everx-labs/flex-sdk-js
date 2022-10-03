@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -77,59 +79,35 @@ export class Tip31WrapperDeployerAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSetWrapperCode(input: Tip31WrapperDeployerSetWrapperCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setWrapperCode", input);
+    async runSetWrapperCode(input: Tip31WrapperDeployerSetWrapperCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setWrapperCode", input, options);
     }
 
-    async setWrapperCode(input: Tip31WrapperDeployerSetWrapperCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setWrapperCode(input: Tip31WrapperDeployerSetWrapperCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setWrapperCode", input);
     }
 
-    async runSetFlexWalletCode(input: Tip31WrapperDeployerSetFlexWalletCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setFlexWalletCode", input);
+    async runSetFlexWalletCode(input: Tip31WrapperDeployerSetFlexWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setFlexWalletCode", input, options);
     }
 
-    async setFlexWalletCode(input: Tip31WrapperDeployerSetFlexWalletCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setFlexWalletCode(input: Tip31WrapperDeployerSetFlexWalletCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setFlexWalletCode", input);
     }
 
-    async runDeploy(input: Tip31WrapperDeployerDeployInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31WrapperDeployerDeployOutput,
-    }> {
-        return await runHelper(this, "deploy", input);
+    async runDeploy(input: Tip31WrapperDeployerDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperDeployerDeployOutput>> {
+        return await runHelper(this, "deploy", input, options);
     }
 
-    async deploy_(input: Tip31WrapperDeployerDeployInput): Promise<{
-        transaction: Transaction,
-        output: Tip31WrapperDeployerDeployOutput,
-    }> {
+    async deploy_(input: Tip31WrapperDeployerDeployInput): Promise<RunLocalHelperResult<Tip31WrapperDeployerDeployOutput>> {
         return await runLocalHelper(this, "deploy", input);
     }
 
-    async runGetArgs(input: Tip31WrapperDeployerGetArgsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31WrapperDeployerGetArgsOutput,
-    }> {
-        return await runHelper(this, "getArgs", input);
+    async runGetArgs(input: Tip31WrapperDeployerGetArgsInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperDeployerGetArgsOutput>> {
+        return await runHelper(this, "getArgs", input, options);
     }
 
-    async getArgs(input: Tip31WrapperDeployerGetArgsInput): Promise<{
-        transaction: Transaction,
-        output: Tip31WrapperDeployerGetArgsOutput,
-    }> {
+    async getArgs(input: Tip31WrapperDeployerGetArgsInput): Promise<RunLocalHelperResult<Tip31WrapperDeployerGetArgsOutput>> {
         return await runLocalHelper(this, "getArgs", input);
     }
 
