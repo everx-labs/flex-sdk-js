@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -50,29 +52,19 @@ export class FlexClientStubAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: FlexClientStubOnDeployInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onDeploy", input);
+    async runOnDeploy(input: FlexClientStubOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onDeploy", input, options);
     }
 
-    async onDeploy(input: FlexClientStubOnDeployInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onDeploy(input: FlexClientStubOnDeployInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runUnused(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "unused", {});
+    async runUnused(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "unused", {}, options);
     }
 
-    async unused(): Promise<{
-        transaction: Transaction,
-    }> {
+    async unused(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "unused", {});
     }
 

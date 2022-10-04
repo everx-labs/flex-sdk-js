@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -149,256 +151,139 @@ export class RootTokenContractAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSetWalletCode(input: RootTokenContractSetWalletCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractSetWalletCodeOutput,
-    }> {
-        return await runHelper(this, "setWalletCode", input);
+    async runSetWalletCode(input: RootTokenContractSetWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractSetWalletCodeOutput>> {
+        return await runHelper(this, "setWalletCode", input, options);
     }
 
-    async setWalletCode(input: RootTokenContractSetWalletCodeInput): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractSetWalletCodeOutput,
-    }> {
+    async setWalletCode(input: RootTokenContractSetWalletCodeInput): Promise<RunLocalHelperResult<RootTokenContractSetWalletCodeOutput>> {
         return await runLocalHelper(this, "setWalletCode", input);
     }
 
-    async runDeployWallet(input: RootTokenContractDeployWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractDeployWalletOutput,
-    }> {
-        return await runHelper(this, "deployWallet", input);
+    async runDeployWallet(input: RootTokenContractDeployWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractDeployWalletOutput>> {
+        return await runHelper(this, "deployWallet", input, options);
     }
 
-    async deployWallet(input: RootTokenContractDeployWalletInput): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractDeployWalletOutput,
-    }> {
+    async deployWallet(input: RootTokenContractDeployWalletInput): Promise<RunLocalHelperResult<RootTokenContractDeployWalletOutput>> {
         return await runLocalHelper(this, "deployWallet", input);
     }
 
-    async runDeployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractDeployEmptyWalletOutput,
-    }> {
-        return await runHelper(this, "deployEmptyWallet", input);
+    async runDeployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractDeployEmptyWalletOutput>> {
+        return await runHelper(this, "deployEmptyWallet", input, options);
     }
 
-    async deployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractDeployEmptyWalletOutput,
-    }> {
+    async deployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput): Promise<RunLocalHelperResult<RootTokenContractDeployEmptyWalletOutput>> {
         return await runLocalHelper(this, "deployEmptyWallet", input);
     }
 
-    async runGrant(input: RootTokenContractGrantInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "grant", input);
+    async runGrant(input: RootTokenContractGrantInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "grant", input, options);
     }
 
-    async grant(input: RootTokenContractGrantInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async grant(input: RootTokenContractGrantInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "grant", input);
     }
 
-    async runMint(input: RootTokenContractMintInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractMintOutput,
-    }> {
-        return await runHelper(this, "mint", input);
+    async runMint(input: RootTokenContractMintInput, options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractMintOutput>> {
+        return await runHelper(this, "mint", input, options);
     }
 
-    async mint(input: RootTokenContractMintInput): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractMintOutput,
-    }> {
+    async mint(input: RootTokenContractMintInput): Promise<RunLocalHelperResult<RootTokenContractMintOutput>> {
         return await runLocalHelper(this, "mint", input);
     }
 
-    async runRequestTotalGranted(input: RootTokenContractRequestTotalGrantedInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractRequestTotalGrantedOutput,
-    }> {
-        return await runHelper(this, "requestTotalGranted", input);
+    async runRequestTotalGranted(input: RootTokenContractRequestTotalGrantedInput, options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractRequestTotalGrantedOutput>> {
+        return await runHelper(this, "requestTotalGranted", input, options);
     }
 
-    async requestTotalGranted(input: RootTokenContractRequestTotalGrantedInput): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractRequestTotalGrantedOutput,
-    }> {
+    async requestTotalGranted(input: RootTokenContractRequestTotalGrantedInput): Promise<RunLocalHelperResult<RootTokenContractRequestTotalGrantedOutput>> {
         return await runLocalHelper(this, "requestTotalGranted", input);
     }
 
-    async runGetName(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractGetNameOutput,
-    }> {
-        return await runHelper(this, "getName", {});
+    async runGetName(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetNameOutput>> {
+        return await runHelper(this, "getName", {}, options);
     }
 
-    async getName(): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractGetNameOutput,
-    }> {
+    async getName(): Promise<RunLocalHelperResult<RootTokenContractGetNameOutput>> {
         return await runLocalHelper(this, "getName", {});
     }
 
-    async runGetSymbol(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractGetSymbolOutput,
-    }> {
-        return await runHelper(this, "getSymbol", {});
+    async runGetSymbol(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetSymbolOutput>> {
+        return await runHelper(this, "getSymbol", {}, options);
     }
 
-    async getSymbol(): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractGetSymbolOutput,
-    }> {
+    async getSymbol(): Promise<RunLocalHelperResult<RootTokenContractGetSymbolOutput>> {
         return await runLocalHelper(this, "getSymbol", {});
     }
 
-    async runGetDecimals(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractGetDecimalsOutput,
-    }> {
-        return await runHelper(this, "getDecimals", {});
+    async runGetDecimals(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetDecimalsOutput>> {
+        return await runHelper(this, "getDecimals", {}, options);
     }
 
-    async getDecimals(): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractGetDecimalsOutput,
-    }> {
+    async getDecimals(): Promise<RunLocalHelperResult<RootTokenContractGetDecimalsOutput>> {
         return await runLocalHelper(this, "getDecimals", {});
     }
 
-    async runGetRootKey(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractGetRootKeyOutput,
-    }> {
-        return await runHelper(this, "getRootKey", {});
+    async runGetRootKey(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetRootKeyOutput>> {
+        return await runHelper(this, "getRootKey", {}, options);
     }
 
-    async getRootKey(): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractGetRootKeyOutput,
-    }> {
+    async getRootKey(): Promise<RunLocalHelperResult<RootTokenContractGetRootKeyOutput>> {
         return await runLocalHelper(this, "getRootKey", {});
     }
 
-    async runGetRootOwner(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractGetRootOwnerOutput,
-    }> {
-        return await runHelper(this, "getRootOwner", {});
+    async runGetRootOwner(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetRootOwnerOutput>> {
+        return await runHelper(this, "getRootOwner", {}, options);
     }
 
-    async getRootOwner(): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractGetRootOwnerOutput,
-    }> {
+    async getRootOwner(): Promise<RunLocalHelperResult<RootTokenContractGetRootOwnerOutput>> {
         return await runLocalHelper(this, "getRootOwner", {});
     }
 
-    async runGetTotalSupply(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractGetTotalSupplyOutput,
-    }> {
-        return await runHelper(this, "getTotalSupply", {});
+    async runGetTotalSupply(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetTotalSupplyOutput>> {
+        return await runHelper(this, "getTotalSupply", {}, options);
     }
 
-    async getTotalSupply(): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractGetTotalSupplyOutput,
-    }> {
+    async getTotalSupply(): Promise<RunLocalHelperResult<RootTokenContractGetTotalSupplyOutput>> {
         return await runLocalHelper(this, "getTotalSupply", {});
     }
 
-    async runGetTotalGranted(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractGetTotalGrantedOutput,
-    }> {
-        return await runHelper(this, "getTotalGranted", {});
+    async runGetTotalGranted(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetTotalGrantedOutput>> {
+        return await runHelper(this, "getTotalGranted", {}, options);
     }
 
-    async getTotalGranted(): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractGetTotalGrantedOutput,
-    }> {
+    async getTotalGranted(): Promise<RunLocalHelperResult<RootTokenContractGetTotalGrantedOutput>> {
         return await runLocalHelper(this, "getTotalGranted", {});
     }
 
-    async runHasWalletCode(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractHasWalletCodeOutput,
-    }> {
-        return await runHelper(this, "hasWalletCode", {});
+    async runHasWalletCode(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractHasWalletCodeOutput>> {
+        return await runHelper(this, "hasWalletCode", {}, options);
     }
 
-    async hasWalletCode(): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractHasWalletCodeOutput,
-    }> {
+    async hasWalletCode(): Promise<RunLocalHelperResult<RootTokenContractHasWalletCodeOutput>> {
         return await runLocalHelper(this, "hasWalletCode", {});
     }
 
-    async runGetWalletCode(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractGetWalletCodeOutput,
-    }> {
-        return await runHelper(this, "getWalletCode", {});
+    async runGetWalletCode(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetWalletCodeOutput>> {
+        return await runHelper(this, "getWalletCode", {}, options);
     }
 
-    async getWalletCode(): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractGetWalletCodeOutput,
-    }> {
+    async getWalletCode(): Promise<RunLocalHelperResult<RootTokenContractGetWalletCodeOutput>> {
         return await runLocalHelper(this, "getWalletCode", {});
     }
 
-    async runGetWalletAddress(input: RootTokenContractGetWalletAddressInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractGetWalletAddressOutput,
-    }> {
-        return await runHelper(this, "getWalletAddress", input);
+    async runGetWalletAddress(input: RootTokenContractGetWalletAddressInput, options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetWalletAddressOutput>> {
+        return await runHelper(this, "getWalletAddress", input, options);
     }
 
-    async getWalletAddress(input: RootTokenContractGetWalletAddressInput): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractGetWalletAddressOutput,
-    }> {
+    async getWalletAddress(input: RootTokenContractGetWalletAddressInput): Promise<RunLocalHelperResult<RootTokenContractGetWalletAddressOutput>> {
         return await runLocalHelper(this, "getWalletAddress", input);
     }
 
-    async runGetWalletCodeHash(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: RootTokenContractGetWalletCodeHashOutput,
-    }> {
-        return await runHelper(this, "getWalletCodeHash", {});
+    async runGetWalletCodeHash(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetWalletCodeHashOutput>> {
+        return await runHelper(this, "getWalletCodeHash", {}, options);
     }
 
-    async getWalletCodeHash(): Promise<{
-        transaction: Transaction,
-        output: RootTokenContractGetWalletCodeHashOutput,
-    }> {
+    async getWalletCodeHash(): Promise<RunLocalHelperResult<RootTokenContractGetWalletCodeHashOutput>> {
         return await runLocalHelper(this, "getWalletCodeHash", {});
     }
 

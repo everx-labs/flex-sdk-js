@@ -23,9 +23,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "constructor", input);
         });
     }
-    runSupportsInterface(input) {
+    runSupportsInterface(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "supportsInterface", input);
+            return yield (0, helpers_1.runHelper)(this, "supportsInterface", input, options);
         });
     }
     supportsInterface(input) {
@@ -33,9 +33,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "supportsInterface", input);
         });
     }
-    runDisableMint(input) {
+    runDisableMint(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "disableMint", input);
+            return yield (0, helpers_1.runHelper)(this, "disableMint", input, options);
         });
     }
     disableMint(input) {
@@ -43,9 +43,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "disableMint", input);
         });
     }
-    runMintDisabled(input) {
+    runMintDisabled(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "mintDisabled", input);
+            return yield (0, helpers_1.runHelper)(this, "mintDisabled", input, options);
         });
     }
     mintDisabled(input) {
@@ -53,9 +53,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "mintDisabled", input);
         });
     }
-    runBurnTokens(input) {
+    runBurnTokens(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "burnTokens", input);
+            return yield (0, helpers_1.runHelper)(this, "burnTokens", input, options);
         });
     }
     burnTokens(input) {
@@ -63,9 +63,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "burnTokens", input);
         });
     }
-    runDisableBurnByRoot(input) {
+    runDisableBurnByRoot(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "disableBurnByRoot", input);
+            return yield (0, helpers_1.runHelper)(this, "disableBurnByRoot", input, options);
         });
     }
     disableBurnByRoot(input) {
@@ -73,9 +73,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "disableBurnByRoot", input);
         });
     }
-    runBurnByRootDisabled(input) {
+    runBurnByRootDisabled(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "burnByRootDisabled", input);
+            return yield (0, helpers_1.runHelper)(this, "burnByRootDisabled", input, options);
         });
     }
     burnByRootDisabled(input) {
@@ -83,9 +83,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "burnByRootDisabled", input);
         });
     }
-    runBurnPaused(input) {
+    runBurnPaused(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "burnPaused", input);
+            return yield (0, helpers_1.runHelper)(this, "burnPaused", input, options);
         });
     }
     burnPaused(input) {
@@ -93,9 +93,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "burnPaused", input);
         });
     }
-    runSetBurnPaused(input) {
+    runSetBurnPaused(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setBurnPaused", input);
+            return yield (0, helpers_1.runHelper)(this, "setBurnPaused", input, options);
         });
     }
     setBurnPaused(input) {
@@ -103,9 +103,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setBurnPaused", input);
         });
     }
-    runTransferOwnership(input) {
+    runTransferOwnership(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "transferOwnership", input);
+            return yield (0, helpers_1.runHelper)(this, "transferOwnership", input, options);
         });
     }
     transferOwnership(input) {
@@ -113,9 +113,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "transferOwnership", input);
         });
     }
-    runName(input) {
+    runName(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "name", input);
+            return yield (0, helpers_1.runHelper)(this, "name", input, options);
         });
     }
     name(input) {
@@ -123,9 +123,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "name", input);
         });
     }
-    runSymbol(input) {
+    runSymbol(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "symbol", input);
+            return yield (0, helpers_1.runHelper)(this, "symbol", input, options);
         });
     }
     symbol(input) {
@@ -133,9 +133,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "symbol", input);
         });
     }
-    runDecimals(input) {
+    runDecimals(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "decimals", input);
+            return yield (0, helpers_1.runHelper)(this, "decimals", input, options);
         });
     }
     decimals(input) {
@@ -143,9 +143,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "decimals", input);
         });
     }
-    runTotalSupply(input) {
+    runTotalSupply(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "totalSupply", input);
+            return yield (0, helpers_1.runHelper)(this, "totalSupply", input, options);
         });
     }
     totalSupply(input) {
@@ -153,9 +153,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "totalSupply", input);
         });
     }
-    runWalletCode(input) {
+    runWalletCode(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "walletCode", input);
+            return yield (0, helpers_1.runHelper)(this, "walletCode", input, options);
         });
     }
     walletCode(input) {
@@ -163,9 +163,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "walletCode", input);
         });
     }
-    runRootOwner(input) {
+    runRootOwner(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "rootOwner", input);
+            return yield (0, helpers_1.runHelper)(this, "rootOwner", input, options);
         });
     }
     rootOwner(input) {
@@ -173,9 +173,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "rootOwner", input);
         });
     }
-    runWalletOf(input) {
+    runWalletOf(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "walletOf", input);
+            return yield (0, helpers_1.runHelper)(this, "walletOf", input, options);
         });
     }
     walletOf(input) {
@@ -183,9 +183,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "walletOf", input);
         });
     }
-    runDeployWallet(input) {
+    runDeployWallet(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "deployWallet", input);
+            return yield (0, helpers_1.runHelper)(this, "deployWallet", input, options);
         });
     }
     deployWallet(input) {
@@ -193,9 +193,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "deployWallet", input);
         });
     }
-    runMint(input) {
+    runMint(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "mint", input);
+            return yield (0, helpers_1.runHelper)(this, "mint", input, options);
         });
     }
     mint(input) {
@@ -203,9 +203,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "mint", input);
         });
     }
-    runAcceptBurn(input) {
+    runAcceptBurn(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "acceptBurn", input);
+            return yield (0, helpers_1.runHelper)(this, "acceptBurn", input, options);
         });
     }
     acceptBurn(input) {
@@ -213,9 +213,9 @@ class Tip31RootAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "acceptBurn", input);
         });
     }
-    runSendSurplusGas(input) {
+    runSendSurplusGas(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "sendSurplusGas", input);
+            return yield (0, helpers_1.runHelper)(this, "sendSurplusGas", input, options);
         });
     }
     sendSurplusGas(input) {

@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -68,59 +70,35 @@ export class stTONsClientMockAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runDeployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: stTONsClientMockDeployStTONsOutput,
-    }> {
-        return await runHelper(this, "deployStTONs", input);
+    async runDeployStTONs(input: stTONsClientMockDeployStTONsInput, options?: RunHelperOptions): Promise<RunHelperResult<stTONsClientMockDeployStTONsOutput>> {
+        return await runHelper(this, "deployStTONs", input, options);
     }
 
-    async deployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<{
-        transaction: Transaction,
-        output: stTONsClientMockDeployStTONsOutput,
-    }> {
+    async deployStTONs(input: stTONsClientMockDeployStTONsInput): Promise<RunLocalHelperResult<stTONsClientMockDeployStTONsOutput>> {
         return await runLocalHelper(this, "deployStTONs", input);
     }
 
-    async runReturnStake(input: stTONsClientMockReturnStakeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "returnStake", input);
+    async runReturnStake(input: stTONsClientMockReturnStakeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "returnStake", input, options);
     }
 
-    async returnStake(input: stTONsClientMockReturnStakeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async returnStake(input: stTONsClientMockReturnStakeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "returnStake", input);
     }
 
-    async runFinalize(input: stTONsClientMockFinalizeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "finalize", input);
+    async runFinalize(input: stTONsClientMockFinalizeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "finalize", input, options);
     }
 
-    async finalize(input: stTONsClientMockFinalizeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async finalize(input: stTONsClientMockFinalizeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "finalize", input);
     }
 
-    async runGetOwnerPubkey(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: stTONsClientMockGetOwnerPubkeyOutput,
-    }> {
-        return await runHelper(this, "getOwnerPubkey", {});
+    async runGetOwnerPubkey(options?: RunHelperOptions): Promise<RunHelperResult<stTONsClientMockGetOwnerPubkeyOutput>> {
+        return await runHelper(this, "getOwnerPubkey", {}, options);
     }
 
-    async getOwnerPubkey(): Promise<{
-        transaction: Transaction,
-        output: stTONsClientMockGetOwnerPubkeyOutput,
-    }> {
+    async getOwnerPubkey(): Promise<RunLocalHelperResult<stTONsClientMockGetOwnerPubkeyOutput>> {
         return await runLocalHelper(this, "getOwnerPubkey", {});
     }
 

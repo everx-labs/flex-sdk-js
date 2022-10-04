@@ -23,9 +23,9 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "", {});
         });
     }
-    runOnDeploy(input) {
+    runOnDeploy(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
+            return yield (0, helpers_1.runHelper)(this, "onDeploy", input, options);
         });
     }
     onDeploy(input) {
@@ -33,9 +33,9 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
     }
-    runAddXchgPair(input) {
+    runAddXchgPair(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "addXchgPair", input);
+            return yield (0, helpers_1.runHelper)(this, "addXchgPair", input, options);
         });
     }
     addXchgPair(input) {
@@ -43,9 +43,9 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "addXchgPair", input);
         });
     }
-    runUnlistXchgPair(input) {
+    runUnlistXchgPair(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "unlistXchgPair", input);
+            return yield (0, helpers_1.runHelper)(this, "unlistXchgPair", input, options);
         });
     }
     unlistXchgPair(input) {
@@ -53,9 +53,9 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "unlistXchgPair", input);
         });
     }
-    runRequestPairs(input) {
+    runRequestPairs(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "requestPairs", input);
+            return yield (0, helpers_1.runHelper)(this, "requestPairs", input, options);
         });
     }
     requestPairs(input) {
@@ -63,9 +63,9 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "requestPairs", input);
         });
     }
-    runGetConfig() {
+    runGetConfig(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getConfig", {});
+            return yield (0, helpers_1.runHelper)(this, "getConfig", {}, options);
         });
     }
     getConfig() {
@@ -73,9 +73,9 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getConfig", {});
         });
     }
-    runGetDetails() {
+    runGetDetails(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getDetails", {});
+            return yield (0, helpers_1.runHelper)(this, "getDetails", {}, options);
         });
     }
     getDetails() {
@@ -83,9 +83,9 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
     }
-    runGetXchgTradingPair(input) {
+    runGetXchgTradingPair(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getXchgTradingPair", input);
+            return yield (0, helpers_1.runHelper)(this, "getXchgTradingPair", input, options);
         });
     }
     getXchgTradingPair(input) {
@@ -93,9 +93,9 @@ class FlexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getXchgTradingPair", input);
         });
     }
-    runCalcLendTokensForOrder(input) {
+    runCalcLendTokensForOrder(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "calcLendTokensForOrder", input);
+            return yield (0, helpers_1.runHelper)(this, "calcLendTokensForOrder", input, options);
         });
     }
     calcLendTokensForOrder(input) {

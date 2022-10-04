@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -98,124 +100,75 @@ export class stTONsAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onDeploy", {});
+    async runOnDeploy(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onDeploy", {}, options);
     }
 
-    async onDeploy(): Promise<{
-        transaction: Transaction,
-    }> {
+    async onDeploy(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onDeploy", {});
     }
 
-    async runLendOwnership(input: stTONsLendOwnershipInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "lendOwnership", input);
+    async runLendOwnership(input: stTONsLendOwnershipInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "lendOwnership", input, options);
     }
 
-    async lendOwnership(input: stTONsLendOwnershipInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async lendOwnership(input: stTONsLendOwnershipInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "lendOwnership", input);
     }
 
-    async runReturnOwnership(input: stTONsReturnOwnershipInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "returnOwnership", input);
+    async runReturnOwnership(input: stTONsReturnOwnershipInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "returnOwnership", input, options);
     }
 
-    async returnOwnership(input: stTONsReturnOwnershipInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async returnOwnership(input: stTONsReturnOwnershipInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "returnOwnership", input);
     }
 
-    async runReturnStake(input: stTONsReturnStakeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "returnStake", input);
+    async runReturnStake(input: stTONsReturnStakeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "returnStake", input, options);
     }
 
-    async returnStake(input: stTONsReturnStakeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async returnStake(input: stTONsReturnStakeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "returnStake", input);
     }
 
-    async runFinalize(input: stTONsFinalizeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "finalize", input);
+    async runFinalize(input: stTONsFinalizeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "finalize", input, options);
     }
 
-    async finalize(input: stTONsFinalizeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async finalize(input: stTONsFinalizeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "finalize", input);
     }
 
-    async runReceiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "receiveStakeTransfer", input);
+    async runReceiveStakeTransfer(input: stTONsReceiveStakeTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "receiveStakeTransfer", input, options);
     }
 
-    async receiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async receiveStakeTransfer(input: stTONsReceiveStakeTransferInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "receiveStakeTransfer", input);
     }
 
-    async runReceiveAnswer(input: stTONsReceiveAnswerInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "receiveAnswer", input);
+    async runReceiveAnswer(input: stTONsReceiveAnswerInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "receiveAnswer", input, options);
     }
 
-    async receiveAnswer(input: stTONsReceiveAnswerInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async receiveAnswer(input: stTONsReceiveAnswerInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "receiveAnswer", input);
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: stTONsGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<stTONsGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: stTONsGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<stTONsGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runCalcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: stTONsCalcStTONsAddrOutput,
-    }> {
-        return await runHelper(this, "calcStTONsAddr", input);
+    async runCalcStTONsAddr(input: stTONsCalcStTONsAddrInput, options?: RunHelperOptions): Promise<RunHelperResult<stTONsCalcStTONsAddrOutput>> {
+        return await runHelper(this, "calcStTONsAddr", input, options);
     }
 
-    async calcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<{
-        transaction: Transaction,
-        output: stTONsCalcStTONsAddrOutput,
-    }> {
+    async calcStTONsAddr(input: stTONsCalcStTONsAddrInput): Promise<RunLocalHelperResult<stTONsCalcStTONsAddrOutput>> {
         return await runLocalHelper(this, "calcStTONsAddr", input);
     }
 

@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type Tip31WrapperInitInput = {
     external_wallet: string;
     reserve_wallet_evers: string | number | bigint;
@@ -99,119 +98,33 @@ export declare class Tip31WrapperAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runInit(input: Tip31WrapperInitInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    init(input: Tip31WrapperInitInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDeployEmptyWallet(input: Tip31WrapperDeployEmptyWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WrapperDeployEmptyWalletOutput;
-    }>;
-    deployEmptyWallet(input: Tip31WrapperDeployEmptyWalletInput): Promise<{
-        transaction: Transaction;
-        output: Tip31WrapperDeployEmptyWalletOutput;
-    }>;
-    runOnAcceptTokensTransfer(input: Tip31WrapperOnAcceptTokensTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onAcceptTokensTransfer(input: Tip31WrapperOnAcceptTokensTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBurn(input: Tip31WrapperBurnInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    burn(input: Tip31WrapperBurnInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runTransferFromReserveWallet(input: Tip31WrapperTransferFromReserveWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transferFromReserveWallet(input: Tip31WrapperTransferFromReserveWalletInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runRequestTotalGranted(input: Tip31WrapperRequestTotalGrantedInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WrapperRequestTotalGrantedOutput;
-    }>;
-    requestTotalGranted(input: Tip31WrapperRequestTotalGrantedInput): Promise<{
-        transaction: Transaction;
-        output: Tip31WrapperRequestTotalGrantedOutput;
-    }>;
-    runCloned(input: Tip31WrapperClonedInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WrapperClonedOutput;
-    }>;
-    cloned(input: Tip31WrapperClonedInput): Promise<{
-        transaction: Transaction;
-        output: Tip31WrapperClonedOutput;
-    }>;
-    runSetCloned(input: Tip31WrapperSetClonedInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setCloned(input: Tip31WrapperSetClonedInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runUpgradeExternalWallet(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    upgradeExternalWallet(): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WrapperGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: Tip31WrapperGetDetailsOutput;
-    }>;
-    runGetTip3Config(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WrapperGetTip3ConfigOutput;
-    }>;
-    getTip3Config(): Promise<{
-        transaction: Transaction;
-        output: Tip31WrapperGetTip3ConfigOutput;
-    }>;
-    runHasInternalWalletCode(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WrapperHasInternalWalletCodeOutput;
-    }>;
-    hasInternalWalletCode(): Promise<{
-        transaction: Transaction;
-        output: Tip31WrapperHasInternalWalletCodeOutput;
-    }>;
-    runGetWalletAddress(input: Tip31WrapperGetWalletAddressInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WrapperGetWalletAddressOutput;
-    }>;
-    getWalletAddress(input: Tip31WrapperGetWalletAddressInput): Promise<{
-        transaction: Transaction;
-        output: Tip31WrapperGetWalletAddressOutput;
-    }>;
-    runGetReserveWallet(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WrapperGetReserveWalletOutput;
-    }>;
-    getReserveWallet(): Promise<{
-        transaction: Transaction;
-        output: Tip31WrapperGetReserveWalletOutput;
-    }>;
+    runInit(input: Tip31WrapperInitInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    init(input: Tip31WrapperInitInput): Promise<RunLocalHelperResult<void>>;
+    runDeployEmptyWallet(input: Tip31WrapperDeployEmptyWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperDeployEmptyWalletOutput>>;
+    deployEmptyWallet(input: Tip31WrapperDeployEmptyWalletInput): Promise<RunLocalHelperResult<Tip31WrapperDeployEmptyWalletOutput>>;
+    runOnAcceptTokensTransfer(input: Tip31WrapperOnAcceptTokensTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onAcceptTokensTransfer(input: Tip31WrapperOnAcceptTokensTransferInput): Promise<RunLocalHelperResult<void>>;
+    runBurn(input: Tip31WrapperBurnInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    burn(input: Tip31WrapperBurnInput): Promise<RunLocalHelperResult<void>>;
+    runTransferFromReserveWallet(input: Tip31WrapperTransferFromReserveWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transferFromReserveWallet(input: Tip31WrapperTransferFromReserveWalletInput): Promise<RunLocalHelperResult<void>>;
+    runRequestTotalGranted(input: Tip31WrapperRequestTotalGrantedInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperRequestTotalGrantedOutput>>;
+    requestTotalGranted(input: Tip31WrapperRequestTotalGrantedInput): Promise<RunLocalHelperResult<Tip31WrapperRequestTotalGrantedOutput>>;
+    runCloned(input: Tip31WrapperClonedInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperClonedOutput>>;
+    cloned(input: Tip31WrapperClonedInput): Promise<RunLocalHelperResult<Tip31WrapperClonedOutput>>;
+    runSetCloned(input: Tip31WrapperSetClonedInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setCloned(input: Tip31WrapperSetClonedInput): Promise<RunLocalHelperResult<void>>;
+    runUpgradeExternalWallet(options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    upgradeExternalWallet(): Promise<RunLocalHelperResult<void>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<Tip31WrapperGetDetailsOutput>>;
+    runGetTip3Config(options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperGetTip3ConfigOutput>>;
+    getTip3Config(): Promise<RunLocalHelperResult<Tip31WrapperGetTip3ConfigOutput>>;
+    runHasInternalWalletCode(options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperHasInternalWalletCodeOutput>>;
+    hasInternalWalletCode(): Promise<RunLocalHelperResult<Tip31WrapperHasInternalWalletCodeOutput>>;
+    runGetWalletAddress(input: Tip31WrapperGetWalletAddressInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperGetWalletAddressOutput>>;
+    getWalletAddress(input: Tip31WrapperGetWalletAddressInput): Promise<RunLocalHelperResult<Tip31WrapperGetWalletAddressOutput>>;
+    runGetReserveWallet(options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperGetReserveWalletOutput>>;
+    getReserveWallet(): Promise<RunLocalHelperResult<Tip31WrapperGetReserveWalletOutput>>;
 }
 //# sourceMappingURL=Tip31WrapperAccount.d.ts.map

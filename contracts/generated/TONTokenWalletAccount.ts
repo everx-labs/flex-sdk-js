@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -156,128 +158,75 @@ export class TONTokenWalletAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runTransfer(input: TONTokenWalletTransferInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transfer", input);
+    async runTransfer(input: TONTokenWalletTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transfer", input, options);
     }
 
-    async transfer(input: TONTokenWalletTransferInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transfer(input: TONTokenWalletTransferInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transfer", input);
     }
 
-    async runTransferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transferToRecipient", input);
+    async runTransferToRecipient(input: TONTokenWalletTransferToRecipientInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transferToRecipient", input, options);
     }
 
-    async transferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transferToRecipient", input);
     }
 
-    async runBalance(input: TONTokenWalletBalanceInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: TONTokenWalletBalanceOutput,
-    }> {
-        return await runHelper(this, "balance", input);
+    async runBalance(input: TONTokenWalletBalanceInput, options?: RunHelperOptions): Promise<RunHelperResult<TONTokenWalletBalanceOutput>> {
+        return await runHelper(this, "balance", input, options);
     }
 
-    async balance(input: TONTokenWalletBalanceInput): Promise<{
-        transaction: Transaction,
-        output: TONTokenWalletBalanceOutput,
-    }> {
+    async balance(input: TONTokenWalletBalanceInput): Promise<RunLocalHelperResult<TONTokenWalletBalanceOutput>> {
         return await runLocalHelper(this, "balance", input);
     }
 
-    async runAcceptMint(input: TONTokenWalletAcceptMintInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "acceptMint", input);
+    async runAcceptMint(input: TONTokenWalletAcceptMintInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "acceptMint", input, options);
     }
 
-    async acceptMint(input: TONTokenWalletAcceptMintInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async acceptMint(input: TONTokenWalletAcceptMintInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "acceptMint", input);
     }
 
-    async runAcceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "acceptTransfer", input);
+    async runAcceptTransfer(input: TONTokenWalletAcceptTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "acceptTransfer", input, options);
     }
 
-    async acceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async acceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "acceptTransfer", input);
     }
 
-    async runDestroy(input: TONTokenWalletDestroyInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "destroy", input);
+    async runDestroy(input: TONTokenWalletDestroyInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "destroy", input, options);
     }
 
-    async destroy(input: TONTokenWalletDestroyInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async destroy(input: TONTokenWalletDestroyInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "destroy", input);
     }
 
-    async runDetails(input: TONTokenWalletDetailsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: TONTokenWalletDetailsOutput,
-    }> {
-        return await runHelper(this, "details", input);
+    async runDetails(input: TONTokenWalletDetailsInput, options?: RunHelperOptions): Promise<RunHelperResult<TONTokenWalletDetailsOutput>> {
+        return await runHelper(this, "details", input, options);
     }
 
-    async details(input: TONTokenWalletDetailsInput): Promise<{
-        transaction: Transaction,
-        output: TONTokenWalletDetailsOutput,
-    }> {
+    async details(input: TONTokenWalletDetailsInput): Promise<RunLocalHelperResult<TONTokenWalletDetailsOutput>> {
         return await runLocalHelper(this, "details", input);
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: TONTokenWalletGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<TONTokenWalletGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: TONTokenWalletGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<TONTokenWalletGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runGetBalance(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: TONTokenWalletGetBalanceOutput,
-    }> {
-        return await runHelper(this, "getBalance", {});
+    async runGetBalance(options?: RunHelperOptions): Promise<RunHelperResult<TONTokenWalletGetBalanceOutput>> {
+        return await runHelper(this, "getBalance", {}, options);
     }
 
-    async getBalance_(): Promise<{
-        transaction: Transaction,
-        output: TONTokenWalletGetBalanceOutput,
-    }> {
+    async getBalance_(): Promise<RunLocalHelperResult<TONTokenWalletGetBalanceOutput>> {
         return await runLocalHelper(this, "getBalance", {});
     }
 

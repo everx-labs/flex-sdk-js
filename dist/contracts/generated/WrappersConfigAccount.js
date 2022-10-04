@@ -23,9 +23,9 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "", {});
         });
     }
-    runOnDeploy(input) {
+    runOnDeploy(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
+            return yield (0, helpers_1.runHelper)(this, "onDeploy", input, options);
         });
     }
     onDeploy(input) {
@@ -33,9 +33,9 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
     }
-    runOnWICsCloned(input) {
+    runOnWICsCloned(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "onWICsCloned", input);
+            return yield (0, helpers_1.runHelper)(this, "onWICsCloned", input, options);
         });
     }
     onWICsCloned(input) {
@@ -43,9 +43,9 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "onWICsCloned", input);
         });
     }
-    runAddWrapperType(input) {
+    runAddWrapperType(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "addWrapperType", input);
+            return yield (0, helpers_1.runHelper)(this, "addWrapperType", input, options);
         });
     }
     addWrapperType(input) {
@@ -53,9 +53,9 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "addWrapperType", input);
         });
     }
-    runAddWrapper(input) {
+    runAddWrapper(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "addWrapper", input);
+            return yield (0, helpers_1.runHelper)(this, "addWrapper", input, options);
         });
     }
     addWrapper(input) {
@@ -63,9 +63,9 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "addWrapper", input);
         });
     }
-    runUnlistWrapper(input) {
+    runUnlistWrapper(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "unlistWrapper", input);
+            return yield (0, helpers_1.runHelper)(this, "unlistWrapper", input, options);
         });
     }
     unlistWrapper(input) {
@@ -73,9 +73,9 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "unlistWrapper", input);
         });
     }
-    runCloneUpgrade(input) {
+    runCloneUpgrade(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "cloneUpgrade", input);
+            return yield (0, helpers_1.runHelper)(this, "cloneUpgrade", input, options);
         });
     }
     cloneUpgrade(input) {
@@ -83,9 +83,9 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "cloneUpgrade", input);
         });
     }
-    runGetDetails() {
+    runGetDetails(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getDetails", {});
+            return yield (0, helpers_1.runHelper)(this, "getDetails", {}, options);
         });
     }
     getDetails() {
@@ -93,9 +93,9 @@ class WrappersConfigAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
     }
-    runGetConfig() {
+    runGetConfig(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getConfig", {});
+            return yield (0, helpers_1.runHelper)(this, "getConfig", {}, options);
         });
     }
     getConfig() {

@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -134,119 +136,67 @@ export class FlexAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: FlexOnDeployInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onDeploy", input);
+    async runOnDeploy(input: FlexOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onDeploy", input, options);
     }
 
-    async onDeploy(input: FlexOnDeployInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onDeploy(input: FlexOnDeployInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runAddXchgPair(input: FlexAddXchgPairInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexAddXchgPairOutput,
-    }> {
-        return await runHelper(this, "addXchgPair", input);
+    async runAddXchgPair(input: FlexAddXchgPairInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexAddXchgPairOutput>> {
+        return await runHelper(this, "addXchgPair", input, options);
     }
 
-    async addXchgPair(input: FlexAddXchgPairInput): Promise<{
-        transaction: Transaction,
-        output: FlexAddXchgPairOutput,
-    }> {
+    async addXchgPair(input: FlexAddXchgPairInput): Promise<RunLocalHelperResult<FlexAddXchgPairOutput>> {
         return await runLocalHelper(this, "addXchgPair", input);
     }
 
-    async runUnlistXchgPair(input: FlexUnlistXchgPairInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "unlistXchgPair", input);
+    async runUnlistXchgPair(input: FlexUnlistXchgPairInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "unlistXchgPair", input, options);
     }
 
-    async unlistXchgPair(input: FlexUnlistXchgPairInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async unlistXchgPair(input: FlexUnlistXchgPairInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "unlistXchgPair", input);
     }
 
-    async runRequestPairs(input: FlexRequestPairsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexRequestPairsOutput,
-    }> {
-        return await runHelper(this, "requestPairs", input);
+    async runRequestPairs(input: FlexRequestPairsInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexRequestPairsOutput>> {
+        return await runHelper(this, "requestPairs", input, options);
     }
 
-    async requestPairs(input: FlexRequestPairsInput): Promise<{
-        transaction: Transaction,
-        output: FlexRequestPairsOutput,
-    }> {
+    async requestPairs(input: FlexRequestPairsInput): Promise<RunLocalHelperResult<FlexRequestPairsOutput>> {
         return await runLocalHelper(this, "requestPairs", input);
     }
 
-    async runGetConfig(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexGetConfigOutput,
-    }> {
-        return await runHelper(this, "getConfig", {});
+    async runGetConfig(options?: RunHelperOptions): Promise<RunHelperResult<FlexGetConfigOutput>> {
+        return await runHelper(this, "getConfig", {}, options);
     }
 
-    async getConfig(): Promise<{
-        transaction: Transaction,
-        output: FlexGetConfigOutput,
-    }> {
+    async getConfig(): Promise<RunLocalHelperResult<FlexGetConfigOutput>> {
         return await runLocalHelper(this, "getConfig", {});
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<FlexGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: FlexGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<FlexGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runGetXchgTradingPair(input: FlexGetXchgTradingPairInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexGetXchgTradingPairOutput,
-    }> {
-        return await runHelper(this, "getXchgTradingPair", input);
+    async runGetXchgTradingPair(input: FlexGetXchgTradingPairInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexGetXchgTradingPairOutput>> {
+        return await runHelper(this, "getXchgTradingPair", input, options);
     }
 
-    async getXchgTradingPair(input: FlexGetXchgTradingPairInput): Promise<{
-        transaction: Transaction,
-        output: FlexGetXchgTradingPairOutput,
-    }> {
+    async getXchgTradingPair(input: FlexGetXchgTradingPairInput): Promise<RunLocalHelperResult<FlexGetXchgTradingPairOutput>> {
         return await runLocalHelper(this, "getXchgTradingPair", input);
     }
 
-    async runCalcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexCalcLendTokensForOrderOutput,
-    }> {
-        return await runHelper(this, "calcLendTokensForOrder", input);
+    async runCalcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexCalcLendTokensForOrderOutput>> {
+        return await runHelper(this, "calcLendTokensForOrder", input, options);
     }
 
-    async calcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput): Promise<{
-        transaction: Transaction,
-        output: FlexCalcLendTokensForOrderOutput,
-    }> {
+    async calcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput): Promise<RunLocalHelperResult<FlexCalcLendTokensForOrderOutput>> {
         return await runLocalHelper(this, "calcLendTokensForOrder", input);
     }
 

@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type RootTokenContractSetWalletCodeInput = {
     _answer_id: number;
     wallet_code: string;
@@ -101,156 +100,39 @@ export declare class RootTokenContractAccount extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runSetWalletCode(input: RootTokenContractSetWalletCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractSetWalletCodeOutput;
-    }>;
-    setWalletCode(input: RootTokenContractSetWalletCodeInput): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractSetWalletCodeOutput;
-    }>;
-    runDeployWallet(input: RootTokenContractDeployWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractDeployWalletOutput;
-    }>;
-    deployWallet(input: RootTokenContractDeployWalletInput): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractDeployWalletOutput;
-    }>;
-    runDeployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractDeployEmptyWalletOutput;
-    }>;
-    deployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractDeployEmptyWalletOutput;
-    }>;
-    runGrant(input: RootTokenContractGrantInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    grant(input: RootTokenContractGrantInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runMint(input: RootTokenContractMintInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractMintOutput;
-    }>;
-    mint(input: RootTokenContractMintInput): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractMintOutput;
-    }>;
-    runRequestTotalGranted(input: RootTokenContractRequestTotalGrantedInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractRequestTotalGrantedOutput;
-    }>;
-    requestTotalGranted(input: RootTokenContractRequestTotalGrantedInput): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractRequestTotalGrantedOutput;
-    }>;
-    runGetName(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractGetNameOutput;
-    }>;
-    getName(): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractGetNameOutput;
-    }>;
-    runGetSymbol(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractGetSymbolOutput;
-    }>;
-    getSymbol(): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractGetSymbolOutput;
-    }>;
-    runGetDecimals(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractGetDecimalsOutput;
-    }>;
-    getDecimals(): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractGetDecimalsOutput;
-    }>;
-    runGetRootKey(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractGetRootKeyOutput;
-    }>;
-    getRootKey(): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractGetRootKeyOutput;
-    }>;
-    runGetRootOwner(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractGetRootOwnerOutput;
-    }>;
-    getRootOwner(): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractGetRootOwnerOutput;
-    }>;
-    runGetTotalSupply(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractGetTotalSupplyOutput;
-    }>;
-    getTotalSupply(): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractGetTotalSupplyOutput;
-    }>;
-    runGetTotalGranted(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractGetTotalGrantedOutput;
-    }>;
-    getTotalGranted(): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractGetTotalGrantedOutput;
-    }>;
-    runHasWalletCode(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractHasWalletCodeOutput;
-    }>;
-    hasWalletCode(): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractHasWalletCodeOutput;
-    }>;
-    runGetWalletCode(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractGetWalletCodeOutput;
-    }>;
-    getWalletCode(): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractGetWalletCodeOutput;
-    }>;
-    runGetWalletAddress(input: RootTokenContractGetWalletAddressInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractGetWalletAddressOutput;
-    }>;
-    getWalletAddress(input: RootTokenContractGetWalletAddressInput): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractGetWalletAddressOutput;
-    }>;
-    runGetWalletCodeHash(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: RootTokenContractGetWalletCodeHashOutput;
-    }>;
-    getWalletCodeHash(): Promise<{
-        transaction: Transaction;
-        output: RootTokenContractGetWalletCodeHashOutput;
-    }>;
+    runSetWalletCode(input: RootTokenContractSetWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractSetWalletCodeOutput>>;
+    setWalletCode(input: RootTokenContractSetWalletCodeInput): Promise<RunLocalHelperResult<RootTokenContractSetWalletCodeOutput>>;
+    runDeployWallet(input: RootTokenContractDeployWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractDeployWalletOutput>>;
+    deployWallet(input: RootTokenContractDeployWalletInput): Promise<RunLocalHelperResult<RootTokenContractDeployWalletOutput>>;
+    runDeployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractDeployEmptyWalletOutput>>;
+    deployEmptyWallet(input: RootTokenContractDeployEmptyWalletInput): Promise<RunLocalHelperResult<RootTokenContractDeployEmptyWalletOutput>>;
+    runGrant(input: RootTokenContractGrantInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    grant(input: RootTokenContractGrantInput): Promise<RunLocalHelperResult<void>>;
+    runMint(input: RootTokenContractMintInput, options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractMintOutput>>;
+    mint(input: RootTokenContractMintInput): Promise<RunLocalHelperResult<RootTokenContractMintOutput>>;
+    runRequestTotalGranted(input: RootTokenContractRequestTotalGrantedInput, options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractRequestTotalGrantedOutput>>;
+    requestTotalGranted(input: RootTokenContractRequestTotalGrantedInput): Promise<RunLocalHelperResult<RootTokenContractRequestTotalGrantedOutput>>;
+    runGetName(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetNameOutput>>;
+    getName(): Promise<RunLocalHelperResult<RootTokenContractGetNameOutput>>;
+    runGetSymbol(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetSymbolOutput>>;
+    getSymbol(): Promise<RunLocalHelperResult<RootTokenContractGetSymbolOutput>>;
+    runGetDecimals(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetDecimalsOutput>>;
+    getDecimals(): Promise<RunLocalHelperResult<RootTokenContractGetDecimalsOutput>>;
+    runGetRootKey(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetRootKeyOutput>>;
+    getRootKey(): Promise<RunLocalHelperResult<RootTokenContractGetRootKeyOutput>>;
+    runGetRootOwner(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetRootOwnerOutput>>;
+    getRootOwner(): Promise<RunLocalHelperResult<RootTokenContractGetRootOwnerOutput>>;
+    runGetTotalSupply(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetTotalSupplyOutput>>;
+    getTotalSupply(): Promise<RunLocalHelperResult<RootTokenContractGetTotalSupplyOutput>>;
+    runGetTotalGranted(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetTotalGrantedOutput>>;
+    getTotalGranted(): Promise<RunLocalHelperResult<RootTokenContractGetTotalGrantedOutput>>;
+    runHasWalletCode(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractHasWalletCodeOutput>>;
+    hasWalletCode(): Promise<RunLocalHelperResult<RootTokenContractHasWalletCodeOutput>>;
+    runGetWalletCode(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetWalletCodeOutput>>;
+    getWalletCode(): Promise<RunLocalHelperResult<RootTokenContractGetWalletCodeOutput>>;
+    runGetWalletAddress(input: RootTokenContractGetWalletAddressInput, options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetWalletAddressOutput>>;
+    getWalletAddress(input: RootTokenContractGetWalletAddressInput): Promise<RunLocalHelperResult<RootTokenContractGetWalletAddressOutput>>;
+    runGetWalletCodeHash(options?: RunHelperOptions): Promise<RunHelperResult<RootTokenContractGetWalletCodeHashOutput>>;
+    getWalletCodeHash(): Promise<RunLocalHelperResult<RootTokenContractGetWalletCodeHashOutput>>;
 }
 //# sourceMappingURL=RootTokenContractAccount.d.ts.map

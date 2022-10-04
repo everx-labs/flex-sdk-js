@@ -23,9 +23,9 @@ class DePoolMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "constructor", input);
         });
     }
-    runSendOnTransfer(input) {
+    runSendOnTransfer(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "sendOnTransfer", input);
+            return yield (0, helpers_1.runHelper)(this, "sendOnTransfer", input, options);
         });
     }
     sendOnTransfer(input) {
@@ -33,9 +33,9 @@ class DePoolMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "sendOnTransfer", input);
         });
     }
-    runTransferStake(input) {
+    runTransferStake(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "transferStake", input);
+            return yield (0, helpers_1.runHelper)(this, "transferStake", input, options);
         });
     }
     transferStake(input) {
@@ -43,9 +43,9 @@ class DePoolMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "transferStake", input);
         });
     }
-    runGetDetails() {
+    runGetDetails(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getDetails", {});
+            return yield (0, helpers_1.runHelper)(this, "getDetails", {}, options);
         });
     }
     getDetails() {

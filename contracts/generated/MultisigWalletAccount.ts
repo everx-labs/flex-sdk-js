@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -272,319 +274,179 @@ export class MultisigWalletAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runAcceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "acceptTransfer", input);
+    async runAcceptTransfer(input: MultisigWalletAcceptTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "acceptTransfer", input, options);
     }
 
-    async acceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async acceptTransfer(input: MultisigWalletAcceptTransferInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "acceptTransfer", input);
     }
 
-    async runSendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "sendTransaction", input);
+    async runSendTransaction(input: MultisigWalletSendTransactionInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "sendTransaction", input, options);
     }
 
-    async sendTransaction(input: MultisigWalletSendTransactionInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async sendTransaction(input: MultisigWalletSendTransactionInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "sendTransaction", input);
     }
 
-    async runSubmitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletSubmitTransactionOutput,
-    }> {
-        return await runHelper(this, "submitTransaction", input);
+    async runSubmitTransaction(input: MultisigWalletSubmitTransactionInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletSubmitTransactionOutput>> {
+        return await runHelper(this, "submitTransaction", input, options);
     }
 
-    async submitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletSubmitTransactionOutput,
-    }> {
+    async submitTransaction(input: MultisigWalletSubmitTransactionInput): Promise<RunLocalHelperResult<MultisigWalletSubmitTransactionOutput>> {
         return await runLocalHelper(this, "submitTransaction", input);
     }
 
-    async runConfirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "confirmTransaction", input);
+    async runConfirmTransaction(input: MultisigWalletConfirmTransactionInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "confirmTransaction", input, options);
     }
 
-    async confirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async confirmTransaction(input: MultisigWalletConfirmTransactionInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "confirmTransaction", input);
     }
 
-    async runIsConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletIsConfirmedOutput,
-    }> {
-        return await runHelper(this, "isConfirmed", input);
+    async runIsConfirmed(input: MultisigWalletIsConfirmedInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletIsConfirmedOutput>> {
+        return await runHelper(this, "isConfirmed", input, options);
     }
 
-    async isConfirmed(input: MultisigWalletIsConfirmedInput): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletIsConfirmedOutput,
-    }> {
+    async isConfirmed(input: MultisigWalletIsConfirmedInput): Promise<RunLocalHelperResult<MultisigWalletIsConfirmedOutput>> {
         return await runLocalHelper(this, "isConfirmed", input);
     }
 
-    async runGetParameters(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletGetParametersOutput,
-    }> {
-        return await runHelper(this, "getParameters", {});
+    async runGetParameters(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetParametersOutput>> {
+        return await runHelper(this, "getParameters", {}, options);
     }
 
-    async getParameters(): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletGetParametersOutput,
-    }> {
+    async getParameters(): Promise<RunLocalHelperResult<MultisigWalletGetParametersOutput>> {
         return await runLocalHelper(this, "getParameters", {});
     }
 
-    async runGetTransaction(input: MultisigWalletGetTransactionInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletGetTransactionOutput,
-    }> {
-        return await runHelper(this, "getTransaction", input);
+    async runGetTransaction(input: MultisigWalletGetTransactionInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetTransactionOutput>> {
+        return await runHelper(this, "getTransaction", input, options);
     }
 
-    async getTransaction(input: MultisigWalletGetTransactionInput): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletGetTransactionOutput,
-    }> {
+    async getTransaction(input: MultisigWalletGetTransactionInput): Promise<RunLocalHelperResult<MultisigWalletGetTransactionOutput>> {
         return await runLocalHelper(this, "getTransaction", input);
     }
 
-    async runGetTransactions(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletGetTransactionsOutput,
-    }> {
-        return await runHelper(this, "getTransactions", {});
+    async runGetTransactions(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetTransactionsOutput>> {
+        return await runHelper(this, "getTransactions", {}, options);
     }
 
-    async getTransactions(): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletGetTransactionsOutput,
-    }> {
+    async getTransactions(): Promise<RunLocalHelperResult<MultisigWalletGetTransactionsOutput>> {
         return await runLocalHelper(this, "getTransactions", {});
     }
 
-    async runGetTransactionIds(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletGetTransactionIdsOutput,
-    }> {
-        return await runHelper(this, "getTransactionIds", {});
+    async runGetTransactionIds(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetTransactionIdsOutput>> {
+        return await runHelper(this, "getTransactionIds", {}, options);
     }
 
-    async getTransactionIds(): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletGetTransactionIdsOutput,
-    }> {
+    async getTransactionIds(): Promise<RunLocalHelperResult<MultisigWalletGetTransactionIdsOutput>> {
         return await runLocalHelper(this, "getTransactionIds", {});
     }
 
-    async runGetCustodians(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletGetCustodiansOutput,
-    }> {
-        return await runHelper(this, "getCustodians", {});
+    async runGetCustodians(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetCustodiansOutput>> {
+        return await runHelper(this, "getCustodians", {}, options);
     }
 
-    async getCustodians(): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletGetCustodiansOutput,
-    }> {
+    async getCustodians(): Promise<RunLocalHelperResult<MultisigWalletGetCustodiansOutput>> {
         return await runLocalHelper(this, "getCustodians", {});
     }
 
-    async runCreateLimit(input: MultisigWalletCreateLimitInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletCreateLimitOutput,
-    }> {
-        return await runHelper(this, "createLimit", input);
+    async runCreateLimit(input: MultisigWalletCreateLimitInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletCreateLimitOutput>> {
+        return await runHelper(this, "createLimit", input, options);
     }
 
-    async createLimit(input: MultisigWalletCreateLimitInput): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletCreateLimitOutput,
-    }> {
+    async createLimit(input: MultisigWalletCreateLimitInput): Promise<RunLocalHelperResult<MultisigWalletCreateLimitOutput>> {
         return await runLocalHelper(this, "createLimit", input);
     }
 
-    async runConfirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "confirmLimit", input);
+    async runConfirmLimit(input: MultisigWalletConfirmLimitInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "confirmLimit", input, options);
     }
 
-    async confirmLimit(input: MultisigWalletConfirmLimitInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async confirmLimit(input: MultisigWalletConfirmLimitInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "confirmLimit", input);
     }
 
-    async runChangeLimit(input: MultisigWalletChangeLimitInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletChangeLimitOutput,
-    }> {
-        return await runHelper(this, "changeLimit", input);
+    async runChangeLimit(input: MultisigWalletChangeLimitInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletChangeLimitOutput>> {
+        return await runHelper(this, "changeLimit", input, options);
     }
 
-    async changeLimit(input: MultisigWalletChangeLimitInput): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletChangeLimitOutput,
-    }> {
+    async changeLimit(input: MultisigWalletChangeLimitInput): Promise<RunLocalHelperResult<MultisigWalletChangeLimitOutput>> {
         return await runLocalHelper(this, "changeLimit", input);
     }
 
-    async runDeleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "deleteLimit", input);
+    async runDeleteLimit(input: MultisigWalletDeleteLimitInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "deleteLimit", input, options);
     }
 
-    async deleteLimit(input: MultisigWalletDeleteLimitInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async deleteLimit(input: MultisigWalletDeleteLimitInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "deleteLimit", input);
     }
 
-    async runGetLimits(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletGetLimitsOutput,
-    }> {
-        return await runHelper(this, "getLimits", {});
+    async runGetLimits(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetLimitsOutput>> {
+        return await runHelper(this, "getLimits", {}, options);
     }
 
-    async getLimits(): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletGetLimitsOutput,
-    }> {
+    async getLimits(): Promise<RunLocalHelperResult<MultisigWalletGetLimitsOutput>> {
         return await runLocalHelper(this, "getLimits", {});
     }
 
-    async runGetPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletGetPendingLimitOutput,
-    }> {
-        return await runHelper(this, "getPendingLimit", input);
+    async runGetPendingLimit(input: MultisigWalletGetPendingLimitInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetPendingLimitOutput>> {
+        return await runHelper(this, "getPendingLimit", input, options);
     }
 
-    async getPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletGetPendingLimitOutput,
-    }> {
+    async getPendingLimit(input: MultisigWalletGetPendingLimitInput): Promise<RunLocalHelperResult<MultisigWalletGetPendingLimitOutput>> {
         return await runLocalHelper(this, "getPendingLimit", input);
     }
 
-    async runGetPendingLimits(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletGetPendingLimitsOutput,
-    }> {
-        return await runHelper(this, "getPendingLimits", {});
+    async runGetPendingLimits(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetPendingLimitsOutput>> {
+        return await runHelper(this, "getPendingLimits", {}, options);
     }
 
-    async getPendingLimits(): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletGetPendingLimitsOutput,
-    }> {
+    async getPendingLimits(): Promise<RunLocalHelperResult<MultisigWalletGetPendingLimitsOutput>> {
         return await runLocalHelper(this, "getPendingLimits", {});
     }
 
-    async runGetLimit(input: MultisigWalletGetLimitInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletGetLimitOutput,
-    }> {
-        return await runHelper(this, "getLimit", input);
+    async runGetLimit(input: MultisigWalletGetLimitInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetLimitOutput>> {
+        return await runHelper(this, "getLimit", input, options);
     }
 
-    async getLimit(input: MultisigWalletGetLimitInput): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletGetLimitOutput,
-    }> {
+    async getLimit(input: MultisigWalletGetLimitInput): Promise<RunLocalHelperResult<MultisigWalletGetLimitOutput>> {
         return await runLocalHelper(this, "getLimit", input);
     }
 
-    async runSubmitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletSubmitUpdateOutput,
-    }> {
-        return await runHelper(this, "submitUpdate", input);
+    async runSubmitUpdate(input: MultisigWalletSubmitUpdateInput, options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletSubmitUpdateOutput>> {
+        return await runHelper(this, "submitUpdate", input, options);
     }
 
-    async submitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletSubmitUpdateOutput,
-    }> {
+    async submitUpdate(input: MultisigWalletSubmitUpdateInput): Promise<RunLocalHelperResult<MultisigWalletSubmitUpdateOutput>> {
         return await runLocalHelper(this, "submitUpdate", input);
     }
 
-    async runConfirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "confirmUpdate", input);
+    async runConfirmUpdate(input: MultisigWalletConfirmUpdateInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "confirmUpdate", input, options);
     }
 
-    async confirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async confirmUpdate(input: MultisigWalletConfirmUpdateInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "confirmUpdate", input);
     }
 
-    async runExecuteUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "executeUpdate", input);
+    async runExecuteUpdate(input: MultisigWalletExecuteUpdateInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "executeUpdate", input, options);
     }
 
-    async executeUpdate(input: MultisigWalletExecuteUpdateInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async executeUpdate(input: MultisigWalletExecuteUpdateInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "executeUpdate", input);
     }
 
-    async runGetUpdateRequests(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: MultisigWalletGetUpdateRequestsOutput,
-    }> {
-        return await runHelper(this, "getUpdateRequests", {});
+    async runGetUpdateRequests(options?: RunHelperOptions): Promise<RunHelperResult<MultisigWalletGetUpdateRequestsOutput>> {
+        return await runHelper(this, "getUpdateRequests", {}, options);
     }
 
-    async getUpdateRequests(): Promise<{
-        transaction: Transaction,
-        output: MultisigWalletGetUpdateRequestsOutput,
-    }> {
+    async getUpdateRequests(): Promise<RunLocalHelperResult<MultisigWalletGetUpdateRequestsOutput>> {
         return await runLocalHelper(this, "getUpdateRequests", {});
     }
 

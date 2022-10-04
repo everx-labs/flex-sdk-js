@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type UserDataConfigOnDeployInput = {
     binding: {
         flex: string;
@@ -70,57 +69,17 @@ export declare class UserDataConfigAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(input: UserDataConfigOnDeployInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onDeploy(input: UserDataConfigOnDeployInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDeployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: UserDataConfigDeployFlexClientOutput;
-    }>;
-    deployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<{
-        transaction: Transaction;
-        output: UserDataConfigDeployFlexClientOutput;
-    }>;
-    runRequestDetails(input: UserDataConfigRequestDetailsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: UserDataConfigRequestDetailsOutput;
-    }>;
-    requestDetails(input: UserDataConfigRequestDetailsInput): Promise<{
-        transaction: Transaction;
-        output: UserDataConfigRequestDetailsOutput;
-    }>;
-    runGetFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: UserDataConfigGetFlexClientAddrOutput;
-    }>;
-    getFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<{
-        transaction: Transaction;
-        output: UserDataConfigGetFlexClientAddrOutput;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: UserDataConfigGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: UserDataConfigGetDetailsOutput;
-    }>;
-    runGetConfig(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: UserDataConfigGetConfigOutput;
-    }>;
-    getConfig(): Promise<{
-        transaction: Transaction;
-        output: UserDataConfigGetConfigOutput;
-    }>;
+    runOnDeploy(input: UserDataConfigOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onDeploy(input: UserDataConfigOnDeployInput): Promise<RunLocalHelperResult<void>>;
+    runDeployFlexClient(input: UserDataConfigDeployFlexClientInput, options?: RunHelperOptions): Promise<RunHelperResult<UserDataConfigDeployFlexClientOutput>>;
+    deployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<RunLocalHelperResult<UserDataConfigDeployFlexClientOutput>>;
+    runRequestDetails(input: UserDataConfigRequestDetailsInput, options?: RunHelperOptions): Promise<RunHelperResult<UserDataConfigRequestDetailsOutput>>;
+    requestDetails(input: UserDataConfigRequestDetailsInput): Promise<RunLocalHelperResult<UserDataConfigRequestDetailsOutput>>;
+    runGetFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput, options?: RunHelperOptions): Promise<RunHelperResult<UserDataConfigGetFlexClientAddrOutput>>;
+    getFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<RunLocalHelperResult<UserDataConfigGetFlexClientAddrOutput>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<UserDataConfigGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<UserDataConfigGetDetailsOutput>>;
+    runGetConfig(options?: RunHelperOptions): Promise<RunHelperResult<UserDataConfigGetConfigOutput>>;
+    getConfig(): Promise<RunLocalHelperResult<UserDataConfigGetConfigOutput>>;
 }
 //# sourceMappingURL=UserDataConfigAccount.d.ts.map

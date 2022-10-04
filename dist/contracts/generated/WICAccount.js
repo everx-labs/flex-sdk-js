@@ -23,9 +23,9 @@ class WICAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "", {});
         });
     }
-    runOnDeploy(input) {
+    runOnDeploy(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "onDeploy", input);
+            return yield (0, helpers_1.runHelper)(this, "onDeploy", input, options);
         });
     }
     onDeploy(input) {
@@ -33,9 +33,9 @@ class WICAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", input);
         });
     }
-    runSetNext(input) {
+    runSetNext(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setNext", input);
+            return yield (0, helpers_1.runHelper)(this, "setNext", input, options);
         });
     }
     setNext(input) {
@@ -43,9 +43,9 @@ class WICAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setNext", input);
         });
     }
-    runCloneUpgrade(input) {
+    runCloneUpgrade(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "cloneUpgrade", input);
+            return yield (0, helpers_1.runHelper)(this, "cloneUpgrade", input, options);
         });
     }
     cloneUpgrade(input) {
@@ -53,9 +53,9 @@ class WICAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "cloneUpgrade", input);
         });
     }
-    runUnlist() {
+    runUnlist(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "unlist", {});
+            return yield (0, helpers_1.runHelper)(this, "unlist", {}, options);
         });
     }
     unlist() {
@@ -63,9 +63,9 @@ class WICAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "unlist", {});
         });
     }
-    runGetDetails() {
+    runGetDetails(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getDetails", {});
+            return yield (0, helpers_1.runHelper)(this, "getDetails", {}, options);
         });
     }
     getDetails() {

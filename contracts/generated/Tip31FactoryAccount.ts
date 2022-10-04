@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -131,270 +133,155 @@ export class Tip31FactoryAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runDeployRoot(input: Tip31FactoryDeployRootInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31FactoryDeployRootOutput,
-    }> {
-        return await runHelper(this, "deployRoot", input);
+    async runDeployRoot(input: Tip31FactoryDeployRootInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31FactoryDeployRootOutput>> {
+        return await runHelper(this, "deployRoot", input, options);
     }
 
-    async deployRoot(input: Tip31FactoryDeployRootInput): Promise<{
-        transaction: Transaction,
-        output: Tip31FactoryDeployRootOutput,
-    }> {
+    async deployRoot(input: Tip31FactoryDeployRootInput): Promise<RunLocalHelperResult<Tip31FactoryDeployRootOutput>> {
         return await runLocalHelper(this, "deployRoot", input);
     }
 
-    async runChangeDeployValue(input: Tip31FactoryChangeDeployValueInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "changeDeployValue", input);
+    async runChangeDeployValue(input: Tip31FactoryChangeDeployValueInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "changeDeployValue", input, options);
     }
 
-    async changeDeployValue(input: Tip31FactoryChangeDeployValueInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async changeDeployValue(input: Tip31FactoryChangeDeployValueInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "changeDeployValue", input);
     }
 
-    async runChangeRootCode(input: Tip31FactoryChangeRootCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "changeRootCode", input);
+    async runChangeRootCode(input: Tip31FactoryChangeRootCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "changeRootCode", input, options);
     }
 
-    async changeRootCode(input: Tip31FactoryChangeRootCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async changeRootCode(input: Tip31FactoryChangeRootCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "changeRootCode", input);
     }
 
-    async runChangeWalletCode(input: Tip31FactoryChangeWalletCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "changeWalletCode", input);
+    async runChangeWalletCode(input: Tip31FactoryChangeWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "changeWalletCode", input, options);
     }
 
-    async changeWalletCode(input: Tip31FactoryChangeWalletCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async changeWalletCode(input: Tip31FactoryChangeWalletCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "changeWalletCode", input);
     }
 
-    async runChangeRootUpgradeableCode(input: Tip31FactoryChangeRootUpgradeableCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "changeRootUpgradeableCode", input);
+    async runChangeRootUpgradeableCode(input: Tip31FactoryChangeRootUpgradeableCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "changeRootUpgradeableCode", input, options);
     }
 
-    async changeRootUpgradeableCode(input: Tip31FactoryChangeRootUpgradeableCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async changeRootUpgradeableCode(input: Tip31FactoryChangeRootUpgradeableCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "changeRootUpgradeableCode", input);
     }
 
-    async runChangeWalletUpgradeableCode(input: Tip31FactoryChangeWalletUpgradeableCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "changeWalletUpgradeableCode", input);
+    async runChangeWalletUpgradeableCode(input: Tip31FactoryChangeWalletUpgradeableCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "changeWalletUpgradeableCode", input, options);
     }
 
-    async changeWalletUpgradeableCode(input: Tip31FactoryChangeWalletUpgradeableCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async changeWalletUpgradeableCode(input: Tip31FactoryChangeWalletUpgradeableCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "changeWalletUpgradeableCode", input);
     }
 
-    async runChangePlatformCode(input: Tip31FactoryChangePlatformCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "changePlatformCode", input);
+    async runChangePlatformCode(input: Tip31FactoryChangePlatformCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "changePlatformCode", input, options);
     }
 
-    async changePlatformCode(input: Tip31FactoryChangePlatformCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async changePlatformCode(input: Tip31FactoryChangePlatformCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "changePlatformCode", input);
     }
 
-    async runTransferOwner(input: Tip31FactoryTransferOwnerInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transferOwner", input);
+    async runTransferOwner(input: Tip31FactoryTransferOwnerInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transferOwner", input, options);
     }
 
-    async transferOwner(input: Tip31FactoryTransferOwnerInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transferOwner(input: Tip31FactoryTransferOwnerInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transferOwner", input);
     }
 
-    async runAcceptOwner(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "acceptOwner", {});
+    async runAcceptOwner(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "acceptOwner", {}, options);
     }
 
-    async acceptOwner(): Promise<{
-        transaction: Transaction,
-    }> {
+    async acceptOwner(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "acceptOwner", {});
     }
 
-    async runUpgrade(input: Tip31FactoryUpgradeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "upgrade", input);
+    async runUpgrade(input: Tip31FactoryUpgradeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "upgrade", input, options);
     }
 
-    async upgrade(input: Tip31FactoryUpgradeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async upgrade(input: Tip31FactoryUpgradeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "upgrade", input);
     }
 
-    async run_owner(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31Factory_ownerOutput,
-    }> {
-        return await runHelper(this, "_owner", {});
+    async run_owner(options?: RunHelperOptions): Promise<RunHelperResult<Tip31Factory_ownerOutput>> {
+        return await runHelper(this, "_owner", {}, options);
     }
 
-    async _owner(): Promise<{
-        transaction: Transaction,
-        output: Tip31Factory_ownerOutput,
-    }> {
+    async _owner(): Promise<RunLocalHelperResult<Tip31Factory_ownerOutput>> {
         return await runLocalHelper(this, "_owner", {});
     }
 
-    async run_pendingOwner(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31Factory_pendingOwnerOutput,
-    }> {
-        return await runHelper(this, "_pendingOwner", {});
+    async run_pendingOwner(options?: RunHelperOptions): Promise<RunHelperResult<Tip31Factory_pendingOwnerOutput>> {
+        return await runHelper(this, "_pendingOwner", {}, options);
     }
 
-    async _pendingOwner(): Promise<{
-        transaction: Transaction,
-        output: Tip31Factory_pendingOwnerOutput,
-    }> {
+    async _pendingOwner(): Promise<RunLocalHelperResult<Tip31Factory_pendingOwnerOutput>> {
         return await runLocalHelper(this, "_pendingOwner", {});
     }
 
-    async run_tokenNonce(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31Factory_tokenNonceOutput,
-    }> {
-        return await runHelper(this, "_tokenNonce", {});
+    async run_tokenNonce(options?: RunHelperOptions): Promise<RunHelperResult<Tip31Factory_tokenNonceOutput>> {
+        return await runHelper(this, "_tokenNonce", {}, options);
     }
 
-    async _tokenNonce(): Promise<{
-        transaction: Transaction,
-        output: Tip31Factory_tokenNonceOutput,
-    }> {
+    async _tokenNonce(): Promise<RunLocalHelperResult<Tip31Factory_tokenNonceOutput>> {
         return await runLocalHelper(this, "_tokenNonce", {});
     }
 
-    async run_deployValue(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31Factory_deployValueOutput,
-    }> {
-        return await runHelper(this, "_deployValue", {});
+    async run_deployValue(options?: RunHelperOptions): Promise<RunHelperResult<Tip31Factory_deployValueOutput>> {
+        return await runHelper(this, "_deployValue", {}, options);
     }
 
-    async _deployValue(): Promise<{
-        transaction: Transaction,
-        output: Tip31Factory_deployValueOutput,
-    }> {
+    async _deployValue(): Promise<RunLocalHelperResult<Tip31Factory_deployValueOutput>> {
         return await runLocalHelper(this, "_deployValue", {});
     }
 
-    async run_rootCode(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31Factory_rootCodeOutput,
-    }> {
-        return await runHelper(this, "_rootCode", {});
+    async run_rootCode(options?: RunHelperOptions): Promise<RunHelperResult<Tip31Factory_rootCodeOutput>> {
+        return await runHelper(this, "_rootCode", {}, options);
     }
 
-    async _rootCode(): Promise<{
-        transaction: Transaction,
-        output: Tip31Factory_rootCodeOutput,
-    }> {
+    async _rootCode(): Promise<RunLocalHelperResult<Tip31Factory_rootCodeOutput>> {
         return await runLocalHelper(this, "_rootCode", {});
     }
 
-    async run_walletCode(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31Factory_walletCodeOutput,
-    }> {
-        return await runHelper(this, "_walletCode", {});
+    async run_walletCode(options?: RunHelperOptions): Promise<RunHelperResult<Tip31Factory_walletCodeOutput>> {
+        return await runHelper(this, "_walletCode", {}, options);
     }
 
-    async _walletCode(): Promise<{
-        transaction: Transaction,
-        output: Tip31Factory_walletCodeOutput,
-    }> {
+    async _walletCode(): Promise<RunLocalHelperResult<Tip31Factory_walletCodeOutput>> {
         return await runLocalHelper(this, "_walletCode", {});
     }
 
-    async run_rootUpgradeableCode(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31Factory_rootUpgradeableCodeOutput,
-    }> {
-        return await runHelper(this, "_rootUpgradeableCode", {});
+    async run_rootUpgradeableCode(options?: RunHelperOptions): Promise<RunHelperResult<Tip31Factory_rootUpgradeableCodeOutput>> {
+        return await runHelper(this, "_rootUpgradeableCode", {}, options);
     }
 
-    async _rootUpgradeableCode(): Promise<{
-        transaction: Transaction,
-        output: Tip31Factory_rootUpgradeableCodeOutput,
-    }> {
+    async _rootUpgradeableCode(): Promise<RunLocalHelperResult<Tip31Factory_rootUpgradeableCodeOutput>> {
         return await runLocalHelper(this, "_rootUpgradeableCode", {});
     }
 
-    async run_walletUpgradeableCode(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31Factory_walletUpgradeableCodeOutput,
-    }> {
-        return await runHelper(this, "_walletUpgradeableCode", {});
+    async run_walletUpgradeableCode(options?: RunHelperOptions): Promise<RunHelperResult<Tip31Factory_walletUpgradeableCodeOutput>> {
+        return await runHelper(this, "_walletUpgradeableCode", {}, options);
     }
 
-    async _walletUpgradeableCode(): Promise<{
-        transaction: Transaction,
-        output: Tip31Factory_walletUpgradeableCodeOutput,
-    }> {
+    async _walletUpgradeableCode(): Promise<RunLocalHelperResult<Tip31Factory_walletUpgradeableCodeOutput>> {
         return await runLocalHelper(this, "_walletUpgradeableCode", {});
     }
 
-    async run_platformCode(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31Factory_platformCodeOutput,
-    }> {
-        return await runHelper(this, "_platformCode", {});
+    async run_platformCode(options?: RunHelperOptions): Promise<RunHelperResult<Tip31Factory_platformCodeOutput>> {
+        return await runHelper(this, "_platformCode", {}, options);
     }
 
-    async _platformCode(): Promise<{
-        transaction: Transaction,
-        output: Tip31Factory_platformCodeOutput,
-    }> {
+    async _platformCode(): Promise<RunLocalHelperResult<Tip31Factory_platformCodeOutput>> {
         return await runLocalHelper(this, "_platformCode", {});
     }
 

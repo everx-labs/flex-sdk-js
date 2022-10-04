@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -256,303 +258,179 @@ export class FlexClientAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runDeployPriceXchg(input: FlexClientDeployPriceXchgInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientDeployPriceXchgOutput,
-    }> {
-        return await runHelper(this, "deployPriceXchg", input);
+    async runDeployPriceXchg(input: FlexClientDeployPriceXchgInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientDeployPriceXchgOutput>> {
+        return await runHelper(this, "deployPriceXchg", input, options);
     }
 
-    async deployPriceXchg(input: FlexClientDeployPriceXchgInput): Promise<{
-        transaction: Transaction,
-        output: FlexClientDeployPriceXchgOutput,
-    }> {
+    async deployPriceXchg(input: FlexClientDeployPriceXchgInput): Promise<RunLocalHelperResult<FlexClientDeployPriceXchgOutput>> {
         return await runLocalHelper(this, "deployPriceXchg", input);
     }
 
-    async runCancelXchgOrder(input: FlexClientCancelXchgOrderInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "cancelXchgOrder", input);
+    async runCancelXchgOrder(input: FlexClientCancelXchgOrderInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "cancelXchgOrder", input, options);
     }
 
-    async cancelXchgOrder(input: FlexClientCancelXchgOrderInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async cancelXchgOrder(input: FlexClientCancelXchgOrderInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "cancelXchgOrder", input);
     }
 
-    async runTransfer(input: FlexClientTransferInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transfer", input);
+    async runTransfer(input: FlexClientTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transfer", input, options);
     }
 
-    async transfer(input: FlexClientTransferInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transfer(input: FlexClientTransferInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transfer", input);
     }
 
-    async runTransferTokens(input: FlexClientTransferTokensInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transferTokens", input);
+    async runTransferTokens(input: FlexClientTransferTokensInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transferTokens", input, options);
     }
 
-    async transferTokens(input: FlexClientTransferTokensInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transferTokens(input: FlexClientTransferTokensInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transferTokens", input);
     }
 
-    async runDeployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientDeployEmptyFlexWalletOutput,
-    }> {
-        return await runHelper(this, "deployEmptyFlexWallet", input);
+    async runDeployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientDeployEmptyFlexWalletOutput>> {
+        return await runHelper(this, "deployEmptyFlexWallet", input, options);
     }
 
-    async deployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput): Promise<{
-        transaction: Transaction,
-        output: FlexClientDeployEmptyFlexWalletOutput,
-    }> {
+    async deployEmptyFlexWallet(input: FlexClientDeployEmptyFlexWalletInput): Promise<RunLocalHelperResult<FlexClientDeployEmptyFlexWalletOutput>> {
         return await runLocalHelper(this, "deployEmptyFlexWallet", input);
     }
 
-    async runDeployIndex(input: FlexClientDeployIndexInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "deployIndex", input);
+    async runDeployIndex(input: FlexClientDeployIndexInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "deployIndex", input, options);
     }
 
-    async deployIndex(input: FlexClientDeployIndexInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async deployIndex(input: FlexClientDeployIndexInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "deployIndex", input);
     }
 
-    async runReBindWallets(input: FlexClientReBindWalletsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "reBindWallets", input);
+    async runReBindWallets(input: FlexClientReBindWalletsInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "reBindWallets", input, options);
     }
 
-    async reBindWallets(input: FlexClientReBindWalletsInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async reBindWallets(input: FlexClientReBindWalletsInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "reBindWallets", input);
     }
 
-    async runDestroyIndex(input: FlexClientDestroyIndexInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "destroyIndex", input);
+    async runDestroyIndex(input: FlexClientDestroyIndexInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "destroyIndex", input, options);
     }
 
-    async destroyIndex(input: FlexClientDestroyIndexInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async destroyIndex(input: FlexClientDestroyIndexInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "destroyIndex", input);
     }
 
-    async runBurnWallet(input: FlexClientBurnWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "burnWallet", input);
+    async runBurnWallet(input: FlexClientBurnWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "burnWallet", input, options);
     }
 
-    async burnWallet(input: FlexClientBurnWalletInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async burnWallet(input: FlexClientBurnWalletInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "burnWallet", input);
     }
 
-    async runBurnThemAll(input: FlexClientBurnThemAllInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "burnThemAll", input);
+    async runBurnThemAll(input: FlexClientBurnThemAllInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "burnThemAll", input, options);
     }
 
-    async burnThemAll(input: FlexClientBurnThemAllInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async burnThemAll(input: FlexClientBurnThemAllInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "burnThemAll", input);
     }
 
-    async runContinueBurnThemAll(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "continueBurnThemAll", {});
+    async runContinueBurnThemAll(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "continueBurnThemAll", {}, options);
     }
 
-    async continueBurnThemAll(): Promise<{
-        transaction: Transaction,
-    }> {
+    async continueBurnThemAll(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "continueBurnThemAll", {});
     }
 
-    async runCancelThemAll(input: FlexClientCancelThemAllInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "cancelThemAll", input);
+    async runCancelThemAll(input: FlexClientCancelThemAllInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "cancelThemAll", input, options);
     }
 
-    async cancelThemAll(input: FlexClientCancelThemAllInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async cancelThemAll(input: FlexClientCancelThemAllInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "cancelThemAll", input);
     }
 
-    async runContinueCancelThemAll(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "continueCancelThemAll", {});
+    async runContinueCancelThemAll(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "continueCancelThemAll", {}, options);
     }
 
-    async continueCancelThemAll(): Promise<{
-        transaction: Transaction,
-    }> {
+    async continueCancelThemAll(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "continueCancelThemAll", {});
     }
 
-    async runUnwrapWallet(input: FlexClientUnwrapWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "unwrapWallet", input);
+    async runUnwrapWallet(input: FlexClientUnwrapWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "unwrapWallet", input, options);
     }
 
-    async unwrapWallet(input: FlexClientUnwrapWalletInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async unwrapWallet(input: FlexClientUnwrapWalletInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "unwrapWallet", input);
     }
 
-    async runBindWallet(input: FlexClientBindWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "bindWallet", input);
+    async runBindWallet(input: FlexClientBindWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "bindWallet", input, options);
     }
 
-    async bindWallet(input: FlexClientBindWalletInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async bindWallet(input: FlexClientBindWalletInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "bindWallet", input);
     }
 
-    async runOnTip3Transfer(input: FlexClientOnTip3TransferInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onTip3Transfer", input);
+    async runOnTip3Transfer(input: FlexClientOnTip3TransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onTip3Transfer", input, options);
     }
 
-    async onTip3Transfer(input: FlexClientOnTip3TransferInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onTip3Transfer(input: FlexClientOnTip3TransferInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onTip3Transfer", input);
     }
 
-    async runUpgrade(input: FlexClientUpgradeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "upgrade", input);
+    async runUpgrade(input: FlexClientUpgradeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "upgrade", input, options);
     }
 
-    async upgrade(input: FlexClientUpgradeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async upgrade(input: FlexClientUpgradeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "upgrade", input);
     }
 
-    async runGetPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientGetPayloadForDeployInternalWalletOutput,
-    }> {
-        return await runHelper(this, "getPayloadForDeployInternalWallet", input);
+    async runGetPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientGetPayloadForDeployInternalWalletOutput>> {
+        return await runHelper(this, "getPayloadForDeployInternalWallet", input, options);
     }
 
-    async getPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput): Promise<{
-        transaction: Transaction,
-        output: FlexClientGetPayloadForDeployInternalWalletOutput,
-    }> {
+    async getPayloadForDeployInternalWallet(input: FlexClientGetPayloadForDeployInternalWalletInput): Promise<RunLocalHelperResult<FlexClientGetPayloadForDeployInternalWalletOutput>> {
         return await runLocalHelper(this, "getPayloadForDeployInternalWallet", input);
     }
 
-    async runGetPayloadForEverReTransferArgs(input: FlexClientGetPayloadForEverReTransferArgsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientGetPayloadForEverReTransferArgsOutput,
-    }> {
-        return await runHelper(this, "getPayloadForEverReTransferArgs", input);
+    async runGetPayloadForEverReTransferArgs(input: FlexClientGetPayloadForEverReTransferArgsInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientGetPayloadForEverReTransferArgsOutput>> {
+        return await runHelper(this, "getPayloadForEverReTransferArgs", input, options);
     }
 
-    async getPayloadForEverReTransferArgs(input: FlexClientGetPayloadForEverReTransferArgsInput): Promise<{
-        transaction: Transaction,
-        output: FlexClientGetPayloadForEverReTransferArgsOutput,
-    }> {
+    async getPayloadForEverReTransferArgs(input: FlexClientGetPayloadForEverReTransferArgsInput): Promise<RunLocalHelperResult<FlexClientGetPayloadForEverReTransferArgsOutput>> {
         return await runLocalHelper(this, "getPayloadForEverReTransferArgs", input);
     }
 
-    async runGetPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientGetPriceXchgAddressOutput,
-    }> {
-        return await runHelper(this, "getPriceXchgAddress", input);
+    async runGetPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientGetPriceXchgAddressOutput>> {
+        return await runHelper(this, "getPriceXchgAddress", input, options);
     }
 
-    async getPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput): Promise<{
-        transaction: Transaction,
-        output: FlexClientGetPriceXchgAddressOutput,
-    }> {
+    async getPriceXchgAddress(input: FlexClientGetPriceXchgAddressInput): Promise<RunLocalHelperResult<FlexClientGetPriceXchgAddressOutput>> {
         return await runLocalHelper(this, "getPriceXchgAddress", input);
     }
 
-    async runGetUserIdIndex(input: FlexClientGetUserIdIndexInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientGetUserIdIndexOutput,
-    }> {
-        return await runHelper(this, "getUserIdIndex", input);
+    async runGetUserIdIndex(input: FlexClientGetUserIdIndexInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexClientGetUserIdIndexOutput>> {
+        return await runHelper(this, "getUserIdIndex", input, options);
     }
 
-    async getUserIdIndex(input: FlexClientGetUserIdIndexInput): Promise<{
-        transaction: Transaction,
-        output: FlexClientGetUserIdIndexOutput,
-    }> {
+    async getUserIdIndex(input: FlexClientGetUserIdIndexInput): Promise<RunLocalHelperResult<FlexClientGetUserIdIndexOutput>> {
         return await runLocalHelper(this, "getUserIdIndex", input);
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexClientGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<FlexClientGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: FlexClientGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<FlexClientGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 

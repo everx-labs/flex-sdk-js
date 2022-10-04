@@ -10,10 +10,12 @@ export function contractCodeHeader(options: { hasDeploy: boolean }): string {
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     ${options.hasDeploy ? "deployHelper," : ""}
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -135,31 +137,30 @@ function fnTypesCode(contractName: string, fn: AbiFunction): string {
 }
 
 
-function fnHeader(contractName: string, fn: AbiFunction, prefix: string): string {
-    const name = fnName(fn, prefix);
+function fnHeader(contractName: string, fn: AbiFunction, isRun: boolean): string {
+    const name = fnName(fn, isRun ? "run" : "");
     let header = `    async ${name}(`;
     if (fn.inputs.length > 0) {
         header += `input: ${fnName(fn, contractName, "Input")}`;
     }
-    header += "): Promise<{\n";
-    header += "        transaction: Transaction,\n";
-    if (prefix === "run") {
-        header += "        transactionTree: ResultOfQueryTransactionTree,\n";
+    if (isRun) {
+        if (fn.inputs.length > 0) {
+            header += ", ";
+        }
+        header += `options?: RunHelperOptions`;
     }
-    if (fn.outputs.length > 0) {
-        header += `        output: ${fnName(fn, contractName, "Output")},\n`;
-    }
-    header += "    }> {\n";
-    return header;
+    const returnType = `${isRun ? "RunHelperResult" : "RunLocalHelperResult"}`;
+    const outputType = fn.outputs.length > 0 ? fnName(fn, contractName, "Output") : "void";
+    return header + `): Promise<${returnType}<${outputType}>> {\n`;
 }
 
 function fnCode(contractName: string, fn: AbiFunction): string {
     const input = fn.inputs.length > 0 ? "input" : "{}";
-    let code = fnHeader(contractName, fn, "run");
-    code += `        return await runHelper(this, "${fn.name}", ${input});\n`;
+    let code = fnHeader(contractName, fn, true);
+    code += `        return await runHelper(this, "${fn.name}", ${input}, options);\n`;
     code += `    }\n\n`;
 
-    code += fnHeader(contractName, fn, "");
+    code += fnHeader(contractName, fn, false);
     code += `        return await runLocalHelper(this, "${fn.name}", ${input});\n`;
     code += `    }\n\n`;
     return code;
@@ -195,7 +196,12 @@ function paramsDecl(params: AbiParam[], indent: string, isInput: boolean): strin
     return decl;
 }
 
-function paramTypeDecl(type: TypeInfo, indent: string, isInput: boolean, components?: AbiParam[]): string {
+function paramTypeDecl(
+    type: TypeInfo,
+    indent: string,
+    isInput: boolean,
+    components?: AbiParam[],
+): string {
     let decl = "";
     switch (type.name) {
     case "uint128":
@@ -234,7 +240,12 @@ function paramTypeDecl(type: TypeInfo, indent: string, isInput: boolean, compone
             const keyType = parseType(mapTypes[0]);
             const valueType = parseType(mapTypes.slice(1).join(","));
             decl += "{\n";
-            decl += `${indent}[key: ${paramTypeDecl(keyType, indent, isInput)}]: ${paramTypeDecl(valueType, indent + "    ", isInput, components)}`;
+            decl += `${indent}[key: ${paramTypeDecl(keyType, indent, isInput)}]: ${paramTypeDecl(
+                valueType,
+                indent + "    ",
+                isInput,
+                components,
+            )}`;
             decl += `${indent}}`;
         } else {
             throw "Unknown ABI type";
@@ -251,7 +262,7 @@ function paramDecl(param: AbiParam, indent: string, isInput: boolean): string {
     const type = parseType(param.type);
     let decl = `${param.name}${type.optional ? "?" : ""}: `;
     decl += paramTypeDecl(type, indent, isInput, param.components);
-    decl += ` /* ${param.type} */`
+    decl += ` /* ${param.type} */`;
     return decl;
 }
 

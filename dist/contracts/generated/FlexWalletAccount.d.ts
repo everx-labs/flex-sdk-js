@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type FlexWalletTransferInput = {
     _answer_id: number;
     answer_addr?: string;
@@ -167,111 +166,33 @@ export declare class FlexWalletAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runTransfer(input: FlexWalletTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transfer(input: FlexWalletTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runTransferToRecipient(input: FlexWalletTransferToRecipientInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transferToRecipient(input: FlexWalletTransferToRecipientInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBalance(input: FlexWalletBalanceInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexWalletBalanceOutput;
-    }>;
-    balance(input: FlexWalletBalanceInput): Promise<{
-        transaction: Transaction;
-        output: FlexWalletBalanceOutput;
-    }>;
-    runAcceptMint(input: FlexWalletAcceptMintInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    acceptMint(input: FlexWalletAcceptMintInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runAcceptTransfer(input: FlexWalletAcceptTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    acceptTransfer(input: FlexWalletAcceptTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBurn(input: FlexWalletBurnInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    burn(input: FlexWalletBurnInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runUnwrap(input: FlexWalletUnwrapInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    unwrap(input: FlexWalletUnwrapInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runMakeOrder(input: FlexWalletMakeOrderInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    makeOrder(input: FlexWalletMakeOrderInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runCancelOrder(input: FlexWalletCancelOrderInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    cancelOrder(input: FlexWalletCancelOrderInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runReturnOwnership(input: FlexWalletReturnOwnershipInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    returnOwnership(input: FlexWalletReturnOwnershipInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBind(input: FlexWalletBindInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    bind(input: FlexWalletBindInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDetails(input: FlexWalletDetailsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexWalletDetailsOutput;
-    }>;
-    details(input: FlexWalletDetailsInput): Promise<{
-        transaction: Transaction;
-        output: FlexWalletDetailsOutput;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexWalletGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: FlexWalletGetDetailsOutput;
-    }>;
-    runGetBalance(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexWalletGetBalanceOutput;
-    }>;
-    getBalance_(): Promise<{
-        transaction: Transaction;
-        output: FlexWalletGetBalanceOutput;
-    }>;
+    runTransfer(input: FlexWalletTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transfer(input: FlexWalletTransferInput): Promise<RunLocalHelperResult<void>>;
+    runTransferToRecipient(input: FlexWalletTransferToRecipientInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transferToRecipient(input: FlexWalletTransferToRecipientInput): Promise<RunLocalHelperResult<void>>;
+    runBalance(input: FlexWalletBalanceInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexWalletBalanceOutput>>;
+    balance(input: FlexWalletBalanceInput): Promise<RunLocalHelperResult<FlexWalletBalanceOutput>>;
+    runAcceptMint(input: FlexWalletAcceptMintInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    acceptMint(input: FlexWalletAcceptMintInput): Promise<RunLocalHelperResult<void>>;
+    runAcceptTransfer(input: FlexWalletAcceptTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    acceptTransfer(input: FlexWalletAcceptTransferInput): Promise<RunLocalHelperResult<void>>;
+    runBurn(input: FlexWalletBurnInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    burn(input: FlexWalletBurnInput): Promise<RunLocalHelperResult<void>>;
+    runUnwrap(input: FlexWalletUnwrapInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    unwrap(input: FlexWalletUnwrapInput): Promise<RunLocalHelperResult<void>>;
+    runMakeOrder(input: FlexWalletMakeOrderInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    makeOrder(input: FlexWalletMakeOrderInput): Promise<RunLocalHelperResult<void>>;
+    runCancelOrder(input: FlexWalletCancelOrderInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    cancelOrder(input: FlexWalletCancelOrderInput): Promise<RunLocalHelperResult<void>>;
+    runReturnOwnership(input: FlexWalletReturnOwnershipInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    returnOwnership(input: FlexWalletReturnOwnershipInput): Promise<RunLocalHelperResult<void>>;
+    runBind(input: FlexWalletBindInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    bind(input: FlexWalletBindInput): Promise<RunLocalHelperResult<void>>;
+    runDetails(input: FlexWalletDetailsInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexWalletDetailsOutput>>;
+    details(input: FlexWalletDetailsInput): Promise<RunLocalHelperResult<FlexWalletDetailsOutput>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<FlexWalletGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<FlexWalletGetDetailsOutput>>;
+    runGetBalance(options?: RunHelperOptions): Promise<RunHelperResult<FlexWalletGetBalanceOutput>>;
+    getBalance_(): Promise<RunLocalHelperResult<FlexWalletGetBalanceOutput>>;
 }
 //# sourceMappingURL=FlexWalletAccount.d.ts.map

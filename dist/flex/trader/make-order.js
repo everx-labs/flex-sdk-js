@@ -17,7 +17,7 @@ const internals_1 = require("./internals");
 const web3_1 = require("../web3");
 const flex_1 = require("../flex");
 function makeOrder(flex, options) {
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
         const defaults = flex.config.trader.order;
         const pair = yield flex.evr.accounts.get(contracts_1.XchgPairAccount, options.marketAddress);
@@ -47,7 +47,7 @@ function makeOrder(flex, options) {
         }
         const mode = (_b = options.mode) !== null && _b !== void 0 ? _b : defaults.mode;
         try {
-            const result = yield wallet.runMakeOrder({
+            const transaction = (yield wallet.runMakeOrder({
                 _answer_id: 0,
                 evers: (_c = options.evers) !== null && _c !== void 0 ? _c : defaults.evers,
                 lend_balance,
@@ -64,12 +64,26 @@ function makeOrder(flex, options) {
                     user_id: "0x" + options.trader.id,
                     order_id: orderId,
                 },
-            });
-            flex.evr.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
-            return {
+            }, {
+                skipTransactionTree: true,
+            })).transaction;
+            const result = {
                 orderId: orderId.toString(),
-                transactionId: result.transaction.id,
+                transactionId: transaction.id,
             };
+            if ((_d = options.waitForOrderbookUpdate) !== null && _d !== void 0 ? _d : false) {
+                const clientAccount = yield flex.evr.accounts.get(contracts_1.FlexClientAccount, options.clientAddress);
+                const saltedPriceCode = (yield pair.getPriceXchgCode({ salted: true })).output.value0;
+                const priceAddress = (yield clientAccount.getPriceXchgAddress({
+                    price_num: price.num,
+                    salted_price_code: saltedPriceCode,
+                })).output.value0;
+                result.orderbookTransactionId = (yield flex.evr.accounts.waitForDerivativeTransactionOnAccount({
+                    originTransactionId: transaction.id,
+                    accountAddress: priceAddress,
+                })).id;
+            }
+            return result;
         }
         catch (err) {
             throw resolveError(err, {

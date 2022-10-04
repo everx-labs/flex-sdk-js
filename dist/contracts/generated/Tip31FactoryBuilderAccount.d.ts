@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type Tip31FactoryBuilderSetRootCodeInput = {
     rootCode: string;
 };
@@ -32,46 +31,15 @@ export declare class Tip31FactoryBuilderAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runSetRootCode(input: Tip31FactoryBuilderSetRootCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setRootCode(input: Tip31FactoryBuilderSetRootCodeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSetWalletCode(input: Tip31FactoryBuilderSetWalletCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setWalletCode(input: Tip31FactoryBuilderSetWalletCodeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDeployTokenFactory(input: Tip31FactoryBuilderDeployTokenFactoryInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31FactoryBuilderDeployTokenFactoryOutput;
-    }>;
-    deployTokenFactory(input: Tip31FactoryBuilderDeployTokenFactoryInput): Promise<{
-        transaction: Transaction;
-        output: Tip31FactoryBuilderDeployTokenFactoryOutput;
-    }>;
-    run_rootCode(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31FactoryBuilder_rootCodeOutput;
-    }>;
-    _rootCode(): Promise<{
-        transaction: Transaction;
-        output: Tip31FactoryBuilder_rootCodeOutput;
-    }>;
-    run_walletCode(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31FactoryBuilder_walletCodeOutput;
-    }>;
-    _walletCode(): Promise<{
-        transaction: Transaction;
-        output: Tip31FactoryBuilder_walletCodeOutput;
-    }>;
+    runSetRootCode(input: Tip31FactoryBuilderSetRootCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setRootCode(input: Tip31FactoryBuilderSetRootCodeInput): Promise<RunLocalHelperResult<void>>;
+    runSetWalletCode(input: Tip31FactoryBuilderSetWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setWalletCode(input: Tip31FactoryBuilderSetWalletCodeInput): Promise<RunLocalHelperResult<void>>;
+    runDeployTokenFactory(input: Tip31FactoryBuilderDeployTokenFactoryInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31FactoryBuilderDeployTokenFactoryOutput>>;
+    deployTokenFactory(input: Tip31FactoryBuilderDeployTokenFactoryInput): Promise<RunLocalHelperResult<Tip31FactoryBuilderDeployTokenFactoryOutput>>;
+    run_rootCode(options?: RunHelperOptions): Promise<RunHelperResult<Tip31FactoryBuilder_rootCodeOutput>>;
+    _rootCode(): Promise<RunLocalHelperResult<Tip31FactoryBuilder_rootCodeOutput>>;
+    run_walletCode(options?: RunHelperOptions): Promise<RunHelperResult<Tip31FactoryBuilder_walletCodeOutput>>;
+    _walletCode(): Promise<RunLocalHelperResult<Tip31FactoryBuilder_walletCodeOutput>>;
 }
 //# sourceMappingURL=Tip31FactoryBuilderAccount.d.ts.map

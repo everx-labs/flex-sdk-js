@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -104,91 +106,51 @@ export class UserDataConfigAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runOnDeploy(input: UserDataConfigOnDeployInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onDeploy", input);
+    async runOnDeploy(input: UserDataConfigOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onDeploy", input, options);
     }
 
-    async onDeploy(input: UserDataConfigOnDeployInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onDeploy(input: UserDataConfigOnDeployInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onDeploy", input);
     }
 
-    async runDeployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: UserDataConfigDeployFlexClientOutput,
-    }> {
-        return await runHelper(this, "deployFlexClient", input);
+    async runDeployFlexClient(input: UserDataConfigDeployFlexClientInput, options?: RunHelperOptions): Promise<RunHelperResult<UserDataConfigDeployFlexClientOutput>> {
+        return await runHelper(this, "deployFlexClient", input, options);
     }
 
-    async deployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<{
-        transaction: Transaction,
-        output: UserDataConfigDeployFlexClientOutput,
-    }> {
+    async deployFlexClient(input: UserDataConfigDeployFlexClientInput): Promise<RunLocalHelperResult<UserDataConfigDeployFlexClientOutput>> {
         return await runLocalHelper(this, "deployFlexClient", input);
     }
 
-    async runRequestDetails(input: UserDataConfigRequestDetailsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: UserDataConfigRequestDetailsOutput,
-    }> {
-        return await runHelper(this, "requestDetails", input);
+    async runRequestDetails(input: UserDataConfigRequestDetailsInput, options?: RunHelperOptions): Promise<RunHelperResult<UserDataConfigRequestDetailsOutput>> {
+        return await runHelper(this, "requestDetails", input, options);
     }
 
-    async requestDetails(input: UserDataConfigRequestDetailsInput): Promise<{
-        transaction: Transaction,
-        output: UserDataConfigRequestDetailsOutput,
-    }> {
+    async requestDetails(input: UserDataConfigRequestDetailsInput): Promise<RunLocalHelperResult<UserDataConfigRequestDetailsOutput>> {
         return await runLocalHelper(this, "requestDetails", input);
     }
 
-    async runGetFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: UserDataConfigGetFlexClientAddrOutput,
-    }> {
-        return await runHelper(this, "getFlexClientAddr", input);
+    async runGetFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput, options?: RunHelperOptions): Promise<RunHelperResult<UserDataConfigGetFlexClientAddrOutput>> {
+        return await runHelper(this, "getFlexClientAddr", input, options);
     }
 
-    async getFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<{
-        transaction: Transaction,
-        output: UserDataConfigGetFlexClientAddrOutput,
-    }> {
+    async getFlexClientAddr(input: UserDataConfigGetFlexClientAddrInput): Promise<RunLocalHelperResult<UserDataConfigGetFlexClientAddrOutput>> {
         return await runLocalHelper(this, "getFlexClientAddr", input);
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: UserDataConfigGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<UserDataConfigGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: UserDataConfigGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<UserDataConfigGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runGetConfig(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: UserDataConfigGetConfigOutput,
-    }> {
-        return await runHelper(this, "getConfig", {});
+    async runGetConfig(options?: RunHelperOptions): Promise<RunHelperResult<UserDataConfigGetConfigOutput>> {
+        return await runHelper(this, "getConfig", {}, options);
     }
 
-    async getConfig(): Promise<{
-        transaction: Transaction,
-        output: UserDataConfigGetConfigOutput,
-    }> {
+    async getConfig(): Promise<RunLocalHelperResult<UserDataConfigGetConfigOutput>> {
         return await runLocalHelper(this, "getConfig", {});
     }
 

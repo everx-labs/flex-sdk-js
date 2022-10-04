@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type WrappersConfigOnDeployInput = {
     keep_evers: string | number | bigint;
     evers?: {
@@ -75,67 +74,21 @@ export declare class WrappersConfigAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(input: WrappersConfigOnDeployInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onDeploy(input: WrappersConfigOnDeployInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runOnWICsCloned(input: WrappersConfigOnWICsClonedInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onWICsCloned(input: WrappersConfigOnWICsClonedInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runAddWrapperType(input: WrappersConfigAddWrapperTypeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    addWrapperType(input: WrappersConfigAddWrapperTypeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runAddWrapper(input: WrappersConfigAddWrapperInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    addWrapper(input: WrappersConfigAddWrapperInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runUnlistWrapper(input: WrappersConfigUnlistWrapperInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    unlistWrapper(input: WrappersConfigUnlistWrapperInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runCloneUpgrade(input: WrappersConfigCloneUpgradeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrappersConfigCloneUpgradeOutput;
-    }>;
-    cloneUpgrade(input: WrappersConfigCloneUpgradeInput): Promise<{
-        transaction: Transaction;
-        output: WrappersConfigCloneUpgradeOutput;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrappersConfigGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: WrappersConfigGetDetailsOutput;
-    }>;
-    runGetConfig(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrappersConfigGetConfigOutput;
-    }>;
-    getConfig(): Promise<{
-        transaction: Transaction;
-        output: WrappersConfigGetConfigOutput;
-    }>;
+    runOnDeploy(input: WrappersConfigOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onDeploy(input: WrappersConfigOnDeployInput): Promise<RunLocalHelperResult<void>>;
+    runOnWICsCloned(input: WrappersConfigOnWICsClonedInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onWICsCloned(input: WrappersConfigOnWICsClonedInput): Promise<RunLocalHelperResult<void>>;
+    runAddWrapperType(input: WrappersConfigAddWrapperTypeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    addWrapperType(input: WrappersConfigAddWrapperTypeInput): Promise<RunLocalHelperResult<void>>;
+    runAddWrapper(input: WrappersConfigAddWrapperInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    addWrapper(input: WrappersConfigAddWrapperInput): Promise<RunLocalHelperResult<void>>;
+    runUnlistWrapper(input: WrappersConfigUnlistWrapperInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    unlistWrapper(input: WrappersConfigUnlistWrapperInput): Promise<RunLocalHelperResult<void>>;
+    runCloneUpgrade(input: WrappersConfigCloneUpgradeInput, options?: RunHelperOptions): Promise<RunHelperResult<WrappersConfigCloneUpgradeOutput>>;
+    cloneUpgrade(input: WrappersConfigCloneUpgradeInput): Promise<RunLocalHelperResult<WrappersConfigCloneUpgradeOutput>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<WrappersConfigGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<WrappersConfigGetDetailsOutput>>;
+    runGetConfig(options?: RunHelperOptions): Promise<RunHelperResult<WrappersConfigGetConfigOutput>>;
+    getConfig(): Promise<RunLocalHelperResult<WrappersConfigGetConfigOutput>>;
 }
 //# sourceMappingURL=WrappersConfigAccount.d.ts.map

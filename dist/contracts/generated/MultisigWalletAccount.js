@@ -23,9 +23,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "constructor", input);
         });
     }
-    runAcceptTransfer(input) {
+    runAcceptTransfer(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "acceptTransfer", input);
+            return yield (0, helpers_1.runHelper)(this, "acceptTransfer", input, options);
         });
     }
     acceptTransfer(input) {
@@ -33,9 +33,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "acceptTransfer", input);
         });
     }
-    runSendTransaction(input) {
+    runSendTransaction(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "sendTransaction", input);
+            return yield (0, helpers_1.runHelper)(this, "sendTransaction", input, options);
         });
     }
     sendTransaction(input) {
@@ -43,9 +43,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "sendTransaction", input);
         });
     }
-    runSubmitTransaction(input) {
+    runSubmitTransaction(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "submitTransaction", input);
+            return yield (0, helpers_1.runHelper)(this, "submitTransaction", input, options);
         });
     }
     submitTransaction(input) {
@@ -53,9 +53,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "submitTransaction", input);
         });
     }
-    runConfirmTransaction(input) {
+    runConfirmTransaction(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "confirmTransaction", input);
+            return yield (0, helpers_1.runHelper)(this, "confirmTransaction", input, options);
         });
     }
     confirmTransaction(input) {
@@ -63,9 +63,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "confirmTransaction", input);
         });
     }
-    runIsConfirmed(input) {
+    runIsConfirmed(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "isConfirmed", input);
+            return yield (0, helpers_1.runHelper)(this, "isConfirmed", input, options);
         });
     }
     isConfirmed(input) {
@@ -73,9 +73,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "isConfirmed", input);
         });
     }
-    runGetParameters() {
+    runGetParameters(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getParameters", {});
+            return yield (0, helpers_1.runHelper)(this, "getParameters", {}, options);
         });
     }
     getParameters() {
@@ -83,9 +83,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getParameters", {});
         });
     }
-    runGetTransaction(input) {
+    runGetTransaction(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getTransaction", input);
+            return yield (0, helpers_1.runHelper)(this, "getTransaction", input, options);
         });
     }
     getTransaction(input) {
@@ -93,9 +93,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getTransaction", input);
         });
     }
-    runGetTransactions() {
+    runGetTransactions(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getTransactions", {});
+            return yield (0, helpers_1.runHelper)(this, "getTransactions", {}, options);
         });
     }
     getTransactions() {
@@ -103,9 +103,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getTransactions", {});
         });
     }
-    runGetTransactionIds() {
+    runGetTransactionIds(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getTransactionIds", {});
+            return yield (0, helpers_1.runHelper)(this, "getTransactionIds", {}, options);
         });
     }
     getTransactionIds() {
@@ -113,9 +113,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getTransactionIds", {});
         });
     }
-    runGetCustodians() {
+    runGetCustodians(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getCustodians", {});
+            return yield (0, helpers_1.runHelper)(this, "getCustodians", {}, options);
         });
     }
     getCustodians() {
@@ -123,9 +123,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getCustodians", {});
         });
     }
-    runCreateLimit(input) {
+    runCreateLimit(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "createLimit", input);
+            return yield (0, helpers_1.runHelper)(this, "createLimit", input, options);
         });
     }
     createLimit(input) {
@@ -133,9 +133,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "createLimit", input);
         });
     }
-    runConfirmLimit(input) {
+    runConfirmLimit(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "confirmLimit", input);
+            return yield (0, helpers_1.runHelper)(this, "confirmLimit", input, options);
         });
     }
     confirmLimit(input) {
@@ -143,9 +143,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "confirmLimit", input);
         });
     }
-    runChangeLimit(input) {
+    runChangeLimit(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "changeLimit", input);
+            return yield (0, helpers_1.runHelper)(this, "changeLimit", input, options);
         });
     }
     changeLimit(input) {
@@ -153,9 +153,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "changeLimit", input);
         });
     }
-    runDeleteLimit(input) {
+    runDeleteLimit(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "deleteLimit", input);
+            return yield (0, helpers_1.runHelper)(this, "deleteLimit", input, options);
         });
     }
     deleteLimit(input) {
@@ -163,9 +163,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "deleteLimit", input);
         });
     }
-    runGetLimits() {
+    runGetLimits(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getLimits", {});
+            return yield (0, helpers_1.runHelper)(this, "getLimits", {}, options);
         });
     }
     getLimits() {
@@ -173,9 +173,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getLimits", {});
         });
     }
-    runGetPendingLimit(input) {
+    runGetPendingLimit(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getPendingLimit", input);
+            return yield (0, helpers_1.runHelper)(this, "getPendingLimit", input, options);
         });
     }
     getPendingLimit(input) {
@@ -183,9 +183,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getPendingLimit", input);
         });
     }
-    runGetPendingLimits() {
+    runGetPendingLimits(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getPendingLimits", {});
+            return yield (0, helpers_1.runHelper)(this, "getPendingLimits", {}, options);
         });
     }
     getPendingLimits() {
@@ -193,9 +193,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getPendingLimits", {});
         });
     }
-    runGetLimit(input) {
+    runGetLimit(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getLimit", input);
+            return yield (0, helpers_1.runHelper)(this, "getLimit", input, options);
         });
     }
     getLimit(input) {
@@ -203,9 +203,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getLimit", input);
         });
     }
-    runSubmitUpdate(input) {
+    runSubmitUpdate(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "submitUpdate", input);
+            return yield (0, helpers_1.runHelper)(this, "submitUpdate", input, options);
         });
     }
     submitUpdate(input) {
@@ -213,9 +213,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "submitUpdate", input);
         });
     }
-    runConfirmUpdate(input) {
+    runConfirmUpdate(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "confirmUpdate", input);
+            return yield (0, helpers_1.runHelper)(this, "confirmUpdate", input, options);
         });
     }
     confirmUpdate(input) {
@@ -223,9 +223,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "confirmUpdate", input);
         });
     }
-    runExecuteUpdate(input) {
+    runExecuteUpdate(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "executeUpdate", input);
+            return yield (0, helpers_1.runHelper)(this, "executeUpdate", input, options);
         });
     }
     executeUpdate(input) {
@@ -233,9 +233,9 @@ class MultisigWalletAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "executeUpdate", input);
         });
     }
-    runGetUpdateRequests() {
+    runGetUpdateRequests(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getUpdateRequests", {});
+            return yield (0, helpers_1.runHelper)(this, "getUpdateRequests", {}, options);
         });
     }
     getUpdateRequests() {

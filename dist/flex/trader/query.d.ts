@@ -1,5 +1,5 @@
 import { Flex } from "../flex";
-import { WalletInfo } from "../client/index";
+import { WalletInfo } from "../client";
 import { OrderInfo, TradeInfo } from "./types";
 export declare function queryOrders(flex: Flex, trader: string): Promise<OrderInfo[]>;
 export declare function queryTrades(flex: Flex, trader: string): Promise<TradeInfo[]>;

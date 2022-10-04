@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -61,44 +63,27 @@ export class WrapperDeployerEverAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSetWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setWrapperEverCode", input);
+    async runSetWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setWrapperEverCode", input, options);
     }
 
-    async setWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setWrapperEverCode", input);
     }
 
-    async runSetFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setFlexWalletCode", input);
+    async runSetFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setFlexWalletCode", input, options);
     }
 
-    async setFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setFlexWalletCode", input);
     }
 
-    async runDeploy(input: WrapperDeployerEverDeployInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: WrapperDeployerEverDeployOutput,
-    }> {
-        return await runHelper(this, "deploy", input);
+    async runDeploy(input: WrapperDeployerEverDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<WrapperDeployerEverDeployOutput>> {
+        return await runHelper(this, "deploy", input, options);
     }
 
-    async deploy_(input: WrapperDeployerEverDeployInput): Promise<{
-        transaction: Transaction,
-        output: WrapperDeployerEverDeployOutput,
-    }> {
+    async deploy_(input: WrapperDeployerEverDeployInput): Promise<RunLocalHelperResult<WrapperDeployerEverDeployOutput>> {
         return await runLocalHelper(this, "deploy", input);
     }
 

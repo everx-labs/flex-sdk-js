@@ -23,9 +23,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "", {});
         });
     }
-    runInit(input) {
+    runInit(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "init", input);
+            return yield (0, helpers_1.runHelper)(this, "init", input, options);
         });
     }
     init(input) {
@@ -33,9 +33,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "init", input);
         });
     }
-    runDeployEmptyWallet(input) {
+    runDeployEmptyWallet(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "deployEmptyWallet", input);
+            return yield (0, helpers_1.runHelper)(this, "deployEmptyWallet", input, options);
         });
     }
     deployEmptyWallet(input) {
@@ -43,9 +43,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "deployEmptyWallet", input);
         });
     }
-    runOnEverTransfer(input) {
+    runOnEverTransfer(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "onEverTransfer", input);
+            return yield (0, helpers_1.runHelper)(this, "onEverTransfer", input, options);
         });
     }
     onEverTransfer(input) {
@@ -53,9 +53,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "onEverTransfer", input);
         });
     }
-    runBurn(input) {
+    runBurn(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "burn", input);
+            return yield (0, helpers_1.runHelper)(this, "burn", input, options);
         });
     }
     burn(input) {
@@ -63,9 +63,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "burn", input);
         });
     }
-    runTransferFromReserveWallet(input) {
+    runTransferFromReserveWallet(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "transferFromReserveWallet", input);
+            return yield (0, helpers_1.runHelper)(this, "transferFromReserveWallet", input, options);
         });
     }
     transferFromReserveWallet(input) {
@@ -73,9 +73,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "transferFromReserveWallet", input);
         });
     }
-    runRequestTotalGranted(input) {
+    runRequestTotalGranted(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "requestTotalGranted", input);
+            return yield (0, helpers_1.runHelper)(this, "requestTotalGranted", input, options);
         });
     }
     requestTotalGranted(input) {
@@ -83,9 +83,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "requestTotalGranted", input);
         });
     }
-    runCloned(input) {
+    runCloned(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "cloned", input);
+            return yield (0, helpers_1.runHelper)(this, "cloned", input, options);
         });
     }
     cloned(input) {
@@ -93,9 +93,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "cloned", input);
         });
     }
-    runSetCloned(input) {
+    runSetCloned(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "setCloned", input);
+            return yield (0, helpers_1.runHelper)(this, "setCloned", input, options);
         });
     }
     setCloned(input) {
@@ -103,9 +103,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "setCloned", input);
         });
     }
-    runGetDetails() {
+    runGetDetails(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getDetails", {});
+            return yield (0, helpers_1.runHelper)(this, "getDetails", {}, options);
         });
     }
     getDetails() {
@@ -113,9 +113,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getDetails", {});
         });
     }
-    runGetTip3Config() {
+    runGetTip3Config(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getTip3Config", {});
+            return yield (0, helpers_1.runHelper)(this, "getTip3Config", {}, options);
         });
     }
     getTip3Config() {
@@ -123,9 +123,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getTip3Config", {});
         });
     }
-    runHasInternalWalletCode() {
+    runHasInternalWalletCode(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "hasInternalWalletCode", {});
+            return yield (0, helpers_1.runHelper)(this, "hasInternalWalletCode", {}, options);
         });
     }
     hasInternalWalletCode() {
@@ -133,9 +133,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "hasInternalWalletCode", {});
         });
     }
-    runGetWalletAddress(input) {
+    runGetWalletAddress(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getWalletAddress", input);
+            return yield (0, helpers_1.runHelper)(this, "getWalletAddress", input, options);
         });
     }
     getWalletAddress(input) {
@@ -143,9 +143,9 @@ class WrapperEverAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "getWalletAddress", input);
         });
     }
-    runGetReserveWallet() {
+    runGetReserveWallet(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getReserveWallet", {});
+            return yield (0, helpers_1.runHelper)(this, "getReserveWallet", {}, options);
         });
     }
     getReserveWallet() {

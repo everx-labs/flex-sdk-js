@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type FlexOnDeployInput = {
     flex_keep_evers: string | number | bigint;
     evers: {
@@ -97,73 +96,21 @@ export declare class FlexAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnDeploy(input: FlexOnDeployInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    onDeploy(input: FlexOnDeployInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runAddXchgPair(input: FlexAddXchgPairInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexAddXchgPairOutput;
-    }>;
-    addXchgPair(input: FlexAddXchgPairInput): Promise<{
-        transaction: Transaction;
-        output: FlexAddXchgPairOutput;
-    }>;
-    runUnlistXchgPair(input: FlexUnlistXchgPairInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    unlistXchgPair(input: FlexUnlistXchgPairInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runRequestPairs(input: FlexRequestPairsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexRequestPairsOutput;
-    }>;
-    requestPairs(input: FlexRequestPairsInput): Promise<{
-        transaction: Transaction;
-        output: FlexRequestPairsOutput;
-    }>;
-    runGetConfig(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexGetConfigOutput;
-    }>;
-    getConfig(): Promise<{
-        transaction: Transaction;
-        output: FlexGetConfigOutput;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: FlexGetDetailsOutput;
-    }>;
-    runGetXchgTradingPair(input: FlexGetXchgTradingPairInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexGetXchgTradingPairOutput;
-    }>;
-    getXchgTradingPair(input: FlexGetXchgTradingPairInput): Promise<{
-        transaction: Transaction;
-        output: FlexGetXchgTradingPairOutput;
-    }>;
-    runCalcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: FlexCalcLendTokensForOrderOutput;
-    }>;
-    calcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput): Promise<{
-        transaction: Transaction;
-        output: FlexCalcLendTokensForOrderOutput;
-    }>;
+    runOnDeploy(input: FlexOnDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    onDeploy(input: FlexOnDeployInput): Promise<RunLocalHelperResult<void>>;
+    runAddXchgPair(input: FlexAddXchgPairInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexAddXchgPairOutput>>;
+    addXchgPair(input: FlexAddXchgPairInput): Promise<RunLocalHelperResult<FlexAddXchgPairOutput>>;
+    runUnlistXchgPair(input: FlexUnlistXchgPairInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    unlistXchgPair(input: FlexUnlistXchgPairInput): Promise<RunLocalHelperResult<void>>;
+    runRequestPairs(input: FlexRequestPairsInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexRequestPairsOutput>>;
+    requestPairs(input: FlexRequestPairsInput): Promise<RunLocalHelperResult<FlexRequestPairsOutput>>;
+    runGetConfig(options?: RunHelperOptions): Promise<RunHelperResult<FlexGetConfigOutput>>;
+    getConfig(): Promise<RunLocalHelperResult<FlexGetConfigOutput>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<FlexGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<FlexGetDetailsOutput>>;
+    runGetXchgTradingPair(input: FlexGetXchgTradingPairInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexGetXchgTradingPairOutput>>;
+    getXchgTradingPair(input: FlexGetXchgTradingPairInput): Promise<RunLocalHelperResult<FlexGetXchgTradingPairOutput>>;
+    runCalcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexCalcLendTokensForOrderOutput>>;
+    calcLendTokensForOrder(input: FlexCalcLendTokensForOrderInput): Promise<RunLocalHelperResult<FlexCalcLendTokensForOrderOutput>>;
 }
 //# sourceMappingURL=FlexAccount.d.ts.map

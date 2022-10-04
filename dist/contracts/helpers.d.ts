@@ -30,22 +30,27 @@ export declare type Transaction = {
     in_msg: string;
     [name: string]: unknown;
 };
-export declare function runHelper<O>(account: Account & {
-    log?: Log;
-}, fn: string, params: object): Promise<{
+export declare type RunHelperOptions = {
+    skipTransactionTree?: boolean;
+};
+export declare type RunHelperResult<O> = {
     transaction: Transaction;
     transactionTree: ResultOfQueryTransactionTree;
     output: O;
-}>;
+};
+export declare function runHelper<O>(account: Account & {
+    log?: Log;
+}, fn: string, params: object, options?: RunHelperOptions): Promise<RunHelperResult<O>>;
 export declare function deployHelper(account: Account & {
     log?: Log;
 }, fn: string | undefined, params: object | undefined): Promise<{
     transaction: Transaction;
 }>;
-export declare function runLocalHelper<O>(account: Account & {
-    log?: Log;
-}, fn: string, params: object): Promise<{
+export declare type RunLocalHelperResult<O> = {
     transaction: Transaction;
     output: O;
-}>;
+};
+export declare function runLocalHelper<O>(account: Account & {
+    log?: Log;
+}, fn: string, params: object): Promise<RunLocalHelperResult<O>>;
 //# sourceMappingURL=helpers.d.ts.map

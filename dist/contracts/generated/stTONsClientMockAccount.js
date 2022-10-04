@@ -23,9 +23,9 @@ class stTONsClientMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "constructor", input);
         });
     }
-    runDeployStTONs(input) {
+    runDeployStTONs(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "deployStTONs", input);
+            return yield (0, helpers_1.runHelper)(this, "deployStTONs", input, options);
         });
     }
     deployStTONs(input) {
@@ -33,9 +33,9 @@ class stTONsClientMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "deployStTONs", input);
         });
     }
-    runReturnStake(input) {
+    runReturnStake(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "returnStake", input);
+            return yield (0, helpers_1.runHelper)(this, "returnStake", input, options);
         });
     }
     returnStake(input) {
@@ -43,9 +43,9 @@ class stTONsClientMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "returnStake", input);
         });
     }
-    runFinalize(input) {
+    runFinalize(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "finalize", input);
+            return yield (0, helpers_1.runHelper)(this, "finalize", input, options);
         });
     }
     finalize(input) {
@@ -53,9 +53,9 @@ class stTONsClientMockAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "finalize", input);
         });
     }
-    runGetOwnerPubkey() {
+    runGetOwnerPubkey(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "getOwnerPubkey", {});
+            return yield (0, helpers_1.runHelper)(this, "getOwnerPubkey", {}, options);
         });
     }
     getOwnerPubkey() {

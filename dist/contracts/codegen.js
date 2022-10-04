@@ -15,10 +15,12 @@ function contractCodeHeader(options) {
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     ${options.hasDeploy ? "deployHelper," : ""}
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -121,29 +123,28 @@ function fnTypeDecl(contractName, fn, isInput) {
 function fnTypesCode(contractName, fn) {
     return fnTypeDecl(contractName, fn, true) + fnTypeDecl(contractName, fn, false);
 }
-function fnHeader(contractName, fn, prefix) {
-    const name = fnName(fn, prefix);
+function fnHeader(contractName, fn, isRun) {
+    const name = fnName(fn, isRun ? "run" : "");
     let header = `    async ${name}(`;
     if (fn.inputs.length > 0) {
         header += `input: ${fnName(fn, contractName, "Input")}`;
     }
-    header += "): Promise<{\n";
-    header += "        transaction: Transaction,\n";
-    if (prefix === "run") {
-        header += "        transactionTree: ResultOfQueryTransactionTree,\n";
+    if (isRun) {
+        if (fn.inputs.length > 0) {
+            header += ", ";
+        }
+        header += `options?: RunHelperOptions`;
     }
-    if (fn.outputs.length > 0) {
-        header += `        output: ${fnName(fn, contractName, "Output")},\n`;
-    }
-    header += "    }> {\n";
-    return header;
+    const returnType = `${isRun ? "RunHelperResult" : "RunLocalHelperResult"}`;
+    const outputType = fn.outputs.length > 0 ? fnName(fn, contractName, "Output") : "void";
+    return header + `): Promise<${returnType}<${outputType}>> {\n`;
 }
 function fnCode(contractName, fn) {
     const input = fn.inputs.length > 0 ? "input" : "{}";
-    let code = fnHeader(contractName, fn, "run");
-    code += `        return await runHelper(this, "${fn.name}", ${input});\n`;
+    let code = fnHeader(contractName, fn, true);
+    code += `        return await runHelper(this, "${fn.name}", ${input}, options);\n`;
     code += `    }\n\n`;
-    code += fnHeader(contractName, fn, "");
+    code += fnHeader(contractName, fn, false);
     code += `        return await runLocalHelper(this, "${fn.name}", ${input});\n`;
     code += `    }\n\n`;
     return code;

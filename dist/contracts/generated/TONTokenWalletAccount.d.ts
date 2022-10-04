@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type TONTokenWalletTransferInput = {
     _answer_id: number;
     answer_addr?: string;
@@ -120,76 +119,23 @@ export declare class TONTokenWalletAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runTransfer(input: TONTokenWalletTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transfer(input: TONTokenWalletTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runTransferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBalance(input: TONTokenWalletBalanceInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: TONTokenWalletBalanceOutput;
-    }>;
-    balance(input: TONTokenWalletBalanceInput): Promise<{
-        transaction: Transaction;
-        output: TONTokenWalletBalanceOutput;
-    }>;
-    runAcceptMint(input: TONTokenWalletAcceptMintInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    acceptMint(input: TONTokenWalletAcceptMintInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runAcceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    acceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDestroy(input: TONTokenWalletDestroyInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    destroy(input: TONTokenWalletDestroyInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDetails(input: TONTokenWalletDetailsInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: TONTokenWalletDetailsOutput;
-    }>;
-    details(input: TONTokenWalletDetailsInput): Promise<{
-        transaction: Transaction;
-        output: TONTokenWalletDetailsOutput;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: TONTokenWalletGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: TONTokenWalletGetDetailsOutput;
-    }>;
-    runGetBalance(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: TONTokenWalletGetBalanceOutput;
-    }>;
-    getBalance_(): Promise<{
-        transaction: Transaction;
-        output: TONTokenWalletGetBalanceOutput;
-    }>;
+    runTransfer(input: TONTokenWalletTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transfer(input: TONTokenWalletTransferInput): Promise<RunLocalHelperResult<void>>;
+    runTransferToRecipient(input: TONTokenWalletTransferToRecipientInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transferToRecipient(input: TONTokenWalletTransferToRecipientInput): Promise<RunLocalHelperResult<void>>;
+    runBalance(input: TONTokenWalletBalanceInput, options?: RunHelperOptions): Promise<RunHelperResult<TONTokenWalletBalanceOutput>>;
+    balance(input: TONTokenWalletBalanceInput): Promise<RunLocalHelperResult<TONTokenWalletBalanceOutput>>;
+    runAcceptMint(input: TONTokenWalletAcceptMintInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    acceptMint(input: TONTokenWalletAcceptMintInput): Promise<RunLocalHelperResult<void>>;
+    runAcceptTransfer(input: TONTokenWalletAcceptTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    acceptTransfer(input: TONTokenWalletAcceptTransferInput): Promise<RunLocalHelperResult<void>>;
+    runDestroy(input: TONTokenWalletDestroyInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    destroy(input: TONTokenWalletDestroyInput): Promise<RunLocalHelperResult<void>>;
+    runDetails(input: TONTokenWalletDetailsInput, options?: RunHelperOptions): Promise<RunHelperResult<TONTokenWalletDetailsOutput>>;
+    details(input: TONTokenWalletDetailsInput): Promise<RunLocalHelperResult<TONTokenWalletDetailsOutput>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<TONTokenWalletGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<TONTokenWalletGetDetailsOutput>>;
+    runGetBalance(options?: RunHelperOptions): Promise<RunHelperResult<TONTokenWalletGetBalanceOutput>>;
+    getBalance_(): Promise<RunLocalHelperResult<TONTokenWalletGetBalanceOutput>>;
 }
 //# sourceMappingURL=TONTokenWalletAccount.d.ts.map

@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type PriceXchgOnTip3LendOwnershipInput = {
     _answer_id: number;
     balance: string | number | bigint;
@@ -122,44 +121,15 @@ export declare class PriceXchgAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runOnTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: PriceXchgOnTip3LendOwnershipOutput;
-    }>;
-    onTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput): Promise<{
-        transaction: Transaction;
-        output: PriceXchgOnTip3LendOwnershipOutput;
-    }>;
-    runProcessQueue(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    processQueue(): Promise<{
-        transaction: Transaction;
-    }>;
-    runCancelOrder(input: PriceXchgCancelOrderInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    cancelOrder(input: PriceXchgCancelOrderInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runCancelWalletOrder(input: PriceXchgCancelWalletOrderInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    cancelWalletOrder(input: PriceXchgCancelWalletOrderInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runGetDetails(): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: PriceXchgGetDetailsOutput;
-    }>;
-    getDetails(): Promise<{
-        transaction: Transaction;
-        output: PriceXchgGetDetailsOutput;
-    }>;
+    runOnTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput, options?: RunHelperOptions): Promise<RunHelperResult<PriceXchgOnTip3LendOwnershipOutput>>;
+    onTip3LendOwnership(input: PriceXchgOnTip3LendOwnershipInput): Promise<RunLocalHelperResult<PriceXchgOnTip3LendOwnershipOutput>>;
+    runProcessQueue(options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    processQueue(): Promise<RunLocalHelperResult<void>>;
+    runCancelOrder(input: PriceXchgCancelOrderInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    cancelOrder(input: PriceXchgCancelOrderInput): Promise<RunLocalHelperResult<void>>;
+    runCancelWalletOrder(input: PriceXchgCancelWalletOrderInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    cancelWalletOrder(input: PriceXchgCancelWalletOrderInput): Promise<RunLocalHelperResult<void>>;
+    runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<PriceXchgGetDetailsOutput>>;
+    getDetails(): Promise<RunLocalHelperResult<PriceXchgGetDetailsOutput>>;
 }
 //# sourceMappingURL=PriceXchgAccount.d.ts.map

@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -63,74 +65,43 @@ export class Tip31FactoryBuilderAccount extends Account {
         return await deployHelper(this, "constructor", {});
     }
 
-    async runSetRootCode(input: Tip31FactoryBuilderSetRootCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setRootCode", input);
+    async runSetRootCode(input: Tip31FactoryBuilderSetRootCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setRootCode", input, options);
     }
 
-    async setRootCode(input: Tip31FactoryBuilderSetRootCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setRootCode(input: Tip31FactoryBuilderSetRootCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setRootCode", input);
     }
 
-    async runSetWalletCode(input: Tip31FactoryBuilderSetWalletCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setWalletCode", input);
+    async runSetWalletCode(input: Tip31FactoryBuilderSetWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setWalletCode", input, options);
     }
 
-    async setWalletCode(input: Tip31FactoryBuilderSetWalletCodeInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setWalletCode(input: Tip31FactoryBuilderSetWalletCodeInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setWalletCode", input);
     }
 
-    async runDeployTokenFactory(input: Tip31FactoryBuilderDeployTokenFactoryInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31FactoryBuilderDeployTokenFactoryOutput,
-    }> {
-        return await runHelper(this, "deployTokenFactory", input);
+    async runDeployTokenFactory(input: Tip31FactoryBuilderDeployTokenFactoryInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31FactoryBuilderDeployTokenFactoryOutput>> {
+        return await runHelper(this, "deployTokenFactory", input, options);
     }
 
-    async deployTokenFactory(input: Tip31FactoryBuilderDeployTokenFactoryInput): Promise<{
-        transaction: Transaction,
-        output: Tip31FactoryBuilderDeployTokenFactoryOutput,
-    }> {
+    async deployTokenFactory(input: Tip31FactoryBuilderDeployTokenFactoryInput): Promise<RunLocalHelperResult<Tip31FactoryBuilderDeployTokenFactoryOutput>> {
         return await runLocalHelper(this, "deployTokenFactory", input);
     }
 
-    async run_rootCode(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31FactoryBuilder_rootCodeOutput,
-    }> {
-        return await runHelper(this, "_rootCode", {});
+    async run_rootCode(options?: RunHelperOptions): Promise<RunHelperResult<Tip31FactoryBuilder_rootCodeOutput>> {
+        return await runHelper(this, "_rootCode", {}, options);
     }
 
-    async _rootCode(): Promise<{
-        transaction: Transaction,
-        output: Tip31FactoryBuilder_rootCodeOutput,
-    }> {
+    async _rootCode(): Promise<RunLocalHelperResult<Tip31FactoryBuilder_rootCodeOutput>> {
         return await runLocalHelper(this, "_rootCode", {});
     }
 
-    async run_walletCode(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31FactoryBuilder_walletCodeOutput,
-    }> {
-        return await runHelper(this, "_walletCode", {});
+    async run_walletCode(options?: RunHelperOptions): Promise<RunHelperResult<Tip31FactoryBuilder_walletCodeOutput>> {
+        return await runHelper(this, "_walletCode", {}, options);
     }
 
-    async _walletCode(): Promise<{
-        transaction: Transaction,
-        output: Tip31FactoryBuilder_walletCodeOutput,
-    }> {
+    async _walletCode(): Promise<RunLocalHelperResult<Tip31FactoryBuilder_walletCodeOutput>> {
         return await runLocalHelper(this, "_walletCode", {});
     }
 

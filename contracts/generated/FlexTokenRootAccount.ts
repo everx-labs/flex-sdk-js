@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -149,256 +151,139 @@ export class FlexTokenRootAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSetWalletCode(input: FlexTokenRootSetWalletCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootSetWalletCodeOutput,
-    }> {
-        return await runHelper(this, "setWalletCode", input);
+    async runSetWalletCode(input: FlexTokenRootSetWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootSetWalletCodeOutput>> {
+        return await runHelper(this, "setWalletCode", input, options);
     }
 
-    async setWalletCode(input: FlexTokenRootSetWalletCodeInput): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootSetWalletCodeOutput,
-    }> {
+    async setWalletCode(input: FlexTokenRootSetWalletCodeInput): Promise<RunLocalHelperResult<FlexTokenRootSetWalletCodeOutput>> {
         return await runLocalHelper(this, "setWalletCode", input);
     }
 
-    async runDeployWallet(input: FlexTokenRootDeployWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootDeployWalletOutput,
-    }> {
-        return await runHelper(this, "deployWallet", input);
+    async runDeployWallet(input: FlexTokenRootDeployWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootDeployWalletOutput>> {
+        return await runHelper(this, "deployWallet", input, options);
     }
 
-    async deployWallet(input: FlexTokenRootDeployWalletInput): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootDeployWalletOutput,
-    }> {
+    async deployWallet(input: FlexTokenRootDeployWalletInput): Promise<RunLocalHelperResult<FlexTokenRootDeployWalletOutput>> {
         return await runLocalHelper(this, "deployWallet", input);
     }
 
-    async runDeployEmptyWallet(input: FlexTokenRootDeployEmptyWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootDeployEmptyWalletOutput,
-    }> {
-        return await runHelper(this, "deployEmptyWallet", input);
+    async runDeployEmptyWallet(input: FlexTokenRootDeployEmptyWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootDeployEmptyWalletOutput>> {
+        return await runHelper(this, "deployEmptyWallet", input, options);
     }
 
-    async deployEmptyWallet(input: FlexTokenRootDeployEmptyWalletInput): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootDeployEmptyWalletOutput,
-    }> {
+    async deployEmptyWallet(input: FlexTokenRootDeployEmptyWalletInput): Promise<RunLocalHelperResult<FlexTokenRootDeployEmptyWalletOutput>> {
         return await runLocalHelper(this, "deployEmptyWallet", input);
     }
 
-    async runGrant(input: FlexTokenRootGrantInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "grant", input);
+    async runGrant(input: FlexTokenRootGrantInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "grant", input, options);
     }
 
-    async grant(input: FlexTokenRootGrantInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async grant(input: FlexTokenRootGrantInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "grant", input);
     }
 
-    async runMint(input: FlexTokenRootMintInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootMintOutput,
-    }> {
-        return await runHelper(this, "mint", input);
+    async runMint(input: FlexTokenRootMintInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootMintOutput>> {
+        return await runHelper(this, "mint", input, options);
     }
 
-    async mint(input: FlexTokenRootMintInput): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootMintOutput,
-    }> {
+    async mint(input: FlexTokenRootMintInput): Promise<RunLocalHelperResult<FlexTokenRootMintOutput>> {
         return await runLocalHelper(this, "mint", input);
     }
 
-    async runRequestTotalGranted(input: FlexTokenRootRequestTotalGrantedInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootRequestTotalGrantedOutput,
-    }> {
-        return await runHelper(this, "requestTotalGranted", input);
+    async runRequestTotalGranted(input: FlexTokenRootRequestTotalGrantedInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootRequestTotalGrantedOutput>> {
+        return await runHelper(this, "requestTotalGranted", input, options);
     }
 
-    async requestTotalGranted(input: FlexTokenRootRequestTotalGrantedInput): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootRequestTotalGrantedOutput,
-    }> {
+    async requestTotalGranted(input: FlexTokenRootRequestTotalGrantedInput): Promise<RunLocalHelperResult<FlexTokenRootRequestTotalGrantedOutput>> {
         return await runLocalHelper(this, "requestTotalGranted", input);
     }
 
-    async runGetName(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootGetNameOutput,
-    }> {
-        return await runHelper(this, "getName", {});
+    async runGetName(options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootGetNameOutput>> {
+        return await runHelper(this, "getName", {}, options);
     }
 
-    async getName(): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootGetNameOutput,
-    }> {
+    async getName(): Promise<RunLocalHelperResult<FlexTokenRootGetNameOutput>> {
         return await runLocalHelper(this, "getName", {});
     }
 
-    async runGetSymbol(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootGetSymbolOutput,
-    }> {
-        return await runHelper(this, "getSymbol", {});
+    async runGetSymbol(options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootGetSymbolOutput>> {
+        return await runHelper(this, "getSymbol", {}, options);
     }
 
-    async getSymbol(): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootGetSymbolOutput,
-    }> {
+    async getSymbol(): Promise<RunLocalHelperResult<FlexTokenRootGetSymbolOutput>> {
         return await runLocalHelper(this, "getSymbol", {});
     }
 
-    async runGetDecimals(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootGetDecimalsOutput,
-    }> {
-        return await runHelper(this, "getDecimals", {});
+    async runGetDecimals(options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootGetDecimalsOutput>> {
+        return await runHelper(this, "getDecimals", {}, options);
     }
 
-    async getDecimals(): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootGetDecimalsOutput,
-    }> {
+    async getDecimals(): Promise<RunLocalHelperResult<FlexTokenRootGetDecimalsOutput>> {
         return await runLocalHelper(this, "getDecimals", {});
     }
 
-    async runGetRootKey(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootGetRootKeyOutput,
-    }> {
-        return await runHelper(this, "getRootKey", {});
+    async runGetRootKey(options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootGetRootKeyOutput>> {
+        return await runHelper(this, "getRootKey", {}, options);
     }
 
-    async getRootKey(): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootGetRootKeyOutput,
-    }> {
+    async getRootKey(): Promise<RunLocalHelperResult<FlexTokenRootGetRootKeyOutput>> {
         return await runLocalHelper(this, "getRootKey", {});
     }
 
-    async runGetRootOwner(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootGetRootOwnerOutput,
-    }> {
-        return await runHelper(this, "getRootOwner", {});
+    async runGetRootOwner(options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootGetRootOwnerOutput>> {
+        return await runHelper(this, "getRootOwner", {}, options);
     }
 
-    async getRootOwner(): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootGetRootOwnerOutput,
-    }> {
+    async getRootOwner(): Promise<RunLocalHelperResult<FlexTokenRootGetRootOwnerOutput>> {
         return await runLocalHelper(this, "getRootOwner", {});
     }
 
-    async runGetTotalSupply(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootGetTotalSupplyOutput,
-    }> {
-        return await runHelper(this, "getTotalSupply", {});
+    async runGetTotalSupply(options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootGetTotalSupplyOutput>> {
+        return await runHelper(this, "getTotalSupply", {}, options);
     }
 
-    async getTotalSupply(): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootGetTotalSupplyOutput,
-    }> {
+    async getTotalSupply(): Promise<RunLocalHelperResult<FlexTokenRootGetTotalSupplyOutput>> {
         return await runLocalHelper(this, "getTotalSupply", {});
     }
 
-    async runGetTotalGranted(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootGetTotalGrantedOutput,
-    }> {
-        return await runHelper(this, "getTotalGranted", {});
+    async runGetTotalGranted(options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootGetTotalGrantedOutput>> {
+        return await runHelper(this, "getTotalGranted", {}, options);
     }
 
-    async getTotalGranted(): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootGetTotalGrantedOutput,
-    }> {
+    async getTotalGranted(): Promise<RunLocalHelperResult<FlexTokenRootGetTotalGrantedOutput>> {
         return await runLocalHelper(this, "getTotalGranted", {});
     }
 
-    async runHasWalletCode(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootHasWalletCodeOutput,
-    }> {
-        return await runHelper(this, "hasWalletCode", {});
+    async runHasWalletCode(options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootHasWalletCodeOutput>> {
+        return await runHelper(this, "hasWalletCode", {}, options);
     }
 
-    async hasWalletCode(): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootHasWalletCodeOutput,
-    }> {
+    async hasWalletCode(): Promise<RunLocalHelperResult<FlexTokenRootHasWalletCodeOutput>> {
         return await runLocalHelper(this, "hasWalletCode", {});
     }
 
-    async runGetWalletCode(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootGetWalletCodeOutput,
-    }> {
-        return await runHelper(this, "getWalletCode", {});
+    async runGetWalletCode(options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootGetWalletCodeOutput>> {
+        return await runHelper(this, "getWalletCode", {}, options);
     }
 
-    async getWalletCode(): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootGetWalletCodeOutput,
-    }> {
+    async getWalletCode(): Promise<RunLocalHelperResult<FlexTokenRootGetWalletCodeOutput>> {
         return await runLocalHelper(this, "getWalletCode", {});
     }
 
-    async runGetWalletAddress(input: FlexTokenRootGetWalletAddressInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootGetWalletAddressOutput,
-    }> {
-        return await runHelper(this, "getWalletAddress", input);
+    async runGetWalletAddress(input: FlexTokenRootGetWalletAddressInput, options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootGetWalletAddressOutput>> {
+        return await runHelper(this, "getWalletAddress", input, options);
     }
 
-    async getWalletAddress(input: FlexTokenRootGetWalletAddressInput): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootGetWalletAddressOutput,
-    }> {
+    async getWalletAddress(input: FlexTokenRootGetWalletAddressInput): Promise<RunLocalHelperResult<FlexTokenRootGetWalletAddressOutput>> {
         return await runLocalHelper(this, "getWalletAddress", input);
     }
 
-    async runGetWalletCodeHash(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: FlexTokenRootGetWalletCodeHashOutput,
-    }> {
-        return await runHelper(this, "getWalletCodeHash", {});
+    async runGetWalletCodeHash(options?: RunHelperOptions): Promise<RunHelperResult<FlexTokenRootGetWalletCodeHashOutput>> {
+        return await runHelper(this, "getWalletCodeHash", {}, options);
     }
 
-    async getWalletCodeHash(): Promise<{
-        transaction: Transaction,
-        output: FlexTokenRootGetWalletCodeHashOutput,
-    }> {
+    async getWalletCodeHash(): Promise<RunLocalHelperResult<FlexTokenRootGetWalletCodeHashOutput>> {
         return await runLocalHelper(this, "getWalletCodeHash", {});
     }
 

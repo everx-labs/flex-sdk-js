@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -207,293 +209,163 @@ export class Tip31RootAccount extends Account {
         return await deployHelper(this, "constructor", input);
     }
 
-    async runSupportsInterface(input: Tip31RootSupportsInterfaceInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootSupportsInterfaceOutput,
-    }> {
-        return await runHelper(this, "supportsInterface", input);
+    async runSupportsInterface(input: Tip31RootSupportsInterfaceInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootSupportsInterfaceOutput>> {
+        return await runHelper(this, "supportsInterface", input, options);
     }
 
-    async supportsInterface(input: Tip31RootSupportsInterfaceInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootSupportsInterfaceOutput,
-    }> {
+    async supportsInterface(input: Tip31RootSupportsInterfaceInput): Promise<RunLocalHelperResult<Tip31RootSupportsInterfaceOutput>> {
         return await runLocalHelper(this, "supportsInterface", input);
     }
 
-    async runDisableMint(input: Tip31RootDisableMintInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootDisableMintOutput,
-    }> {
-        return await runHelper(this, "disableMint", input);
+    async runDisableMint(input: Tip31RootDisableMintInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootDisableMintOutput>> {
+        return await runHelper(this, "disableMint", input, options);
     }
 
-    async disableMint(input: Tip31RootDisableMintInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootDisableMintOutput,
-    }> {
+    async disableMint(input: Tip31RootDisableMintInput): Promise<RunLocalHelperResult<Tip31RootDisableMintOutput>> {
         return await runLocalHelper(this, "disableMint", input);
     }
 
-    async runMintDisabled(input: Tip31RootMintDisabledInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootMintDisabledOutput,
-    }> {
-        return await runHelper(this, "mintDisabled", input);
+    async runMintDisabled(input: Tip31RootMintDisabledInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootMintDisabledOutput>> {
+        return await runHelper(this, "mintDisabled", input, options);
     }
 
-    async mintDisabled(input: Tip31RootMintDisabledInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootMintDisabledOutput,
-    }> {
+    async mintDisabled(input: Tip31RootMintDisabledInput): Promise<RunLocalHelperResult<Tip31RootMintDisabledOutput>> {
         return await runLocalHelper(this, "mintDisabled", input);
     }
 
-    async runBurnTokens(input: Tip31RootBurnTokensInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "burnTokens", input);
+    async runBurnTokens(input: Tip31RootBurnTokensInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "burnTokens", input, options);
     }
 
-    async burnTokens(input: Tip31RootBurnTokensInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async burnTokens(input: Tip31RootBurnTokensInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "burnTokens", input);
     }
 
-    async runDisableBurnByRoot(input: Tip31RootDisableBurnByRootInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootDisableBurnByRootOutput,
-    }> {
-        return await runHelper(this, "disableBurnByRoot", input);
+    async runDisableBurnByRoot(input: Tip31RootDisableBurnByRootInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootDisableBurnByRootOutput>> {
+        return await runHelper(this, "disableBurnByRoot", input, options);
     }
 
-    async disableBurnByRoot(input: Tip31RootDisableBurnByRootInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootDisableBurnByRootOutput,
-    }> {
+    async disableBurnByRoot(input: Tip31RootDisableBurnByRootInput): Promise<RunLocalHelperResult<Tip31RootDisableBurnByRootOutput>> {
         return await runLocalHelper(this, "disableBurnByRoot", input);
     }
 
-    async runBurnByRootDisabled(input: Tip31RootBurnByRootDisabledInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootBurnByRootDisabledOutput,
-    }> {
-        return await runHelper(this, "burnByRootDisabled", input);
+    async runBurnByRootDisabled(input: Tip31RootBurnByRootDisabledInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootBurnByRootDisabledOutput>> {
+        return await runHelper(this, "burnByRootDisabled", input, options);
     }
 
-    async burnByRootDisabled(input: Tip31RootBurnByRootDisabledInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootBurnByRootDisabledOutput,
-    }> {
+    async burnByRootDisabled(input: Tip31RootBurnByRootDisabledInput): Promise<RunLocalHelperResult<Tip31RootBurnByRootDisabledOutput>> {
         return await runLocalHelper(this, "burnByRootDisabled", input);
     }
 
-    async runBurnPaused(input: Tip31RootBurnPausedInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootBurnPausedOutput,
-    }> {
-        return await runHelper(this, "burnPaused", input);
+    async runBurnPaused(input: Tip31RootBurnPausedInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootBurnPausedOutput>> {
+        return await runHelper(this, "burnPaused", input, options);
     }
 
-    async burnPaused(input: Tip31RootBurnPausedInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootBurnPausedOutput,
-    }> {
+    async burnPaused(input: Tip31RootBurnPausedInput): Promise<RunLocalHelperResult<Tip31RootBurnPausedOutput>> {
         return await runLocalHelper(this, "burnPaused", input);
     }
 
-    async runSetBurnPaused(input: Tip31RootSetBurnPausedInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootSetBurnPausedOutput,
-    }> {
-        return await runHelper(this, "setBurnPaused", input);
+    async runSetBurnPaused(input: Tip31RootSetBurnPausedInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootSetBurnPausedOutput>> {
+        return await runHelper(this, "setBurnPaused", input, options);
     }
 
-    async setBurnPaused(input: Tip31RootSetBurnPausedInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootSetBurnPausedOutput,
-    }> {
+    async setBurnPaused(input: Tip31RootSetBurnPausedInput): Promise<RunLocalHelperResult<Tip31RootSetBurnPausedOutput>> {
         return await runLocalHelper(this, "setBurnPaused", input);
     }
 
-    async runTransferOwnership(input: Tip31RootTransferOwnershipInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transferOwnership", input);
+    async runTransferOwnership(input: Tip31RootTransferOwnershipInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transferOwnership", input, options);
     }
 
-    async transferOwnership(input: Tip31RootTransferOwnershipInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transferOwnership(input: Tip31RootTransferOwnershipInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transferOwnership", input);
     }
 
-    async runName(input: Tip31RootNameInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootNameOutput,
-    }> {
-        return await runHelper(this, "name", input);
+    async runName(input: Tip31RootNameInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootNameOutput>> {
+        return await runHelper(this, "name", input, options);
     }
 
-    async name(input: Tip31RootNameInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootNameOutput,
-    }> {
+    async name(input: Tip31RootNameInput): Promise<RunLocalHelperResult<Tip31RootNameOutput>> {
         return await runLocalHelper(this, "name", input);
     }
 
-    async runSymbol(input: Tip31RootSymbolInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootSymbolOutput,
-    }> {
-        return await runHelper(this, "symbol", input);
+    async runSymbol(input: Tip31RootSymbolInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootSymbolOutput>> {
+        return await runHelper(this, "symbol", input, options);
     }
 
-    async symbol(input: Tip31RootSymbolInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootSymbolOutput,
-    }> {
+    async symbol(input: Tip31RootSymbolInput): Promise<RunLocalHelperResult<Tip31RootSymbolOutput>> {
         return await runLocalHelper(this, "symbol", input);
     }
 
-    async runDecimals(input: Tip31RootDecimalsInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootDecimalsOutput,
-    }> {
-        return await runHelper(this, "decimals", input);
+    async runDecimals(input: Tip31RootDecimalsInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootDecimalsOutput>> {
+        return await runHelper(this, "decimals", input, options);
     }
 
-    async decimals(input: Tip31RootDecimalsInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootDecimalsOutput,
-    }> {
+    async decimals(input: Tip31RootDecimalsInput): Promise<RunLocalHelperResult<Tip31RootDecimalsOutput>> {
         return await runLocalHelper(this, "decimals", input);
     }
 
-    async runTotalSupply(input: Tip31RootTotalSupplyInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootTotalSupplyOutput,
-    }> {
-        return await runHelper(this, "totalSupply", input);
+    async runTotalSupply(input: Tip31RootTotalSupplyInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootTotalSupplyOutput>> {
+        return await runHelper(this, "totalSupply", input, options);
     }
 
-    async totalSupply(input: Tip31RootTotalSupplyInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootTotalSupplyOutput,
-    }> {
+    async totalSupply(input: Tip31RootTotalSupplyInput): Promise<RunLocalHelperResult<Tip31RootTotalSupplyOutput>> {
         return await runLocalHelper(this, "totalSupply", input);
     }
 
-    async runWalletCode(input: Tip31RootWalletCodeInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootWalletCodeOutput,
-    }> {
-        return await runHelper(this, "walletCode", input);
+    async runWalletCode(input: Tip31RootWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootWalletCodeOutput>> {
+        return await runHelper(this, "walletCode", input, options);
     }
 
-    async walletCode(input: Tip31RootWalletCodeInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootWalletCodeOutput,
-    }> {
+    async walletCode(input: Tip31RootWalletCodeInput): Promise<RunLocalHelperResult<Tip31RootWalletCodeOutput>> {
         return await runLocalHelper(this, "walletCode", input);
     }
 
-    async runRootOwner(input: Tip31RootRootOwnerInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootRootOwnerOutput,
-    }> {
-        return await runHelper(this, "rootOwner", input);
+    async runRootOwner(input: Tip31RootRootOwnerInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootRootOwnerOutput>> {
+        return await runHelper(this, "rootOwner", input, options);
     }
 
-    async rootOwner(input: Tip31RootRootOwnerInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootRootOwnerOutput,
-    }> {
+    async rootOwner(input: Tip31RootRootOwnerInput): Promise<RunLocalHelperResult<Tip31RootRootOwnerOutput>> {
         return await runLocalHelper(this, "rootOwner", input);
     }
 
-    async runWalletOf(input: Tip31RootWalletOfInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootWalletOfOutput,
-    }> {
-        return await runHelper(this, "walletOf", input);
+    async runWalletOf(input: Tip31RootWalletOfInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootWalletOfOutput>> {
+        return await runHelper(this, "walletOf", input, options);
     }
 
-    async walletOf(input: Tip31RootWalletOfInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootWalletOfOutput,
-    }> {
+    async walletOf(input: Tip31RootWalletOfInput): Promise<RunLocalHelperResult<Tip31RootWalletOfOutput>> {
         return await runLocalHelper(this, "walletOf", input);
     }
 
-    async runDeployWallet(input: Tip31RootDeployWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31RootDeployWalletOutput,
-    }> {
-        return await runHelper(this, "deployWallet", input);
+    async runDeployWallet(input: Tip31RootDeployWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31RootDeployWalletOutput>> {
+        return await runHelper(this, "deployWallet", input, options);
     }
 
-    async deployWallet(input: Tip31RootDeployWalletInput): Promise<{
-        transaction: Transaction,
-        output: Tip31RootDeployWalletOutput,
-    }> {
+    async deployWallet(input: Tip31RootDeployWalletInput): Promise<RunLocalHelperResult<Tip31RootDeployWalletOutput>> {
         return await runLocalHelper(this, "deployWallet", input);
     }
 
-    async runMint(input: Tip31RootMintInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "mint", input);
+    async runMint(input: Tip31RootMintInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "mint", input, options);
     }
 
-    async mint(input: Tip31RootMintInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async mint(input: Tip31RootMintInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "mint", input);
     }
 
-    async runAcceptBurn(input: Tip31RootAcceptBurnInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "acceptBurn", input);
+    async runAcceptBurn(input: Tip31RootAcceptBurnInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "acceptBurn", input, options);
     }
 
-    async acceptBurn(input: Tip31RootAcceptBurnInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async acceptBurn(input: Tip31RootAcceptBurnInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "acceptBurn", input);
     }
 
-    async runSendSurplusGas(input: Tip31RootSendSurplusGasInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "sendSurplusGas", input);
+    async runSendSurplusGas(input: Tip31RootSendSurplusGasInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "sendSurplusGas", input, options);
     }
 
-    async sendSurplusGas(input: Tip31RootSendSurplusGasInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async sendSurplusGas(input: Tip31RootSendSurplusGasInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "sendSurplusGas", input);
     }
 

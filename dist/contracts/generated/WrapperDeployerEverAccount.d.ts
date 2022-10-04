@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type WrapperDeployerEverSetWrapperEverCodeInput = {
     code: string;
 };
@@ -32,28 +31,11 @@ export declare class WrapperDeployerEverAccount extends Account {
     }): Promise<{
         transaction: Transaction;
     }>;
-    runSetWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSetFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    setFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runDeploy(input: WrapperDeployerEverDeployInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: WrapperDeployerEverDeployOutput;
-    }>;
-    deploy_(input: WrapperDeployerEverDeployInput): Promise<{
-        transaction: Transaction;
-        output: WrapperDeployerEverDeployOutput;
-    }>;
+    runSetWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setWrapperEverCode(input: WrapperDeployerEverSetWrapperEverCodeInput): Promise<RunLocalHelperResult<void>>;
+    runSetFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setFlexWalletCode(input: WrapperDeployerEverSetFlexWalletCodeInput): Promise<RunLocalHelperResult<void>>;
+    runDeploy(input: WrapperDeployerEverDeployInput, options?: RunHelperOptions): Promise<RunHelperResult<WrapperDeployerEverDeployOutput>>;
+    deploy_(input: WrapperDeployerEverDeployInput): Promise<RunLocalHelperResult<WrapperDeployerEverDeployOutput>>;
 }
 //# sourceMappingURL=WrapperDeployerEverAccount.d.ts.map

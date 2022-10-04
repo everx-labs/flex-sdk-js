@@ -39,14 +39,22 @@ export type CancelOrderOptions = {
      */
     evers?: bigint | number | string,
 
+    /** Wait for the transaction which updates the price contract (orderbook) */
+    waitForOrderbookUpdate?: boolean,
 };
 
 export type CancelOrderResult = {
-    /** Blockchain transaction in which the order was cancelled */
+    /** Wallet transaction in which the order cancelation was initiated */
     transactionId: string,
+
+    /** Orderbook (price) transaction in which the order was cancelled */
+    orderbookTransactionId?: string,
 };
 
-export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<CancelOrderResult> {
+export async function cancelOrder(
+    evr: Evr,
+    options: CancelOrderOptions,
+): Promise<CancelOrderResult> {
     const pair = await evr.accounts.get(XchgPairAccount, options.marketAddress);
     const pairDetails = (await pair.getDetails()).output;
     const price = priceToUnits(
@@ -55,7 +63,7 @@ export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promis
         pairDetails.major_tip3cfg.decimals,
         pairDetails.minor_tip3cfg.decimals,
     );
-    const priceDetails = await getPriceDetails(evr, options.clientAddress, pair, price.num);
+    const priceDetails = await getPriceDetails(evr, options.clientAddress, pair, price.num, options.price);
     let sell: boolean;
     if (findOrder(options.orderId, priceDetails.sells)) {
         sell = true;
@@ -70,16 +78,26 @@ export async function cancelOrder(evr: Evr, options: CancelOrderOptions): Promis
         clientAddress: options.clientAddress,
         trader: options.trader,
     });
-    const result = await wallet.runCancelOrder({
+    const transaction = (await wallet.runCancelOrder({
         order_id: options.orderId,
         sell,
         price: priceDetails.address,
         evers: options.evers ?? 3e9,
-    });
-    evr.log.debug(`${JSON.stringify(result.transactionTree, undefined, "   ")}\n`);
-    return {
-        transactionId: result.transaction.id,
+    }, {
+        skipTransactionTree: true,
+    })).transaction;
+
+    const result: CancelOrderResult = {
+        transactionId: transaction.id,
     };
+    if (options.waitForOrderbookUpdate ?? false) {
+        result.orderbookTransactionId = (await evr.accounts.waitForDerivativeTransactionOnAccount({
+            originTransactionId: transaction.id,
+            accountAddress: priceDetails.address,
+        })).id;
+    }
+
+    return result;
 }
 
 function findOrder(id: number | string, orders: any[] | null | undefined): any | undefined {
@@ -95,6 +113,7 @@ async function getPriceDetails(
     client: string,
     pair: XchgPairAccount,
     priceNum: string,
+    price: TokenValue,
 ): Promise<PriceXchgGetDetailsOutput & { address: string }> {
     const saltedPriceCode = (await pair.getPriceXchgCode({ salted: true })).output.value0;
     const clientAccount = await evr.accounts.get(FlexClientAccount, client);
@@ -102,6 +121,9 @@ async function getPriceDetails(
         price_num: priceNum,
         salted_price_code: saltedPriceCode,
     })).output.value0;
+    if (!await evr.accounts.isActive(address)) {
+        throw new Error(`Orderbook's price account [${address}] does not exist. Please check that the price (${JSON.stringify(price)}) is correct.`);
+    }
     const priceAccount = await evr.accounts.get(PriceXchgAccount, address);
     const details = (await priceAccount.getDetails()).output;
     return {

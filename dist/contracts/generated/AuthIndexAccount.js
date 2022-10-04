@@ -23,9 +23,9 @@ class AuthIndexAccount extends appkit_1.Account {
             return yield (0, helpers_1.deployHelper)(this, "", {});
         });
     }
-    runOnDeploy() {
+    runOnDeploy(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "onDeploy", {});
+            return yield (0, helpers_1.runHelper)(this, "onDeploy", {}, options);
         });
     }
     onDeploy() {
@@ -33,9 +33,9 @@ class AuthIndexAccount extends appkit_1.Account {
             return yield (0, helpers_1.runLocalHelper)(this, "onDeploy", {});
         });
     }
-    runRemove(input) {
+    runRemove(input, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, helpers_1.runHelper)(this, "remove", input);
+            return yield (0, helpers_1.runHelper)(this, "remove", input, options);
         });
     }
     remove(input) {

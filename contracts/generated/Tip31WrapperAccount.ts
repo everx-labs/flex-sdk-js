@@ -2,10 +2,12 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
-    ResultOfQueryTransactionTree,
 } from "@eversdk/core";
 import { 
     deployHelper,
+    RunHelperOptions,
+    RunHelperResult,
+    RunLocalHelperResult,
     runHelper, 
     runLocalHelper, 
     Transaction, 
@@ -141,201 +143,115 @@ export class Tip31WrapperAccount extends Account {
         return await deployHelper(this, "", {});
     }
 
-    async runInit(input: Tip31WrapperInitInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "init", input);
+    async runInit(input: Tip31WrapperInitInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "init", input, options);
     }
 
-    async init(input: Tip31WrapperInitInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async init(input: Tip31WrapperInitInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "init", input);
     }
 
-    async runDeployEmptyWallet(input: Tip31WrapperDeployEmptyWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31WrapperDeployEmptyWalletOutput,
-    }> {
-        return await runHelper(this, "deployEmptyWallet", input);
+    async runDeployEmptyWallet(input: Tip31WrapperDeployEmptyWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperDeployEmptyWalletOutput>> {
+        return await runHelper(this, "deployEmptyWallet", input, options);
     }
 
-    async deployEmptyWallet(input: Tip31WrapperDeployEmptyWalletInput): Promise<{
-        transaction: Transaction,
-        output: Tip31WrapperDeployEmptyWalletOutput,
-    }> {
+    async deployEmptyWallet(input: Tip31WrapperDeployEmptyWalletInput): Promise<RunLocalHelperResult<Tip31WrapperDeployEmptyWalletOutput>> {
         return await runLocalHelper(this, "deployEmptyWallet", input);
     }
 
-    async runOnAcceptTokensTransfer(input: Tip31WrapperOnAcceptTokensTransferInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "onAcceptTokensTransfer", input);
+    async runOnAcceptTokensTransfer(input: Tip31WrapperOnAcceptTokensTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "onAcceptTokensTransfer", input, options);
     }
 
-    async onAcceptTokensTransfer(input: Tip31WrapperOnAcceptTokensTransferInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async onAcceptTokensTransfer(input: Tip31WrapperOnAcceptTokensTransferInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "onAcceptTokensTransfer", input);
     }
 
-    async runBurn(input: Tip31WrapperBurnInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "burn", input);
+    async runBurn(input: Tip31WrapperBurnInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "burn", input, options);
     }
 
-    async burn(input: Tip31WrapperBurnInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async burn(input: Tip31WrapperBurnInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "burn", input);
     }
 
-    async runTransferFromReserveWallet(input: Tip31WrapperTransferFromReserveWalletInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "transferFromReserveWallet", input);
+    async runTransferFromReserveWallet(input: Tip31WrapperTransferFromReserveWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "transferFromReserveWallet", input, options);
     }
 
-    async transferFromReserveWallet(input: Tip31WrapperTransferFromReserveWalletInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async transferFromReserveWallet(input: Tip31WrapperTransferFromReserveWalletInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "transferFromReserveWallet", input);
     }
 
-    async runRequestTotalGranted(input: Tip31WrapperRequestTotalGrantedInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31WrapperRequestTotalGrantedOutput,
-    }> {
-        return await runHelper(this, "requestTotalGranted", input);
+    async runRequestTotalGranted(input: Tip31WrapperRequestTotalGrantedInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperRequestTotalGrantedOutput>> {
+        return await runHelper(this, "requestTotalGranted", input, options);
     }
 
-    async requestTotalGranted(input: Tip31WrapperRequestTotalGrantedInput): Promise<{
-        transaction: Transaction,
-        output: Tip31WrapperRequestTotalGrantedOutput,
-    }> {
+    async requestTotalGranted(input: Tip31WrapperRequestTotalGrantedInput): Promise<RunLocalHelperResult<Tip31WrapperRequestTotalGrantedOutput>> {
         return await runLocalHelper(this, "requestTotalGranted", input);
     }
 
-    async runCloned(input: Tip31WrapperClonedInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31WrapperClonedOutput,
-    }> {
-        return await runHelper(this, "cloned", input);
+    async runCloned(input: Tip31WrapperClonedInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperClonedOutput>> {
+        return await runHelper(this, "cloned", input, options);
     }
 
-    async cloned(input: Tip31WrapperClonedInput): Promise<{
-        transaction: Transaction,
-        output: Tip31WrapperClonedOutput,
-    }> {
+    async cloned(input: Tip31WrapperClonedInput): Promise<RunLocalHelperResult<Tip31WrapperClonedOutput>> {
         return await runLocalHelper(this, "cloned", input);
     }
 
-    async runSetCloned(input: Tip31WrapperSetClonedInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "setCloned", input);
+    async runSetCloned(input: Tip31WrapperSetClonedInput, options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "setCloned", input, options);
     }
 
-    async setCloned(input: Tip31WrapperSetClonedInput): Promise<{
-        transaction: Transaction,
-    }> {
+    async setCloned(input: Tip31WrapperSetClonedInput): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "setCloned", input);
     }
 
-    async runUpgradeExternalWallet(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-    }> {
-        return await runHelper(this, "upgradeExternalWallet", {});
+    async runUpgradeExternalWallet(options?: RunHelperOptions): Promise<RunHelperResult<void>> {
+        return await runHelper(this, "upgradeExternalWallet", {}, options);
     }
 
-    async upgradeExternalWallet(): Promise<{
-        transaction: Transaction,
-    }> {
+    async upgradeExternalWallet(): Promise<RunLocalHelperResult<void>> {
         return await runLocalHelper(this, "upgradeExternalWallet", {});
     }
 
-    async runGetDetails(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31WrapperGetDetailsOutput,
-    }> {
-        return await runHelper(this, "getDetails", {});
+    async runGetDetails(options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperGetDetailsOutput>> {
+        return await runHelper(this, "getDetails", {}, options);
     }
 
-    async getDetails(): Promise<{
-        transaction: Transaction,
-        output: Tip31WrapperGetDetailsOutput,
-    }> {
+    async getDetails(): Promise<RunLocalHelperResult<Tip31WrapperGetDetailsOutput>> {
         return await runLocalHelper(this, "getDetails", {});
     }
 
-    async runGetTip3Config(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31WrapperGetTip3ConfigOutput,
-    }> {
-        return await runHelper(this, "getTip3Config", {});
+    async runGetTip3Config(options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperGetTip3ConfigOutput>> {
+        return await runHelper(this, "getTip3Config", {}, options);
     }
 
-    async getTip3Config(): Promise<{
-        transaction: Transaction,
-        output: Tip31WrapperGetTip3ConfigOutput,
-    }> {
+    async getTip3Config(): Promise<RunLocalHelperResult<Tip31WrapperGetTip3ConfigOutput>> {
         return await runLocalHelper(this, "getTip3Config", {});
     }
 
-    async runHasInternalWalletCode(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31WrapperHasInternalWalletCodeOutput,
-    }> {
-        return await runHelper(this, "hasInternalWalletCode", {});
+    async runHasInternalWalletCode(options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperHasInternalWalletCodeOutput>> {
+        return await runHelper(this, "hasInternalWalletCode", {}, options);
     }
 
-    async hasInternalWalletCode(): Promise<{
-        transaction: Transaction,
-        output: Tip31WrapperHasInternalWalletCodeOutput,
-    }> {
+    async hasInternalWalletCode(): Promise<RunLocalHelperResult<Tip31WrapperHasInternalWalletCodeOutput>> {
         return await runLocalHelper(this, "hasInternalWalletCode", {});
     }
 
-    async runGetWalletAddress(input: Tip31WrapperGetWalletAddressInput): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31WrapperGetWalletAddressOutput,
-    }> {
-        return await runHelper(this, "getWalletAddress", input);
+    async runGetWalletAddress(input: Tip31WrapperGetWalletAddressInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperGetWalletAddressOutput>> {
+        return await runHelper(this, "getWalletAddress", input, options);
     }
 
-    async getWalletAddress(input: Tip31WrapperGetWalletAddressInput): Promise<{
-        transaction: Transaction,
-        output: Tip31WrapperGetWalletAddressOutput,
-    }> {
+    async getWalletAddress(input: Tip31WrapperGetWalletAddressInput): Promise<RunLocalHelperResult<Tip31WrapperGetWalletAddressOutput>> {
         return await runLocalHelper(this, "getWalletAddress", input);
     }
 
-    async runGetReserveWallet(): Promise<{
-        transaction: Transaction,
-        transactionTree: ResultOfQueryTransactionTree,
-        output: Tip31WrapperGetReserveWalletOutput,
-    }> {
-        return await runHelper(this, "getReserveWallet", {});
+    async runGetReserveWallet(options?: RunHelperOptions): Promise<RunHelperResult<Tip31WrapperGetReserveWalletOutput>> {
+        return await runHelper(this, "getReserveWallet", {}, options);
     }
 
-    async getReserveWallet(): Promise<{
-        transaction: Transaction,
-        output: Tip31WrapperGetReserveWalletOutput,
-    }> {
+    async getReserveWallet(): Promise<RunLocalHelperResult<Tip31WrapperGetReserveWalletOutput>> {
         return await runLocalHelper(this, "getReserveWallet", {});
     }
 

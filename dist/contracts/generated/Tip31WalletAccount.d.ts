@@ -1,6 +1,5 @@
 import { Account, AccountOptions } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
-import { Transaction, ContractPackageEx, Log } from "../helpers";
+import { RunHelperOptions, RunHelperResult, RunLocalHelperResult, Transaction, ContractPackageEx, Log } from "../helpers";
 export declare type Tip31WalletSupportsInterfaceInput = {
     answerId: number;
     interfaceID: number;
@@ -87,106 +86,31 @@ export declare class Tip31WalletAccount extends Account {
     deployContract(): Promise<{
         transaction: Transaction;
     }>;
-    runSupportsInterface(input: Tip31WalletSupportsInterfaceInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WalletSupportsInterfaceOutput;
-    }>;
-    supportsInterface(input: Tip31WalletSupportsInterfaceInput): Promise<{
-        transaction: Transaction;
-        output: Tip31WalletSupportsInterfaceOutput;
-    }>;
-    runDestroy(input: Tip31WalletDestroyInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    destroy(input: Tip31WalletDestroyInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBurnByRoot(input: Tip31WalletBurnByRootInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    burnByRoot(input: Tip31WalletBurnByRootInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBurn(input: Tip31WalletBurnInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    burn(input: Tip31WalletBurnInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runBalance(input: Tip31WalletBalanceInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WalletBalanceOutput;
-    }>;
-    balance(input: Tip31WalletBalanceInput): Promise<{
-        transaction: Transaction;
-        output: Tip31WalletBalanceOutput;
-    }>;
-    runOwner(input: Tip31WalletOwnerInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WalletOwnerOutput;
-    }>;
-    owner(input: Tip31WalletOwnerInput): Promise<{
-        transaction: Transaction;
-        output: Tip31WalletOwnerOutput;
-    }>;
-    runRoot(input: Tip31WalletRootInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WalletRootOutput;
-    }>;
-    root(input: Tip31WalletRootInput): Promise<{
-        transaction: Transaction;
-        output: Tip31WalletRootOutput;
-    }>;
-    runWalletCode(input: Tip31WalletWalletCodeInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-        output: Tip31WalletWalletCodeOutput;
-    }>;
-    walletCode(input: Tip31WalletWalletCodeInput): Promise<{
-        transaction: Transaction;
-        output: Tip31WalletWalletCodeOutput;
-    }>;
-    runTransfer(input: Tip31WalletTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transfer(input: Tip31WalletTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runTransferToWallet(input: Tip31WalletTransferToWalletInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    transferToWallet(input: Tip31WalletTransferToWalletInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runAcceptTransfer(input: Tip31WalletAcceptTransferInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    acceptTransfer(input: Tip31WalletAcceptTransferInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runAcceptMint(input: Tip31WalletAcceptMintInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    acceptMint(input: Tip31WalletAcceptMintInput): Promise<{
-        transaction: Transaction;
-    }>;
-    runSendSurplusGas(input: Tip31WalletSendSurplusGasInput): Promise<{
-        transaction: Transaction;
-        transactionTree: ResultOfQueryTransactionTree;
-    }>;
-    sendSurplusGas(input: Tip31WalletSendSurplusGasInput): Promise<{
-        transaction: Transaction;
-    }>;
+    runSupportsInterface(input: Tip31WalletSupportsInterfaceInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WalletSupportsInterfaceOutput>>;
+    supportsInterface(input: Tip31WalletSupportsInterfaceInput): Promise<RunLocalHelperResult<Tip31WalletSupportsInterfaceOutput>>;
+    runDestroy(input: Tip31WalletDestroyInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    destroy(input: Tip31WalletDestroyInput): Promise<RunLocalHelperResult<void>>;
+    runBurnByRoot(input: Tip31WalletBurnByRootInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    burnByRoot(input: Tip31WalletBurnByRootInput): Promise<RunLocalHelperResult<void>>;
+    runBurn(input: Tip31WalletBurnInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    burn(input: Tip31WalletBurnInput): Promise<RunLocalHelperResult<void>>;
+    runBalance(input: Tip31WalletBalanceInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WalletBalanceOutput>>;
+    balance(input: Tip31WalletBalanceInput): Promise<RunLocalHelperResult<Tip31WalletBalanceOutput>>;
+    runOwner(input: Tip31WalletOwnerInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WalletOwnerOutput>>;
+    owner(input: Tip31WalletOwnerInput): Promise<RunLocalHelperResult<Tip31WalletOwnerOutput>>;
+    runRoot(input: Tip31WalletRootInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WalletRootOutput>>;
+    root(input: Tip31WalletRootInput): Promise<RunLocalHelperResult<Tip31WalletRootOutput>>;
+    runWalletCode(input: Tip31WalletWalletCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<Tip31WalletWalletCodeOutput>>;
+    walletCode(input: Tip31WalletWalletCodeInput): Promise<RunLocalHelperResult<Tip31WalletWalletCodeOutput>>;
+    runTransfer(input: Tip31WalletTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transfer(input: Tip31WalletTransferInput): Promise<RunLocalHelperResult<void>>;
+    runTransferToWallet(input: Tip31WalletTransferToWalletInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    transferToWallet(input: Tip31WalletTransferToWalletInput): Promise<RunLocalHelperResult<void>>;
+    runAcceptTransfer(input: Tip31WalletAcceptTransferInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    acceptTransfer(input: Tip31WalletAcceptTransferInput): Promise<RunLocalHelperResult<void>>;
+    runAcceptMint(input: Tip31WalletAcceptMintInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    acceptMint(input: Tip31WalletAcceptMintInput): Promise<RunLocalHelperResult<void>>;
+    runSendSurplusGas(input: Tip31WalletSendSurplusGasInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    sendSurplusGas(input: Tip31WalletSendSurplusGasInput): Promise<RunLocalHelperResult<void>>;
 }
 //# sourceMappingURL=Tip31WalletAccount.d.ts.map

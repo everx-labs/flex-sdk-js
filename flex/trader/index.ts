@@ -6,7 +6,7 @@ import { makeOrder, MakeOrderOptions, NewOrderInfo } from "./make-order";
 import { cancelOrder, CancelOrderOptions, CancelOrderResult } from "./cancel-order";
 import { OrderInfo, TradeInfo } from "./types";
 import { queryOrders, queryTrades, queryWallets, QueryWalletsOptions } from "./query";
-import { WalletInfo } from "../client/index";
+import { WalletInfo } from "../client";
 import { deployTrader, DeployTraderOptions } from "./deploy-trader";
 import {
     deployTraderEverWallet,
@@ -30,6 +30,7 @@ export {
     WalletInfo,
     EverWalletInfo,
     DeployTraderTip31WalletResult,
+    CancelOrderResult,
 };
 
 

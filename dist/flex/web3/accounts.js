@@ -86,6 +86,59 @@ class EvrAccounts {
             return answerMessages[0];
         });
     }
+    waitForDerivativeTransactionOnAccount(options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const originTransaction = (yield this.everos.net.query({
+                query: `
+            query tr($transactionId: String!) {
+                blockchain {
+                    transaction(hash:$transactionId) {
+                        out_messages { hash dst }
+                    }
+                }
+            }
+            `,
+                variables: {
+                    transactionId: options.originTransactionId
+                }
+            })).result.data.blockchain.transaction;
+            if (!originTransaction) {
+                throw new Error(`Can not wait for derivative transaction: origin transaction ${options.originTransactionId} is missing on the blockchain.`);
+            }
+            const msg = originTransaction.out_messages.find(x => x.dst === options.accountAddress);
+            if (!msg) {
+                throw new Error(`Can not wait for derivative transaction: origin transaction ${options.originTransactionId} has not out message to account ${options.accountAddress}.`);
+            }
+            let targetTransaction = undefined;
+            while (!targetTransaction) {
+                targetTransaction = (yield this.everos.net.query_collection({
+                    collection: "transactions",
+                    filter: {
+                        in_msg: { eq: msg.hash },
+                    },
+                    result: "id in_msg out_msgs account_addr total_fees aborted compute { exit_code } lt",
+                })).result[0];
+                if (!targetTransaction) {
+                    yield new Promise(resolve => setTimeout(resolve, 2000));
+                }
+            }
+            const transactionLt = Number(targetTransaction.lt);
+            while (true) {
+                const account = (yield this.everos.net.query_collection({
+                    collection: "accounts",
+                    filter: {
+                        id: { eq: options.accountAddress },
+                    },
+                    result: "last_trans_lt",
+                })).result[0];
+                if (account && Number(account.last_trans_lt) > transactionLt) {
+                    break;
+                }
+                yield new Promise(resolve => setTimeout(resolve, 2000));
+            }
+            return targetTransaction;
+        });
+    }
 }
 exports.EvrAccounts = EvrAccounts;
 //# sourceMappingURL=accounts.js.map
