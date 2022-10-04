@@ -3,7 +3,7 @@ import { MakeOrderOptions, NewOrderInfo } from "./make-order";
 import { CancelOrderOptions, CancelOrderResult } from "./cancel-order";
 import { OrderInfo, TradeInfo } from "./types";
 import { QueryWalletsOptions } from "./query";
-import { WalletInfo } from "../client/index";
+import { WalletInfo } from "../client";
 import { DeployTraderOptions } from "./deploy-trader";
 import { DeployTraderEverWalletOptions, EverWalletInfo } from "./deploy-ever-wallet";
 import { DeployTraderTip31WalletOptions, DeployTraderTip31WalletResult } from "./deploy-tip31-wallet";

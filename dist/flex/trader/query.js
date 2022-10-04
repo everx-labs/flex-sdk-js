@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.queryWallets = exports.queryTrades = exports.queryOrders = void 0;
 const market_1 = require("../market");
 const token_1 = require("../token");
-const index_1 = require("../client/index");
+const client_1 = require("../client");
 function queryOrders(flex, trader) {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield flex.query(`
@@ -70,7 +70,7 @@ function queryWallets(flex, options) {
             cursor
         }
     `);
-        return result.wallets.map(index_1.walletInfoFromApi);
+        return result.wallets.map(client_1.walletInfoFromApi);
     });
 }
 exports.queryWallets = queryWallets;

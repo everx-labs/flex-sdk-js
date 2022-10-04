@@ -92,14 +92,20 @@ export class EvrAccounts {
             accountAddress: string,
         },
     ): Promise<TransactionNode> {
-        const originTransaction: { out_messages: { id: string, dst: string }[] } | undefined = (await this.everos.net.query_collection(
-            {
-                collection: "transactions",
-                filter: {
-                    id: { eq: options.originTransactionId },
-                },
-                result: "out_messages { id dst }",
-            })).result[0];
+        const originTransaction: { out_messages: { hash: string, dst: string }[] } | undefined = (await this.everos.net.query({
+            query: `
+            query tr($transactionId: String!) {
+                blockchain {
+                    transaction(hash:$transactionId) {
+                        out_messages { hash dst }
+                    }
+                }
+            }
+            `,
+            variables: {
+                transactionId: options.originTransactionId
+            }
+        })).result.data.blockchain.transaction;
         if (!originTransaction) {
             throw new Error(`Can not wait for derivative transaction: origin transaction ${options.originTransactionId} is missing on the blockchain.`);
         }
@@ -115,7 +121,7 @@ export class EvrAccounts {
                 {
                     collection: "transactions",
                     filter: {
-                        in_msg: { eq: msg.id },
+                        in_msg: { eq: msg.hash },
                     },
                     result: "id in_msg out_msgs account_addr total_fees aborted compute { exit_code } lt",
                 })).result[0];
