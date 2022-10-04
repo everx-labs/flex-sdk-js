@@ -8,7 +8,7 @@ import { DeployTraderOptions } from "./deploy-trader";
 import { DeployTraderEverWalletOptions, EverWalletInfo } from "./deploy-ever-wallet";
 import { DeployTraderTip31WalletOptions, DeployTraderTip31WalletResult } from "./deploy-tip31-wallet";
 export * from "./types";
-export { DeployTraderOptions, MakeOrderOptions, NewOrderInfo, CancelOrderOptions, QueryWalletsOptions, DeployTraderTip31WalletOptions, DeployTraderEverWalletOptions, WalletInfo, EverWalletInfo, DeployTraderTip31WalletResult, };
+export { DeployTraderOptions, MakeOrderOptions, NewOrderInfo, CancelOrderOptions, QueryWalletsOptions, DeployTraderTip31WalletOptions, DeployTraderEverWalletOptions, WalletInfo, EverWalletInfo, DeployTraderTip31WalletResult, CancelOrderResult, };
 export declare class Trader {
     static deploy(flex: Flex, options: DeployTraderOptions): Promise<void>;
     static deployEverWallet(flex: Flex, options: DeployTraderEverWalletOptions): Promise<EverWalletInfo>;

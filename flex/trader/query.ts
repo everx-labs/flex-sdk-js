@@ -1,7 +1,7 @@
 import { Flex } from "../flex";
 import { Market } from "../market";
 import { Token } from "../token";
-import { WalletInfo, walletInfoFromApi } from "../client/index";
+import { WalletInfo, walletInfoFromApi } from "../client";
 import { OrderInfo, TradeInfo } from "./types";
 
 /** @internal */

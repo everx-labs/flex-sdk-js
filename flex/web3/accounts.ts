@@ -10,6 +10,8 @@ import { AccountOptionsEx } from "../../contracts/account-ex";
 import { AccountType } from "@eversdk/appkit";
 import { EvrSigners } from "./signers";
 
+export { AccountOptionsEx };
+
 export class EvrAccounts {
     constructor(public everos: TonClient, public signers: EvrSigners, public log: Log) {
     }

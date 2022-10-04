@@ -2,6 +2,7 @@ import { AbiContract, Signer, TonClient, TransactionNode } from "@eversdk/core";
 import { Log } from "../../contracts/helpers";
 import { AccountOptionsEx } from "../../contracts/account-ex";
 import { EvrSigners } from "./signers";
+export { AccountOptionsEx };
 export declare class EvrAccounts {
     everos: TonClient;
     signers: EvrSigners;

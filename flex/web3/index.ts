@@ -2,7 +2,7 @@
  * @module web3
  */
 import { Log, LogLevel } from "../../contracts/helpers";
-import { EvrAccounts } from "./accounts";
+import { EvrAccounts, AccountOptionsEx } from "./accounts";
 import { EvrSigners, SignerOption } from "./signers";
 import { EverWallet, TransferOptions } from "./ever-wallet";
 import { EvrConfig, Evr } from "./evr";
@@ -23,4 +23,5 @@ export {
     TokenValue,
     ExplicitUnits,
     ExplicitTokens,
+    AccountOptionsEx,
 };
