@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.6.0] – 2022-09-22
+
+### New
+
+- `Trader.cancelOrder` and `Trader.makeOrder` now work in 2 modes, defined by `waitForOrderbookUpdate` flag. If `false`, the functions return only 1st transaction that initiated the operation. If `true` - return also the second transaction that actually processed the operation, after which the orderbook is updated. 
+
 ## [0.5.0] – 2022-09-22
 
 ### New
