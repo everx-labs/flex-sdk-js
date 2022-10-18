@@ -14,6 +14,7 @@ export declare type UserDataConfigDeployFlexClientInput = {
     _answer_id: number;
     pubkey: string | number | bigint;
     deploy_evers: string | number | bigint;
+    signature: string;
 };
 export declare type UserDataConfigDeployFlexClientOutput = {
     value0: string;
