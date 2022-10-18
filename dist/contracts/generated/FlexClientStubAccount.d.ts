@@ -13,6 +13,7 @@ export declare type FlexClientStubOnDeployInput = {
     flex_client_code: string;
     auth_index_code: string;
     user_id_index_code: string;
+    signature: string;
 };
 export declare class FlexClientStubAccount extends Account {
     static package: ContractPackageEx;
