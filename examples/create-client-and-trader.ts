@@ -4,7 +4,6 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
 (async () => {
     try {
         const flex = new Flex(EXAMPLES_FLEX_CONFIG);
-        const traderId = CONFIG.trader.id;
         const clientAddress = await Client.deploy(flex, {
             everWallet: {
                 address: "0:d807caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
@@ -14,7 +13,9 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
             
         });
         console.log(`Client: ${clientAddress}}`);
-        
+
+
+        const traderId = CONFIG.trader.id;
         await Trader.deploy(flex, {
             client: {
                 address: clientAddress,

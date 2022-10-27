@@ -14,7 +14,6 @@ const examples_1 = require("./examples");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
-        const traderId = examples_1.CONFIG.trader.id;
         const clientAddress = yield flex_1.Client.deploy(flex, {
             everWallet: {
                 address: "0:d807caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
@@ -23,6 +22,7 @@ const examples_1 = require("./examples");
             signer: "everWallet",
         });
         console.log(`Client: ${clientAddress}}`);
+        const traderId = examples_1.CONFIG.trader.id;
         yield flex_1.Trader.deploy(flex, {
             client: {
                 address: clientAddress,
@@ -39,4 +39,4 @@ const examples_1 = require("./examples");
         process.exit(1);
     }
 }))();
-//# sourceMappingURL=create-client.js.map
+//# sourceMappingURL=create-client-and-trader.js.map
