@@ -5,7 +5,7 @@
     "scripts": {
         "docs": "typedoc --options typedoc.js",
         "build": "rimraf dist && tsc --project tsconfig.json",
-        "update-contracts": "node contracts/update.js"
+        "update-contracts": "node dist/contracts/update.js"
     },
     "dependencies": {
         "@eversdk/core": "^1.38.0",
