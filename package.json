@@ -8,9 +8,9 @@
         "update-contracts": "node contracts/update.js"
     },
     "dependencies": {
-        "@eversdk/core": "^1.33.1",
-        "@eversdk/lib-node": "^1.33.1",
-        "@eversdk/appkit": "^0.3.1"
+        "@eversdk/core": "^1.38.0",
+        "@eversdk/lib-node": "^1.38.0",
+        "@eversdk/appkit": "^0.3.2"
     },
     "devDependencies": {
         "@eversdk/lib-node": "^1.37.0",

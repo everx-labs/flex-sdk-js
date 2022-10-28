@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DEFAULT_CONFIG = void 0;
 exports.DEFAULT_CONFIG = {
     endpoints: ["https://test.flex.everos.dev"],
-    superRoot: "0:f9888faa188ca7f72d967d971149cd87b82ff6fd2ebb05b041386850170e23a8",
+    superRoot: "0:7a6d3ab04ab26333d6e0523410b60d9f4bc55913e4c0291010c8314e9e47d169",
     trader: {
         client: "0:ace889d877d998b4ad09fb3f563e82c13a825205c5c7ddd7ff76c0f3b5c15479",
         id: "a51a2ccb21eddfda9069aabc76faba5840f361b7a0c6eb51c925af44156a2802",

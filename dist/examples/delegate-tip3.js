@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
 (() => __awaiter(void 0, void 0, void 0, function* () {
+    const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
     try {
-        const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
         const clientAddress = examples_1.CONFIG.trader.client;
         const traderId = examples_1.CONFIG.trader.id;
         let trader_tip3_wallet = yield flex_1.Trader.deployTip31Wallet(flex, {
@@ -29,14 +29,17 @@ const examples_1 = require("./examples");
             tokenUnits: "100000000000",
             transferEvers: 21,
             evers: 20,
-            keepEvers: 15
+            keepEvers: 15,
         });
-        console.log(`Trader Tip3 wallet address: ${trader_tip3_wallet} has beed topped-up.`);
-        console.log(`Trader balances: ${JSON.stringify(yield flex_1.Trader.queryWallets(flex, { clientAddress: clientAddress, traderId: traderId }), null, 2)}`);
+        flex.evr.log.info("Trader Tip3 wallet address:", trader_tip3_wallet, "has been topped-up.");
+        flex.evr.log.info("Trader balances:", yield flex_1.Trader.queryWallets(flex, {
+            clientAddress: clientAddress,
+            traderId: traderId,
+        }));
         yield flex.close();
     }
     catch (err) {
-        console.error(err);
+        flex.evr.log.error(err);
         process.exit(1);
     }
 }))();

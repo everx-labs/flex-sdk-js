@@ -14,22 +14,22 @@ const lib_node_1 = require("@eversdk/lib-node");
 const flex_1 = require("../flex");
 core_1.TonClient.useBinaryLibrary(lib_node_1.libNode);
 (() => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const FLEX_CONFIG = {
-            evr: {
-                sdk: {
-                    network: {
-                        endpoints: ["https://test.flex.everos.dev/graphql"],
-                    },
+    const FLEX_CONFIG = {
+        evr: {
+            sdk: {
+                network: {
+                    endpoints: ["https://test.flex.everos.dev/graphql"],
                 },
             },
-            superRoot: "Super Root address",
-        };
-        const flex = new flex_1.Flex(FLEX_CONFIG);
+        },
+        superRoot: "Super Root address",
+    };
+    const flex = new flex_1.Flex(FLEX_CONFIG);
+    try {
         yield flex.close();
     }
     catch (err) {
-        console.error(err);
+        flex.evr.log.error(err);
         process.exit(1);
     }
 }))();

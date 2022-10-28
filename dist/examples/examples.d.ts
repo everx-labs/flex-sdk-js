@@ -18,5 +18,4 @@ export declare const CONFIG: {
     token: string;
 };
 export declare const EXAMPLES_FLEX_CONFIG: Partial<FlexConfig>;
-export declare function examplesLog(title: string, value: any): void;
 //# sourceMappingURL=examples.d.ts.map

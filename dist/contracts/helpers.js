@@ -25,16 +25,28 @@ class Log {
     constructor() {
         this.level = LogLevel.INFO;
     }
-    write(level, text) {
+    write(level, ...args) {
         if (level <= this.level) {
-            this.writeText(text);
+            const text = [];
+            for (const arg of args) {
+                if (typeof arg === "string") {
+                    text.push(arg);
+                }
+                else {
+                    text.push(JSON.stringify(arg, undefined, "    "));
+                }
+            }
+            this.writeText(text.join(" "));
         }
     }
-    debug(text) {
-        this.write(LogLevel.DEBUG, text);
+    debug(...args) {
+        this.write(LogLevel.DEBUG, ...args);
     }
-    info(text) {
-        this.write(LogLevel.INFO, text);
+    info(...args) {
+        this.write(LogLevel.INFO, ...args);
+    }
+    error(...args) {
+        this.write(LogLevel.ERROR, ...args);
     }
     processingStart(title) {
         this.info(`${title}...`);

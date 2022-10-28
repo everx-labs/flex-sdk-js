@@ -17,7 +17,7 @@ const DEFAULTS = {
     deployEvers: 5,
 };
 function deployClient(flex, options) {
-    var _a, _b;
+    var _a, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         const everWallet = new web3_1.EverWallet(flex.evr, options.everWallet);
         const signer = yield flex.evr.signers.resolve(options.signer);
@@ -31,6 +31,8 @@ function deployClient(flex, options) {
         if (!isActive) {
             const transferEvers = (_a = options.transferEvers) !== null && _a !== void 0 ? _a : DEFAULTS.transferEvers;
             const deployEvers = (_b = options.deployEvers) !== null && _b !== void 0 ? _b : DEFAULTS.deployEvers;
+            const accountId = (_c = address.split(":")[1]) !== null && _c !== void 0 ? _c : address;
+            const signature = yield flex.evr.signers.getHashSignature(signer, accountId);
             yield everWallet.transfer({
                 dest: yield userConfig.getAddress(),
                 value: (0, web3_1.toUnits)(transferEvers + deployEvers),
@@ -40,6 +42,7 @@ function deployClient(flex, options) {
                     params: {
                         pubkey,
                         deploy_evers: (0, web3_1.toUnits)(deployEvers),
+                        signature,
                     },
                 },
             });

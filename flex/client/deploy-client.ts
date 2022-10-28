@@ -46,6 +46,11 @@ export async function deployClient(
     if (!isActive) {
         const transferEvers = options.transferEvers ?? DEFAULTS.transferEvers;
         const deployEvers = options.deployEvers ?? DEFAULTS.deployEvers;
+        const accountId = address.split(":")[1] ?? address;
+        const signature = await flex.evr.signers.getHashSignature(
+            signer,
+            accountId,
+        );
         await everWallet.transfer({
             dest: await userConfig.getAddress(),
             value: toUnits(transferEvers + deployEvers),
@@ -55,6 +60,7 @@ export async function deployClient(
                 params: {
                     pubkey,
                     deploy_evers: toUnits(deployEvers),
+                    signature,
                 },
             },
         });

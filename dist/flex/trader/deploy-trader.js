@@ -20,7 +20,7 @@ function deployTrader(flex, options) {
         const address = (yield clientAccount.getUserIdIndex({
             user_id: userId,
         })).output.value0;
-        console.log(address);
+        flex.evr.log.info(`Deploy trader address: ${address}`);
         if (!(yield flex.evr.accounts.isActive(address))) {
             const defaults = flex.config.trader.deploy;
             yield clientAccount.runDeployIndex({

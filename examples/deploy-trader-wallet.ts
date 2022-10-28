@@ -3,9 +3,8 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
 
 
 (async () => {
+    const flex = new Flex(EXAMPLES_FLEX_CONFIG);
     try {
-        const flex = new Flex(EXAMPLES_FLEX_CONFIG);
-
         await Trader.deployTip31Wallet(flex, {
             clientAddress: CONFIG.trader.client,
             traderId: CONFIG.trader.id,
@@ -26,7 +25,7 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
 
         await flex.close();
     } catch (err) {
-        console.error(err);
+        flex.evr.log.error(err);
         process.exit(1);
     }
 })();

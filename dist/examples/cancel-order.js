@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
 (() => __awaiter(void 0, void 0, void 0, function* () {
+    const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
     try {
-        const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
         const clientAddress = examples_1.CONFIG.trader.client;
         const traderId = examples_1.CONFIG.trader.id;
         const marketAddress = examples_1.CONFIG.market;
@@ -27,11 +27,11 @@ const examples_1 = require("./examples");
             price: { units: 250000 },
             orderId: "0x5349f298365e28d2",
         });
-        console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
+        flex.evr.log.info("Order info", orderInfo);
         yield flex.close();
     }
     catch (err) {
-        console.error(err);
+        flex.evr.log.error(err);
         process.exit(1);
     }
 }))();

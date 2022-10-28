@@ -27,18 +27,30 @@ export abstract class Log {
 
     abstract writeText(text: string): void;
 
-    write(level: LogLevel, text: string) {
+    write(level: LogLevel, ...args: any[]) {
         if (level <= this.level) {
-            this.writeText(text);
+            const text = [];
+            for (const arg of args) {
+                if (typeof arg === "string") {
+                    text.push(arg);
+                } else {
+                    text.push(JSON.stringify(arg, undefined, "    "));
+                }
+            }
+            this.writeText(text.join(" "));
         }
     }
 
-    debug(text: string): void {
-        this.write(LogLevel.DEBUG, text);
+    debug(...args: any[]): void {
+        this.write(LogLevel.DEBUG, ...args);
     }
 
-    info(text: string): void {
-        this.write(LogLevel.INFO, text);
+    info(...args: any[]): void {
+        this.write(LogLevel.INFO, ...args);
+    }
+
+    error(...args: any[]): void {
+        this.write(LogLevel.ERROR, ...args);
     }
 
     processingStart(title: string): void {

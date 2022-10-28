@@ -79,7 +79,6 @@ export class EvrAccounts {
             timeout: 60000 * 5,
         });
         for (const msg of tree.messages) {
-            //console.log('cur msg = ', msg);
             if (msg.dst == orig_addr && (msg.src ?? "") !== "") {
                 answerMessages.push(msg);
             }

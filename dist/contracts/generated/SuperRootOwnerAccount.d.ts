@@ -4,6 +4,10 @@ export declare type SuperRootOwnerSetCodeInput = {
     type: number;
     code: string;
 };
+export declare type SuperRootOwnerSetCodeInternalInput = {
+    type: number;
+    code: string;
+};
 export declare type SuperRootOwnerDeploySuperRootInput = {
     evers: string | number | bigint;
     prev_super_root?: string;
@@ -205,11 +209,14 @@ export declare class SuperRootOwnerAccount extends Account {
     });
     deployContract(input: {
         pubkey: string | number | bigint;
+        builder?: string;
     }): Promise<{
         transaction: Transaction;
     }>;
     runSetCode(input: SuperRootOwnerSetCodeInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
     setCode(input: SuperRootOwnerSetCodeInput): Promise<RunLocalHelperResult<void>>;
+    runSetCodeInternal(input: SuperRootOwnerSetCodeInternalInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
+    setCodeInternal(input: SuperRootOwnerSetCodeInternalInput): Promise<RunLocalHelperResult<void>>;
     runDeploySuperRoot(input: SuperRootOwnerDeploySuperRootInput, options?: RunHelperOptions): Promise<RunHelperResult<SuperRootOwnerDeploySuperRootOutput>>;
     deploySuperRoot(input: SuperRootOwnerDeploySuperRootInput): Promise<RunLocalHelperResult<SuperRootOwnerDeploySuperRootOutput>>;
     runUpdate(input: SuperRootOwnerUpdateInput, options?: RunHelperOptions): Promise<RunHelperResult<void>>;
