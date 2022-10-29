@@ -18,7 +18,7 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
             evers: 20,
             keepEvers: 15,
             traderId: traderId,
-            wrapperAddress: "0:c072805ae38d548d4abbaddf929659d37584117b63b0969eb3f812c6252b12fb",
+            wrapperAddress: "0:1cc3596e2db5cc92d0e02f55526f8aec949924ef320d72b763a5f4aafcca3e30",
         });
 
         flex.evr.log.info("Trader EVER wallet address:", trader_ever_wallet, "has been topped-up.");

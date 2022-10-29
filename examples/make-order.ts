@@ -14,17 +14,19 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
             clientAddress: clientAddress,
             trader: {
                 id: traderId,
-                signer: "trader_1",
+                signer: "traderSigner",
             },
-            sell: true,
+            sell: false,
             marketAddress: marketAddress,
-            price: { units: 250000 },
-            amount: { units: 5000 },
+            price: { tokens: 10 },
+            amount: { tokens: 2 },
             waitForOrderbookUpdate: true,
         });
+        
         flex.evr.log.info("Order info", orderInfo);
 
         await flex.close();
+
     } catch (err) {
         flex.evr.log.error(err);
         process.exit(1);

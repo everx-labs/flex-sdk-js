@@ -21,12 +21,12 @@ const examples_1 = require("./examples");
             clientAddress: clientAddress,
             trader: {
                 id: traderId,
-                signer: "trader_1",
+                signer: "traderSigner",
             },
-            sell: true,
+            sell: false,
             marketAddress: marketAddress,
-            price: { units: 250000 },
-            amount: { units: 5000 },
+            price: { tokens: 10 },
+            amount: { tokens: 2 },
             waitForOrderbookUpdate: true,
         });
         flex.evr.log.info("Order info", orderInfo);

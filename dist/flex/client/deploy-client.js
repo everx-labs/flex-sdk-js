@@ -14,7 +14,7 @@ const contracts_1 = require("../../contracts");
 const web3_1 = require("../web3");
 const DEFAULTS = {
     transferEvers: 55,
-    deployEvers: 5,
+    deployEvers: 50,
 };
 function deployClient(flex, options) {
     var _a, _b, _c;

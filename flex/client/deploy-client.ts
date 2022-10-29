@@ -14,18 +14,18 @@ export type DeployClientOptions = {
      */
     signer: SignerOption,
     /**
-     * TODO: Need to describe
+     * Evers, transfered to User Config contract. The change will be returned.
      */
     transferEvers?: number,
     /**
-     * TODO: Need to describe
+     * Evers transfered to Flex Client during deploy
      */
     deployEvers?: number,
 }
 
 const DEFAULTS = {
     transferEvers: 55,
-    deployEvers: 5,
+    deployEvers: 50,
 };
 
 /** @internal */

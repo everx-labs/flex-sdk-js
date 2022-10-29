@@ -16,6 +16,7 @@ const examples_1 = require("./examples");
     try {
         const clientAddress = yield flex_1.Client.deploy(flex, {
             everWallet: {
+                address: "0:d807caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
                 signer: "everWallet",
             },
             signer: "everWallet",
@@ -29,7 +30,7 @@ const examples_1 = require("./examples");
             },
             id: traderId,
             name: "trader_1",
-            pubkey: "162c6c708018da073729dd4a60118425dd917e44653383f1faed4d16b94af30b"
+            pubkey: "8caaf998bdeafd81ccf0a7e15e25f0725ffb79cac898a527a2407c537240ea1d"
         });
         yield flex.close();
     }
