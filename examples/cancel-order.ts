@@ -16,11 +16,11 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
                 clientAddress: clientAddress,
                 trader: {
                     id: traderId,
-                    signer: "trader_1",
+                    signer: "traderSigner",
                 },
                 marketAddress: marketAddress,
-                price: { units: 250000 },
-                orderId: "0x5349f298365e28d2",
+                price: { tokens: 10 },
+                orderId: "0x1355df445d27aca1",
                 // waitForOrderbookUpdate: true
             },
         );
