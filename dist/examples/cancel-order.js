@@ -21,11 +21,11 @@ const examples_1 = require("./examples");
             clientAddress: clientAddress,
             trader: {
                 id: traderId,
-                signer: "trader_1",
+                signer: "traderSigner",
             },
             marketAddress: marketAddress,
-            price: { units: 250000 },
-            orderId: "0x5349f298365e28d2",
+            price: { tokens: 10 },
+            orderId: "0x1355df445d27aca1",
         });
         flex.evr.log.info("Order info", orderInfo);
         yield flex.close();

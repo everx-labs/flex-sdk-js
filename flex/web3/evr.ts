@@ -25,6 +25,10 @@ export class Evr {
      */
     log = Log.default;
 
+    static unitsFromTokens(tokens: number): number {
+        return tokens * 1e9;
+    }
+
     constructor(config?: EvrConfig) {
         this.sdk = new TonClient(config?.sdk);
         this.signers = new EvrSigners(this.sdk.crypto);

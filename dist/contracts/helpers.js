@@ -41,18 +41,21 @@ class Log {
     }
     debug(...args) {
         this.write(LogLevel.DEBUG, ...args);
+        this.write(LogLevel.DEBUG, "\n");
     }
     info(...args) {
         this.write(LogLevel.INFO, ...args);
+        this.write(LogLevel.INFO, "\n");
     }
     error(...args) {
         this.write(LogLevel.ERROR, ...args);
+        this.write(LogLevel.ERROR, "\n");
     }
     processingStart(title) {
-        this.info(`${title}...`);
+        this.write(LogLevel.INFO, `${title}...`);
     }
     processingDone() {
-        this.info(" ✓\n");
+        this.info(" ✓");
     }
 }
 exports.Log = Log;

@@ -21,6 +21,9 @@ class Evr {
         this.signers = new signers_1.EvrSigners(this.sdk.crypto);
         this.accounts = new accounts_1.EvrAccounts(this.sdk, this.signers, this.log);
     }
+    static unitsFromTokens(tokens) {
+        return tokens * 1e9;
+    }
     close() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.sdk.close();
