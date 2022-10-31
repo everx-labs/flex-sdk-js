@@ -15,9 +15,10 @@ export declare abstract class Log {
     static STDOUT: Log;
     static default: Log;
     abstract writeText(text: string): void;
-    write(level: LogLevel, text: string): void;
-    debug(text: string): void;
-    info(text: string): void;
+    write(level: LogLevel, ...args: any[]): void;
+    debug(...args: any[]): void;
+    info(...args: any[]): void;
+    error(...args: any[]): void;
     processingStart(title: string): void;
     processingDone(): void;
 }

@@ -19,12 +19,12 @@ class ContractFunction {
     }
     call() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(`call ${this.fn.name}(${JSON.stringify(this.params)})`);
+            this.evr.log.info("call", this.fn.name, "(", this.params, ")");
         });
     }
     process() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(`process ${this.fn.name}(${JSON.stringify(this.params)})`);
+            this.evr.log.info("process", this.fn.name, "(", this.params, ")");
         });
     }
 }

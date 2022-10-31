@@ -3,8 +3,8 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
 //import { LogLevel } from "../contracts/helpers";
 
 (async () => {
+    const flex = new Flex(EXAMPLES_FLEX_CONFIG);
     try {
-        const flex = new Flex(EXAMPLES_FLEX_CONFIG);
         // flex.evr.log.level = LogLevel.DEBUG;
         const clientAddress = CONFIG.trader.client;
         const traderId = CONFIG.trader.id;
@@ -16,21 +16,21 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
                 clientAddress: clientAddress,
                 trader: {
                     id: traderId,
-                    signer: "trader_1",
+                    signer: "traderSigner",
                 },
                 marketAddress: marketAddress,
-                price: { units: 250000 },
-                orderId: "0x5349f298365e28d2",
+                price: { tokens: 10 },
+                orderId: "0x1355df445d27aca1",
                 // waitForOrderbookUpdate: true
             },
         );
 
-        console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
+        flex.evr.log.info("Order info", orderInfo);
 
 
         await flex.close();
     } catch (err) {
-        console.error(err);
+        flex.evr.log.error(err);
         process.exit(1);
     }
 })();

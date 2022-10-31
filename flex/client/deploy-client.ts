@@ -14,18 +14,18 @@ export type DeployClientOptions = {
      */
     signer: SignerOption,
     /**
-     * TODO: Need to describe
+     * Evers, transfered to User Config contract. The change will be returned.
      */
     transferEvers?: number,
     /**
-     * TODO: Need to describe
+     * Evers transfered to Flex Client during deploy
      */
     deployEvers?: number,
 }
 
 const DEFAULTS = {
     transferEvers: 55,
-    deployEvers: 5,
+    deployEvers: 50,
 };
 
 /** @internal */
@@ -46,6 +46,11 @@ export async function deployClient(
     if (!isActive) {
         const transferEvers = options.transferEvers ?? DEFAULTS.transferEvers;
         const deployEvers = options.deployEvers ?? DEFAULTS.deployEvers;
+        const accountId = address.split(":")[1] ?? address;
+        const signature = await flex.evr.signers.getHashSignature(
+            signer,
+            accountId,
+        );
         await everWallet.transfer({
             dest: await userConfig.getAddress(),
             value: toUnits(transferEvers + deployEvers),
@@ -55,6 +60,7 @@ export async function deployClient(
                 params: {
                     pubkey,
                     deploy_evers: toUnits(deployEvers),
+                    signature,
                 },
             },
         });

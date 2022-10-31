@@ -10,15 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
-const examples_1 = require("./examples");
 const helpers_1 = require("../contracts/helpers");
 (() => __awaiter(void 0, void 0, void 0, function* () {
+    const evr = new flex_1.Evr({
+        sdk: {
+            network: { endpoints: ["http://localhost"] },
+        },
+    });
     try {
-        const evr = new flex_1.Evr({
-            sdk: {
-                network: { endpoints: ["http://localhost"] },
-            },
-        });
         evr.log.level = helpers_1.LogLevel.DEBUG;
         const signer = "flex-exchange";
         const info = yield flex_1.Exchange.deploy(evr, {
@@ -35,11 +34,11 @@ const helpers_1 = require("../contracts/helpers");
                 },
             },
         });
-        (0, examples_1.examplesLog)("Exchange", info);
+        evr.log.info("Exchange", info);
         yield evr.close();
     }
     catch (err) {
-        console.error(err);
+        evr.log.error(err);
         process.exit(1);
     }
 }))();

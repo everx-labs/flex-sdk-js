@@ -5,7 +5,7 @@ import { uint256 } from "../web3";
 
 export type DeployTraderOptions = {
     /**
-     * 
+     *
      */
     client: AccountOptionsEx,
     /**
@@ -18,10 +18,10 @@ export type DeployTraderOptions = {
      */
     name: string,
     /**
-     * Trader's pubkey from signing key pair which Trader generates on his own. 
+     * Trader's pubkey from signing key pair which Trader generates on his own.
      */
     pubkey: string,
-    
+
     eversAll?: string | number | bigint;
     eversAuth?: string | number | bigint;
     refillWallet?: string | number | bigint;
@@ -34,7 +34,7 @@ export async function deployTrader(flex: Flex, options: DeployTraderOptions): Pr
     const address = (await clientAccount.getUserIdIndex({
         user_id: userId,
     })).output.value0;
-    console.log(address);
+    flex.evr.log.info(`Deploy trader address: ${address}`);
     if (!(await flex.evr.accounts.isActive(address))) {
         const defaults = flex.config.trader.deploy;
         await clientAccount.runDeployIndex({

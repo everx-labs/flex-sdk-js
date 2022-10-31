@@ -7,6 +7,8 @@ export declare class EvrSigners {
     resolve(signer?: SignerOption): Promise<Signer>;
     resolvePublicKey(signer?: SignerOption): Promise<string>;
     publicKey(signer: Signer): Promise<string>;
+    sign(signer: Signer, base64: string): Promise<string>;
+    getHashSignature(signer: Signer, hex: string): Promise<string>;
     private fromSecret;
     private fromName;
 }

@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
 (() => __awaiter(void 0, void 0, void 0, function* () {
+    const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
     try {
-        const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
         yield flex_1.Trader.deployTip31Wallet(flex, {
             clientAddress: examples_1.CONFIG.trader.client,
             traderId: examples_1.CONFIG.trader.id,
@@ -33,7 +33,7 @@ const examples_1 = require("./examples");
         yield flex.close();
     }
     catch (err) {
-        console.error(err);
+        flex.evr.log.error(err);
         process.exit(1);
     }
 }))();
