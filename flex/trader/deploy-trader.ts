@@ -40,7 +40,7 @@ export async function deployTrader(flex: Flex, options: DeployTraderOptions): Pr
         const eversAll = options.eversAll ?? defaults.eversAll;
         const eversAuth = options.eversAuth ?? defaults.eversAuth;
         const clientBalance = Number(await clientAccount.getBalance());
-        const requiredBalance = Number(eversAll) + Number(eversAuth) + Evr.unitsFromTokens(1);
+        const requiredBalance = Number(eversAll) + Evr.unitsFromTokens(1);
         if (clientBalance < requiredBalance) {
             throw Error(`Flex client ${address} balance ${clientBalance} is not enough to deploy trader. Required balance is ${requiredBalance}.`);
         }

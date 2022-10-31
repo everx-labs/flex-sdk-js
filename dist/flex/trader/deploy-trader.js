@@ -26,7 +26,7 @@ function deployTrader(flex, options) {
             const eversAll = (_a = options.eversAll) !== null && _a !== void 0 ? _a : defaults.eversAll;
             const eversAuth = (_b = options.eversAuth) !== null && _b !== void 0 ? _b : defaults.eversAuth;
             const clientBalance = Number(yield clientAccount.getBalance());
-            const requiredBalance = Number(eversAll) + Number(eversAuth) + web3_1.Evr.ONE_TOKEN;
+            const requiredBalance = Number(eversAll) + web3_1.Evr.unitsFromTokens(1);
             if (clientBalance < requiredBalance) {
                 throw Error(`Flex client ${address} balance ${clientBalance} is not enough to deploy trader. Required balance is ${requiredBalance}.`);
             }
