@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.7.0] – 2022-10-31
+
+### New
+
+- Added flex client balance checking to the `deployTrader`. 
+
 ## [0.6.0] – 2022-10-07
 
 ### New
@@ -19,7 +25,7 @@ All notable changes to this project will be documented in this file.
 
 ### New
 
-- `Trader.cancelOrder` now returnes transactionID
+- `Trader.cancelOrder` now returns transactionID
 
 ## [0.3.0] – 2022-08-30
 

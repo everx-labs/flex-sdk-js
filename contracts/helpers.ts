@@ -43,22 +43,25 @@ export abstract class Log {
 
     debug(...args: any[]): void {
         this.write(LogLevel.DEBUG, ...args);
+        this.write(LogLevel.DEBUG, "\n");
     }
 
     info(...args: any[]): void {
         this.write(LogLevel.INFO, ...args);
+        this.write(LogLevel.INFO, "\n");
     }
 
     error(...args: any[]): void {
         this.write(LogLevel.ERROR, ...args);
+        this.write(LogLevel.ERROR, "\n");
     }
 
     processingStart(title: string): void {
-        this.info(`${title}...`);
+        this.write(LogLevel.INFO, `${title}...`);
     }
 
     processingDone(): void {
-        this.info(" ✓\n");
+        this.info(" ✓");
     }
 }
 

@@ -28,4 +28,5 @@ class Evr {
     }
 }
 exports.Evr = Evr;
+Evr.ONE_TOKEN = 1e9;
 //# sourceMappingURL=evr.js.map
