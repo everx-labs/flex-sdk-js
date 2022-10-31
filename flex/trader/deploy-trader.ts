@@ -42,7 +42,7 @@ export async function deployTrader(flex: Flex, options: DeployTraderOptions): Pr
         const clientBalance = Number(await clientAccount.getBalance());
         const requiredBalance = Number(eversAll) + Evr.unitsFromTokens(1);
         if (clientBalance < requiredBalance) {
-            throw Error(`Flex client ${address} balance ${clientBalance} is not enough to deploy trader. Required balance is ${requiredBalance}.`);
+            throw Error(`Flex client ${address} balance ${clientBalance} is not enough to deploy trader. Required balance is ${requiredBalance}. You have to topup flex client balance.`);
         }
         await clientAccount.runDeployIndex({
             user_id: userId,

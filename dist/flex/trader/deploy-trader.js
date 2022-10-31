@@ -28,7 +28,7 @@ function deployTrader(flex, options) {
             const clientBalance = Number(yield clientAccount.getBalance());
             const requiredBalance = Number(eversAll) + web3_1.Evr.unitsFromTokens(1);
             if (clientBalance < requiredBalance) {
-                throw Error(`Flex client ${address} balance ${clientBalance} is not enough to deploy trader. Required balance is ${requiredBalance}.`);
+                throw Error(`Flex client ${address} balance ${clientBalance} is not enough to deploy trader. Required balance is ${requiredBalance}. You have to topup flex client balance.`);
             }
             yield clientAccount.runDeployIndex({
                 user_id: userId,
