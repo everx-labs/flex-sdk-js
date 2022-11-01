@@ -31,7 +31,8 @@ export async function queryTrades(flex: Flex, trader: string): Promise<TradeInfo
             side
             liquidity
             fees
-            feesToken { ${Token.queryFields()} } 
+            feesToken { ${Token.queryFields()} }
+            userOrderId 
             cursor
         }
     `);

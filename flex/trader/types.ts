@@ -76,6 +76,14 @@ export type TradeInfo = {
     /** User fees token. */
     feesToken: TokenInfo
 
+    /**
+     * User's order id related to this trade.
+     */
+    userOrderId: string,
+
+    /**
+     * Cursor value for pagination
+     */
     cursor: string
 }
 
