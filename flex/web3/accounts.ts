@@ -136,9 +136,11 @@ export class EvrAccounts {
                     result: "last_trans_lt acc_type",
                 })).result[0];
             if (!account) {
+                this.log.info(`Waiting for derivative transaction was stopped: account ${options.accountAddress} is missing on the blockchain.`);
                 break;
             }
             if (account.acc_type !== AccountType.active) {
+                this.log.info(`Waiting for derivative transaction was stopped: account ${options.accountAddress} has inactive state ${account.acc_type}.`);
                 break;
             }
             if (Number(account.last_trans_lt) > transactionLt) {

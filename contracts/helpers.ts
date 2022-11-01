@@ -38,7 +38,7 @@ export abstract class Log {
                     if (Object.keys(arg).length > 0) {
                         text.push(JSON.stringify(arg, undefined, "    "));
                     }
-                } else if (arg instanceof Error) {
+                } else {
                     text.push(JSON.stringify(arg, undefined, "    "));
                 }
             }
