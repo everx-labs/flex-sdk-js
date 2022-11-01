@@ -7,7 +7,11 @@ All notable changes to this project will be documented in this file.
 
 ### New
 
-- Added flex client balance checking to the `deployTrader`.
+- ABI 2.3 Flex Contracts version was supported
+
+### Improved
+
+- Added flex client balance checking before trader Index Contract deploy to the `deployTrader`.
 
 ### Fixed
 
