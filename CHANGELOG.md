@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - If non-existing signer was specified then empty error message was printed. 
+- make-order did not finish process in case of a full order closure.
 
 ## [0.6.0] – 2022-10-07
 

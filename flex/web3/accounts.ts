@@ -1,10 +1,4 @@
-import {
-    abiContract,
-    AbiContract,
-    Signer,
-    TonClient,
-    TransactionNode,
-} from "@eversdk/core";
+import { abiContract, AbiContract, Signer, TonClient, TransactionNode } from "@eversdk/core";
 import { Log } from "../../contracts/helpers";
 import { AccountOptionsEx } from "../../contracts/account-ex";
 import { AccountType } from "@eversdk/appkit";
@@ -129,19 +123,31 @@ export class EvrAccounts {
             }
         }
 
+        const timeLimit = Date.now() + 60000;
         // Wait for the target account will be updated in the cloud
         const transactionLt = Number(targetTransaction.lt);
         while (true) {
-            const account: { last_trans_lt: string } | undefined = (await this.everos.net.query_collection(
+            const account: { last_trans_lt: string, acc_type: AccountType } | undefined = (await this.everos.net.query_collection(
                 {
                     collection: "accounts",
                     filter: {
                         id: { eq: options.accountAddress },
                     },
-                    result: "last_trans_lt",
+                    result: "last_trans_lt acc_type",
                 })).result[0];
-            if (account && Number(account.last_trans_lt) > transactionLt) {
+            if (!account) {
+                this.log.info(`Waiting for derivative transaction was stopped: account ${options.accountAddress} is missing on the blockchain.`);
                 break;
+            }
+            if (account.acc_type !== AccountType.active) {
+                this.log.info(`Waiting for derivative transaction was stopped: account ${options.accountAddress} has inactive state ${account.acc_type}.`);
+                break;
+            }
+            if (Number(account.last_trans_lt) > transactionLt) {
+                break;
+            }
+            if (Date.now() > timeLimit) {
+                throw new Error(`Can not wait for derivative transaction: account ${options.accountAddress} has not been changed during 1 minute.`);
             }
             await new Promise(resolve => setTimeout(resolve, 2000));
         }
