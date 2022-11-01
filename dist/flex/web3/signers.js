@@ -105,8 +105,7 @@ class EvrSigners {
                     return (0, core_1.signerKeys)(item.keys);
                 }
             }
-            throw new Error(`Invalid signer: "${name}".
-             You must use one of: \`secret key\`, \`everdev\` signer name or \`Flex.signers\` name.`);
+            throw new Error(`Invalid signer: "${name}". You must use one of: \`secret key\`, \`everdev\` signer name or \`Flex.signers\` name.`);
         });
     }
 }

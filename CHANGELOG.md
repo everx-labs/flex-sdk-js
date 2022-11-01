@@ -7,7 +7,11 @@ All notable changes to this project will be documented in this file.
 
 ### New
 
-- Added flex client balance checking to the `deployTrader`. 
+- Added flex client balance checking to the `deployTrader`.
+
+### Fixed
+
+- If non-existing signer was specified then empty error message was printed. 
 
 ## [0.6.0] – 2022-10-07
 

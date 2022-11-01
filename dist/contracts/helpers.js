@@ -32,7 +32,13 @@ class Log {
                 if (typeof arg === "string") {
                     text.push(arg);
                 }
-                else {
+                else if (arg instanceof Error) {
+                    text.push(arg.message);
+                    if (Object.keys(arg).length > 0) {
+                        text.push(JSON.stringify(arg, undefined, "    "));
+                    }
+                }
+                else if (arg instanceof Error) {
                     text.push(JSON.stringify(arg, undefined, "    "));
                 }
             }
