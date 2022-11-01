@@ -122,6 +122,7 @@ class EvrAccounts {
                     yield new Promise(resolve => setTimeout(resolve, 2000));
                 }
             }
+            const timeLimit = Date.now() + 60000;
             const transactionLt = Number(targetTransaction.lt);
             while (true) {
                 const account = (yield this.everos.net.query_collection({
@@ -129,10 +130,19 @@ class EvrAccounts {
                     filter: {
                         id: { eq: options.accountAddress },
                     },
-                    result: "last_trans_lt",
+                    result: "last_trans_lt acc_type",
                 })).result[0];
-                if (account && Number(account.last_trans_lt) > transactionLt) {
+                if (!account) {
                     break;
+                }
+                if (account.acc_type !== appkit_1.AccountType.active) {
+                    break;
+                }
+                if (Number(account.last_trans_lt) > transactionLt) {
+                    break;
+                }
+                if (Date.now() > timeLimit) {
+                    throw new Error(`Can not wait for derivative transaction: account ${options.accountAddress} has not been changed during 1 minute.`);
                 }
                 yield new Promise(resolve => setTimeout(resolve, 2000));
             }
