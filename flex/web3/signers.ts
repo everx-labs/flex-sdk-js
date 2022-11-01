@@ -96,8 +96,7 @@ export class EvrSigners {
             }
         }
         throw new Error(
-            `Invalid signer: "${name}".
-             You must use one of: \`secret key\`, \`everdev\` signer name or \`Flex.signers\` name.`,
+            `Invalid signer: "${name}". You must use one of: \`secret key\`, \`everdev\` signer name or \`Flex.signers\` name.`,
         );
     }
 
