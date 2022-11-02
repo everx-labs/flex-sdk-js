@@ -41,7 +41,8 @@ function queryTrades(flex, trader) {
             side
             liquidity
             fees
-            feesToken { ${token_1.Token.queryFields()} } 
+            feesToken { ${token_1.Token.queryFields()} }
+            userOrderId 
             cursor
         }
     `);
