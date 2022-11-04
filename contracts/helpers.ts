@@ -1,5 +1,6 @@
 import { Account, ContractPackage } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
+import { ProcessingEvent, ResultOfQueryTransactionTree } from "@eversdk/core";
+import { ResponseType } from "@eversdk/core/dist/bin";
 
 export enum LogLevel {
     NONE,
@@ -100,6 +101,7 @@ function errorWith(
 
 export type RunHelperOptions = {
     skipTransactionTree?: boolean,
+    onProcessing?: (event: ProcessingEvent) => void,
 };
 
 export type RunHelperResult<O> = {
@@ -116,7 +118,29 @@ export async function runHelper<O>(
 ): Promise<RunHelperResult<O>> {
     account.log?.processingStart(`Run ${account.constructor.name}.${fn}`);
     try {
-        const runResult = await account.run(fn, params);
+        const onProcessing = options?.onProcessing;
+        const responseHandler = onProcessing ? (
+            params: ProcessingEvent,
+            responseType: ResponseType,
+        ) => {
+            if (responseType >= ResponseType.Custom) {
+                onProcessing(params);
+            }
+        } : undefined;
+        const runResult = await account.client.processing.process_message({
+            message_encode_params: {
+                address: await account.getAddress(),
+                abi: account.abi,
+                signer: account.signer,
+                call_set: {
+                    function_name: fn,
+                    input: params,
+                },
+            },
+            send_events: !!responseHandler,
+        }, responseHandler);
+        (account as any).needSyncWithTransaction(runResult.transaction);
+
         const result: RunHelperResult<O> = {
             transaction: runResult.transaction,
             transactionTree: {
@@ -133,7 +157,7 @@ export async function runHelper<O>(
                     timeout: 60000 * 5,
                 });
         }
-        account.log?.info(` TX: ${runResult.transaction.id}`);
+        account.log?.write(LogLevel.INFO, ` TX: ${runResult.transaction.id}`);
         account.log?.processingDone();
         return result;
     } catch (err: any) {

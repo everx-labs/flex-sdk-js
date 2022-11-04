@@ -1,5 +1,5 @@
 import { Flex } from "../flex";
-import { MakeOrderOptions, NewOrderInfo } from "./make-order";
+import { MakeOrderOptions, MakeOrderProcessing, NewOrderInfo } from "./make-order";
 import { CancelOrderOptions, CancelOrderResult } from "./cancel-order";
 import { OrderInfo, TradeInfo } from "./types";
 import { QueryWalletsOptions } from "./query";
@@ -14,6 +14,7 @@ export declare class Trader {
     static deployEverWallet(flex: Flex, options: DeployTraderEverWalletOptions): Promise<EverWalletInfo>;
     static deployTip31Wallet(flex: Flex, options: DeployTraderTip31WalletOptions): Promise<DeployTraderTip31WalletResult>;
     static makeOrder(flex: Flex, options: MakeOrderOptions): Promise<NewOrderInfo>;
+    static waitForMakeOrder(flex: Flex, processing: MakeOrderProcessing): Promise<NewOrderInfo>;
     static cancelOrder(flex: Flex, options: CancelOrderOptions): Promise<CancelOrderResult>;
     static queryOrders(flex: Flex, trader: string): Promise<OrderInfo[]>;
     static queryTrades(flex: Flex, trader: string): Promise<TradeInfo[]>;

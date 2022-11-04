@@ -12,6 +12,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EvrAccounts = void 0;
 const core_1 = require("@eversdk/core");
 const appkit_1 = require("@eversdk/appkit");
+var MessageType;
+(function (MessageType) {
+    MessageType[MessageType["Internal"] = 0] = "Internal";
+    MessageType[MessageType["ExtIn"] = 1] = "ExtIn";
+    MessageType[MessageType["ExtOut"] = 2] = "ExtOut";
+})(MessageType || (MessageType = {}));
+function derivativeTransactionFields(id) {
+    return `
+        ${id}
+        in_msg
+        out_msgs
+        out_messages { ${id} dst msg_type }
+        account_addr 
+        total_fees
+        aborted
+        compute { 
+            exit_code 
+        }
+        lt
+    `;
+}
 class EvrAccounts {
     constructor(everos, signers, log) {
         this.everos = everos;
@@ -86,69 +107,91 @@ class EvrAccounts {
             return answerMessages[0];
         });
     }
-    waitForDerivativeTransactionOnAccount(options) {
+    waitForDerivativeTransactions(originTransactionId, accounts) {
         return __awaiter(this, void 0, void 0, function* () {
             const originTransaction = (yield this.everos.net.query({
                 query: `
             query tr($transactionId: String!) {
                 blockchain {
-                    transaction(hash:$transactionId) {
-                        out_messages { hash dst }
-                    }
+                    transaction(hash:$transactionId) { ${derivativeTransactionFields("id:hash")} }
                 }
             }
             `,
                 variables: {
-                    transactionId: options.originTransactionId
-                }
+                    transactionId: originTransactionId,
+                },
             })).result.data.blockchain.transaction;
             if (!originTransaction) {
-                throw new Error(`Can not wait for derivative transaction: origin transaction ${options.originTransactionId} is missing on the blockchain.`);
+                throw new Error(`Can not wait for derivative transaction: origin transaction ${originTransactionId} is missing on the blockchain.`);
             }
-            const msg = originTransaction.out_messages.find(x => x.dst === options.accountAddress);
-            if (!msg) {
-                throw new Error(`Can not wait for derivative transaction: origin transaction ${options.originTransactionId} has not out message to account ${options.accountAddress}.`);
-            }
-            let targetTransaction = undefined;
-            while (!targetTransaction) {
-                targetTransaction = (yield this.everos.net.query_collection({
-                    collection: "transactions",
-                    filter: {
-                        in_msg: { eq: msg.hash },
-                    },
-                    result: "id in_msg out_msgs account_addr total_fees aborted compute { exit_code } lt",
-                })).result[0];
-                if (!targetTransaction) {
-                    yield new Promise(resolve => setTimeout(resolve, 2000));
+            const result = {};
+            let uncheckedMessages = [];
+            function checkTransaction(transaction) {
+                const address = transaction.account_addr;
+                const contract = accounts[address];
+                if (contract) {
+                    if (!(address in result)) {
+                        result[address] = transaction;
+                    }
+                }
+                for (const message of transaction.out_messages) {
+                    if (message.msg_type === MessageType.Internal) {
+                        uncheckedMessages.push(message.id);
+                    }
                 }
             }
-            const timeLimit = Date.now() + 60000;
-            const transactionLt = Number(targetTransaction.lt);
-            while (true) {
-                const account = (yield this.everos.net.query_collection({
-                    collection: "accounts",
-                    filter: {
-                        id: { eq: options.accountAddress },
-                    },
-                    result: "last_trans_lt acc_type",
-                })).result[0];
-                if (!account) {
-                    this.log.info(`Waiting for derivative transaction was stopped: account ${options.accountAddress} is missing on the blockchain.`);
-                    break;
+            checkTransaction(originTransaction);
+            while (uncheckedMessages.length > 0) {
+                const checkingMessages = uncheckedMessages;
+                uncheckedMessages = [];
+                for (const checkingMessage of checkingMessages) {
+                    let transaction = undefined;
+                    while (!transaction) {
+                        transaction = (yield this.everos.net.query_collection({
+                            collection: "transactions",
+                            filter: {
+                                in_msg: { eq: checkingMessage },
+                            },
+                            result: derivativeTransactionFields("id"),
+                        })).result[0];
+                        if (!transaction) {
+                            yield new Promise(resolve => setTimeout(resolve, 2000));
+                        }
+                    }
+                    const timeLimit = Date.now() + 60000;
+                    const transactionLt = Number(transaction.lt);
+                    while (true) {
+                        const account = (yield this.everos.net.query_collection({
+                            collection: "accounts",
+                            filter: {
+                                id: { eq: transaction.account_addr },
+                            },
+                            result: "last_trans_lt acc_type",
+                        })).result[0];
+                        if (!account) {
+                            this.log.info(`Waiting for derivative transaction was stopped: account ${transaction.account_addr} is missing on the blockchain.`);
+                            break;
+                        }
+                        if (account.acc_type !== appkit_1.AccountType.active) {
+                            this.log.info(`Waiting for derivative transaction was stopped: account ${transaction.account_addr} has inactive state ${account.acc_type}.`);
+                            break;
+                        }
+                        if (Number(account.last_trans_lt) > transactionLt) {
+                            break;
+                        }
+                        if (Date.now() > timeLimit) {
+                            this.log.info(`Can not wait for derivative transaction: account ${transaction.account_addr} has not been changed during 1 minute.`);
+                            break;
+                        }
+                        yield new Promise(resolve => setTimeout(resolve, 2000));
+                    }
+                    checkTransaction(transaction);
+                    if (Object.keys(result).length >= Object.keys(accounts).length) {
+                        break;
+                    }
                 }
-                if (account.acc_type !== appkit_1.AccountType.active) {
-                    this.log.info(`Waiting for derivative transaction was stopped: account ${options.accountAddress} has inactive state ${account.acc_type}.`);
-                    break;
-                }
-                if (Number(account.last_trans_lt) > transactionLt) {
-                    break;
-                }
-                if (Date.now() > timeLimit) {
-                    throw new Error(`Can not wait for derivative transaction: account ${options.accountAddress} has not been changed during 1 minute.`);
-                }
-                yield new Promise(resolve => setTimeout(resolve, 2000));
             }
-            return targetTransaction;
+            return result;
         });
     }
 }

@@ -19,6 +19,18 @@ export declare type NewOrderInfo = {
     transactionId: string;
     orderbookTransactionId?: string;
 };
+export declare type MakeOrderProcessing = {
+    id: string;
+    sell: boolean;
+    major: string;
+    minor: string;
+    wallet: string;
+    price: string;
+    message: string;
+    shard_block_id: string;
+};
 export declare function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<NewOrderInfo>;
+export declare function waitForMakeOrder(flex: Flex, processing: MakeOrderProcessing): Promise<NewOrderInfo>;
+export declare function finalizeMakeOrder(flex: Flex, processing: MakeOrderProcessing, transactionId: string): Promise<NewOrderInfo>;
 export declare function generateRandomOrderId(evr: Evr): Promise<string>;
 //# sourceMappingURL=make-order.d.ts.map

@@ -48,10 +48,9 @@ function cancelOrder(evr, options) {
             transactionId: transaction.id,
         };
         if ((_b = options.waitForOrderbookUpdate) !== null && _b !== void 0 ? _b : false) {
-            result.orderbookTransactionId = (yield evr.accounts.waitForDerivativeTransactionOnAccount({
-                originTransactionId: transaction.id,
-                accountAddress: priceDetails.address,
-            })).id;
+            result.orderbookTransactionId = (yield evr.accounts.waitForDerivativeTransactions(transaction.id, {
+                [priceDetails.address]: contracts_1.PriceXchgAccount,
+            }))[priceDetails.address].id;
         }
         return result;
     });

@@ -2,7 +2,13 @@
  * @module trader
  */
 import { Flex } from "../flex";
-import { makeOrder, MakeOrderOptions, NewOrderInfo } from "./make-order";
+import {
+    makeOrder,
+    MakeOrderOptions,
+    MakeOrderProcessing,
+    NewOrderInfo,
+    waitForMakeOrder,
+} from "./make-order";
 import { cancelOrder, CancelOrderOptions, CancelOrderResult } from "./cancel-order";
 import { OrderInfo, TradeInfo } from "./types";
 import { queryOrders, queryTrades, queryWallets, QueryWalletsOptions } from "./query";
@@ -82,16 +88,45 @@ export class Trader {
         return await deployTraderTip31Wallet(flex, options);
     }
 
-   /**
-    * Places an order on a specified market
-    * @param flex
-    * DEX instance
-    * @param options
-    * Order options
-    * @returns
-    */
+    /**
+     * Places an order on a specified market.
+     *
+     * This function can throw error with additional optional field `processing`.
+     * If error object contains this field, then the current state of the order is unknown.
+     * User must resume determining order state with `waitForMakeOrder`.
+     *
+     * @param flex
+     * DEX instance
+     *
+     * @param options
+     * Order options
+     *
+     * @returns
+     */
     static async makeOrder(flex: Flex, options: MakeOrderOptions): Promise<NewOrderInfo> {
         return await makeOrder(flex, options);
+    }
+
+    /**
+     * Resumes previously terminated makeOrder.
+     *
+     * This function can throw error with additional optional field `processing`.
+     * If error object contains this field, then the current state of the order is unknown.
+     * User must resume determining order state with `waitForMakeOrder`.
+     *
+     * @param flex
+     * DEX instance
+     *
+     * @param processing
+     * Order processing state (can be obtained from makeOrder's `Error.processing`).
+     *
+     * @returns
+     */
+    static async waitForMakeOrder(
+        flex: Flex,
+        processing: MakeOrderProcessing,
+    ): Promise<NewOrderInfo> {
+        return await waitForMakeOrder(flex, processing);
     }
 
     /**
@@ -106,6 +141,7 @@ export class Trader {
     static async cancelOrder(flex: Flex, options: CancelOrderOptions): Promise<CancelOrderResult> {
         return await cancelOrder(flex.evr, options);
     }
+
     /**
      * Returns Trader's open orders on DEX
      * @param flex

@@ -1,7 +1,7 @@
 import { Flex, MakeOrderMode } from "../exchange";
-import { ProcessingErrorCode, TvmErrorCode } from "@eversdk/core";
+import { abiContract, ProcessingErrorCode, TvmErrorCode } from "@eversdk/core";
 import {
-    FlexClientAccount,
+    FlexClientAccount, FlexWalletAccount, PriceXchgAccount, resolveContractError, successRequired,
     XchgPairAccount,
 } from "../../contracts";
 import {
@@ -51,6 +51,16 @@ export type NewOrderInfo = {
     orderbookTransactionId?: string,
 }
 
+export type MakeOrderProcessing = {
+    id: string,
+    sell: boolean,
+    major: string,
+    minor: string,
+    wallet: string,
+    price: string,
+    message: string,
+    shard_block_id: string,
+};
 
 /** @internal */
 export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<NewOrderInfo> {
@@ -66,6 +76,7 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
         trader: options.trader,
     });
     const priceCode = (await pair.getPriceXchgCode({ salted: false })).output.value0;
+    const saltedPriceCode = (await pair.getPriceXchgCode({ salted: true })).output.value0;
     const priceSalt = (await pair.getPriceXchgSalt()).output.value0;
     const amount = toUnits(options.amount, pairDetails.major_tip3cfg.decimals);
     const orderId = options.orderId !== undefined
@@ -87,7 +98,27 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
     if (BigInt(amount) < BigInt(pairDetails.min_amount)) {
         throw new Error(`Specified amount ${amount} is less that market min amount ${pairDetails.min_amount}`);
     }
+    const clientAccount = await flex.evr.accounts.get(
+        FlexClientAccount,
+        options.clientAddress,
+    );
+
+    const priceAddress = (await clientAccount.getPriceXchgAddress({
+        price_num: price.num,
+        salted_price_code: saltedPriceCode,
+    })).output.value0;
     const mode = options.mode ?? defaults.mode;
+
+    const processing: MakeOrderProcessing = {
+        id: orderId.toString(),
+        sell: options.sell,
+        major: pairDetails.major_tip3cfg.symbol,
+        minor: pairDetails.minor_tip3cfg.symbol,
+        wallet: await wallet.getAddress(),
+        price: priceAddress,
+        message: "",
+        shard_block_id: "",
+    };
     try {
         const transaction = (await wallet.runMakeOrder({
             _answer_id: 0,
@@ -108,58 +139,102 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
             },
         }, {
             skipTransactionTree: true,
+            onProcessing: (evt) => {
+                if (evt.type === "WillSend") {
+                    processing.message = evt.message;
+                    processing.shard_block_id = evt.shard_block_id;
+                }
+            },
         })).transaction;
-        const result: NewOrderInfo = {
-            orderId: orderId.toString(),
-            transactionId: transaction.id,
-        };
-        if (options.waitForOrderbookUpdate ?? false) {
-            const clientAccount = await flex.evr.accounts.get(
-                FlexClientAccount,
-                options.clientAddress,
-            );
-            const saltedPriceCode = (await pair.getPriceXchgCode({ salted: true })).output.value0;
-            const priceAddress = (await clientAccount.getPriceXchgAddress({
-                price_num: price.num,
-                salted_price_code: saltedPriceCode,
-            })).output.value0;
-            result.orderbookTransactionId = (await flex.evr.accounts.waitForDerivativeTransactionOnAccount({
-                originTransactionId: transaction.id,
-                accountAddress: priceAddress,
-            })).id;
-        }
-        return result;
+        return finalizeMakeOrder(flex, processing, transaction.id);
     } catch (err: any) {
-        throw resolveError(err, {
-            O: options.sell ? "sell" : "buy",
-            M: `${pairDetails.major_tip3cfg.symbol}/${pairDetails.minor_tip3cfg.symbol}`,
-            T: options.sell
-                ? pairDetails.major_tip3cfg.symbol
-                : pairDetails.minor_tip3cfg.symbol,
-            W: await wallet.getAddress(),
-        });
+        throw resolveError(err, processing);
     }
 }
 
-function resolveError(original: Error & {
+/** @internal */
+export async function waitForMakeOrder(
+    flex: Flex,
+    processing: MakeOrderProcessing,
+): Promise<NewOrderInfo> {
+    try {
+        const transaction = (await flex.evr.sdk.processing.wait_for_transaction({
+            message: processing.message,
+            shard_block_id: processing.shard_block_id,
+            abi: abiContract(FlexWalletAccount.package.abi),
+            send_events: false,
+            sending_endpoints: [],
+        })).transaction;
+        return finalizeMakeOrder(flex, processing, transaction.id);
+    } catch (err: any) {
+        throw resolveError(err, processing);
+    }
+}
+
+/** @internal */
+export async function finalizeMakeOrder(
+    flex: Flex,
+    processing: MakeOrderProcessing,
+    transactionId: string,
+): Promise<NewOrderInfo> {
+    const result: NewOrderInfo = {
+        orderId: processing.id,
+        transactionId,
+    };
+
+    const transactions = await flex.evr.accounts.waitForDerivativeTransactions(
+        transactionId,
+        {
+            [processing.price]: PriceXchgAccount,
+            [processing.wallet]: FlexWalletAccount,
+        },
+    );
+
+    processing.message = "";
+    processing.shard_block_id = "";
+
+    successRequired(transactions, processing.wallet, FlexWalletAccount);
+    successRequired(transactions, processing.price, PriceXchgAccount);
+    result.orderbookTransactionId = transactions[processing.price]!.id;
+
+    return result;
+}
+
+type SdkError = Error & {
     code?: number,
     data?: {
         local_error?: {
             code: number,
+            data?: {
+                exit_code?: number
+            }
         }
     }
-}, context: { O: string, M: string, T: string, W: string }): Error {
+};
 
-    if (original.code !== ProcessingErrorCode.MessageExpired) {
+type ErrorWithProcessing = Error & {
+    processing?: MakeOrderProcessing,
+};
+
+function resolveError(
+    original: SdkError & ErrorWithProcessing,
+    processing: MakeOrderProcessing,
+): ErrorWithProcessing {
+    const messageRejected = original.code === ProcessingErrorCode.MessageExpired || original.code === ProcessingErrorCode.MessageRejected;
+    if (!messageRejected) {
+        if (processing && processing.message !== "") {
+            original.processing = processing;
+        }
         return original;
     }
-    const localCode = original.data?.local_error?.code;
-    const {
-        O,
-        M,
-        T,
-        W,
-    } = context;
+    let originalError = original;
+    const localCode = originalError.data?.local_error?.code;
+    const O = processing.sell ? "sell" : "buy";
+    const M = `${processing.major}/${processing.minor}`;
+    const T = processing.sell
+        ? processing.major
+        : processing.minor;
+    const W = processing.wallet;
     let message: string;
     switch (localCode) {
     case TvmErrorCode.AccountCodeMissing:
@@ -175,11 +250,18 @@ function resolveError(original: Error & {
         message = `Error occurred while performing ${O} on ${M} Market. You need to top-up ${T} wallet ${W} to pay fees.`;
         break;
     default:
-        message = `Error occurred while performing ${O} on ${M}. Ask DEX Support team for help.`;
+        originalError = resolveContractError(originalError, FlexWalletAccount);
+        message = `Error occurred while performing ${O} on ${M}. ${originalError.message}. Ask DEX Support team for help.`;
         break;
     }
-    const flexErr = new Error(message);
-    (flexErr as any).originalError = original;
+    const flexErr: Error & {
+        originalError?: SdkError,
+        processing?: MakeOrderProcessing,
+    } = new Error(message);
+    flexErr.originalError = {
+        ...originalError,
+        message: originalError.message,
+    };
     return flexErr;
 }
 

@@ -44,7 +44,7 @@ export type CancelOrderOptions = {
 };
 
 export type CancelOrderResult = {
-    /** Wallet transaction in which the order cancelation was initiated */
+    /** Wallet transaction in which the order cancellation was initiated */
     transactionId: string,
 
     /** Orderbook (price) transaction in which the order was cancelled */
@@ -63,7 +63,13 @@ export async function cancelOrder(
         pairDetails.major_tip3cfg.decimals,
         pairDetails.minor_tip3cfg.decimals,
     );
-    const priceDetails = await getPriceDetails(evr, options.clientAddress, pair, price.num, options.price);
+    const priceDetails = await getPriceDetails(
+        evr,
+        options.clientAddress,
+        pair,
+        price.num,
+        options.price,
+    );
     let sell: boolean;
     if (findOrder(options.orderId, priceDetails.sells)) {
         sell = true;
@@ -91,10 +97,12 @@ export async function cancelOrder(
         transactionId: transaction.id,
     };
     if (options.waitForOrderbookUpdate ?? false) {
-        result.orderbookTransactionId = (await evr.accounts.waitForDerivativeTransactionOnAccount({
-            originTransactionId: transaction.id,
-            accountAddress: priceDetails.address,
-        })).id;
+        result.orderbookTransactionId = (await evr.accounts.waitForDerivativeTransactions(
+            transaction.id,
+            {
+                [priceDetails.address]: PriceXchgAccount,
+            },
+        ))[priceDetails.address]!.id;
     }
 
     return result;
@@ -122,7 +130,8 @@ async function getPriceDetails(
         salted_price_code: saltedPriceCode,
     })).output.value0;
     if (!await evr.accounts.isActive(address)) {
-        throw new Error(`Orderbook's price account [${address}] does not exist. Please check that the price (${JSON.stringify(price)}) is correct.`);
+        throw new Error(`Orderbook's price account [${address}] does not exist. Please check that the price (${JSON.stringify(
+            price)}) is correct.`);
     }
     const priceAccount = await evr.accounts.get(PriceXchgAccount, address);
     const details = (await priceAccount.getDetails()).output;

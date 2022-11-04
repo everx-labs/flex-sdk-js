@@ -19,10 +19,10 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
             sell: false,
             marketAddress: marketAddress,
             price: { tokens: 10 },
-            amount: { tokens: 2 },
+            amount: { tokens: 100000 },
             waitForOrderbookUpdate: true,
         });
-        
+
         flex.evr.log.info("Order info", orderInfo);
 
         await flex.close();

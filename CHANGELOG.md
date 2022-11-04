@@ -7,7 +7,11 @@ All notable changes to this project will be documented in this file.
 
 ### New
 
-- ABI 2.3 Flex Contracts version was supported
+- ABI 2.3 Flex Contracts version was supported.
+- `makeOrder` thrown errors now contains optional field `processing` indicating that making order 
+  was abnormally terminated (e.g. due to network errors). This field can be used later to resume 
+  processing via `waitForMakeOrder`.
+- `waitForMakeOrder` function helps to resume determining make order status after abnormal termination.
 
 ### Improved
 
@@ -17,6 +21,7 @@ All notable changes to this project will be documented in this file.
 
 - If non-existing signer was specified then empty error message was printed. 
 - make-order did not finish process in case of a full order closure.
+- `makeOrder` checks status of the important derivative transactions. 
 
 ## [0.6.0] – 2022-10-07
 
