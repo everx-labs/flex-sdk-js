@@ -10,6 +10,8 @@ import {
 import { TraderOptions } from "./types";
 import { toUnits, Evr, TokenValue } from "../web3";
 import { priceToUnits } from "../flex";
+import { AccountClass } from "../../contracts/account-ex";
+import { DerivativeTransaction } from "../web3/accounts";
 
 export type MakeOrderOptions = {
     clientAddress: string;
@@ -49,6 +51,14 @@ export type NewOrderInfo = {
 
     /** Orderbook (price) transaction in which the order was created */
     orderbookTransactionId?: string,
+
+    /**
+     * Make order processing state.
+     * Can be used in two-step order processing.
+     * 1) Perform call to `makeOrder` with `waitForOrderbookUpdate: false`,
+     * 2) Perform call to `waitForMakeOrder`.
+     */
+    processing: MakeOrderProcessing,
 }
 
 export type MakeOrderProcessing = {
@@ -60,6 +70,8 @@ export type MakeOrderProcessing = {
     price: string,
     message: string,
     shard_block_id: string,
+    walletTransaction?: DerivativeTransaction,
+    priceTransaction?: DerivativeTransaction,
 };
 
 /** @internal */
@@ -146,9 +158,21 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
                 }
             },
         })).transaction;
-        return finalizeMakeOrder(flex, processing, transaction.id);
+        messageRequired(processing);
+        return finalizeMakeOrder(
+            flex,
+            processing,
+            transaction.id,
+            options.waitForOrderbookUpdate ?? false,
+        );
     } catch (err: any) {
         throw resolveError(err, processing);
+    }
+}
+
+function messageRequired(processing: MakeOrderProcessing) {
+    if (processing.message === "") {
+        throw new Error("Message did not sent.");
     }
 }
 
@@ -165,7 +189,7 @@ export async function waitForMakeOrder(
             send_events: false,
             sending_endpoints: [],
         })).transaction;
-        return finalizeMakeOrder(flex, processing, transaction.id);
+        return finalizeMakeOrder(flex, processing, transaction.id, true);
     } catch (err: any) {
         throw resolveError(err, processing);
     }
@@ -176,26 +200,50 @@ export async function finalizeMakeOrder(
     flex: Flex,
     processing: MakeOrderProcessing,
     transactionId: string,
+    priceTransactionRequired: boolean,
 ): Promise<NewOrderInfo> {
+    const accounts: { [address: string]: AccountClass } = {};
+    if (!processing.walletTransaction) {
+        accounts[processing.wallet] = FlexWalletAccount;
+    }
+    if (priceTransactionRequired && !processing.priceTransaction) {
+        accounts[processing.price] = PriceXchgAccount;
+    }
+
+    if (Object.keys(accounts).length > 0) {
+        const transactions = await flex.evr.accounts.waitForDerivativeTransactions(
+            transactionId, accounts,
+        );
+        if (processing.wallet in transactions) {
+            processing.walletTransaction = transactions[processing.wallet];
+        }
+        if (processing.price in transactions) {
+            processing.priceTransaction = transactions[processing.price];
+        }
+    }
+
+    if (processing.walletTransaction) {
+        successRequired(processing.walletTransaction, FlexWalletAccount);
+    } else {
+        throw new Error(
+            `Missing required transaction on wallet [${processing.wallet}]`,
+        );
+    }
+
     const result: NewOrderInfo = {
         orderId: processing.id,
-        transactionId,
+        transactionId: processing.walletTransaction.id,
+        processing,
     };
 
-    const transactions = await flex.evr.accounts.waitForDerivativeTransactions(
-        transactionId,
-        {
-            [processing.price]: PriceXchgAccount,
-            [processing.wallet]: FlexWalletAccount,
-        },
-    );
-
-    processing.message = "";
-    processing.shard_block_id = "";
-
-    successRequired(transactions, processing.wallet, FlexWalletAccount);
-    successRequired(transactions, processing.price, PriceXchgAccount);
-    result.orderbookTransactionId = transactions[processing.price]!.id;
+    if (processing.priceTransaction) {
+        successRequired(processing.priceTransaction, PriceXchgAccount);
+        result.orderbookTransactionId = processing.priceTransaction.id;
+    } else if (priceTransactionRequired) {
+        throw new Error(
+            `Missing required transaction on price [${processing.price}]`,
+        );
+    }
 
     return result;
 }

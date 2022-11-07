@@ -6,7 +6,5 @@ export declare type ContractError = Error & {
 };
 export declare function errorFromExitCode(contract: AccountClass, exitCode: number): ContractError;
 export declare function resolveContractError(originalError: ContractError, contract: AccountClass): ContractError;
-export declare function successRequired(transactions: {
-    [address: string]: DerivativeTransaction;
-}, address: string, contract: AccountClass): void;
+export declare function successRequired(transaction: DerivativeTransaction, contract: AccountClass): void;
 //# sourceMappingURL=errors.d.ts.map

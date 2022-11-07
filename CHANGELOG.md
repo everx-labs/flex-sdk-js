@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 ### New
 
 - ABI 2.3 Flex Contracts version was supported.
+- `makeOrder` returns field `processing` in result. If user specifies `waitForOrderbookUpdate: true`,
+  then `makeOrder` waits for both transactions (on wallet and price accounts). Otherwise `makeOrder`
+  waits only for wallet transaction and user can resume monitoring with `waitForMakeOrder`. 
 - `makeOrder` thrown errors now contains optional field `processing` indicating that making order 
   was abnormally terminated (e.g. due to network errors). This field can be used later to resume 
   processing via `waitForMakeOrder`.

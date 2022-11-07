@@ -17,7 +17,7 @@ const internals_1 = require("./internals");
 const web3_1 = require("../web3");
 const flex_1 = require("../flex");
 function makeOrder(flex, options) {
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
         const defaults = flex.config.trader.order;
         const pair = yield flex.evr.accounts.get(contracts_1.XchgPairAccount, options.marketAddress);
@@ -89,7 +89,8 @@ function makeOrder(flex, options) {
                     }
                 },
             })).transaction;
-            return finalizeMakeOrder(flex, processing, transaction.id);
+            messageRequired(processing);
+            return finalizeMakeOrder(flex, processing, transaction.id, (_d = options.waitForOrderbookUpdate) !== null && _d !== void 0 ? _d : false);
         }
         catch (err) {
             throw resolveError(err, processing);
@@ -97,6 +98,11 @@ function makeOrder(flex, options) {
     });
 }
 exports.makeOrder = makeOrder;
+function messageRequired(processing) {
+    if (processing.message === "") {
+        throw new Error("Message did not sent.");
+    }
+}
 function waitForMakeOrder(flex, processing) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -107,7 +113,7 @@ function waitForMakeOrder(flex, processing) {
                 send_events: false,
                 sending_endpoints: [],
             })).transaction;
-            return finalizeMakeOrder(flex, processing, transaction.id);
+            return finalizeMakeOrder(flex, processing, transaction.id, true);
         }
         catch (err) {
             throw resolveError(err, processing);
@@ -115,21 +121,42 @@ function waitForMakeOrder(flex, processing) {
     });
 }
 exports.waitForMakeOrder = waitForMakeOrder;
-function finalizeMakeOrder(flex, processing, transactionId) {
+function finalizeMakeOrder(flex, processing, transactionId, priceTransactionRequired) {
     return __awaiter(this, void 0, void 0, function* () {
+        const accounts = {};
+        if (!processing.walletTransaction) {
+            accounts[processing.wallet] = contracts_1.FlexWalletAccount;
+        }
+        if (priceTransactionRequired && !processing.priceTransaction) {
+            accounts[processing.price] = contracts_1.PriceXchgAccount;
+        }
+        if (Object.keys(accounts).length > 0) {
+            const transactions = yield flex.evr.accounts.waitForDerivativeTransactions(transactionId, accounts);
+            if (processing.wallet in transactions) {
+                processing.walletTransaction = transactions[processing.wallet];
+            }
+            if (processing.price in transactions) {
+                processing.priceTransaction = transactions[processing.price];
+            }
+        }
+        if (processing.walletTransaction) {
+            (0, contracts_1.successRequired)(processing.walletTransaction, contracts_1.FlexWalletAccount);
+        }
+        else {
+            throw new Error(`Missing required transaction on wallet [${processing.wallet}]`);
+        }
         const result = {
             orderId: processing.id,
-            transactionId,
+            transactionId: processing.walletTransaction.id,
+            processing,
         };
-        const transactions = yield flex.evr.accounts.waitForDerivativeTransactions(transactionId, {
-            [processing.price]: contracts_1.PriceXchgAccount,
-            [processing.wallet]: contracts_1.FlexWalletAccount,
-        });
-        processing.message = "";
-        processing.shard_block_id = "";
-        (0, contracts_1.successRequired)(transactions, processing.wallet, contracts_1.FlexWalletAccount);
-        (0, contracts_1.successRequired)(transactions, processing.price, contracts_1.PriceXchgAccount);
-        result.orderbookTransactionId = transactions[processing.price].id;
+        if (processing.priceTransaction) {
+            (0, contracts_1.successRequired)(processing.priceTransaction, contracts_1.PriceXchgAccount);
+            result.orderbookTransactionId = processing.priceTransaction.id;
+        }
+        else if (priceTransactionRequired) {
+            throw new Error(`Missing required transaction on price [${processing.price}]`);
+        }
         return result;
     });
 }

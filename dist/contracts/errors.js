@@ -30,11 +30,7 @@ function resolveContractError(originalError, contract) {
     return originalError;
 }
 exports.resolveContractError = resolveContractError;
-function successRequired(transactions, address, contract) {
-    const transaction = transactions[address];
-    if (!transaction) {
-        throw new Error(`Missing required derivative transaction on ${contract.name}[${address}]`);
-    }
+function successRequired(transaction, contract) {
     const { id, aborted, compute: { exit_code }, account_addr, } = transaction;
     if (!aborted && exit_code === 0) {
         return;
