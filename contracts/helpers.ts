@@ -1,5 +1,6 @@
 import { Account, ContractPackage } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
+import { ProcessingEvent, ResultOfQueryTransactionTree } from "@eversdk/core";
+import { ResponseType } from "@eversdk/core/dist/bin";
 
 export enum LogLevel {
     NONE,
@@ -27,26 +28,46 @@ export abstract class Log {
 
     abstract writeText(text: string): void;
 
-    write(level: LogLevel, text: string) {
+    write(level: LogLevel, ...args: any[]) {
         if (level <= this.level) {
-            this.writeText(text);
+            const text = [];
+            for (const arg of args) {
+                if (typeof arg === "string") {
+                    text.push(arg);
+                } else if (arg instanceof Error) {
+                    text.push(arg.message);
+                    if (Object.keys(arg).length > 0) {
+                        text.push(JSON.stringify(arg, undefined, "    "));
+                    }
+                } else {
+                    text.push(JSON.stringify(arg, undefined, "    "));
+                }
+            }
+            this.writeText(text.join(" "));
         }
     }
 
-    debug(text: string): void {
-        this.write(LogLevel.DEBUG, text);
+    debug(...args: any[]): void {
+        this.write(LogLevel.DEBUG, ...args);
+        this.write(LogLevel.DEBUG, "\n");
     }
 
-    info(text: string): void {
-        this.write(LogLevel.INFO, text);
+    info(...args: any[]): void {
+        this.write(LogLevel.INFO, ...args);
+        this.write(LogLevel.INFO, "\n");
+    }
+
+    error(...args: any[]): void {
+        this.write(LogLevel.ERROR, ...args);
+        this.write(LogLevel.ERROR, "\n");
     }
 
     processingStart(title: string): void {
-        this.info(`${title}...`);
+        this.write(LogLevel.INFO, `${title}...`);
     }
 
     processingDone(): void {
-        this.info(" ✓\n");
+        this.info(" ✓");
     }
 }
 
@@ -80,6 +101,7 @@ function errorWith(
 
 export type RunHelperOptions = {
     skipTransactionTree?: boolean,
+    onProcessing?: (event: ProcessingEvent) => void,
 };
 
 export type RunHelperResult<O> = {
@@ -96,7 +118,29 @@ export async function runHelper<O>(
 ): Promise<RunHelperResult<O>> {
     account.log?.processingStart(`Run ${account.constructor.name}.${fn}`);
     try {
-        const runResult = await account.run(fn, params);
+        const onProcessing = options?.onProcessing;
+        const responseHandler = onProcessing ? (
+            params: ProcessingEvent,
+            responseType: ResponseType,
+        ) => {
+            if (responseType >= ResponseType.Custom) {
+                onProcessing(params);
+            }
+        } : undefined;
+        const runResult = await account.client.processing.process_message({
+            message_encode_params: {
+                address: await account.getAddress(),
+                abi: account.abi,
+                signer: account.signer,
+                call_set: {
+                    function_name: fn,
+                    input: params,
+                },
+            },
+            send_events: !!responseHandler,
+        }, responseHandler);
+        (account as any).needSyncWithTransaction(runResult.transaction);
+
         const result: RunHelperResult<O> = {
             transaction: runResult.transaction,
             transactionTree: {
@@ -113,7 +157,7 @@ export async function runHelper<O>(
                     timeout: 60000 * 5,
                 });
         }
-        account.log?.info(` TX: ${runResult.transaction.id}`);
+        account.log?.write(LogLevel.INFO, ` TX: ${runResult.transaction.id}`);
         account.log?.processingDone();
         return result;
     } catch (err: any) {

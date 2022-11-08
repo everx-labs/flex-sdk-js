@@ -11,12 +11,12 @@ export class ContractFunction {
     }
 
     async call(): Promise<any> {
-        console.log(`call ${this.fn.name}(${JSON.stringify(this.params)})`);
+        this.evr.log.info("call",this.fn.name, "(", this.params, ")");
 
     }
 
     async process(): Promise<any> {
-        console.log(`process ${this.fn.name}(${JSON.stringify(this.params)})`);
+        this.evr.log.info("process", this.fn.name, "(", this.params, ")");
     }
 }
 

@@ -1,36 +1,36 @@
-import { Flex, Trader } from "../flex";
+import { cancelOrderFinalized, Flex, Trader } from "../flex";
 import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
 //import { LogLevel } from "../contracts/helpers";
 
 (async () => {
+    const flex = new Flex(EXAMPLES_FLEX_CONFIG);
     try {
-        const flex = new Flex(EXAMPLES_FLEX_CONFIG);
         // flex.evr.log.level = LogLevel.DEBUG;
         const clientAddress = CONFIG.trader.client;
         const traderId = CONFIG.trader.id;
         const marketAddress = CONFIG.market;
 
-        let orderInfo = await Trader.cancelOrder(
-            flex,
-            {
-                clientAddress: clientAddress,
-                trader: {
-                    id: traderId,
-                    signer: "trader_1",
-                },
-                marketAddress: marketAddress,
-                price: { units: 250000 },
-                orderId: "0x5349f298365e28d2",
-                // waitForOrderbookUpdate: true
+        let result = await Trader.cancelOrder(flex, {
+            clientAddress: clientAddress,
+            trader: {
+                id: traderId,
+                signer: "traderSigner",
             },
-        );
+            marketAddress: marketAddress,
+            price: { tokens: 0.2 },
+            orderId: "0xb1482121e43efae",
+            // waitForOrderbookUpdate: true
+        });
 
-        console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
+        flex.evr.log.info("Cancel Initialization result on wallet", result);
 
-
+        if (!cancelOrderFinalized(result)) {
+            result = await Trader.waitForCancelOrder(flex, result);
+            flex.evr.log.info("Finalized cancel result in orderbook", result);
+        }
         await flex.close();
     } catch (err) {
-        console.error(err);
+        flex.evr.log.error(err);
         process.exit(1);
     }
 })();

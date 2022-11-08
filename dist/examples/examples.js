@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.examplesLog = exports.EXAMPLES_FLEX_CONFIG = exports.CONFIG = void 0;
+exports.EXAMPLES_FLEX_CONFIG = exports.CONFIG = void 0;
 const core_1 = require("@eversdk/core");
 const lib_node_1 = require("@eversdk/lib-node");
 const configs_1 = require("./configs");
@@ -16,8 +16,4 @@ exports.EXAMPLES_FLEX_CONFIG = {
     },
     superRoot: exports.CONFIG.superRoot,
 };
-function examplesLog(title, value) {
-    console.log(`${title}:`, JSON.stringify(value, undefined, "   "));
-}
-exports.examplesLog = examplesLog;
 //# sourceMappingURL=examples.js.map

@@ -12,26 +12,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
 (() => __awaiter(void 0, void 0, void 0, function* () {
+    const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
     try {
-        const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
         const clientAddress = examples_1.CONFIG.trader.client;
         const traderId = examples_1.CONFIG.trader.id;
         const marketAddress = examples_1.CONFIG.market;
-        let orderInfo = yield flex_1.Trader.cancelOrder(flex, {
+        let result = yield flex_1.Trader.cancelOrder(flex, {
             clientAddress: clientAddress,
             trader: {
                 id: traderId,
-                signer: "trader_1",
+                signer: "traderSigner",
             },
             marketAddress: marketAddress,
-            price: { units: 250000 },
-            orderId: "0x5349f298365e28d2",
+            price: { tokens: 0.2 },
+            orderId: "0xb1482121e43efae",
         });
-        console.log(`Order info`, JSON.stringify(orderInfo, undefined, "   "));
+        flex.evr.log.info("Cancel Initialization result on wallet", result);
+        if (!(0, flex_1.cancelOrderFinalized)(result)) {
+            result = yield flex_1.Trader.waitForCancelOrder(flex, result);
+            flex.evr.log.info("Finalized cancel result in orderbook", result);
+        }
         yield flex.close();
     }
     catch (err) {
-        console.error(err);
+        flex.evr.log.error(err);
         process.exit(1);
     }
 }))();

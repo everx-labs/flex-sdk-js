@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.7.0] – 2022-11-02
+
+### New
+
+- ABI 2.3 Flex Contracts version was supported.
+  
+- `makeOrder` and `cancelOrder` now returns additional `status` field of type `enum MakeOrderStatus` representing the processing stage of the request. 
+  Can be of [`STARTING`, `FINALIZING`, `SUCCESS`, `ERROR`]. 
+
+- In case of `FINALIZING` status returned can be proceeded to the final result with 
+  `waitForMakeOrder` and `waitForCancelOrder` functions. Just pass the result of `makeOrder`/`cancelOrder` as the input parameter.
+
+  **Attention!!!!**
+
+  - `ERROR` status means the error occured in the contract system, which means you SHOULD NOT perform retries until you solve the error reason. 
+  - Network errors are not resolved by `makeOrder`/`cancelOrder` methods. Wrap your code in `try catch` for network errors. In case of network error we suggest you to query trader info from the api to understand your state. See `/examples/trader-info.ts` sample
+
+### Improved
+
+- Added flex client balance check before trader Index Contract deploy to the `deployTrader`.
+
+### Fixed
+
+- If non-existing signer was specified then empty error message was printed. 
+- make-order did not finish process in case of a full order closure.
+
 ## [0.6.0] – 2022-10-07
 
 ### New
@@ -19,7 +45,7 @@ All notable changes to this project will be documented in this file.
 
 ### New
 
-- `Trader.cancelOrder` now returnes transactionID
+- `Trader.cancelOrder` now returns transactionID
 
 ## [0.3.0] – 2022-08-30
 

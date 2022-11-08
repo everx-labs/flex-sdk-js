@@ -20,15 +20,22 @@ function deployTrader(flex, options) {
         const address = (yield clientAccount.getUserIdIndex({
             user_id: userId,
         })).output.value0;
-        console.log(address);
+        flex.evr.log.info(`Deploy trader address: ${address}`);
         if (!(yield flex.evr.accounts.isActive(address))) {
             const defaults = flex.config.trader.deploy;
+            const eversAll = (_a = options.eversAll) !== null && _a !== void 0 ? _a : defaults.eversAll;
+            const eversAuth = (_b = options.eversAuth) !== null && _b !== void 0 ? _b : defaults.eversAuth;
+            const clientBalance = Number(yield clientAccount.getBalance());
+            const requiredBalance = Number(eversAll) + web3_1.Evr.unitsFromTokens(1);
+            if (clientBalance < requiredBalance) {
+                throw Error(`Flex client ${address} balance ${clientBalance} is not enough to deploy trader. Required balance is ${requiredBalance}. You have to topup flex client balance.`);
+            }
             yield clientAccount.runDeployIndex({
                 user_id: userId,
                 lend_pubkey: (0, web3_1.uint256)(options.pubkey),
                 name: options.name,
-                evers_all: (_a = options.eversAll) !== null && _a !== void 0 ? _a : defaults.eversAll,
-                evers_to_auth_idx: (_b = options.eversAuth) !== null && _b !== void 0 ? _b : defaults.eversAuth,
+                evers_all: eversAll,
+                evers_to_auth_idx: eversAuth,
                 refill_wallet: (_c = options.refillWallet) !== null && _c !== void 0 ? _c : defaults.refillWallet,
                 min_refill: (_d = options.minRefill) !== null && _d !== void 0 ? _d : defaults.minRefill,
             });

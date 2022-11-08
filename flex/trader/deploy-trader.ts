@@ -1,11 +1,11 @@
 import { FlexClientAccount } from "../../contracts";
 import { AccountOptionsEx } from "../../contracts/account-ex";
 import { Flex } from "../flex";
-import { uint256 } from "../web3";
+import { Evr, uint256 } from "../web3";
 
 export type DeployTraderOptions = {
     /**
-     * 
+     *
      */
     client: AccountOptionsEx,
     /**
@@ -18,10 +18,10 @@ export type DeployTraderOptions = {
      */
     name: string,
     /**
-     * Trader's pubkey from signing key pair which Trader generates on his own. 
+     * Trader's pubkey from signing key pair which Trader generates on his own.
      */
     pubkey: string,
-    
+
     eversAll?: string | number | bigint;
     eversAuth?: string | number | bigint;
     refillWallet?: string | number | bigint;
@@ -34,15 +34,22 @@ export async function deployTrader(flex: Flex, options: DeployTraderOptions): Pr
     const address = (await clientAccount.getUserIdIndex({
         user_id: userId,
     })).output.value0;
-    console.log(address);
+    flex.evr.log.info(`Deploy trader address: ${address}`);
     if (!(await flex.evr.accounts.isActive(address))) {
         const defaults = flex.config.trader.deploy;
+        const eversAll = options.eversAll ?? defaults.eversAll;
+        const eversAuth = options.eversAuth ?? defaults.eversAuth;
+        const clientBalance = Number(await clientAccount.getBalance());
+        const requiredBalance = Number(eversAll) + Evr.unitsFromTokens(1);
+        if (clientBalance < requiredBalance) {
+            throw Error(`Flex client ${address} balance ${clientBalance} is not enough to deploy trader. Required balance is ${requiredBalance}. You have to topup flex client balance.`);
+        }
         await clientAccount.runDeployIndex({
             user_id: userId,
             lend_pubkey: uint256(options.pubkey),
             name: options.name,
-            evers_all: options.eversAll ?? defaults.eversAll,
-            evers_to_auth_idx: options.eversAuth ?? defaults.eversAuth,
+            evers_all: eversAll,
+            evers_to_auth_idx: eversAuth,
             refill_wallet: options.refillWallet ?? defaults.refillWallet,
             min_refill: options.minRefill ?? defaults.minRefill,
         });

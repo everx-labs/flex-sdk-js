@@ -1,5 +1,5 @@
 import { Account, ContractPackage } from "@eversdk/appkit";
-import { ResultOfQueryTransactionTree } from "@eversdk/core";
+import { ProcessingEvent, ResultOfQueryTransactionTree } from "@eversdk/core";
 export declare enum LogLevel {
     NONE = 0,
     FATAL = 1,
@@ -15,9 +15,10 @@ export declare abstract class Log {
     static STDOUT: Log;
     static default: Log;
     abstract writeText(text: string): void;
-    write(level: LogLevel, text: string): void;
-    debug(text: string): void;
-    info(text: string): void;
+    write(level: LogLevel, ...args: any[]): void;
+    debug(...args: any[]): void;
+    info(...args: any[]): void;
+    error(...args: any[]): void;
     processingStart(title: string): void;
     processingDone(): void;
 }
@@ -32,6 +33,7 @@ export declare type Transaction = {
 };
 export declare type RunHelperOptions = {
     skipTransactionTree?: boolean;
+    onProcessing?: (event: ProcessingEvent) => void;
 };
 export declare type RunHelperResult<O> = {
     transaction: Transaction;

@@ -1,29 +1,30 @@
 import { Flex } from "../flex";
 import {
-    CONFIG, EXAMPLES_FLEX_CONFIG
+    CONFIG, EXAMPLES_FLEX_CONFIG,
 } from "./examples";
 import { Trader } from "../flex";
 
 (async () => {
+    const flex = new Flex(EXAMPLES_FLEX_CONFIG);
     try {
-        const flex = new Flex(EXAMPLES_FLEX_CONFIG);
         const traderId = CONFIG.trader.id;
-        console.log(`Trader Orders`, JSON.stringify(await Trader.queryOrders(flex, traderId), undefined, "   "));
-        console.log(`Trader Trades`, JSON.stringify(await Trader.queryTrades(flex, traderId), undefined, "   "));
+        flex.evr.log.info("Trader Orders", await Trader.queryOrders(flex, traderId));
+        flex.evr.log.info("Trader Trades", await Trader.queryTrades(flex, traderId));
 
-        console.log(
-            `Trader Wallets`, JSON.stringify(
-                await Trader.queryWallets(flex,
-                    {
-                        clientAddress: CONFIG.trader.client,
-                        traderId: CONFIG.trader.id,
-                    },
-                ),
-                undefined, "   "));
+        flex.evr.log.info(
+            "Trader Wallets",
+            await Trader.queryWallets(
+                flex,
+                {
+                    clientAddress: CONFIG.trader.client,
+                    traderId: CONFIG.trader.id,
+                },
+            ),
+        );
 
         await flex.close();
     } catch (err) {
-        console.error(err);
+        flex.evr.log.error(err);
         process.exit(1);
     }
 })();

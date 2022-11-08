@@ -10,6 +10,7 @@ export declare class Evr {
     signers: EvrSigners;
     accounts: EvrAccounts;
     log: Log;
+    static unitsFromTokens(tokens: number): number;
     constructor(config?: EvrConfig);
     close(): Promise<void>;
 }

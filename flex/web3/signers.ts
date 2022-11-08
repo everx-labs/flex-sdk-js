@@ -43,6 +43,29 @@ export class EvrSigners {
         }
     }
 
+    async sign(signer: Signer, base64: string): Promise<string> {
+        switch (signer.type) {
+        case "External":
+            throw new Error("External signer can not be used for signing.");
+        case "Keys":
+            return (await this.crypto.sign(({
+                keys: signer.keys,
+                unsigned: base64
+            }))).signature;
+        case "SigningBox":
+            return (await this.crypto.signing_box_sign(({
+                signing_box: signer.handle,
+                unsigned: base64
+            }))).signature;
+        default:
+            return "";
+        }
+    }
+
+    async getHashSignature(signer: Signer, hex: string): Promise<string> {
+        return await this.sign(signer, Buffer.from(hex, "hex").toString("base64"));
+    }
+
     private async fromSecret(secret: string): Promise<Signer> {
         const keys = await this.crypto.nacl_sign_keypair_from_secret_key({
             secret,
@@ -73,8 +96,7 @@ export class EvrSigners {
             }
         }
         throw new Error(
-            `Invalid signer: "${name}".
-             You must use one of: \`secret key\`, \`everdev\` signer name or \`Flex.signers\` name.`,
+            `Invalid signer: "${name}". You must use one of: \`secret key\`, \`everdev\` signer name or \`Flex.signers\` name.`,
         );
     }
 

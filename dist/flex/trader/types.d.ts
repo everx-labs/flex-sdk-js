@@ -35,6 +35,7 @@ export declare type TradeInfo = {
     liquidity: TradeLiquidity;
     fees: number;
     feesToken: TokenInfo;
+    userOrderId: string;
     cursor: string;
 };
 //# sourceMappingURL=types.d.ts.map

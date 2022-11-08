@@ -5,18 +5,9 @@ export declare const CONFIG: {
     trader: {
         client: string;
         id: string;
-        signer: string;
         wallet: string;
     };
-    trader2?: {
-        client: string;
-        id: string;
-        signer: string;
-        wallet: string;
-    } | undefined;
     market: string;
-    token: string;
 };
 export declare const EXAMPLES_FLEX_CONFIG: Partial<FlexConfig>;
-export declare function examplesLog(title: string, value: any): void;
 //# sourceMappingURL=examples.d.ts.map

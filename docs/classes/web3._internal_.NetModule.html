@@ -1,0 +1,742 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>NetModule | flex-sdk-js</title><meta name="description" content="Documentation for flex-sdk-js"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script async src="../assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base="..">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="" class="title">flex-sdk-js</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb">
+<li><a href="../modules.html">flex-sdk-js</a></li>
+<li><a href="../modules/web3.html">web3</a></li>
+<li><a href="../modules/web3._internal_.html">&lt;internal&gt;</a></li>
+<li><a href="web3._internal_.NetModule.html">NetModule</a></li></ul>
+<h1>Class NetModule</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>Network access.</p>
+</div></section>
+<section class="tsd-panel tsd-hierarchy">
+<h4>Hierarchy</h4>
+<ul class="tsd-hierarchy">
+<li><span class="target">NetModule</span></li></ul></section><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5319</li></ul></aside>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
+<h5 class="tsd-index-heading uppercase" role="button" aria-expanded="false" tabIndex=0><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 5.50969L8 11.6609L14.5 5.50969L12.5466 3.66086L8 7.96494L3.45341 3.66086L1.5 5.50969Z" fill="var(--color-text)"></path></svg> Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading">Constructors</h3>
+<div class="tsd-index-list"><a href="web3._internal_.NetModule.html#constructor" class="tsd-index-link tsd-kind-constructor tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#4D7FFF" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-512-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-512-text"></path></svg><span>constructor</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading">Properties</h3>
+<div class="tsd-index-list"><a href="web3._internal_.NetModule.html#client" class="tsd-index-link tsd-kind-property tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF984D" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-1024-path"></rect><path d="M9.354 16V7.24H12.174C12.99 7.24 13.638 7.476 14.118 7.948C14.606 8.412 14.85 9.036 14.85 9.82C14.85 10.604 14.606 11.232 14.118 11.704C13.638 12.168 12.99 12.4 12.174 12.4H10.434V16H9.354ZM10.434 11.428H12.174C12.646 11.428 13.022 11.284 13.302 10.996C13.59 10.7 13.734 10.308 13.734 9.82C13.734 9.324 13.59 8.932 13.302 8.644C13.022 8.356 12.646 8.212 12.174 8.212H10.434V11.428Z" fill="var(--color-text)" id="icon-1024-text"></path></svg><span>client</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading">Methods</h3>
+<div class="tsd-index-list"><a href="web3._internal_.NetModule.html#aggregate_collection" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF4DB8" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-2048-path"></rect><path d="M9.162 16V7.24H10.578L11.514 10.072C11.602 10.328 11.674 10.584 11.73 10.84C11.794 11.088 11.842 11.28 11.874 11.416C11.906 11.28 11.954 11.088 12.018 10.84C12.082 10.584 12.154 10.324 12.234 10.06L13.122 7.24H14.538V16H13.482V12.82C13.482 12.468 13.49 12.068 13.506 11.62C13.53 11.172 13.558 10.716 13.59 10.252C13.622 9.78 13.654 9.332 13.686 8.908C13.726 8.476 13.762 8.1 13.794 7.78L12.366 12.16H11.334L9.894 7.78C9.934 8.092 9.97 8.456 10.002 8.872C10.042 9.28 10.078 9.716 10.11 10.18C10.142 10.636 10.166 11.092 10.182 11.548C10.206 12.004 10.218 12.428 10.218 12.82V16H9.162Z" fill="var(--color-text)" id="icon-2048-text"></path></svg><span>aggregate_<wbr/>collection</span></a>
+<a href="web3._internal_.NetModule.html#batch_query" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>batch_<wbr/>query</span></a>
+<a href="web3._internal_.NetModule.html#create_block_iterator" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>create_<wbr/>block_<wbr/>iterator</span></a>
+<a href="web3._internal_.NetModule.html#create_transaction_iterator" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>create_<wbr/>transaction_<wbr/>iterator</span></a>
+<a href="web3._internal_.NetModule.html#fetch_endpoints" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>fetch_<wbr/>endpoints</span></a>
+<a href="web3._internal_.NetModule.html#find_last_shard_block" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>find_<wbr/>last_<wbr/>shard_<wbr/>block</span></a>
+<a href="web3._internal_.NetModule.html#get_endpoints" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get_<wbr/>endpoints</span></a>
+<a href="web3._internal_.NetModule.html#iterator_next" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>iterator_<wbr/>next</span></a>
+<a href="web3._internal_.NetModule.html#query" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>query</span></a>
+<a href="web3._internal_.NetModule.html#query_collection" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>query_<wbr/>collection</span></a>
+<a href="web3._internal_.NetModule.html#query_counterparties" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>query_<wbr/>counterparties</span></a>
+<a href="web3._internal_.NetModule.html#query_transaction_tree" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>query_<wbr/>transaction_<wbr/>tree</span></a>
+<a href="web3._internal_.NetModule.html#remove_iterator" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>remove_<wbr/>iterator</span></a>
+<a href="web3._internal_.NetModule.html#resume" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>resume</span></a>
+<a href="web3._internal_.NetModule.html#resume_block_iterator" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>resume_<wbr/>block_<wbr/>iterator</span></a>
+<a href="web3._internal_.NetModule.html#resume_transaction_iterator" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>resume_<wbr/>transaction_<wbr/>iterator</span></a>
+<a href="web3._internal_.NetModule.html#set_endpoints" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>set_<wbr/>endpoints</span></a>
+<a href="web3._internal_.NetModule.html#subscribe" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>subscribe</span></a>
+<a href="web3._internal_.NetModule.html#subscribe_collection" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>subscribe_<wbr/>collection</span></a>
+<a href="web3._internal_.NetModule.html#suspend" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>suspend</span></a>
+<a href="web3._internal_.NetModule.html#unsubscribe" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>unsubscribe</span></a>
+<a href="web3._internal_.NetModule.html#wait_for_collection" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-external"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>wait_<wbr/>for_<wbr/>collection</span></a>
+</div></section></div></details></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Constructors</h2>
+<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-external"><a id="constructor" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="constructor.new_NetModule">new <wbr/>Net<wbr/>Module<span class="tsd-signature-symbol">(</span>client<span class="tsd-signature-symbol">: </span><a href="../interfaces/web3._internal_.IClient.html" class="tsd-signature-type" data-tsd-kind="Interface">IClient</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="web3._internal_.NetModule.html" class="tsd-signature-type" data-tsd-kind="Class">NetModule</a><a href="#constructor.new_NetModule" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>client: <a href="../interfaces/web3._internal_.IClient.html" class="tsd-signature-type" data-tsd-kind="Interface">IClient</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="web3._internal_.NetModule.html" class="tsd-signature-type" data-tsd-kind="Class">NetModule</a></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5321</li></ul></aside></li></ul></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Properties</h2>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external"><a id="client" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>client</span><a href="#client" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">client<span class="tsd-signature-symbol">:</span> <a href="../interfaces/web3._internal_.IClient.html" class="tsd-signature-type" data-tsd-kind="Interface">IClient</a></div><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5320</li></ul></aside></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Methods</h2>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="aggregate_collection" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>aggregate_<wbr/>collection</span><a href="#aggregate_collection" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="aggregate_collection.aggregate_collection-1">aggregate_<wbr/>collection<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfAggregateCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfAggregateCollection</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfAggregateCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfAggregateCollection</a><span class="tsd-signature-symbol">&gt;</span><a href="#aggregate_collection.aggregate_collection-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Aggregates collection data.</p>
+
+<h3>Remarks</h3><p>Aggregates values from the specified <code>fields</code> for records
+that satisfies the <code>filter</code> conditions,</p>
+
+<h3>Returns</h3><p>ResultOfAggregateCollection</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfAggregateCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfAggregateCollection</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfAggregateCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfAggregateCollection</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5358</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="batch_query" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>batch_<wbr/>query</span><a href="#batch_query" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="batch_query.batch_query-1">batch_<wbr/>query<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfBatchQuery.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfBatchQuery</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfBatchQuery.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfBatchQuery</a><span class="tsd-signature-symbol">&gt;</span><a href="#batch_query.batch_query-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Performs multiple queries per single fetch.</p>
+
+<h3>Returns</h3><p>ResultOfBatchQuery</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfBatchQuery.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfBatchQuery</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfBatchQuery.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfBatchQuery</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5335</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="create_block_iterator" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>create_<wbr/>block_<wbr/>iterator</span><a href="#create_block_iterator" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="create_block_iterator.create_block_iterator-1">create_<wbr/>block_<wbr/>iterator<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfCreateBlockIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfCreateBlockIterator</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.RegisteredIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">RegisteredIterator</a><span class="tsd-signature-symbol">&gt;</span><a href="#create_block_iterator.create_block_iterator-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Creates block iterator.</p>
+
+<h3>Remarks</h3><p>Block iterator uses robust iteration methods that guaranties that every
+block in the specified range isn&#39;t missed or iterated twice.</p>
+<p>Iterated range can be reduced with some filters:</p>
+<ul>
+<li><code>start_time</code> – the bottom time range. Only blocks with <code>gen_utime</code>
+more or equal to this value is iterated. If this parameter is omitted then there is
+no bottom time edge, so all blocks since zero state is iterated.</li>
+<li><code>end_time</code> – the upper time range. Only blocks with <code>gen_utime</code>
+less then this value is iterated. If this parameter is omitted then there is
+no upper time edge, so iterator never finishes.</li>
+<li><code>shard_filter</code> – workchains and shard prefixes that reduce the set of interesting
+blocks. Block conforms to the shard filter if it belongs to the filter workchain
+and the first bits of block&#39;s <code>shard</code> fields matches to the shard prefix.
+Only blocks with suitable shard are iterated.</li>
+</ul>
+<p>Items iterated is a JSON objects with block data. The minimal set of returned
+fields is:</p>
+<pre><code class="language-text">id
+gen_utime
+workchain_id
+shard
+after_split
+after_merge
+prev_ref {
+    root_hash
+}
+prev_alt_ref {
+    root_hash
+}
+</code></pre>
+<p>Application can request additional fields in the <code>result</code> parameter.</p>
+<p>Application should call the <code>remove_iterator</code> when iterator is no longer required.</p>
+
+<h3>Returns</h3><p>RegisteredIterator</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfCreateBlockIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfCreateBlockIterator</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.RegisteredIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">RegisteredIterator</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5604</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="create_transaction_iterator" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>create_<wbr/>transaction_<wbr/>iterator</span><a href="#create_transaction_iterator" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="create_transaction_iterator.create_transaction_iterator-1">create_<wbr/>transaction_<wbr/>iterator<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfCreateTransactionIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfCreateTransactionIterator</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.RegisteredIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">RegisteredIterator</a><span class="tsd-signature-symbol">&gt;</span><a href="#create_transaction_iterator.create_transaction_iterator-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Creates transaction iterator.</p>
+
+<h3>Remarks</h3><p>Transaction iterator uses robust iteration methods that guaranty that every
+transaction in the specified range isn&#39;t missed or iterated twice.</p>
+<p>Iterated range can be reduced with some filters:</p>
+<ul>
+<li><code>start_time</code> – the bottom time range. Only transactions with <code>now</code>
+more or equal to this value are iterated. If this parameter is omitted then there is
+no bottom time edge, so all the transactions since zero state are iterated.</li>
+<li><code>end_time</code> – the upper time range. Only transactions with <code>now</code>
+less then this value are iterated. If this parameter is omitted then there is
+no upper time edge, so iterator never finishes.</li>
+<li><code>shard_filter</code> – workchains and shard prefixes that reduce the set of interesting
+accounts. Account address conforms to the shard filter if
+it belongs to the filter workchain and the first bits of address match to
+the shard prefix. Only transactions with suitable account addresses are iterated.</li>
+<li><code>accounts_filter</code> – set of account addresses whose transactions must be iterated.
+Note that accounts filter can conflict with shard filter so application must combine
+these filters carefully.</li>
+</ul>
+<p>Iterated item is a JSON objects with transaction data. The minimal set of returned
+fields is:</p>
+<pre><code class="language-text">id
+account_addr
+now
+balance_delta(format:DEC)
+bounce { bounce_type }
+in_message {
+    id
+    value(format:DEC)
+    msg_type
+    src
+}
+out_messages {
+    id
+    value(format:DEC)
+    msg_type
+    dst
+}
+</code></pre>
+<p>Application can request an additional fields in the <code>result</code> parameter.</p>
+<p>Another parameter that affects on the returned fields is the <code>include_transfers</code>.
+When this parameter is <code>true</code> the iterator computes and adds <code>transfer</code> field containing
+list of the useful <code>TransactionTransfer</code> objects.
+Each transfer is calculated from the particular message related to the transaction
+and has the following structure:</p>
+<ul>
+<li>message – source message identifier.</li>
+<li>isBounced – indicates that the transaction is bounced, which means the value will be returned back to the sender.</li>
+<li>isDeposit – indicates that this transfer is the deposit (true) or withdraw (false).</li>
+<li>counterparty – account address of the transfer source or destination depending on <code>isDeposit</code>.</li>
+<li>value – amount of nano tokens transferred. The value is represented as a decimal string
+because the actual value can be more precise than the JSON number can represent. Application
+must use this string carefully – conversion to number can follow to loose of precision.</li>
+</ul>
+<p>Application should call the <code>remove_iterator</code> when iterator is no longer required.</p>
+
+<h3>Returns</h3><p>RegisteredIterator</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfCreateTransactionIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfCreateTransactionIterator</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.RegisteredIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">RegisteredIterator</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5680</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="fetch_endpoints" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>fetch_<wbr/>endpoints</span><a href="#fetch_endpoints" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="fetch_endpoints.fetch_endpoints-1">fetch_<wbr/>endpoints<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.EndpointsSet.html" class="tsd-signature-type" data-tsd-kind="Type alias">EndpointsSet</a><span class="tsd-signature-symbol">&gt;</span><a href="#fetch_endpoints.fetch_endpoints-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Requests the list of alternative endpoints from server</p>
+
+<h3>Returns</h3><p>EndpointsSet</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.EndpointsSet.html" class="tsd-signature-type" data-tsd-kind="Type alias">EndpointsSet</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5497</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="find_last_shard_block" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>find_<wbr/>last_<wbr/>shard_<wbr/>block</span><a href="#find_last_shard_block" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="find_last_shard_block.find_last_shard_block-1">find_<wbr/>last_<wbr/>shard_<wbr/>block<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfFindLastShardBlock.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfFindLastShardBlock</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfFindLastShardBlock.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfFindLastShardBlock</a><span class="tsd-signature-symbol">&gt;</span><a href="#find_last_shard_block.find_last_shard_block-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns ID of the last block in a specified account shard</p>
+
+<h3>Returns</h3><p>ResultOfFindLastShardBlock</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfFindLastShardBlock.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfFindLastShardBlock</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfFindLastShardBlock.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfFindLastShardBlock</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5492</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="get_endpoints" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get_<wbr/>endpoints</span><a href="#get_endpoints" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="get_endpoints.get_endpoints-1">get_<wbr/>endpoints<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfGetEndpoints.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfGetEndpoints</a><span class="tsd-signature-symbol">&gt;</span><a href="#get_endpoints.get_endpoints-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Requests the list of alternative endpoints from server</p>
+
+<h3>Returns</h3><p>ResultOfGetEndpoints</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfGetEndpoints.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfGetEndpoints</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5509</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="iterator_next" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>iterator_<wbr/>next</span><a href="#iterator_next" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="iterator_next.iterator_next-1">iterator_<wbr/>next<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfIteratorNext.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfIteratorNext</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfIteratorNext.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfIteratorNext</a><span class="tsd-signature-symbol">&gt;</span><a href="#iterator_next.iterator_next-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns next available items.</p>
+
+<h3>Remarks</h3><p>In addition to available items this function returns the <code>has_more</code> flag
+indicating that the iterator isn&#39;t reach the end of the iterated range yet.</p>
+<p>This function can return the empty list of available items but
+indicates that there are more items is available.
+This situation appears when the iterator doesn&#39;t reach iterated range
+but database doesn&#39;t contains available items yet.</p>
+<p>If application requests resume state in <code>return_resume_state</code> parameter
+then this function returns <code>resume_state</code> that can be used later to
+resume the iteration from the position after returned items.</p>
+<p>The structure of the items returned depends on the iterator used.
+See the description to the appropriated iterator creation function.</p>
+
+<h3>Returns</h3><p>ResultOfIteratorNext</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfIteratorNext.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfIteratorNext</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfIteratorNext.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfIteratorNext</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5718</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="query" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>query</span><a href="#query" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="query.query-1">query<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfQuery.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfQuery</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfQuery.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfQuery</a><span class="tsd-signature-symbol">&gt;</span><a href="#query.query-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Performs DAppServer GraphQL query.</p>
+
+<h3>Returns</h3><p>ResultOfQuery</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfQuery.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfQuery</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfQuery.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfQuery</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5328</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="query_collection" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>query_<wbr/>collection</span><a href="#query_collection" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="query_collection.query_collection-1">query_<wbr/>collection<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfQueryCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfQueryCollection</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfQueryCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfQueryCollection</a><span class="tsd-signature-symbol">&gt;</span><a href="#query_collection.query_collection-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Queries collection data</p>
+
+<h3>Remarks</h3><p>Queries data that satisfies the <code>filter</code> conditions,
+limits the number of returned records and orders them.
+The projection fields are limited to <code>result</code> fields</p>
+
+<h3>Returns</h3><p>ResultOfQueryCollection</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfQueryCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfQueryCollection</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfQueryCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfQueryCollection</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5347</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="query_counterparties" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>query_<wbr/>counterparties</span><a href="#query_counterparties" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="query_counterparties.query_counterparties-1">query_<wbr/>counterparties<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfQueryCounterparties.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfQueryCounterparties</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfQueryCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfQueryCollection</a><span class="tsd-signature-symbol">&gt;</span><a href="#query_counterparties.query_counterparties-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Allows to query and paginate through the list of accounts that the specified account has interacted with, sorted by the time of the last internal message between accounts</p>
+
+<h3>Remarks</h3><p><em>Attention</em> this query retrieves data from &#39;Counterparties&#39; service which is not supported in
+the opensource version of DApp Server (and will not be supported) as well as in Evernode SE (will be supported in SE in future),
+but is always accessible via <a href="../ton-os-api/networks.md">EVER OS Clouds</a></p>
+
+<h3>Returns</h3><p>ResultOfQueryCollection</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfQueryCounterparties.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfQueryCounterparties</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfQueryCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfQueryCollection</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5521</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="query_transaction_tree" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>query_<wbr/>transaction_<wbr/>tree</span><a href="#query_transaction_tree" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="query_transaction_tree.query_transaction_tree-1">query_<wbr/>transaction_<wbr/>tree<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfQueryTransactionTree.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfQueryTransactionTree</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfQueryTransactionTree.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfQueryTransactionTree</a><span class="tsd-signature-symbol">&gt;</span><a href="#query_transaction_tree.query_transaction_tree-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns a tree of transactions triggered by a specific message.</p>
+
+<h3>Remarks</h3><p>Performs recursive retrieval of a transactions tree produced by a specific message:
+in_msg -&gt; dst_transaction -&gt; out_messages -&gt; dst_transaction -&gt; ...
+If the chain of transactions execution is in progress while the function is running,
+it will wait for the next transactions to appear until the full tree or more than 50 transactions
+are received.</p>
+<p>All the retrieved messages and transactions are included
+into <code>result.messages</code> and <code>result.transactions</code> respectively.</p>
+<p>Function reads transactions layer by layer, by pages of 20 transactions.</p>
+<p>The retrieval prosess goes like this:
+Let&#39;s assume we have an infinite chain of transactions and each transaction generates 5 messages.</p>
+<ol>
+<li>Retrieve 1st message (input parameter) and corresponding transaction - put it into result.
+It is the first level of the tree of transactions - its root.
+Retrieve 5 out message ids from the transaction for next steps.</li>
+<li>Retrieve 5 messages and corresponding transactions on the 2nd layer. Put them into result.
+Retrieve 5*5 out message ids from these transactions for next steps</li>
+<li>Retrieve 20 (size of the page) messages and transactions (3rd layer) and 20*5=100 message ids (4th layer).</li>
+<li>Retrieve the last 5 messages and 5 transactions on the 3rd layer + 15 messages and transactions (of 100) from the 4th layer</li>
+</ol>
+<ul>
+<li>25 message ids of the 4th layer + 75 message ids of the 5th layer.</li>
+</ul>
+<ol start="5">
+<li>Retrieve 20 more messages and 20 more transactions of the 4th layer + 100 more message ids of the 5th layer.</li>
+<li>Now we have 1+5+20+20+20 = 66 transactions, which is more than 50. Function exits with the tree of
+1m-&gt;1t-&gt;5m-&gt;5t-&gt;25m-&gt;25t-&gt;35m-&gt;35t. If we see any message ids in the last transactions out_msgs, which don&#39;t have
+corresponding messages in the function result, it means that the full tree was not received and we need to continue iteration.</li>
+</ol>
+<p>To summarize, it is guaranteed that each message in <code>result.messages</code> has the corresponding transaction
+in the <code>result.transactions</code>.
+But there is no guarantee that all messages from transactions <code>out_msgs</code> are
+presented in <code>result.messages</code>.
+So the application has to continue retrieval for missing messages if it requires.</p>
+
+<h3>Returns</h3><p>ResultOfQueryTransactionTree</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfQueryTransactionTree.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfQueryTransactionTree</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfQueryTransactionTree.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfQueryTransactionTree</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5561</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="remove_iterator" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>remove_<wbr/>iterator</span><a href="#remove_iterator" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="remove_iterator.remove_iterator-1">remove_<wbr/>iterator<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.RegisteredIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">RegisteredIterator</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#remove_iterator.remove_iterator-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Removes an iterator</p>
+
+<h3>Remarks</h3><p>Frees all resources allocated in library to serve iterator.</p>
+<p>Application always should call the <code>remove_iterator</code> when iterator
+is no longer required.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.RegisteredIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">RegisteredIterator</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5731</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="resume" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>resume</span><a href="#resume" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="resume.resume-1">resume<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#resume.resume-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Resumes network module to enable network activity</p>
+
+<h3>Returns</h3></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5485</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="resume_block_iterator" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>resume_<wbr/>block_<wbr/>iterator</span><a href="#resume_block_iterator" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="resume_block_iterator.resume_block_iterator-1">resume_<wbr/>block_<wbr/>iterator<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfResumeBlockIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfResumeBlockIterator</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.RegisteredIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">RegisteredIterator</a><span class="tsd-signature-symbol">&gt;</span><a href="#resume_block_iterator.resume_block_iterator-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Resumes block iterator.</p>
+
+<h3>Remarks</h3><p>The iterator stays exactly at the same position where the <code>resume_state</code> was catched.</p>
+<p>Application should call the <code>remove_iterator</code> when iterator is no longer required.</p>
+
+<h3>Returns</h3><p>RegisteredIterator</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfResumeBlockIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfResumeBlockIterator</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.RegisteredIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">RegisteredIterator</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5616</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="resume_transaction_iterator" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>resume_<wbr/>transaction_<wbr/>iterator</span><a href="#resume_transaction_iterator" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="resume_transaction_iterator.resume_transaction_iterator-1">resume_<wbr/>transaction_<wbr/>iterator<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfResumeTransactionIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfResumeTransactionIterator</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.RegisteredIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">RegisteredIterator</a><span class="tsd-signature-symbol">&gt;</span><a href="#resume_transaction_iterator.resume_transaction_iterator-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Resumes transaction iterator.</p>
+
+<h3>Remarks</h3><p>The iterator stays exactly at the same position where the <code>resume_state</code> was caught.
+Note that <code>resume_state</code> doesn&#39;t store the account filter. If the application requires
+to use the same account filter as it was when the iterator was created then the application
+must pass the account filter again in <code>accounts_filter</code> parameter.</p>
+<p>Application should call the <code>remove_iterator</code> when iterator is no longer required.</p>
+
+<h3>Returns</h3><p>RegisteredIterator</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfResumeTransactionIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfResumeTransactionIterator</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.RegisteredIterator.html" class="tsd-signature-type" data-tsd-kind="Type alias">RegisteredIterator</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5695</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="set_endpoints" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>set_<wbr/>endpoints</span><a href="#set_endpoints" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="set_endpoints.set_endpoints-1">set_<wbr/>endpoints<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.EndpointsSet.html" class="tsd-signature-type" data-tsd-kind="Type alias">EndpointsSet</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#set_endpoints.set_endpoints-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Sets the list of endpoints to use on reinit</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.EndpointsSet.html" class="tsd-signature-type" data-tsd-kind="Type alias">EndpointsSet</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5504</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="subscribe" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>subscribe</span><a href="#subscribe" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="subscribe.subscribe-1">subscribe<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfSubscribe.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfSubscribe</a>, responseHandler<span class="tsd-signature-symbol">?: </span><a href="../types/web3._internal_.ResponseHandler.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResponseHandler</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfSubscribeCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfSubscribeCollection</a><span class="tsd-signature-symbol">&gt;</span><a href="#subscribe.subscribe-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Creates a subscription</p>
+
+<h3>Remarks</h3><p>The subscription is a persistent communication channel between
+client and Everscale Network.</p>
+
+<a href="#important-notes-on-subscriptions" id="important-notes-on-subscriptions" style="color: inherit; text-decoration: none;">
+  <h3>Important Notes on Subscriptions</h3>
+</a>
+<p>Unfortunately sometimes the connection with the network breakes down.
+In this situation the library attempts to reconnect to the network.
+This reconnection sequence can take significant time.
+All of this time the client is disconnected from the network.</p>
+<p>Bad news is that all changes that happened while
+the client was disconnected are lost.</p>
+<p>Good news is that the client report errors to the callback when
+it loses and resumes connection.</p>
+<p>So, if the lost changes are important to the application then
+the application must handle these error reports.</p>
+<p>Library reports errors with <code>responseType</code> == 101
+and the error object passed via <code>params</code>.</p>
+<p>When the library has successfully reconnected
+the application receives callback with
+<code>responseType</code> == 101 and <code>params.code</code> == 614 (NetworkModuleResumed).</p>
+<p>Application can use several ways to handle this situation:</p>
+<ul>
+<li>If application monitors changes for the single
+object (for example specific account):  application
+can perform a query for this object and handle actual data as a
+regular data from the subscription.</li>
+<li>If application monitors sequence of some objects
+(for example transactions of the specific account): application must
+refresh all cached (or visible to user) lists where this sequences presents.</li>
+</ul>
+
+<h3>Returns</h3><p>ResultOfSubscribeCollection</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfSubscribe.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfSubscribe</a></h5></li>
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> responseHandler: <a href="../types/web3._internal_.ResponseHandler.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResponseHandler</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfSubscribeCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfSubscribeCollection</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5475</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="subscribe_collection" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>subscribe_<wbr/>collection</span><a href="#subscribe_collection" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="subscribe_collection.subscribe_collection-1">subscribe_<wbr/>collection<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfSubscribeCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfSubscribeCollection</a>, responseHandler<span class="tsd-signature-symbol">?: </span><a href="../types/web3._internal_.ResponseHandler.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResponseHandler</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfSubscribeCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfSubscribeCollection</a><span class="tsd-signature-symbol">&gt;</span><a href="#subscribe_collection.subscribe_collection-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Creates a collection subscription</p>
+
+<h3>Remarks</h3><p>Triggers for each insert/update of data that satisfies
+the <code>filter</code> conditions.
+The projection fields are limited to <code>result</code> fields.</p>
+<p>The subscription is a persistent communication channel between
+client and Free TON Network.
+All changes in the blockchain will be reflected in realtime.
+Changes means inserts and updates of the blockchain entities.</p>
+
+<a href="#important-notes-on-subscriptions" id="important-notes-on-subscriptions" style="color: inherit; text-decoration: none;">
+  <h3>Important Notes on Subscriptions</h3>
+</a>
+<p>Unfortunately sometimes the connection with the network brakes down.
+In this situation the library attempts to reconnect to the network.
+This reconnection sequence can take significant time.
+All of this time the client is disconnected from the network.</p>
+<p>Bad news is that all blockchain changes that happened while
+the client was disconnected are lost.</p>
+<p>Good news is that the client report errors to the callback when
+it loses and resumes connection.</p>
+<p>So, if the lost changes are important to the application then
+the application must handle these error reports.</p>
+<p>Library reports errors with <code>responseType</code> == 101
+and the error object passed via <code>params</code>.</p>
+<p>When the library has successfully reconnected
+the application receives callback with
+<code>responseType</code> == 101 and <code>params.code</code> == 614 (NetworkModuleResumed).</p>
+<p>Application can use several ways to handle this situation:</p>
+<ul>
+<li>If application monitors changes for the single blockchain
+object (for example specific account):  application
+can perform a query for this object and handle actual data as a
+regular data from the subscription.</li>
+<li>If application monitors sequence of some blockchain objects
+(for example transactions of the specific account): application must
+refresh all cached (or visible to user) lists where this sequences presents.</li>
+</ul>
+
+<h3>Returns</h3><p>ResultOfSubscribeCollection</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfSubscribeCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfSubscribeCollection</a></h5></li>
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> responseHandler: <a href="../types/web3._internal_.ResponseHandler.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResponseHandler</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfSubscribeCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfSubscribeCollection</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5432</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="suspend" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>suspend</span><a href="#suspend" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="suspend.suspend-1">suspend<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#suspend.suspend-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Suspends network module to stop any network activity</p>
+
+<h3>Returns</h3></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5480</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="unsubscribe" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>unsubscribe</span><a href="#unsubscribe" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="unsubscribe.unsubscribe-1">unsubscribe<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ResultOfSubscribeCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfSubscribeCollection</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#unsubscribe.unsubscribe-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Cancels a subscription</p>
+
+<h3>Remarks</h3><p>Cancels a subscription specified by its handle.</p>
+
+<h3>Returns</h3></div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ResultOfSubscribeCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfSubscribeCollection</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5383</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="wait_for_collection" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>wait_<wbr/>for_<wbr/>collection</span><a href="#wait_for_collection" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+<li class="tsd-signature tsd-anchor-link" id="wait_for_collection.wait_for_collection-1">wait_<wbr/>for_<wbr/>collection<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../types/web3._internal_.ParamsOfWaitForCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfWaitForCollection</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfWaitForCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfWaitForCollection</a><span class="tsd-signature-symbol">&gt;</span><a href="#wait_for_collection.wait_for_collection-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns an object that fulfills the conditions or waits for its appearance</p>
+
+<h3>Remarks</h3><p>Triggers only once.
+If object that satisfies the <code>filter</code> conditions
+already exists - returns it immediately.
+If not - waits for insert/update of data within the specified <code>timeout</code>,
+and returns it.
+The projection fields are limited to <code>result</code> fields</p>
+
+<h3>Returns</h3><p>ResultOfWaitForCollection</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../types/web3._internal_.ParamsOfWaitForCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ParamsOfWaitForCollection</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/web3._internal_.ResultOfWaitForCollection.html" class="tsd-signature-type" data-tsd-kind="Type alias">ResultOfWaitForCollection</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in node_modules/@eversdk/core/dist/modules.d.ts:5373</li></ul></aside></li></ul></section></section></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current"><a href="../modules.html">flex-<wbr/>sdk-<wbr/>js</a>
+<ul>
+<li class="tsd-kind-module"><a href="../modules/client.html">client</a></li>
+<li class="tsd-kind-module"><a href="../modules/exchange.html">exchange</a></li>
+<li class="tsd-kind-module"><a href="../modules/flex.html">flex</a>
+<ul>
+<li class="tsd-kind-module tsd-parent-kind-module"><a href="../modules/flex._internal_.html">&lt;internal&gt;</a></li></ul></li>
+<li class="tsd-kind-module"><a href="../modules/market.html">market</a></li>
+<li class="tsd-kind-module"><a href="../modules/token.html">token</a></li>
+<li class="tsd-kind-module"><a href="../modules/trader.html">trader</a>
+<ul>
+<li class="tsd-kind-module tsd-parent-kind-module"><a href="../modules/trader._internal_.html">&lt;internal&gt;</a></li></ul></li>
+<li class="current tsd-kind-module"><a href="../modules/web3.html">web3</a>
+<ul>
+<li class="current tsd-kind-module tsd-parent-kind-module"><a href="../modules/web3._internal_.html">&lt;internal&gt;</a></li></ul></li></ul></li></ul></div></details></nav>
+<nav class="tsd-navigation secondary menu-sticky">
+<ul>
+<li class="current tsd-kind-class tsd-parent-kind-module tsd-is-external"><a href="web3._internal_.NetModule.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-128-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-128-text"></path></svg><span>Net<wbr/>Module</span></a>
+<ul>
+<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#constructor" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-512-path"></use><use href="#icon-512-text"></use></svg>constructor</a></li>
+<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#client" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>client</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#aggregate_collection" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>aggregate_<wbr/>collection</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#batch_query" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>batch_<wbr/>query</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#create_block_iterator" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>create_<wbr/>block_<wbr/>iterator</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#create_transaction_iterator" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>create_<wbr/>transaction_<wbr/>iterator</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#fetch_endpoints" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>fetch_<wbr/>endpoints</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#find_last_shard_block" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>find_<wbr/>last_<wbr/>shard_<wbr/>block</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#get_endpoints" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get_<wbr/>endpoints</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#iterator_next" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>iterator_<wbr/>next</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#query" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>query</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#query_collection" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>query_<wbr/>collection</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#query_counterparties" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>query_<wbr/>counterparties</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#query_transaction_tree" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>query_<wbr/>transaction_<wbr/>tree</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#remove_iterator" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>remove_<wbr/>iterator</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#resume" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>resume</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#resume_block_iterator" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>resume_<wbr/>block_<wbr/>iterator</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#resume_transaction_iterator" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>resume_<wbr/>transaction_<wbr/>iterator</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#set_endpoints" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>set_<wbr/>endpoints</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#subscribe" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>subscribe</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#subscribe_collection" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>subscribe_<wbr/>collection</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#suspend" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>suspend</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#unsubscribe" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>unsubscribe</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="web3._internal_.NetModule.html#wait_for_collection" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>wait_<wbr/>for_<wbr/>collection</a></li></ul></li></ul></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="../assets/main.js"></script></body></html>

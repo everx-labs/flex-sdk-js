@@ -1,14 +1,13 @@
 import { Evr, Exchange } from "../flex";
-import { examplesLog } from "./examples";
 import { LogLevel } from "../contracts/helpers";
 
 (async () => {
+    const evr = new Evr({
+        sdk: {
+            network: { endpoints: ["http://localhost"] },
+        },
+    });
     try {
-        const evr = new Evr({
-            sdk: {
-                network: { endpoints: ["http://localhost"] },
-            },
-        });
         evr.log.level = LogLevel.DEBUG;
         const signer = "flex-exchange";
         const info = await Exchange.deploy(evr, {
@@ -26,10 +25,10 @@ import { LogLevel } from "../contracts/helpers";
             },
         });
 
-        examplesLog("Exchange", info);
+        evr.log.info("Exchange", info);
         await evr.close();
     } catch (err) {
-        console.error(err);
+        evr.log.error(err);
         process.exit(1);
     }
 })();

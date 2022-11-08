@@ -1,8 +1,27 @@
 import { AbiContract, Signer, TonClient, TransactionNode } from "@eversdk/core";
-import { Log } from "../../contracts/helpers";
-import { AccountOptionsEx } from "../../contracts/account-ex";
+import { AccountClass, AccountOptionsEx } from "../../contracts/account-ex";
 import { EvrSigners } from "./signers";
+import { Log } from "../../contracts/helpers";
 export { AccountOptionsEx };
+declare enum MessageType {
+    Internal = 0,
+    ExtIn = 1,
+    ExtOut = 2
+}
+export declare type DerivativeTransactionMessage = {
+    id: string;
+    msg_type: MessageType;
+};
+export declare type DerivativeTransaction = {
+    id: string;
+    out_messages: DerivativeTransactionMessage[];
+    account_addr: string;
+    aborted: boolean;
+    compute: {
+        exit_code: number;
+    };
+    lt: string;
+};
 export declare class EvrAccounts {
     everos: TonClient;
     signers: EvrSigners;
@@ -17,9 +36,10 @@ export declare class EvrAccounts {
     isActive(address: string): Promise<boolean>;
     waitForFinalExternalAnswer(transaction: TransactionNode, abi: AbiContract): Promise<any>;
     waitForInternalAnswer(transaction: TransactionNode, abi: AbiContract[]): Promise<import("@eversdk/core").MessageNode>;
-    waitForDerivativeTransactionOnAccount(options: {
-        originTransactionId: string;
-        accountAddress: string;
-    }): Promise<TransactionNode>;
+    waitForDerivativeTransactions(originTransactionId: string, accounts: {
+        [address: string]: AccountClass;
+    }): Promise<{
+        [address: string]: DerivativeTransaction;
+    }>;
 }
 //# sourceMappingURL=accounts.d.ts.map

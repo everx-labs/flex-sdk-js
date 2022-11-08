@@ -9,10 +9,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cancelOrder = void 0;
+exports.finalizeCancelOrder = exports.waitForCancelOrder = exports.cancelOrder = exports.CancelOrderStatus = void 0;
 const contracts_1 = require("../../contracts");
 const internals_1 = require("./internals");
 const flex_1 = require("../flex");
+const core_1 = require("@eversdk/core");
+var CancelOrderStatus;
+(function (CancelOrderStatus) {
+    CancelOrderStatus[CancelOrderStatus["STARTING"] = 0] = "STARTING";
+    CancelOrderStatus[CancelOrderStatus["FINALIZING"] = 1] = "FINALIZING";
+    CancelOrderStatus[CancelOrderStatus["SUCCESS"] = 2] = "SUCCESS";
+    CancelOrderStatus[CancelOrderStatus["ERROR"] = 3] = "ERROR";
+})(CancelOrderStatus = exports.CancelOrderStatus || (exports.CancelOrderStatus = {}));
+function cancelOrderError(error) {
+    return {
+        status: CancelOrderStatus.ERROR,
+        error: Object.assign(Object.assign({}, error), { message: error.message }),
+    };
+}
 function cancelOrder(evr, options) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
@@ -36,24 +50,46 @@ function cancelOrder(evr, options) {
             clientAddress: options.clientAddress,
             trader: options.trader,
         });
-        const transaction = (yield wallet.runCancelOrder({
-            order_id: options.orderId,
-            sell,
-            price: priceDetails.address,
-            evers: (_a = options.evers) !== null && _a !== void 0 ? _a : 3e9,
-        }, {
-            skipTransactionTree: true,
-        })).transaction;
-        const result = {
-            transactionId: transaction.id,
-        };
-        if ((_b = options.waitForOrderbookUpdate) !== null && _b !== void 0 ? _b : false) {
-            result.orderbookTransactionId = (yield evr.accounts.waitForDerivativeTransactionOnAccount({
-                originTransactionId: transaction.id,
-                accountAddress: priceDetails.address,
-            })).id;
+        const walletAddress = yield wallet.getAddress();
+        const priceAddress = priceDetails.address;
+        let result = undefined;
+        let walletTransactionId = undefined;
+        try {
+            walletTransactionId = (yield wallet.runCancelOrder({
+                order_id: options.orderId,
+                sell,
+                price: priceDetails.address,
+                evers: (_a = options.evers) !== null && _a !== void 0 ? _a : 3e9,
+            }, {
+                skipTransactionTree: true,
+                onProcessing: evt => {
+                    if (evt.type === "WillSend") {
+                        result = {
+                            status: CancelOrderStatus.STARTING,
+                            params: {
+                                tokenSymbol: sell
+                                    ? pairDetails.major_tip3cfg.symbol
+                                    : pairDetails.minor_tip3cfg.symbol,
+                                walletAddress,
+                                priceAddress,
+                            },
+                            message: evt.message,
+                            shard_block_id: evt.shard_block_id,
+                        };
+                    }
+                },
+            })).transaction.id;
         }
-        return result;
+        catch (err) {
+            if (!result) {
+                throw err;
+            }
+            return resolveStartingError(err, result);
+        }
+        if (!result) {
+            throw new Error("Message did not sent.");
+        }
+        return yield finalizeCancelOrder(evr, result, walletTransactionId, (_b = options.waitForOrderbookUpdate) !== null && _b !== void 0 ? _b : false);
     });
 }
 exports.cancelOrder = cancelOrder;
@@ -79,5 +115,124 @@ function getPriceDetails(evr, client, pair, priceNum, price) {
         const details = (yield priceAccount.getDetails()).output;
         return Object.assign({ address }, details);
     });
+}
+function waitForCancelOrder(evr, result) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let walletTransactionId = undefined;
+        switch (result.status) {
+            case CancelOrderStatus.SUCCESS:
+            case CancelOrderStatus.ERROR:
+                return result;
+            case CancelOrderStatus.STARTING:
+                try {
+                    walletTransactionId = (yield evr.sdk.processing.wait_for_transaction({
+                        message: result.message,
+                        shard_block_id: result.shard_block_id,
+                        abi: (0, core_1.abiContract)(contracts_1.FlexWalletAccount.package.abi),
+                        send_events: false,
+                        sending_endpoints: [],
+                    })).transaction.id;
+                }
+                catch (err) {
+                    return resolveStartingError(err, result);
+                }
+                break;
+            case CancelOrderStatus.FINALIZING:
+                walletTransactionId = result.walletTransactionId;
+        }
+        return finalizeCancelOrder(evr, result, walletTransactionId, true);
+    });
+}
+exports.waitForCancelOrder = waitForCancelOrder;
+function finalizeCancelOrder(evr, result, startingTransactionId, priceTransactionRequired) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (result.status === CancelOrderStatus.SUCCESS || result.status === CancelOrderStatus.ERROR) {
+            return result;
+        }
+        const params = result.params;
+        const { walletAddress, priceAddress } = params;
+        const accounts = {};
+        if (result.status === CancelOrderStatus.STARTING) {
+            accounts[walletAddress] = contracts_1.FlexWalletAccount;
+        }
+        if (priceTransactionRequired) {
+            accounts[priceAddress] = contracts_1.PriceXchgAccount;
+        }
+        let newResult = result;
+        if (Object.keys(accounts).length > 0) {
+            const transactions = yield evr.accounts.waitForDerivativeTransactions(startingTransactionId, accounts);
+            newResult = resolveDerivativeTransaction(transactions, walletAddress, contracts_1.FlexWalletAccount, newResult, transaction => {
+                return {
+                    status: CancelOrderStatus.FINALIZING,
+                    params,
+                    walletTransactionId: transaction.id,
+                };
+            });
+            if (newResult.status === CancelOrderStatus.FINALIZING) {
+                const { walletTransactionId } = newResult;
+                newResult = resolveDerivativeTransaction(transactions, priceAddress, contracts_1.PriceXchgAccount, newResult, transaction => {
+                    return {
+                        status: CancelOrderStatus.SUCCESS,
+                        walletTransactionId: walletTransactionId,
+                        priceTransactionId: transaction.id,
+                    };
+                });
+            }
+        }
+        return newResult;
+    });
+}
+exports.finalizeCancelOrder = finalizeCancelOrder;
+function resolveDerivativeTransaction(transactions, address, contract, result, success) {
+    const transaction = transactions[address];
+    if (transaction) {
+        const error = (0, contracts_1.findTransactionError)(transaction, contract);
+        if (error) {
+            return cancelOrderError(error);
+        }
+        return success(transaction);
+    }
+    return result;
+}
+function resolveStartingError(original, result) {
+    var _a, _b;
+    if (result.status === CancelOrderStatus.SUCCESS || result.status === CancelOrderStatus.ERROR) {
+        return result;
+    }
+    const messageRejected = original.code === core_1.ProcessingErrorCode.MessageExpired ||
+        original.code === core_1.ProcessingErrorCode.MessageRejected;
+    if (!messageRejected) {
+        throw original;
+    }
+    let originalError = original;
+    const localCode = (_b = (_a = originalError.data) === null || _a === void 0 ? void 0 : _a.local_error) === null || _b === void 0 ? void 0 : _b.code;
+    const { tokenSymbol, walletAddress } = result.params;
+    const T = tokenSymbol;
+    const W = walletAddress;
+    let message = `Error occurred while cancelling order.`;
+    switch (localCode) {
+        case core_1.TvmErrorCode.AccountCodeMissing:
+            message += ` ${T} wallet ${W} was not completely activated. You need to deploy it to proceed.`;
+            break;
+        case core_1.TvmErrorCode.AccountMissing:
+            message += ` You need to activate ${T} wallet ${W} to trade on this Market.`;
+            break;
+        case core_1.TvmErrorCode.AccountFrozenOrDeleted:
+            message += ` ${T} wallet ${W} was frozen or deleted. You need to deploy it to proceed.`;
+            break;
+        case core_1.TvmErrorCode.LowBalance:
+            message += ` You need to top-up ${T} wallet ${W} to pay fees.`;
+            break;
+        default:
+            originalError = (0, contracts_1.resolveContractError)(originalError, contracts_1.FlexWalletAccount);
+            message += ` ${originalError.message}. Ask DEX Support team for help.`;
+            break;
+    }
+    const error = new Error(message);
+    error.originalError = Object.assign(Object.assign({}, originalError), { message: originalError.message });
+    return {
+        status: CancelOrderStatus.ERROR,
+        error: error,
+    };
 }
 //# sourceMappingURL=cancel-order.js.map

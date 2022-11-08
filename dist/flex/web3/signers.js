@@ -57,6 +57,31 @@ class EvrSigners {
             }
         });
     }
+    sign(signer, base64) {
+        return __awaiter(this, void 0, void 0, function* () {
+            switch (signer.type) {
+                case "External":
+                    throw new Error("External signer can not be used for signing.");
+                case "Keys":
+                    return (yield this.crypto.sign(({
+                        keys: signer.keys,
+                        unsigned: base64
+                    }))).signature;
+                case "SigningBox":
+                    return (yield this.crypto.signing_box_sign(({
+                        signing_box: signer.handle,
+                        unsigned: base64
+                    }))).signature;
+                default:
+                    return "";
+            }
+        });
+    }
+    getHashSignature(signer, hex) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.sign(signer, Buffer.from(hex, "hex").toString("base64"));
+        });
+    }
     fromSecret(secret) {
         return __awaiter(this, void 0, void 0, function* () {
             const keys = yield this.crypto.nacl_sign_keypair_from_secret_key({
@@ -80,8 +105,7 @@ class EvrSigners {
                     return (0, core_1.signerKeys)(item.keys);
                 }
             }
-            throw new Error(`Invalid signer: "${name}".
-             You must use one of: \`secret key\`, \`everdev\` signer name or \`Flex.signers\` name.`);
+            throw new Error(`Invalid signer: "${name}". You must use one of: \`secret key\`, \`everdev\` signer name or \`Flex.signers\` name.`);
         });
     }
 }
