@@ -5,11 +5,17 @@ import { Flex } from "../flex";
 import {
     makeOrder,
     MakeOrderOptions,
-    MakeOrderProcessing,
-    NewOrderInfo,
+    MakeOrderResult,
+    MakeOrderStatus,
     waitForMakeOrder,
 } from "./make-order";
-import { cancelOrder, CancelOrderOptions, CancelOrderResult } from "./cancel-order";
+import {
+    cancelOrder,
+    CancelOrderOptions,
+    CancelOrderResult,
+    CancelOrderStatus,
+    waitForCancelOrder,
+} from "./cancel-order";
 import { OrderInfo, TradeInfo } from "./types";
 import { queryOrders, queryTrades, queryWallets, QueryWalletsOptions } from "./query";
 import { WalletInfo } from "../client";
@@ -21,24 +27,26 @@ import {
 } from "./deploy-ever-wallet";
 import {
     deployTraderTip31Wallet,
-    DeployTraderTip31WalletOptions, DeployTraderTip31WalletResult,
+    DeployTraderTip31WalletOptions,
+    DeployTraderTip31WalletResult,
 } from "./deploy-tip31-wallet";
 
 export * from "./types";
 export {
     DeployTraderOptions,
     MakeOrderOptions,
-    NewOrderInfo,
+    MakeOrderResult,
+    MakeOrderStatus,
+    CancelOrderStatus,
     CancelOrderOptions,
+    CancelOrderResult,
     QueryWalletsOptions,
     DeployTraderTip31WalletOptions,
     DeployTraderEverWalletOptions,
     WalletInfo,
     EverWalletInfo,
     DeployTraderTip31WalletResult,
-    CancelOrderResult,
 };
-
 
 export class Trader {
     /**
@@ -91,9 +99,10 @@ export class Trader {
     /**
      * Places an order on a specified market.
      *
-     * This function can throw error with additional optional field `processing`.
-     * If error object contains this field, then the current state of the order is unknown.
-     * User must resume determining order state with `waitForMakeOrder`.
+     * If this function throws error then making order message was not delivered to the blockchain.
+     * Otherwise, this function returns result that depends on `status` field.
+     * User can resume finalizing with `waitForMakeOrder` if result is not finalized yet
+     * (neither success nor error).
      *
      * @param flex
      * DEX instance
@@ -103,43 +112,70 @@ export class Trader {
      *
      * @returns
      */
-    static async makeOrder(flex: Flex, options: MakeOrderOptions): Promise<NewOrderInfo> {
+    static async makeOrder(flex: Flex, options: MakeOrderOptions): Promise<MakeOrderResult> {
         return await makeOrder(flex, options);
     }
 
     /**
      * Resumes previously terminated makeOrder.
      *
-     * This function can throw error with additional optional field `processing`.
-     * If error object contains this field, then the current state of the order is unknown.
-     * User must resume determining order state with `waitForMakeOrder`.
+     * If this function throws error then waiting process can not be done at this time.
+     * Otherwise, this function returns new result that depends on `status` field.
+     * User can resume finalizing with `waitForMakeOrder` if result is not finalized yet
+     * (neither success nor error).
      *
      * @param flex
      * DEX instance
      *
-     * @param processing
-     * Order processing state (can be obtained from makeOrder's `Error.processing`).
+     * @param result
+     * Order processing result.
      *
      * @returns
      */
-    static async waitForMakeOrder(
-        flex: Flex,
-        processing: MakeOrderProcessing,
-    ): Promise<NewOrderInfo> {
-        return await waitForMakeOrder(flex, processing);
+    static async waitForMakeOrder(flex: Flex, result: MakeOrderResult): Promise<MakeOrderResult> {
+        return await waitForMakeOrder(flex, result);
     }
 
     /**
-     * Cancels an Order on DEX Market
+     * Cancels an order.
+     *
+     * If this function throws error then cancellation message was not delivered to the blockchain.
+     * Otherwise, this function returns result that depends on `status` field.
+     * User can resume finalizing with `waitForCancelOrder` if result is not finalized yet
+     * (neither success nor error).
      *
      * @param flex
      * DEX instance
+     *
      * @param options
-     * Cancel options
-     * @returns
-     */
+     * Cancellation options
+     *
+     * @returns     */
     static async cancelOrder(flex: Flex, options: CancelOrderOptions): Promise<CancelOrderResult> {
         return await cancelOrder(flex.evr, options);
+    }
+
+    /**
+     * Resumes previously terminated `cancelOrder`.
+     *
+     * If this function throws error then waiting process can not be done at this time.
+     * Otherwise, this function returns new result that depends on `status` field.
+     * User can resume finalizing with `waitForCancelOrder` if result is not finalized yet
+     * (neither success nor error).
+     *
+     * @param flex
+     * DEX instance
+     *
+     * @param result
+     * Order cancellation result.
+     *
+     * @returns
+     */
+    static async waitForCancelOrder(
+        flex: Flex,
+        result: CancelOrderResult,
+    ): Promise<CancelOrderResult> {
+        return await waitForCancelOrder(flex.evr, result);
     }
 
     /**
@@ -168,10 +204,15 @@ export class Trader {
      * @param options
      * @returns
      */
-    static async queryWallets(
-        flex: Flex,
-        options: QueryWalletsOptions,
-    ): Promise<WalletInfo[]> {
+    static async queryWallets(flex: Flex, options: QueryWalletsOptions): Promise<WalletInfo[]> {
         return await queryWallets(flex, options);
     }
+}
+
+export function makeOrderFinalized(result: MakeOrderResult): boolean {
+    return result.status === MakeOrderStatus.SUCCESS || result.status === MakeOrderStatus.ERROR;
+}
+
+export function cancelOrderFinalized(result: CancelOrderResult): boolean {
+    return result.status === CancelOrderStatus.SUCCESS || result.status === CancelOrderStatus.ERROR;
 }

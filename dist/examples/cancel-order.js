@@ -17,7 +17,7 @@ const examples_1 = require("./examples");
         const clientAddress = examples_1.CONFIG.trader.client;
         const traderId = examples_1.CONFIG.trader.id;
         const marketAddress = examples_1.CONFIG.market;
-        let orderInfo = yield flex_1.Trader.cancelOrder(flex, {
+        let result = yield flex_1.Trader.cancelOrder(flex, {
             clientAddress: clientAddress,
             trader: {
                 id: traderId,
@@ -25,9 +25,13 @@ const examples_1 = require("./examples");
             },
             marketAddress: marketAddress,
             price: { tokens: 10 },
-            orderId: "0x1355df445d27aca1",
+            orderId: "0x000000000000000000000000000000000000000000000000671dddc2a7056218",
         });
-        flex.evr.log.info("Order info", orderInfo);
+        flex.evr.log.info("First cancel result", result);
+        if (!(0, flex_1.cancelOrderFinalized)(result)) {
+            result = yield flex_1.Trader.waitForCancelOrder(flex, result);
+            flex.evr.log.info("Finalized cancel result", result);
+        }
         yield flex.close();
     }
     catch (err) {

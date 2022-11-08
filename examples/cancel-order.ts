@@ -1,4 +1,4 @@
-import { Flex, Trader } from "../flex";
+import { cancelOrderFinalized, Flex, Trader } from "../flex";
 import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
 //import { LogLevel } from "../contracts/helpers";
 
@@ -10,24 +10,24 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
         const traderId = CONFIG.trader.id;
         const marketAddress = CONFIG.market;
 
-        let orderInfo = await Trader.cancelOrder(
-            flex,
-            {
-                clientAddress: clientAddress,
-                trader: {
-                    id: traderId,
-                    signer: "traderSigner",
-                },
-                marketAddress: marketAddress,
-                price: { tokens: 10 },
-                orderId: "0x1355df445d27aca1",
-                // waitForOrderbookUpdate: true
+        let result = await Trader.cancelOrder(flex, {
+            clientAddress: clientAddress,
+            trader: {
+                id: traderId,
+                signer: "traderSigner",
             },
-        );
+            marketAddress: marketAddress,
+            price: { tokens: 10 },
+            orderId: "0x000000000000000000000000000000000000000000000000671dddc2a7056218",
+            // waitForOrderbookUpdate: true
+        });
 
-        flex.evr.log.info("Order info", orderInfo);
+        flex.evr.log.info("First cancel result", result);
 
-
+        if (!cancelOrderFinalized(result)) {
+            result = await Trader.waitForCancelOrder(flex, result);
+            flex.evr.log.info("Finalized cancel result", result);
+        }
         await flex.close();
     } catch (err) {
         flex.evr.log.error(err);

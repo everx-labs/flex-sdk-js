@@ -57,10 +57,10 @@ export function resolveContractError(
     return originalError;
 }
 
-export function successRequired(
+export function findTransactionError(
     transaction: DerivativeTransaction,
     contract: AccountClass,
-) {
+): Error | undefined {
     const {
         id,
         aborted,
@@ -68,10 +68,10 @@ export function successRequired(
         account_addr,
     } = transaction;
     if (!aborted && exit_code === 0) {
-        return;
+        return undefined;
     }
     if (exit_code === 0) {
-        throw Error(
+        return Error(
             `Transaction [${id}] on ${contract}[${account_addr}] was aborted.`,
         );
     }
@@ -81,7 +81,7 @@ export function successRequired(
         address: account_addr,
         transaction: id,
     };
-    throw error;
+    return error;
 }
 
 function findError(

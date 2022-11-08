@@ -23,9 +23,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Trader = void 0;
+exports.cancelOrderFinalized = exports.makeOrderFinalized = exports.Trader = exports.CancelOrderStatus = exports.MakeOrderStatus = void 0;
 const make_order_1 = require("./make-order");
+Object.defineProperty(exports, "MakeOrderStatus", { enumerable: true, get: function () { return make_order_1.MakeOrderStatus; } });
 const cancel_order_1 = require("./cancel-order");
+Object.defineProperty(exports, "CancelOrderStatus", { enumerable: true, get: function () { return cancel_order_1.CancelOrderStatus; } });
 const query_1 = require("./query");
 const deploy_trader_1 = require("./deploy-trader");
 const deploy_ever_wallet_1 = require("./deploy-ever-wallet");
@@ -52,14 +54,19 @@ class Trader {
             return yield (0, make_order_1.makeOrder)(flex, options);
         });
     }
-    static waitForMakeOrder(flex, processing) {
+    static waitForMakeOrder(flex, result) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, make_order_1.waitForMakeOrder)(flex, processing);
+            return yield (0, make_order_1.waitForMakeOrder)(flex, result);
         });
     }
     static cancelOrder(flex, options) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, cancel_order_1.cancelOrder)(flex.evr, options);
+        });
+    }
+    static waitForCancelOrder(flex, result) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0, cancel_order_1.waitForCancelOrder)(flex.evr, result);
         });
     }
     static queryOrders(flex, trader) {
@@ -79,4 +86,12 @@ class Trader {
     }
 }
 exports.Trader = Trader;
+function makeOrderFinalized(result) {
+    return result.status === make_order_1.MakeOrderStatus.SUCCESS || result.status === make_order_1.MakeOrderStatus.ERROR;
+}
+exports.makeOrderFinalized = makeOrderFinalized;
+function cancelOrderFinalized(result) {
+    return result.status === cancel_order_1.CancelOrderStatus.SUCCESS || result.status === cancel_order_1.CancelOrderStatus.ERROR;
+}
+exports.cancelOrderFinalized = cancelOrderFinalized;
 //# sourceMappingURL=index.js.map

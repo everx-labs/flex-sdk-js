@@ -17,7 +17,7 @@ const examples_1 = require("./examples");
         const clientAddress = examples_1.CONFIG.trader.client;
         const traderId = examples_1.CONFIG.trader.id;
         const marketAddress = examples_1.CONFIG.market;
-        let orderInfo = yield flex_1.Trader.makeOrder(flex, {
+        let result = yield flex_1.Trader.makeOrder(flex, {
             clientAddress: clientAddress,
             trader: {
                 id: traderId,
@@ -26,10 +26,10 @@ const examples_1 = require("./examples");
             sell: false,
             marketAddress: marketAddress,
             price: { tokens: 10 },
-            amount: { tokens: 100000 },
-            waitForOrderbookUpdate: true,
+            amount: { tokens: 1 },
+            waitForOrderbookUpdate: false,
         });
-        flex.evr.log.info("Order info", orderInfo);
+        flex.evr.log.info("Make order result", result);
         yield flex.close();
     }
     catch (err) {

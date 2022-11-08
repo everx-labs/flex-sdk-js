@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.successRequired = exports.resolveContractError = exports.errorFromExitCode = void 0;
+exports.findTransactionError = exports.resolveContractError = exports.errorFromExitCode = void 0;
 const account_ex_1 = require("./account-ex");
 const core_1 = require("@eversdk/core");
 function errorFromExitCode(contract, exitCode) {
@@ -30,19 +30,19 @@ function resolveContractError(originalError, contract) {
     return originalError;
 }
 exports.resolveContractError = resolveContractError;
-function successRequired(transaction, contract) {
+function findTransactionError(transaction, contract) {
     const { id, aborted, compute: { exit_code }, account_addr, } = transaction;
     if (!aborted && exit_code === 0) {
-        return;
+        return undefined;
     }
     if (exit_code === 0) {
-        throw Error(`Transaction [${id}] on ${contract}[${account_addr}] was aborted.`);
+        return Error(`Transaction [${id}] on ${contract}[${account_addr}] was aborted.`);
     }
     const error = errorFromExitCode(contract, exit_code);
     error.data = Object.assign(Object.assign({}, error.data), { address: account_addr, transaction: id });
-    throw error;
+    return error;
 }
-exports.successRequired = successRequired;
+exports.findTransactionError = findTransactionError;
 function findError(table, exitCode) {
     return table === null || table === void 0 ? void 0 : table.find((x) => x.exitCode === exitCode);
 }
