@@ -22,13 +22,12 @@ All notable changes to this project will be documented in this file.
 
 ### Improved
 
-- Added flex client balance checking before trader Index Contract deploy to the `deployTrader`.
+- Added flex client balance check before trader Index Contract deploy to the `deployTrader`.
 
 ### Fixed
 
 - If non-existing signer was specified then empty error message was printed. 
 - make-order did not finish process in case of a full order closure.
-- `makeOrder` checks status of the important derivative transactions. 
 
 ## [0.6.0] – 2022-10-07
 
