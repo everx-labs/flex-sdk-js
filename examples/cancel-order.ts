@@ -17,16 +17,16 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
                 signer: "traderSigner",
             },
             marketAddress: marketAddress,
-            price: { tokens: 10 },
-            orderId: "0x000000000000000000000000000000000000000000000000671dddc2a7056218",
+            price: { tokens: 0.2 },
+            orderId: "0xb1482121e43efae",
             // waitForOrderbookUpdate: true
         });
 
-        flex.evr.log.info("First cancel result", result);
+        flex.evr.log.info("Cancel Initialization result on wallet", result);
 
         if (!cancelOrderFinalized(result)) {
             result = await Trader.waitForCancelOrder(flex, result);
-            flex.evr.log.info("Finalized cancel result", result);
+            flex.evr.log.info("Finalized cancel result in orderbook", result);
         }
         await flex.close();
     } catch (err) {

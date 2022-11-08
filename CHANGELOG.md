@@ -8,13 +8,17 @@ All notable changes to this project will be documented in this file.
 ### New
 
 - ABI 2.3 Flex Contracts version was supported.
-- `makeOrder` returns field `processing` in result. If user specifies `waitForOrderbookUpdate: true`,
-  then `makeOrder` waits for both transactions (on wallet and price accounts). Otherwise `makeOrder`
-  waits only for wallet transaction and user can resume monitoring with `waitForMakeOrder`. 
-- `makeOrder` thrown errors now contains optional field `processing` indicating that making order 
-  was abnormally terminated (e.g. due to network errors). This field can be used later to resume 
-  processing via `waitForMakeOrder`.
-- `waitForMakeOrder` function helps to resume determining make order status after abnormal termination.
+  
+- `makeOrder` and `cancelOrder` now returns additional `status` field of type `enum MakeOrderStatus` representing the processing stage of the request. 
+  Can be of [`STARTING`, `FINALIZING`, `SUCCESS`, `ERROR`]. 
+
+- In case of `FINALIZING` status returned can be proceeded to the final result with 
+  `waitForMakeOrder` and `waitForCancelOrder` functions. Just pass the result of `makeOrder`/`cancelOrder` as the input parameter.
+
+  **Attention!!!!**
+
+  - `ERROR` status means the error occured in the contract system, which means you SHOULD NOT perform retries until you solve the error reason. 
+  - Network errors are not resolved by `makeOrder`/`cancelOrder` methods. Wrap your code in `try catch` for network errors. In case of network error we suggest you to query trader info from the api to understand your state. See `/examples/trader-info.ts` sample
 
 ### Improved
 

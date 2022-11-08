@@ -19,15 +19,16 @@ import { waitForMakeOrder } from "../flex/trader/make-order";
             },
             sell: false,
             marketAddress: marketAddress,
-            price: { tokens: 10 },
-            amount: { tokens: 1 },
-            waitForOrderbookUpdate: false,
+            price: { tokens: 20 },
+            amount: { tokens: 10 },
+            waitForOrderbookUpdate: true,
+            
         });
-        flex.evr.log.info("Make order result", result);
+        flex.evr.log.info("MakeOrder Initialization result on wallet", result);
 
         if (!makeOrderFinalized(result)) {
             result = await waitForMakeOrder(flex, result);
-            flex.evr.log.info("Make order finalized result", result);
+            flex.evr.log.info("Finalized Make order result in orderbook", result);
         }
 
         await flex.close();

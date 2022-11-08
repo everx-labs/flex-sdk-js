@@ -43,12 +43,12 @@ export type MakeOrderOptions = {
 
 export enum MakeOrderStatus {
     /**
-     * Primary message of the making order flow was sent to the blockchain.
-     * Now waiting for the primary transaction.
+     * MakeOrder initialization message to FlexWallet was sent to the blockchain.
+     * Now waiting for the transaction on the wallet.
      */
     STARTING,
     /**
-     * Primary message was successfully processed on the blockchain.
+     * Transaction on the wallet received. Now waiting for the transaction on the orderbook.
      * Now waiting for finalizing making order flow.
      */
     FINALIZING,
@@ -57,7 +57,7 @@ export enum MakeOrderStatus {
      */
     SUCCESS,
     /**
-     * Make order was failed.
+     * Make order failed.
      */
     ERROR,
 }
