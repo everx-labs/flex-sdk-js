@@ -17,17 +17,21 @@ const examples_1 = require("./examples");
         const clientAddress = examples_1.CONFIG.trader.client;
         const traderId = examples_1.CONFIG.trader.id;
         const marketAddress = examples_1.CONFIG.market;
-        let orderInfo = yield flex_1.Trader.cancelOrder(flex, {
+        let result = yield flex_1.Trader.cancelOrder(flex, {
             clientAddress: clientAddress,
             trader: {
                 id: traderId,
                 signer: "traderSigner",
             },
             marketAddress: marketAddress,
-            price: { tokens: 10 },
-            orderId: "0x1355df445d27aca1",
+            price: { tokens: 0.2 },
+            orderId: "0xb1482121e43efae",
         });
-        flex.evr.log.info("Order info", orderInfo);
+        flex.evr.log.info("Cancel Initialization result on wallet", result);
+        if (!(0, flex_1.cancelOrderFinalized)(result)) {
+            result = yield flex_1.Trader.waitForCancelOrder(flex, result);
+            flex.evr.log.info("Finalized cancel result in orderbook", result);
+        }
         yield flex.close();
     }
     catch (err) {

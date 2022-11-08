@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.runLocalHelper = exports.deployHelper = exports.runHelper = exports.Log = exports.LogLevel = void 0;
+const bin_1 = require("@eversdk/core/dist/bin");
 var LogLevel;
 (function (LogLevel) {
     LogLevel[LogLevel["NONE"] = 0] = "NONE";
@@ -88,7 +89,25 @@ function runHelper(account, fn, params, options) {
     return __awaiter(this, void 0, void 0, function* () {
         (_b = account.log) === null || _b === void 0 ? void 0 : _b.processingStart(`Run ${account.constructor.name}.${fn}`);
         try {
-            const runResult = yield account.run(fn, params);
+            const onProcessing = options === null || options === void 0 ? void 0 : options.onProcessing;
+            const responseHandler = onProcessing ? (params, responseType) => {
+                if (responseType >= bin_1.ResponseType.Custom) {
+                    onProcessing(params);
+                }
+            } : undefined;
+            const runResult = yield account.client.processing.process_message({
+                message_encode_params: {
+                    address: yield account.getAddress(),
+                    abi: account.abi,
+                    signer: account.signer,
+                    call_set: {
+                        function_name: fn,
+                        input: params,
+                    },
+                },
+                send_events: !!responseHandler,
+            }, responseHandler);
+            account.needSyncWithTransaction(runResult.transaction);
             const result = {
                 transaction: runResult.transaction,
                 transactionTree: {
@@ -104,7 +123,7 @@ function runHelper(account, fn, params, options) {
                         timeout: 60000 * 5,
                     });
             }
-            (_e = account.log) === null || _e === void 0 ? void 0 : _e.info(` TX: ${runResult.transaction.id}`);
+            (_e = account.log) === null || _e === void 0 ? void 0 : _e.write(LogLevel.INFO, ` TX: ${runResult.transaction.id}`);
             (_f = account.log) === null || _f === void 0 ? void 0 : _f.processingDone();
             return result;
         }
