@@ -18,9 +18,8 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
             },
             sell: false,
             marketAddress: marketAddress,
-            price: { tokens: 1 },
-            amount: { tokens: 1 },
-            finishTime: Math.floor((Date.now() + 3 * 60 * 1000) / 1000),
+            price: { tokens: 0.2 },
+            amount: { tokens: 3 },
             waitForOrderbookUpdate: false,
         });
         flex.evr.log.info("MakeOrder Initialization result on wallet", result);

@@ -3,11 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 
-## [0.7.1] – 2022-11-08
+## [0.7.1] – 2022-11-09
 
 ### New
 
-- additional logic to check makeOrder and cancelOrder
+- additional logic to detect errors during making/canceling of orders
 
 ### Fixed
 

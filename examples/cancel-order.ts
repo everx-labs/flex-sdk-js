@@ -17,8 +17,8 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
                 signer: "traderSigner",
             },
             marketAddress: marketAddress,
-            price: { tokens: 1 },
-            orderId: "0xb5f050b74d94ff7e",
+            price: { tokens: 0.2 },
+            orderId: "0x2ae0d7493dbc9081",
             // waitForOrderbookUpdate: true
         });
 
