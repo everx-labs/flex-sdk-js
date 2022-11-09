@@ -60,6 +60,7 @@ export function resolveContractError(
 export function findTransactionError(
     transaction: DerivativeTransaction,
     contract: AccountClass,
+    altErrorCode: number = 0,
 ): Error | undefined {
     const {
         id,
@@ -67,15 +68,16 @@ export function findTransactionError(
         compute: { exit_code },
         account_addr,
     } = transaction;
-    if (!aborted && exit_code === 0) {
+    const errorCode = exit_code !== 0 ? exit_code : altErrorCode;
+    if (!aborted && errorCode === 0) {
         return undefined;
     }
-    if (exit_code === 0) {
+    if (errorCode === 0) {
         return Error(
             `Transaction [${id}] on ${contract}[${account_addr}] was aborted.`,
         );
     }
-    const error = errorFromExitCode(contract, exit_code);
+    const error = errorFromExitCode(contract, errorCode);
     error.data = {
         ...error.data,
         address: account_addr,

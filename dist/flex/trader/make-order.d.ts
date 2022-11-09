@@ -56,8 +56,8 @@ export declare type MakeOrderResult = {
     orderId: string;
 } & (MakeOrderStarting | MakeOrderFinalizing | MakeOrderSuccess | MakeOrderError);
 export declare function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<MakeOrderResult>;
-export declare function waitForMakeOrder(flex: Flex, result: MakeOrderResult): Promise<MakeOrderResult>;
-export declare function finalizeMakeOrder(flex: Flex, result: MakeOrderResult, startingTransactionId: string, priceTransactionRequired: boolean): Promise<MakeOrderResult>;
+export declare function waitForMakeOrder(evr: Evr, result: MakeOrderResult): Promise<MakeOrderResult>;
+export declare function finalizeMakeOrder(evr: Evr, result: MakeOrderResult, startingTransactionId: string, priceTransactionRequired: boolean): Promise<MakeOrderResult>;
 export declare function generateRandomOrderId(evr: Evr): Promise<string>;
 export {};
 //# sourceMappingURL=make-order.d.ts.map
