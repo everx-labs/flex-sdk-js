@@ -21,11 +21,8 @@ var MessageType;
 function derivativeTransactionFields(id) {
     return `
         ${id}
-        in_msg
-        out_msgs
-        out_messages { ${id} dst msg_type }
+        out_messages { ${id} dst msg_type created_lt }
         account_addr 
-        total_fees
         aborted
         compute { 
             exit_code 
@@ -34,8 +31,8 @@ function derivativeTransactionFields(id) {
     `;
 }
 class EvrAccounts {
-    constructor(everos, signers, log) {
-        this.everos = everos;
+    constructor(sdk, signers, log) {
+        this.sdk = sdk;
         this.signers = signers;
         this.log = log;
     }
@@ -54,7 +51,7 @@ class EvrAccounts {
             }
             return new accountClass({
                 address,
-                client: this.everos,
+                client: this.sdk,
                 log: this.log,
                 signer: yield this.signers.resolve(signer),
             });
@@ -62,7 +59,7 @@ class EvrAccounts {
     }
     isActive(address) {
         return __awaiter(this, void 0, void 0, function* () {
-            const accounts = (yield this.everos.net.query_collection({
+            const accounts = (yield this.sdk.net.query_collection({
                 collection: "accounts",
                 filter: { id: { eq: address } },
                 result: "acc_type",
@@ -76,13 +73,13 @@ class EvrAccounts {
         return __awaiter(this, void 0, void 0, function* () {
             let orig_addr = transaction.account_addr;
             let externalMessages = [];
-            const tree = yield this.everos.net.query_transaction_tree({
+            const tree = yield this.sdk.net.query_transaction_tree({
                 in_msg: transaction.in_msg,
                 abi_registry: [(0, core_1.abiContract)(abi)],
                 timeout: 60000 * 5,
             });
             for (const msg of tree.messages) {
-                if ((msg.src == orig_addr) && ((_a = msg.dst) !== null && _a !== void 0 ? _a : "") === "") {
+                if (msg.src == orig_addr && ((_a = msg.dst) !== null && _a !== void 0 ? _a : "") === "") {
                     externalMessages.push(msg);
                 }
             }
@@ -94,7 +91,7 @@ class EvrAccounts {
         return __awaiter(this, void 0, void 0, function* () {
             let orig_addr = transaction.account_addr;
             let answerMessages = [];
-            const tree = yield this.everos.net.query_transaction_tree({
+            const tree = yield this.sdk.net.query_transaction_tree({
                 in_msg: transaction.in_msg,
                 abi_registry: abi.map(x => (0, core_1.abiContract)(x)),
                 timeout: 60000 * 5,
@@ -109,18 +106,7 @@ class EvrAccounts {
     }
     waitForDerivativeTransactions(originTransactionId, accounts) {
         return __awaiter(this, void 0, void 0, function* () {
-            const originTransaction = (yield this.everos.net.query({
-                query: `
-            query tr($transactionId: String!) {
-                blockchain {
-                    transaction(hash:$transactionId) { ${derivativeTransactionFields("id:hash")} }
-                }
-            }
-            `,
-                variables: {
-                    transactionId: originTransactionId,
-                },
-            })).result.data.blockchain.transaction;
+            const originTransaction = yield this.queryDerivativeTransaction(originTransactionId);
             if (!originTransaction) {
                 throw new Error(`Can not wait for derivative transaction: origin transaction ${originTransactionId} is missing on the blockchain.`);
             }
@@ -144,54 +130,98 @@ class EvrAccounts {
             while (uncheckedMessages.length > 0) {
                 const checkingMessages = uncheckedMessages;
                 uncheckedMessages = [];
+                let hasCheckedMessages = false;
                 for (const checkingMessage of checkingMessages) {
-                    let transaction = undefined;
-                    while (!transaction) {
-                        transaction = (yield this.everos.net.query_collection({
-                            collection: "transactions",
-                            filter: {
-                                in_msg: { eq: checkingMessage },
-                            },
-                            result: derivativeTransactionFields("id"),
-                        })).result[0];
-                        if (!transaction) {
-                            yield new Promise(resolve => setTimeout(resolve, 2000));
+                    const transaction = yield this.queryDerivativeTransactionForMessage(checkingMessage, true);
+                    if (transaction) {
+                        hasCheckedMessages = true;
+                        checkTransaction(transaction);
+                        if (Object.keys(result).length >= Object.keys(accounts).length) {
+                            return result;
                         }
                     }
-                    const timeLimit = Date.now() + 60000;
-                    const transactionLt = Number(transaction.lt);
-                    while (true) {
-                        const account = (yield this.everos.net.query_collection({
-                            collection: "accounts",
-                            filter: {
-                                id: { eq: transaction.account_addr },
-                            },
-                            result: "last_trans_lt acc_type",
-                        })).result[0];
-                        if (!account) {
-                            this.log.info(`Waiting for derivative transaction was stopped: account ${transaction.account_addr} is missing on the blockchain.`);
-                            break;
-                        }
-                        if (account.acc_type !== appkit_1.AccountType.active) {
-                            this.log.info(`Waiting for derivative transaction was stopped: account ${transaction.account_addr} has inactive state ${account.acc_type}.`);
-                            break;
-                        }
-                        if (Number(account.last_trans_lt) > transactionLt) {
-                            break;
-                        }
-                        if (Date.now() > timeLimit) {
-                            this.log.info(`Can not wait for derivative transaction: account ${transaction.account_addr} has not been changed during 1 minute.`);
-                            break;
-                        }
-                        yield new Promise(resolve => setTimeout(resolve, 2000));
+                    else {
+                        uncheckedMessages.push(checkingMessage);
                     }
-                    checkTransaction(transaction);
-                    if (Object.keys(result).length >= Object.keys(accounts).length) {
-                        break;
-                    }
+                }
+                if (!hasCheckedMessages) {
+                    yield new Promise(resolve => setTimeout(resolve, 500));
                 }
             }
             return result;
+        });
+    }
+    queryDerivativeTransaction(transactionId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.queryBlockchain(`transaction(hash:$transactionId) { ${derivativeTransactionFields("id:hash")} }`, {
+                transactionId,
+            })).transaction;
+        });
+    }
+    queryDerivativeTransactionForMessage(messageId, waitForAccountUpdate) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const transaction = (yield this.sdk.net.query_collection({
+                collection: "transactions",
+                filter: {
+                    in_msg: { eq: messageId },
+                },
+                result: derivativeTransactionFields("id"),
+            })).result[0];
+            if (transaction && waitForAccountUpdate) {
+                const timeLimit = Date.now() + 60000;
+                const transactionLt = Number(transaction.lt);
+                while (true) {
+                    const account = (yield this.sdk.net.query_collection({
+                        collection: "accounts",
+                        filter: {
+                            id: { eq: transaction.account_addr },
+                        },
+                        result: "last_trans_lt acc_type",
+                    })).result[0];
+                    if (!account) {
+                        this.log.info(`Waiting for derivative transaction was stopped: account ${transaction.account_addr} is missing on the blockchain.`);
+                        break;
+                    }
+                    if (account.acc_type !== appkit_1.AccountType.active) {
+                        this.log.info(`Waiting for derivative transaction was stopped: account ${transaction.account_addr} has inactive state ${account.acc_type}.`);
+                        break;
+                    }
+                    if (Number(account.last_trans_lt) > transactionLt) {
+                        break;
+                    }
+                    if (Date.now() > timeLimit) {
+                        this.log.info(`Can not wait for derivative transaction: account ${transaction.account_addr} has not been changed during 1 minute.`);
+                        break;
+                    }
+                    yield new Promise(resolve => setTimeout(resolve, 500));
+                }
+            }
+            return transaction;
+        });
+    }
+    waitForMessageBody(messageId) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            while (true) {
+                const body = (_a = (yield this.queryBlockchain(`message(hash:$messageId) { body }`, {
+                    messageId,
+                })).message) === null || _a === void 0 ? void 0 : _a.body;
+                if (body) {
+                    return body;
+                }
+                yield new Promise(resolve => setTimeout(resolve, 500));
+            }
+        });
+    }
+    queryBlockchain(text, variables) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const args = Object.keys(variables)
+                .map(x => `$${x}: String!`)
+                .join(", ");
+            return (yield this.sdk.net.query({
+                query: `query q(${args}) { blockchain { ${text} } }`,
+                variables,
+            })).result.data.blockchain;
         });
     }
 }

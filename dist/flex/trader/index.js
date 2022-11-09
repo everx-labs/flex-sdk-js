@@ -56,7 +56,7 @@ class Trader {
     }
     static waitForMakeOrder(flex, result) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield (0, make_order_1.waitForMakeOrder)(flex, result);
+            return yield (0, make_order_1.waitForMakeOrder)(flex.evr, result);
         });
     }
     static cancelOrder(flex, options) {

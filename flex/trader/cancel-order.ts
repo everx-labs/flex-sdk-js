@@ -1,5 +1,4 @@
 import {
-    findTransactionError,
     FlexClientAccount,
     FlexWalletAccount,
     PriceXchgAccount,
@@ -13,7 +12,8 @@ import { Evr, TokenValue } from "../web3";
 import { priceToUnits } from "../flex";
 import { abiContract, ProcessingErrorCode, TvmErrorCode } from "@eversdk/core";
 import { AccountClass } from "../../contracts/account-ex";
-import { DerivativeTransaction } from "../web3/accounts";
+import { resolveDerivativeTransaction, SdkError } from "./processing";
+import { DerivativeTransactionMessage } from "../web3/accounts";
 
 export type CancelOrderOptions = {
     /**
@@ -305,7 +305,7 @@ export async function finalizeCancelOrder(
             startingTransactionId,
             accounts,
         );
-        newResult = resolveDerivativeTransaction(
+        newResult = resolveDerivativeTransaction<CancelOrderResult>(
             transactions,
             walletAddress,
             FlexWalletAccount,
@@ -317,10 +317,11 @@ export async function finalizeCancelOrder(
                     walletTransactionId: transaction.id,
                 };
             },
-        );
+            cancelOrderError,
+        ).result;
         if (newResult.status === CancelOrderStatus.FINALIZING) {
             const { walletTransactionId } = newResult;
-            newResult = resolveDerivativeTransaction(
+            const resolved = resolveDerivativeTransaction<CancelOrderResult>(
                 transactions,
                 priceAddress,
                 PriceXchgAccount,
@@ -332,41 +333,31 @@ export async function finalizeCancelOrder(
                         priceTransactionId: transaction.id,
                     };
                 },
+                cancelOrderError,
             );
+            newResult = resolved.result;
+            if (resolved.transaction) {
+                let answer: DerivativeTransactionMessage | undefined = undefined;
+                for (const msg of resolved.transaction.out_messages) {
+                    if (
+                        msg.dst === walletAddress &&
+                        Number(msg.created_lt) > (answer?.created_lt ?? 0)
+                    ) {
+                        answer = msg;
+                    }
+                }
+                if (!answer) {
+                    const error: SdkError = new Error(
+                        `Missing required answer message to wallet from transaction [${resolved.transaction.id}] on PriceXchg[${priceAddress}].`,
+                    );
+                    error.code = ProcessingErrorCode.MessageRejected;
+                    return cancelOrderError(error);
+                }
+            }
         }
     }
     return newResult;
 }
-
-function resolveDerivativeTransaction(
-    transactions: { [address: string]: DerivativeTransaction },
-    address: string,
-    contract: AccountClass,
-    result: CancelOrderResult,
-    success: (transaction: DerivativeTransaction) => CancelOrderResult,
-): CancelOrderResult {
-    const transaction = transactions[address];
-    if (transaction) {
-        const error = findTransactionError(transaction, contract);
-        if (error) {
-            return cancelOrderError(error);
-        }
-        return success(transaction);
-    }
-    return result;
-}
-
-type SdkError = Error & {
-    code?: number;
-    data?: {
-        local_error?: {
-            code: number;
-            data?: {
-                exit_code?: number;
-            };
-        };
-    };
-};
 
 function resolveStartingError(original: SdkError, result: CancelOrderResult): CancelOrderResult {
     if (result.status === CancelOrderStatus.SUCCESS || result.status === CancelOrderStatus.ERROR) {

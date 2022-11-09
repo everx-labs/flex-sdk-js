@@ -10,7 +10,9 @@ declare enum MessageType {
 }
 export declare type DerivativeTransactionMessage = {
     id: string;
+    dst: string;
     msg_type: MessageType;
+    created_lt: string;
 };
 export declare type DerivativeTransaction = {
     id: string;
@@ -23,10 +25,10 @@ export declare type DerivativeTransaction = {
     lt: string;
 };
 export declare class EvrAccounts {
-    everos: TonClient;
+    sdk: TonClient;
     signers: EvrSigners;
     log: Log;
-    constructor(everos: TonClient, signers: EvrSigners, log: Log);
+    constructor(sdk: TonClient, signers: EvrSigners, log: Log);
     get<T>(accountClass: new (options: {
         client: TonClient;
         address?: string;
@@ -41,5 +43,9 @@ export declare class EvrAccounts {
     }): Promise<{
         [address: string]: DerivativeTransaction;
     }>;
+    private queryDerivativeTransaction;
+    private queryDerivativeTransactionForMessage;
+    waitForMessageBody(messageId: string): Promise<string>;
+    private queryBlockchain;
 }
 //# sourceMappingURL=accounts.d.ts.map

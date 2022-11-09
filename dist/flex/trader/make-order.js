@@ -16,6 +16,7 @@ const contracts_1 = require("../../contracts");
 const internals_1 = require("./internals");
 const web3_1 = require("../web3");
 const flex_1 = require("../flex");
+const processing_1 = require("./processing");
 var MakeOrderStatus;
 (function (MakeOrderStatus) {
     MakeOrderStatus[MakeOrderStatus["STARTING"] = 0] = "STARTING";
@@ -115,11 +116,11 @@ function makeOrder(flex, options) {
         if (!result) {
             throw new Error("Message did not sent.");
         }
-        return yield finalizeMakeOrder(flex, result, walletTransactionId, (_d = options.waitForOrderbookUpdate) !== null && _d !== void 0 ? _d : false);
+        return yield finalizeMakeOrder(flex.evr, result, walletTransactionId, (_d = options.waitForOrderbookUpdate) !== null && _d !== void 0 ? _d : false);
     });
 }
 exports.makeOrder = makeOrder;
-function waitForMakeOrder(flex, result) {
+function waitForMakeOrder(evr, result) {
     return __awaiter(this, void 0, void 0, function* () {
         let walletTransactionId = undefined;
         switch (result.status) {
@@ -128,7 +129,7 @@ function waitForMakeOrder(flex, result) {
                 return result;
             case MakeOrderStatus.STARTING:
                 try {
-                    walletTransactionId = (yield flex.evr.sdk.processing.wait_for_transaction({
+                    walletTransactionId = (yield evr.sdk.processing.wait_for_transaction({
                         message: result.message,
                         shard_block_id: result.shard_block_id,
                         abi: (0, core_1.abiContract)(contracts_1.FlexWalletAccount.package.abi),
@@ -143,11 +144,12 @@ function waitForMakeOrder(flex, result) {
             case MakeOrderStatus.FINALIZING:
                 walletTransactionId = result.walletTransactionId;
         }
-        return finalizeMakeOrder(flex, result, walletTransactionId, true);
+        return finalizeMakeOrder(evr, result, walletTransactionId, true);
     });
 }
 exports.waitForMakeOrder = waitForMakeOrder;
-function finalizeMakeOrder(flex, result, startingTransactionId, priceTransactionRequired) {
+function finalizeMakeOrder(evr, result, startingTransactionId, priceTransactionRequired) {
+    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         if (result.status === MakeOrderStatus.SUCCESS || result.status === MakeOrderStatus.ERROR) {
             return result;
@@ -164,42 +166,58 @@ function finalizeMakeOrder(flex, result, startingTransactionId, priceTransaction
         }
         let newResult = result;
         if (Object.keys(accounts).length > 0) {
-            const transactions = yield flex.evr.accounts.waitForDerivativeTransactions(startingTransactionId, accounts);
-            newResult = resolveDerivativeTransaction(transactions, walletAddress, contracts_1.FlexWalletAccount, newResult, transaction => {
+            const transactions = yield evr.accounts.waitForDerivativeTransactions(startingTransactionId, accounts);
+            newResult = (0, processing_1.resolveDerivativeTransaction)(transactions, walletAddress, contracts_1.FlexWalletAccount, newResult, transaction => {
                 return {
                     orderId,
                     status: MakeOrderStatus.FINALIZING,
                     params,
                     walletTransactionId: transaction.id,
                 };
-            });
+            }, error => makeOrderError(orderId, error)).result;
             if (newResult.status === MakeOrderStatus.FINALIZING) {
                 const { walletTransactionId } = newResult;
-                newResult = resolveDerivativeTransaction(transactions, priceAddress, contracts_1.PriceXchgAccount, newResult, transaction => {
+                const resolved = (0, processing_1.resolveDerivativeTransaction)(transactions, priceAddress, contracts_1.PriceXchgAccount, newResult, transaction => {
                     return {
                         orderId,
                         status: MakeOrderStatus.SUCCESS,
                         walletTransactionId: walletTransactionId,
                         priceTransactionId: transaction.id,
                     };
-                });
+                }, error => makeOrderError(orderId, error));
+                newResult = resolved.result;
+                if (resolved.transaction) {
+                    let answer = undefined;
+                    for (const msg of resolved.transaction.out_messages) {
+                        if (msg.dst === walletAddress && Number(msg.created_lt) > ((_a = answer === null || answer === void 0 ? void 0 : answer.created_lt) !== null && _a !== void 0 ? _a : 0)) {
+                            answer = msg;
+                        }
+                    }
+                    if (answer) {
+                        const body = yield evr.accounts.waitForMessageBody(answer.id);
+                        const decoded = (yield evr.sdk.abi.decode_boc({
+                            params: [
+                                { name: "_answer_id", type: "uint32" },
+                                { name: "err_code", type: "uint32" },
+                            ],
+                            boc: body,
+                            allow_partial: true,
+                        })).data;
+                        const errCode = Number(decoded.err_code);
+                        if (errCode !== 0) {
+                            const error = (0, contracts_1.findTransactionError)(resolved.transaction, contracts_1.PriceXchgAccount, errCode);
+                            if (error) {
+                                return makeOrderError(newResult.orderId, error);
+                            }
+                        }
+                    }
+                }
             }
         }
         return newResult;
     });
 }
 exports.finalizeMakeOrder = finalizeMakeOrder;
-function resolveDerivativeTransaction(transactions, address, contract, result, success) {
-    const transaction = transactions[address];
-    if (transaction) {
-        const error = (0, contracts_1.findTransactionError)(transaction, contract);
-        if (error) {
-            return makeOrderError(result.orderId, error);
-        }
-        return success(transaction);
-    }
-    return result;
-}
 function resolveStartingError(original, state) {
     var _a, _b;
     if (state.status === MakeOrderStatus.SUCCESS || state.status === MakeOrderStatus.ERROR) {

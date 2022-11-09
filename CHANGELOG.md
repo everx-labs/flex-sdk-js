@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.7.1] – 2022-11-09
+
+### New
+
+- additional logic to detect errors during making/canceling of orders
+
+### Fixed
+
+- optimization for first step of the makeOrder and cancelOrder
+
 ## [0.7.0] – 2022-11-08
 
 ### New
