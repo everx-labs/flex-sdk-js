@@ -1,5 +1,4 @@
 import {
-    findTransactionError,
     FlexClientAccount,
     FlexWalletAccount,
     PriceXchgAccount,
@@ -340,33 +339,19 @@ export async function finalizeCancelOrder(
             if (resolved.transaction) {
                 let answer: DerivativeTransactionMessage | undefined = undefined;
                 for (const msg of resolved.transaction.out_messages) {
-                    if (msg.dst === walletAddress && Number(msg.created_lt) > (answer?.created_lt ?? 0)) {
+                    if (
+                        msg.dst === walletAddress &&
+                        Number(msg.created_lt) > (answer?.created_lt ?? 0)
+                    ) {
                         answer = msg;
                     }
                 }
-                if (answer) {
-                    const body = await evr.accounts.waitForMessageBody(answer.id);
-                    const decoded: { _answer_id: string | number; err_code: string | number } = (
-                        await evr.sdk.abi.decode_boc({
-                            params: [
-                                { name: "_answer_id", type: "uint32" },
-                                { name: "err_code", type: "uint32" },
-                            ],
-                            boc: body,
-                            allow_partial: true,
-                        })
-                    ).data;
-                    const errCode = Number(decoded.err_code);
-                    if (errCode !== 0) {
-                        const error = findTransactionError(
-                            resolved.transaction,
-                            PriceXchgAccount,
-                            errCode,
-                        );
-                        if (error) {
-                            return cancelOrderError(error);
-                        }
-                    }
+                if (!answer) {
+                    const error: SdkError = new Error(
+                        `Missing required answer message to wallet from transaction [${resolved.transaction.id}] on PriceXchg[${priceAddress}].`,
+                    );
+                    error.code = ProcessingErrorCode.MessageRejected;
+                    return cancelOrderError(error);
                 }
             }
         }

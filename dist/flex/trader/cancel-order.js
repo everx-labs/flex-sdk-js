@@ -183,27 +183,15 @@ function finalizeCancelOrder(evr, result, startingTransactionId, priceTransactio
                 if (resolved.transaction) {
                     let answer = undefined;
                     for (const msg of resolved.transaction.out_messages) {
-                        if (msg.dst === walletAddress && Number(msg.created_lt) > ((_a = answer === null || answer === void 0 ? void 0 : answer.created_lt) !== null && _a !== void 0 ? _a : 0)) {
+                        if (msg.dst === walletAddress &&
+                            Number(msg.created_lt) > ((_a = answer === null || answer === void 0 ? void 0 : answer.created_lt) !== null && _a !== void 0 ? _a : 0)) {
                             answer = msg;
                         }
                     }
-                    if (answer) {
-                        const body = yield evr.accounts.waitForMessageBody(answer.id);
-                        const decoded = (yield evr.sdk.abi.decode_boc({
-                            params: [
-                                { name: "_answer_id", type: "uint32" },
-                                { name: "err_code", type: "uint32" },
-                            ],
-                            boc: body,
-                            allow_partial: true,
-                        })).data;
-                        const errCode = Number(decoded.err_code);
-                        if (errCode !== 0) {
-                            const error = (0, contracts_1.findTransactionError)(resolved.transaction, contracts_1.PriceXchgAccount, errCode);
-                            if (error) {
-                                return cancelOrderError(error);
-                            }
-                        }
+                    if (!answer) {
+                        const error = new Error(`Missing required answer message to wallet from transaction [${resolved.transaction.id}] on PriceXchg[${priceAddress}].`);
+                        error.code = core_1.ProcessingErrorCode.MessageRejected;
+                        return cancelOrderError(error);
                     }
                 }
             }
