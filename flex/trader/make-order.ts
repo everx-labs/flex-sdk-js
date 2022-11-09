@@ -13,7 +13,8 @@ import { TraderOptions } from "./types";
 import { toUnits, Evr, TokenValue } from "../web3";
 import { priceToUnits } from "../flex";
 import { AccountClass } from "../../contracts/account-ex";
-import { DerivativeTransaction } from "../web3/accounts";
+import { resolveDerivativeTransaction, SdkError } from "./processing";
+import { DerivativeTransactionMessage } from "../web3/accounts";
 
 export type MakeOrderOptions = {
     clientAddress: string;
@@ -224,7 +225,7 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
         throw new Error("Message did not sent.");
     }
     return await finalizeMakeOrder(
-        flex,
+        flex.evr,
         result,
         walletTransactionId,
         options.waitForOrderbookUpdate ?? false,
@@ -232,7 +233,10 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
 }
 
 /** @internal */
-export async function waitForMakeOrder(flex: Flex, result: MakeOrderResult): Promise<MakeOrderResult> {
+export async function waitForMakeOrder(
+    evr: Evr,
+    result: MakeOrderResult,
+): Promise<MakeOrderResult> {
     let walletTransactionId = undefined;
     switch (result.status) {
         case MakeOrderStatus.SUCCESS:
@@ -241,7 +245,7 @@ export async function waitForMakeOrder(flex: Flex, result: MakeOrderResult): Pro
         case MakeOrderStatus.STARTING:
             try {
                 walletTransactionId = (
-                    await flex.evr.sdk.processing.wait_for_transaction({
+                    await evr.sdk.processing.wait_for_transaction({
                         message: result.message,
                         shard_block_id: result.shard_block_id,
                         abi: abiContract(FlexWalletAccount.package.abi),
@@ -256,12 +260,12 @@ export async function waitForMakeOrder(flex: Flex, result: MakeOrderResult): Pro
         case MakeOrderStatus.FINALIZING:
             walletTransactionId = result.walletTransactionId;
     }
-    return finalizeMakeOrder(flex, result, walletTransactionId, true);
+    return finalizeMakeOrder(evr, result, walletTransactionId, true);
 }
 
 /** @internal */
 export async function finalizeMakeOrder(
-    flex: Flex,
+    evr: Evr,
     result: MakeOrderResult,
     startingTransactionId: string,
     priceTransactionRequired: boolean,
@@ -283,11 +287,11 @@ export async function finalizeMakeOrder(
 
     let newResult: MakeOrderResult = result;
     if (Object.keys(accounts).length > 0) {
-        const transactions = await flex.evr.accounts.waitForDerivativeTransactions(
+        const transactions = await evr.accounts.waitForDerivativeTransactions(
             startingTransactionId,
             accounts,
         );
-        newResult = resolveDerivativeTransaction(
+        newResult = resolveDerivativeTransaction<MakeOrderResult>(
             transactions,
             walletAddress,
             FlexWalletAccount,
@@ -300,10 +304,11 @@ export async function finalizeMakeOrder(
                     walletTransactionId: transaction.id,
                 };
             },
-        );
+            error => makeOrderError(orderId, error),
+        ).result;
         if (newResult.status === MakeOrderStatus.FINALIZING) {
             const { walletTransactionId } = newResult;
-            newResult = resolveDerivativeTransaction(
+            const resolved = resolveDerivativeTransaction<MakeOrderResult>(
                 transactions,
                 priceAddress,
                 PriceXchgAccount,
@@ -316,41 +321,45 @@ export async function finalizeMakeOrder(
                         priceTransactionId: transaction.id,
                     };
                 },
+                error => makeOrderError(orderId, error),
             );
+            newResult = resolved.result;
+            if (resolved.transaction) {
+                let answer: DerivativeTransactionMessage | undefined = undefined;
+                for (const msg of resolved.transaction.out_messages) {
+                    if (msg.dst === walletAddress && Number(msg.created_lt) > (answer?.created_lt ?? 0)) {
+                        answer = msg;
+                    }
+                }
+                if (answer) {
+                    const body = await evr.accounts.waitForMessageBody(answer.id);
+                    const decoded: { _answer_id: string | number; err_code: string | number } = (
+                        await evr.sdk.abi.decode_boc({
+                            params: [
+                                { name: "_answer_id", type: "uint32" },
+                                { name: "err_code", type: "uint32" },
+                            ],
+                            boc: body,
+                            allow_partial: true,
+                        })
+                    ).data;
+                    const errCode = Number(decoded.err_code);
+                    if (errCode !== 0) {
+                        const error = findTransactionError(
+                            resolved.transaction,
+                            PriceXchgAccount,
+                            errCode,
+                        );
+                        if (error) {
+                            return makeOrderError(newResult.orderId, error);
+                        }
+                    }
+                }
+            }
         }
     }
     return newResult;
 }
-
-function resolveDerivativeTransaction(
-    transactions: { [address: string]: DerivativeTransaction },
-    address: string,
-    contract: AccountClass,
-    result: MakeOrderResult,
-    success: (transaction: DerivativeTransaction) => MakeOrderResult,
-): MakeOrderResult {
-    const transaction = transactions[address];
-    if (transaction) {
-        const error = findTransactionError(transaction, contract);
-        if (error) {
-            return makeOrderError(result.orderId, error);
-        }
-        return success(transaction);
-    }
-    return result;
-}
-
-type SdkError = Error & {
-    code?: number;
-    data?: {
-        local_error?: {
-            code: number;
-            data?: {
-                exit_code?: number;
-            };
-        };
-    };
-};
 
 function resolveStartingError(original: SdkError, state: MakeOrderResult): MakeOrderResult {
     if (state.status === MakeOrderStatus.SUCCESS || state.status === MakeOrderStatus.ERROR) {

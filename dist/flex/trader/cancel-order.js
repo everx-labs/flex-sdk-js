@@ -14,6 +14,7 @@ const contracts_1 = require("../../contracts");
 const internals_1 = require("./internals");
 const flex_1 = require("../flex");
 const core_1 = require("@eversdk/core");
+const processing_1 = require("./processing");
 var CancelOrderStatus;
 (function (CancelOrderStatus) {
     CancelOrderStatus[CancelOrderStatus["STARTING"] = 0] = "STARTING";
@@ -145,6 +146,7 @@ function waitForCancelOrder(evr, result) {
 }
 exports.waitForCancelOrder = waitForCancelOrder;
 function finalizeCancelOrder(evr, result, startingTransactionId, priceTransactionRequired) {
+    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         if (result.status === CancelOrderStatus.SUCCESS || result.status === CancelOrderStatus.ERROR) {
             return result;
@@ -161,39 +163,55 @@ function finalizeCancelOrder(evr, result, startingTransactionId, priceTransactio
         let newResult = result;
         if (Object.keys(accounts).length > 0) {
             const transactions = yield evr.accounts.waitForDerivativeTransactions(startingTransactionId, accounts);
-            newResult = resolveDerivativeTransaction(transactions, walletAddress, contracts_1.FlexWalletAccount, newResult, transaction => {
+            newResult = (0, processing_1.resolveDerivativeTransaction)(transactions, walletAddress, contracts_1.FlexWalletAccount, newResult, transaction => {
                 return {
                     status: CancelOrderStatus.FINALIZING,
                     params,
                     walletTransactionId: transaction.id,
                 };
-            });
+            }, cancelOrderError).result;
             if (newResult.status === CancelOrderStatus.FINALIZING) {
                 const { walletTransactionId } = newResult;
-                newResult = resolveDerivativeTransaction(transactions, priceAddress, contracts_1.PriceXchgAccount, newResult, transaction => {
+                const resolved = (0, processing_1.resolveDerivativeTransaction)(transactions, priceAddress, contracts_1.PriceXchgAccount, newResult, transaction => {
                     return {
                         status: CancelOrderStatus.SUCCESS,
                         walletTransactionId: walletTransactionId,
                         priceTransactionId: transaction.id,
                     };
-                });
+                }, cancelOrderError);
+                newResult = resolved.result;
+                if (resolved.transaction) {
+                    let answer = undefined;
+                    for (const msg of resolved.transaction.out_messages) {
+                        if (msg.dst === walletAddress && Number(msg.created_lt) > ((_a = answer === null || answer === void 0 ? void 0 : answer.created_lt) !== null && _a !== void 0 ? _a : 0)) {
+                            answer = msg;
+                        }
+                    }
+                    if (answer) {
+                        const body = yield evr.accounts.waitForMessageBody(answer.id);
+                        const decoded = (yield evr.sdk.abi.decode_boc({
+                            params: [
+                                { name: "_answer_id", type: "uint32" },
+                                { name: "err_code", type: "uint32" },
+                            ],
+                            boc: body,
+                            allow_partial: true,
+                        })).data;
+                        const errCode = Number(decoded.err_code);
+                        if (errCode !== 0) {
+                            const error = (0, contracts_1.findTransactionError)(resolved.transaction, contracts_1.PriceXchgAccount, errCode);
+                            if (error) {
+                                return cancelOrderError(error);
+                            }
+                        }
+                    }
+                }
             }
         }
         return newResult;
     });
 }
 exports.finalizeCancelOrder = finalizeCancelOrder;
-function resolveDerivativeTransaction(transactions, address, contract, result, success) {
-    const transaction = transactions[address];
-    if (transaction) {
-        const error = (0, contracts_1.findTransactionError)(transaction, contract);
-        if (error) {
-            return cancelOrderError(error);
-        }
-        return success(transaction);
-    }
-    return result;
-}
 function resolveStartingError(original, result) {
     var _a, _b;
     if (result.status === CancelOrderStatus.SUCCESS || result.status === CancelOrderStatus.ERROR) {

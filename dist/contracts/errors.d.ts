@@ -6,5 +6,5 @@ export declare type ContractError = Error & {
 };
 export declare function errorFromExitCode(contract: AccountClass, exitCode: number): ContractError;
 export declare function resolveContractError(originalError: ContractError, contract: AccountClass): ContractError;
-export declare function findTransactionError(transaction: DerivativeTransaction, contract: AccountClass): Error | undefined;
+export declare function findTransactionError(transaction: DerivativeTransaction, contract: AccountClass, altErrorCode?: number): Error | undefined;
 //# sourceMappingURL=errors.d.ts.map

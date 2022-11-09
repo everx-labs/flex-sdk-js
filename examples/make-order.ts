@@ -1,6 +1,5 @@
 import { Flex, makeOrderFinalized, Trader } from "../flex";
 import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
-import { waitForMakeOrder } from "../flex/trader/make-order";
 //import { LogLevel } from "../contracts/helpers";
 
 (async () => {
@@ -19,15 +18,15 @@ import { waitForMakeOrder } from "../flex/trader/make-order";
             },
             sell: false,
             marketAddress: marketAddress,
-            price: { tokens: 20 },
-            amount: { tokens: 10 },
-            waitForOrderbookUpdate: true,
-            
+            price: { tokens: 1 },
+            amount: { tokens: 1 },
+            finishTime: Math.floor((Date.now() + 3 * 60 * 1000) / 1000),
+            waitForOrderbookUpdate: false,
         });
         flex.evr.log.info("MakeOrder Initialization result on wallet", result);
 
         if (!makeOrderFinalized(result)) {
-            result = await waitForMakeOrder(flex, result);
+            result = await Trader.waitForMakeOrder(flex, result);
             flex.evr.log.info("Finalized Make order result in orderbook", result);
         }
 

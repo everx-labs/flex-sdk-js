@@ -133,7 +133,7 @@ export class Trader {
      * @returns
      */
     static async waitForMakeOrder(flex: Flex, result: MakeOrderResult): Promise<MakeOrderResult> {
-        return await waitForMakeOrder(flex, result);
+        return await waitForMakeOrder(flex.evr, result);
     }
 
     /**

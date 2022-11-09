@@ -24,8 +24,8 @@ const examples_1 = require("./examples");
                 signer: "traderSigner",
             },
             marketAddress: marketAddress,
-            price: { tokens: 0.2 },
-            orderId: "0xb1482121e43efae",
+            price: { tokens: 1 },
+            orderId: "0xb5f050b74d94ff7e",
         });
         flex.evr.log.info("Cancel Initialization result on wallet", result);
         if (!(0, flex_1.cancelOrderFinalized)(result)) {

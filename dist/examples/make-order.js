@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
-const make_order_1 = require("../flex/trader/make-order");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
     try {
@@ -26,13 +25,14 @@ const make_order_1 = require("../flex/trader/make-order");
             },
             sell: false,
             marketAddress: marketAddress,
-            price: { tokens: 20 },
-            amount: { tokens: 10 },
-            waitForOrderbookUpdate: true,
+            price: { tokens: 1 },
+            amount: { tokens: 1 },
+            finishTime: Math.floor((Date.now() + 3 * 60 * 1000) / 1000),
+            waitForOrderbookUpdate: false,
         });
         flex.evr.log.info("MakeOrder Initialization result on wallet", result);
         if (!(0, flex_1.makeOrderFinalized)(result)) {
-            result = yield (0, make_order_1.waitForMakeOrder)(flex, result);
+            result = yield flex_1.Trader.waitForMakeOrder(flex, result);
             flex.evr.log.info("Finalized Make order result in orderbook", result);
         }
         yield flex.close();
