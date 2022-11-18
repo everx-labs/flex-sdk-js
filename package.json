@@ -12,7 +12,8 @@
         "@eversdk/appkit": "^0.3.2",
         "@eversdk/core": "^1.38.0",
         "@eversdk/lib-node": "^1.38.0",
-        "typedoc-plugin-missing-exports": "^1.0.0"
+        "typedoc-plugin-missing-exports": "^1.0.0",
+        "decimal.js-light": "^2.5.1"
     },
     "devDependencies": {
         "@eversdk/lib-node": "^1.37.0",

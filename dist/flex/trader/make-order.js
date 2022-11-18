@@ -15,8 +15,8 @@ const core_1 = require("@eversdk/core");
 const contracts_1 = require("../../contracts");
 const internals_1 = require("./internals");
 const web3_1 = require("../web3");
-const flex_1 = require("../flex");
 const processing_1 = require("./processing");
+const utils_1 = require("../web3/utils");
 var MakeOrderStatus;
 (function (MakeOrderStatus) {
     MakeOrderStatus[MakeOrderStatus["STARTING"] = 0] = "STARTING";
@@ -49,7 +49,7 @@ function makeOrder(flex, options) {
         const priceSalt = (yield pair.getPriceXchgSalt()).output.value0;
         const amount = (0, web3_1.toUnits)(options.amount, pairDetails.major_tip3cfg.decimals);
         const orderId = options.orderId !== undefined ? options.orderId : yield generateRandomOrderId(flex.evr);
-        const price = (0, flex_1.priceToUnits)(options.price, pairDetails.price_denum, pairDetails.major_tip3cfg.decimals, pairDetails.minor_tip3cfg.decimals);
+        const price = (0, utils_1.priceToUnits)(options.price, pairDetails.price_denum, pairDetails.major_tip3cfg.decimals, pairDetails.minor_tip3cfg.decimals);
         const lend_balance = (yield flexAccount.calcLendTokensForOrder({
             sell: options.sell,
             major_tokens: amount,

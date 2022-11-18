@@ -23,7 +23,8 @@
 			"esnext.asynciterable"
 		],
 		"types": [
-			"node"
+			"node",
+			"jest"
 		],
 		"baseUrl": ".",
 		"paths": {
@@ -43,6 +44,6 @@
 		"flex/web3/*.ts",
 		"cli/*.ts",
 		"examples/*.ts",
-		"__tests__/*.ts",
+		"tests/*.ts",
 	]
 }

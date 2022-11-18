@@ -9,11 +9,11 @@ import { getWallet } from "./internals";
 import { PriceXchgGetDetailsOutput } from "../../contracts/generated/PriceXchgAccount";
 import { TraderOptions } from "./types";
 import { Evr, TokenValue } from "../web3";
-import { priceToUnits } from "../flex";
 import { abiContract, ProcessingErrorCode, TvmErrorCode } from "@eversdk/core";
 import { AccountClass } from "../../contracts/account-ex";
 import { resolveDerivativeTransaction, SdkError } from "./processing";
 import { DerivativeTransactionMessage } from "../web3/accounts";
+import { priceToUnits } from "../web3/utils";
 
 export type CancelOrderOptions = {
     /**
