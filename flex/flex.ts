@@ -5,7 +5,7 @@ import {
     SuperRootAccount,
     UserDataConfigAccount,
 } from "../contracts";
-import { Evr, TokenValue } from "./web3";
+import { Evr } from "./web3";
 
 export class Flex {
     /**
@@ -25,7 +25,6 @@ export class Flex {
         this.evr = new Evr(config.evr);
     }
 
-
     /** @internal */
     async getSuperRootAccount(): Promise<SuperRootAccount> {
         return this.evr.accounts.get(SuperRootAccount, this.config.superRoot);
@@ -34,8 +33,8 @@ export class Flex {
     /** @internal */
     async getGlobalConfigAccount(): Promise<GlobalConfigAccount> {
         const globalConfigAddress =
-            this.config.globalConfig
-            ?? (await (await this.getSuperRootAccount()).getCurrentGlobalConfig()).output.value0;
+            this.config.globalConfig ??
+            (await (await this.getSuperRootAccount()).getCurrentGlobalConfig()).output.value0;
         return await this.evr.accounts.get(GlobalConfigAccount, globalConfigAddress);
     }
 
@@ -72,49 +71,4 @@ export class Flex {
     async close() {
         await this.evr.close();
     }
-
-}
-
-export function priceToUnits(
-    price: TokenValue,
-    denominator: string | number,
-    majorDecimals: string | number,
-    minorDecimals: string | number,
-): { num: string, denum: string } {
-    if (typeof price === "number") {
-        return tokenPriceToUnits(price, denominator, majorDecimals, minorDecimals);
-    }
-    if ("tokens" in price) {
-        return tokenPriceToUnits(price.tokens, denominator, majorDecimals, minorDecimals);
-    }
-    return unitPriceToUnits(price.units, denominator);
-}
-
-function tokenPriceToUnits(
-    price: number,
-    denominator: string | number,
-    majorDecimals: string | number,
-    minorDecimals: string | number,
-): { num: string, denum: string } {
-    const denom = Math.floor(Number(denominator));
-    const price_num = Math.floor(price * denom * Math.pow(
-        10,
-        Number(minorDecimals) - Number(majorDecimals),
-    ));
-    return {
-        num: price_num.toString(),
-        denum: denom.toString(),
-    };
-}
-
-function unitPriceToUnits(
-    price: number | bigint | string,
-    denominator: string | number,
-): { num: string, denum: string } {
-    const denom = Math.floor(Number(denominator));
-    const price_num = BigInt(price) * BigInt(denom);
-    return {
-        num: price_num.toString(),
-        denum: denom.toString(),
-    };
 }

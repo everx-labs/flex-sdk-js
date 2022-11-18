@@ -43,6 +43,6 @@
 		"flex/web3/*.ts",
 		"cli/*.ts",
 		"examples/*.ts",
-		"tests/*.ts",
+		"__tests__/*.ts",
 	]
 }

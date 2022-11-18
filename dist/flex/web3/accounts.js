@@ -127,6 +127,7 @@ class EvrAccounts {
                 }
             }
             checkTransaction(originTransaction);
+            const start = Date.now();
             while (uncheckedMessages.length > 0) {
                 const checkingMessages = uncheckedMessages;
                 uncheckedMessages = [];
@@ -145,7 +146,12 @@ class EvrAccounts {
                     }
                 }
                 if (!hasCheckedMessages) {
-                    yield new Promise(resolve => setTimeout(resolve, 500));
+                    const now = Date.now();
+                    if (now > start + 40 * 1000) {
+                        throw new Error();
+                        this.log.info(`There are no derivative transaction for a ${Math.floor((now - start) / 1000)} seconds. Retrying after 2 sec delay.`);
+                    }
+                    yield new Promise(resolve => setTimeout(resolve, 2000));
                 }
             }
             return result;

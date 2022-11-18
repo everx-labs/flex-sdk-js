@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.8.0] – 2022-11-18
+
+### New
+
+- decimal string in token value. E.g "1234567890123456789.1234".
+
 ## [0.7.1] – 2022-11-09
 
 ### New

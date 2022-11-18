@@ -7,6 +7,7 @@
         "build": "rimraf dist && tsc --project tsconfig.json",
         "update-contracts": "node dist/contracts/update.js"
     },
+    "test": "jest",
     "dependencies": {
         "@eversdk/appkit": "^0.3.2",
         "@eversdk/core": "^1.38.0",
