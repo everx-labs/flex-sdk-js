@@ -23,10 +23,10 @@ const examples_1 = require("./examples");
                 id: traderId,
                 signer: "traderSigner",
             },
-            sell: true,
+            sell: false,
             marketAddress: marketAddress,
-            price: 277777.1,
-            amount: 0.00001,
+            price: { units: "2777771.1" },
+            amount: { units: 1000 },
             waitForOrderbookUpdate: false,
         });
         flex.evr.log.info("MakeOrder Initialization result on wallet", result);
