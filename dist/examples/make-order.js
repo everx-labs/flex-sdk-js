@@ -25,8 +25,8 @@ const examples_1 = require("./examples");
             },
             sell: false,
             marketAddress: marketAddress,
-            price: { tokens: 0.2 },
-            amount: { tokens: 3 },
+            price: { units: "2777771.1" },
+            amount: { units: 1000 },
             waitForOrderbookUpdate: false,
         });
         flex.evr.log.info("MakeOrder Initialization result on wallet", result);

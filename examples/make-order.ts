@@ -18,8 +18,8 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
             },
             sell: false,
             marketAddress: marketAddress,
-            price: 277777.1,
-            amount: 0.00001,
+            price: {units: "2777771.1"},
+            amount:{units: 1000} ,
             waitForOrderbookUpdate: false,
         });
         flex.evr.log.info("MakeOrder Initialization result on wallet", result);
