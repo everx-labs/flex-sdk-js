@@ -12,9 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.finalizeCancelOrder = exports.waitForCancelOrder = exports.cancelOrder = exports.CancelOrderStatus = void 0;
 const contracts_1 = require("../../contracts");
 const internals_1 = require("./internals");
-const flex_1 = require("../flex");
 const core_1 = require("@eversdk/core");
 const processing_1 = require("./processing");
+const utils_1 = require("../web3/utils");
 var CancelOrderStatus;
 (function (CancelOrderStatus) {
     CancelOrderStatus[CancelOrderStatus["STARTING"] = 0] = "STARTING";
@@ -33,7 +33,7 @@ function cancelOrder(evr, options) {
     return __awaiter(this, void 0, void 0, function* () {
         const pair = yield evr.accounts.get(contracts_1.XchgPairAccount, options.marketAddress);
         const pairDetails = (yield pair.getDetails()).output;
-        const price = (0, flex_1.priceToUnits)(options.price, pairDetails.price_denum, pairDetails.major_tip3cfg.decimals, pairDetails.minor_tip3cfg.decimals);
+        const price = (0, utils_1.priceToUnits)(options.price, pairDetails.price_denum, pairDetails.major_tip3cfg.decimals, pairDetails.minor_tip3cfg.decimals);
         const priceDetails = yield getPriceDetails(evr, options.clientAddress, pair, price.num, options.price);
         let sell;
         if (findOrder(options.orderId, priceDetails.sells)) {

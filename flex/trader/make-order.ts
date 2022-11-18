@@ -11,10 +11,10 @@ import {
 import { getWallet } from "./internals";
 import { TraderOptions } from "./types";
 import { toUnits, Evr, TokenValue } from "../web3";
-import { priceToUnits } from "../flex";
 import { AccountClass } from "../../contracts/account-ex";
 import { resolveDerivativeTransaction, SdkError } from "./processing";
 import { DerivativeTransactionMessage } from "../web3/accounts";
+import { priceToUnits } from "../web3/utils";
 
 export type MakeOrderOptions = {
     clientAddress: string;

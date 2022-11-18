@@ -1,17 +1,19 @@
 {
     "name": "flex-sdk-js",
-    "version": "0.7.1",
+    "version": "0.8.0",
     "main": "dist/flex/index.js",
     "scripts": {
         "docs": "typedoc --options typedoc.js",
         "build": "rimraf dist && tsc --project tsconfig.json",
         "update-contracts": "node dist/contracts/update.js"
     },
+    "test": "jest",
     "dependencies": {
         "@eversdk/appkit": "^0.3.2",
         "@eversdk/core": "^1.38.0",
         "@eversdk/lib-node": "^1.38.0",
-        "typedoc-plugin-missing-exports": "^1.0.0"
+        "typedoc-plugin-missing-exports": "^1.0.0",
+        "decimal.js-light": "^2.5.1"
     },
     "devDependencies": {
         "@eversdk/lib-node": "^1.37.0",

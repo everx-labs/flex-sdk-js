@@ -1,11 +1,16 @@
+export declare function uint256(value: string): string;
+export declare type DecimalNumber = number | bigint | string;
 export declare type ExplicitTokens = {
-    tokens: number;
+    tokens: DecimalNumber;
 };
 export declare type ExplicitUnits = {
-    units: number | bigint | string;
+    units: DecimalNumber;
 };
-export declare type TokenValue = number | ExplicitTokens | ExplicitUnits;
-export declare function toUnits(value: TokenValue, decimals?: string | number): string;
-export declare function tokensToUnits(value: number, decimals: string | number): string;
-export declare function uint256(value: string): string;
+export declare type TokenValue = DecimalNumber | ExplicitTokens | ExplicitUnits;
+export declare function toUnitsString(value: TokenValue, decimals: DecimalNumber): string;
+export declare function toUnits(value: TokenValue, decimals?: DecimalNumber): string;
+export declare function priceToUnits(price: TokenValue, denominator: DecimalNumber, majorDecimals: DecimalNumber, minorDecimals: DecimalNumber): {
+    num: string;
+    denum: string;
+};
 //# sourceMappingURL=utils.d.ts.map

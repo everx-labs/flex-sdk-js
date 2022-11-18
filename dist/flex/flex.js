@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.priceToUnits = exports.Flex = void 0;
+exports.Flex = void 0;
 const config_1 = require("./config");
 const contracts_1 = require("../contracts");
 const web3_1 = require("./web3");
@@ -63,30 +63,4 @@ class Flex {
     }
 }
 exports.Flex = Flex;
-function priceToUnits(price, denominator, majorDecimals, minorDecimals) {
-    if (typeof price === "number") {
-        return tokenPriceToUnits(price, denominator, majorDecimals, minorDecimals);
-    }
-    if ("tokens" in price) {
-        return tokenPriceToUnits(price.tokens, denominator, majorDecimals, minorDecimals);
-    }
-    return unitPriceToUnits(price.units, denominator);
-}
-exports.priceToUnits = priceToUnits;
-function tokenPriceToUnits(price, denominator, majorDecimals, minorDecimals) {
-    const denom = Math.floor(Number(denominator));
-    const price_num = Math.floor(price * denom * Math.pow(10, Number(minorDecimals) - Number(majorDecimals)));
-    return {
-        num: price_num.toString(),
-        denum: denom.toString(),
-    };
-}
-function unitPriceToUnits(price, denominator) {
-    const denom = Math.floor(Number(denominator));
-    const price_num = BigInt(price) * BigInt(denom);
-    return {
-        num: price_num.toString(),
-        denum: denom.toString(),
-    };
-}
 //# sourceMappingURL=flex.js.map

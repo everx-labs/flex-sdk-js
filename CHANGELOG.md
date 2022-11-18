@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.8.0] – 2022-11-18
+
+### New
+
+- decimal string in token value. E.g "1234567890123456789.1234".
+
+### Fixed
+
+- waiting for the derivative transactions was going into infinite loop if the shard had been stopped.
+
 ## [0.7.1] – 2022-11-09
 
 ### New
@@ -27,7 +37,7 @@ All notable changes to this project will be documented in this file.
 
   **Attention!!!!**
 
-  - `ERROR` status means the error occured in the contract system, which means you SHOULD NOT perform retries until you solve the error reason. 
+  - `ERROR` status means the error occurred in the contract system, which means you SHOULD NOT perform retries until you solve the error reason. 
   - Network errors are not resolved by `makeOrder`/`cancelOrder` methods. Wrap your code in `try catch` for network errors. In case of network error we suggest you to query trader info from the api to understand your state. See `/examples/trader-info.ts` sample
 
 ### Improved

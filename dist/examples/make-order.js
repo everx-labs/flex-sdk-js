@@ -23,7 +23,7 @@ const examples_1 = require("./examples");
                 id: traderId,
                 signer: "traderSigner",
             },
-            sell: false,
+            sell: true,
             marketAddress: marketAddress,
             price: { units: "2777771.1" },
             amount: { units: 1000 },

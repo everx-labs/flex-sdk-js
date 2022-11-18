@@ -16,7 +16,7 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
                 id: traderId,
                 signer: "traderSigner",
             },
-            sell: false,
+            sell: true,
             marketAddress: marketAddress,
             price: {units: "2777771.1"},
             amount:{units: 1000} ,
