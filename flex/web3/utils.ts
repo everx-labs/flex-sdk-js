@@ -115,30 +115,30 @@ function mulDivToString(value: MulDiv): string {
     return d.toFixed();
 }
 
-function tokenValueToMulDiv(value: TokenValue, decimals: DecimalNumber): MulDiv {
+function toUnitsMulDiv(value: TokenValue, decimals: DecimalNumber): MulDiv {
     let result;
     if (typeof value === "number" || typeof value === "string" || typeof value === "bigint") {
-        result = tokensToMulDiv(value, decimals);
+        result = tokensToUnitsMulDiv(value, decimals);
     } else if ("tokens" in value) {
-        result = tokensToMulDiv(value.tokens, decimals);
+        result = tokensToUnitsMulDiv(value.tokens, decimals);
     } else {
         result = toMulDiv(value.units);
     }
     return result;
 }
 
-export function tokenValueToString(value: TokenValue, decimals: DecimalNumber): string {
-    return mulDivToString(tokenValueToMulDiv(value, decimals));
+export function toUnitsString(value: TokenValue, decimals: DecimalNumber): string {
+    return mulDivToString(toUnitsMulDiv(value, decimals));
 }
 
-function tokensToMulDiv(value: DecimalNumber, decimals: DecimalNumber): MulDiv {
+function tokensToUnitsMulDiv(value: DecimalNumber, decimals: DecimalNumber): MulDiv {
     const f = toMulDiv(value);
-    applyExp(f, -decToInt(decimals));
+    applyExp(f, decToInt(decimals));
     return f;
 }
 
 export function toUnits(value: TokenValue, decimals: DecimalNumber = 9): string {
-    const f = tokenValueToMulDiv(value, decimals);
+    const f = toUnitsMulDiv(value, decimals);
     return (f.mul / f.div).toString();
 }
 

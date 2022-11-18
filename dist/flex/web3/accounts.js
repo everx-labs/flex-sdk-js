@@ -127,7 +127,7 @@ class EvrAccounts {
                 }
             }
             checkTransaction(originTransaction);
-            const start = Date.now();
+            const waitTimeout = new WaitTimeout();
             while (uncheckedMessages.length > 0) {
                 const checkingMessages = uncheckedMessages;
                 uncheckedMessages = [];
@@ -145,13 +145,11 @@ class EvrAccounts {
                         uncheckedMessages.push(checkingMessage);
                     }
                 }
-                if (!hasCheckedMessages) {
-                    const now = Date.now();
-                    if (now > start + 40 * 1000) {
-                        throw new Error();
-                        this.log.info(`There are no derivative transaction for a ${Math.floor((now - start) / 1000)} seconds. Retrying after 2 sec delay.`);
-                    }
-                    yield new Promise(resolve => setTimeout(resolve, 2000));
+                if (hasCheckedMessages) {
+                    waitTimeout.reset();
+                }
+                else {
+                    yield waitTimeout.sleep();
                 }
             }
             return result;
@@ -208,6 +206,7 @@ class EvrAccounts {
     waitForMessageBody(messageId) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            const waitTimeout = new WaitTimeout();
             while (true) {
                 const body = (_a = (yield this.queryBlockchain(`message(hash:$messageId) { body }`, {
                     messageId,
@@ -215,7 +214,7 @@ class EvrAccounts {
                 if (body) {
                     return body;
                 }
-                yield new Promise(resolve => setTimeout(resolve, 500));
+                yield waitTimeout.sleep();
             }
         });
     }
@@ -232,4 +231,29 @@ class EvrAccounts {
     }
 }
 exports.EvrAccounts = EvrAccounts;
+class WaitTimeout {
+    constructor() {
+        this.delay = 2000;
+        this.timeout = 40 * 1000;
+        this.start = 0;
+        this.limit = 0;
+        this.reset();
+    }
+    reset() {
+        this.start = Date.now();
+        this.limit = this.start + this.timeout;
+    }
+    sleep() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const now = Date.now();
+            if (now > this.limit) {
+                const seconds = Math.floor((now - this.start) / 1000);
+                const error = new Error(`There are no required data on the blockchain for a ${seconds} seconds.`);
+                error.code = core_1.ProcessingErrorCode.TransactionWaitTimeout;
+                throw error;
+            }
+            yield new Promise(resolve => setTimeout(resolve, this.delay));
+        });
+    }
+}
 //# sourceMappingURL=accounts.js.map

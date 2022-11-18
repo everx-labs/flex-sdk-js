@@ -7,7 +7,7 @@ export declare type ExplicitUnits = {
     units: DecimalNumber;
 };
 export declare type TokenValue = DecimalNumber | ExplicitTokens | ExplicitUnits;
-export declare function tokenValueToString(value: TokenValue, decimals: DecimalNumber): string;
+export declare function toUnitsString(value: TokenValue, decimals: DecimalNumber): string;
 export declare function toUnits(value: TokenValue, decimals?: DecimalNumber): string;
 export declare function priceToUnits(price: TokenValue, denominator: DecimalNumber, majorDecimals: DecimalNumber, minorDecimals: DecimalNumber): {
     num: string;

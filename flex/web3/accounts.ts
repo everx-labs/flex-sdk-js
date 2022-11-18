@@ -1,8 +1,16 @@
-import { abiContract, AbiContract, Signer, TonClient, TransactionNode } from "@eversdk/core";
+import {
+    abiContract,
+    AbiContract,
+    ProcessingErrorCode,
+    Signer,
+    TonClient,
+    TransactionNode,
+} from "@eversdk/core";
 import { AccountClass, AccountOptionsEx } from "../../contracts/account-ex";
 import { AccountType } from "@eversdk/appkit";
 import { EvrSigners } from "./signers";
 import { Log } from "../../contracts/helpers";
+import { SdkError } from "../trader/processing";
 
 export { AccountOptionsEx };
 
@@ -151,7 +159,7 @@ export class EvrAccounts {
 
         checkTransaction(originTransaction);
 
-        const start = Date.now();
+        const waitTimeout = new WaitTimeout();
         while (uncheckedMessages.length > 0) {
             const checkingMessages = uncheckedMessages;
             uncheckedMessages = [];
@@ -171,13 +179,10 @@ export class EvrAccounts {
                     uncheckedMessages.push(checkingMessage);
                 }
             }
-            if (!hasCheckedMessages) {
-                const now = Date.now();
-                if (now > start + 40*1000) {
-                    throw new Error()
-                    this.log.info(`There are no derivative transaction for a ${Math.floor((now - start)/1000)} seconds. Retrying after 2 sec delay.`)
-                }
-                await new Promise(resolve => setTimeout(resolve, 2000));
+            if (hasCheckedMessages) {
+                waitTimeout.reset();
+            } else {
+                await waitTimeout.sleep();
             }
         }
         return result;
@@ -252,6 +257,7 @@ export class EvrAccounts {
     }
 
     async waitForMessageBody(messageId: string): Promise<string> {
+        const waitTimeout = new WaitTimeout();
         while (true) {
             const body: string | undefined = (
                 await this.queryBlockchain(`message(hash:$messageId) { body }`, {
@@ -261,7 +267,7 @@ export class EvrAccounts {
             if (body) {
                 return body;
             }
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await waitTimeout.sleep();
         }
     }
 
@@ -275,5 +281,34 @@ export class EvrAccounts {
                 variables,
             })
         ).result.data.blockchain;
+    }
+}
+
+class WaitTimeout {
+    private delay = 2000;
+    private timeout = 40 * 1000;
+    private start = 0;
+    private limit = 0;
+
+    constructor() {
+        this.reset();
+    }
+
+    reset() {
+        this.start = Date.now();
+        this.limit = this.start + this.timeout;
+    }
+
+    async sleep() {
+        const now = Date.now();
+        if (now > this.limit) {
+            const seconds = Math.floor((now - this.start) / 1000);
+            const error: SdkError = new Error(
+                `There are no required data on the blockchain for a ${seconds} seconds.`,
+            );
+            error.code = ProcessingErrorCode.TransactionWaitTimeout;
+            throw error;
+        }
+        await new Promise(resolve => setTimeout(resolve, this.delay));
     }
 }

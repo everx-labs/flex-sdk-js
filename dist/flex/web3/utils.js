@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.priceToUnits = exports.toUnits = exports.tokenValueToString = exports.uint256 = void 0;
+exports.priceToUnits = exports.toUnits = exports.toUnitsString = exports.uint256 = void 0;
 const decimal_js_light_1 = __importDefault(require("decimal.js-light"));
 const BIGINT_0 = BigInt(0);
 const BIGINT_1 = BigInt(1);
@@ -84,30 +84,30 @@ function mulDivToString(value) {
     d = d.div(value.div.toString());
     return d.toFixed();
 }
-function tokenValueToMulDiv(value, decimals) {
+function toUnitsMulDiv(value, decimals) {
     let result;
     if (typeof value === "number" || typeof value === "string" || typeof value === "bigint") {
-        result = tokensToMulDiv(value, decimals);
+        result = tokensToUnitsMulDiv(value, decimals);
     }
     else if ("tokens" in value) {
-        result = tokensToMulDiv(value.tokens, decimals);
+        result = tokensToUnitsMulDiv(value.tokens, decimals);
     }
     else {
         result = toMulDiv(value.units);
     }
     return result;
 }
-function tokenValueToString(value, decimals) {
-    return mulDivToString(tokenValueToMulDiv(value, decimals));
+function toUnitsString(value, decimals) {
+    return mulDivToString(toUnitsMulDiv(value, decimals));
 }
-exports.tokenValueToString = tokenValueToString;
-function tokensToMulDiv(value, decimals) {
+exports.toUnitsString = toUnitsString;
+function tokensToUnitsMulDiv(value, decimals) {
     const f = toMulDiv(value);
-    applyExp(f, -decToInt(decimals));
+    applyExp(f, decToInt(decimals));
     return f;
 }
 function toUnits(value, decimals = 9) {
-    const f = tokenValueToMulDiv(value, decimals);
+    const f = toUnitsMulDiv(value, decimals);
     return (f.mul / f.div).toString();
 }
 exports.toUnits = toUnits;

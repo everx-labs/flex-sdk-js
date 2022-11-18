@@ -1,8 +1,5 @@
-import { DecimalNumber, priceToUnits, TokenValue, tokenValueToString } from "../flex/web3/utils";
+import { DecimalNumber, priceToUnits, TokenValue, toUnitsString } from "../flex/web3/utils";
 
-function amount(value: TokenValue, decimals: string | number) {
-    return tokenValueToString(value, decimals);
-}
 function price(
     price: TokenValue,
     denominator: DecimalNumber,
@@ -14,16 +11,17 @@ function price(
 }
 
 test("amount converter", () => {
-    expect(amount("2777771", 1)).toBe("277777.1");
-    expect(amount("12", 1)).toBe("1.2");
-    expect(amount("100", 1)).toBe("10");
-    expect(amount("123456789123456789123456789", 4)).toBe("12345678912345678912345.6789");
-    expect(amount("20", "5")).toBe("0.0002");
-    expect(amount("123", 3)).toBe("0.123");
-    expect(amount("123", 2)).toBe("1.23");
-    expect(amount("123", 4)).toBe("0.0123");
-    expect(amount("1230", 4)).toBe("0.123");
-    expect(amount("0", 2)).toBe("0");
+    expect(toUnitsString("2777771", 1)).toBe("27777710");
+    expect(toUnitsString("12", 1)).toBe("120");
+    expect(toUnitsString("100", 1)).toBe("1000");
+    expect(toUnitsString("12345678912345678912345.6789", 4)).toBe("123456789123456789123456789");
+    expect(toUnitsString("20", "5")).toBe("2000000");
+    expect(toUnitsString("123", 3)).toBe("123000");
+    expect(toUnitsString("1.23", 2)).toBe("123");
+    expect(toUnitsString("0.123", 2)).toBe("12.3");
+    expect(toUnitsString("0.1230", 4)).toBe("1230");
+    expect(toUnitsString("0", 2)).toBe("0");
+    expect(toUnitsString("0", 9)).toBe("0");
 });
 
 test("price converter", () => {
