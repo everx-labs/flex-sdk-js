@@ -36,6 +36,7 @@ export declare class EvrAccounts {
         log?: Log;
     }) => T, options: string | AccountOptionsEx): Promise<T>;
     isActive(address: string): Promise<boolean>;
+    getDecimalBalance(address: string): Promise<string>;
     waitForFinalExternalAnswer(transaction: TransactionNode, abi: AbiContract): Promise<any>;
     waitForInternalAnswer(transaction: TransactionNode, abi: AbiContract[]): Promise<import("@eversdk/core").MessageNode>;
     waitForDerivativeTransactions(originTransactionId: string, accounts: {

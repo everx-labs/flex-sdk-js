@@ -11,6 +11,7 @@ import { AccountType } from "@eversdk/appkit";
 import { EvrSigners } from "./signers";
 import { Log } from "../../contracts/helpers";
 import { SdkError } from "../trader/processing";
+import { decimalFromNumAndDenomAsPowerOf10 } from "./utils";
 
 export { AccountOptionsEx };
 
@@ -91,6 +92,23 @@ export class EvrAccounts {
             })
         ).result as { acc_type: number }[];
         return accounts.length > 0 && accounts[0].acc_type === AccountType.active;
+    }
+
+    async getDecimalBalance(address: string): Promise<string> {
+        const balance = (
+            (
+                await this.sdk.net.query_collection({
+                    collection: "accounts",
+                    filter: { id: { eq: address } },
+                    result: "acc_type balance",
+                    limit: 1,
+                })
+            ).result as { acc_type: number; balance: string }[]
+        ).pop()?.balance;
+        if (balance === undefined || balance === null) {
+            return "0";
+        }
+        return decimalFromNumAndDenomAsPowerOf10(BigInt(balance).toString(), 9);
     }
 
     async waitForFinalExternalAnswer(transaction: TransactionNode, abi: AbiContract): Promise<any> {

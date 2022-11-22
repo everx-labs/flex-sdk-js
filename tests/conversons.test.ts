@@ -1,4 +1,10 @@
-import { DecimalNumber, priceToUnits, TokenValue, toUnitsString } from "../flex/web3/utils";
+import {
+    decimalFromNumAndDenomAsPowerOf10,
+    DecimalNumber,
+    priceToUnits,
+    TokenValue,
+    toUnitsString,
+} from "../flex/web3/utils";
 
 function price(
     price: TokenValue,
@@ -31,4 +37,18 @@ test("price converter", () => {
     expect(price({ units: 123.45 }, 1)).toBe("123 / 1");
     expect(price({ units: 0.0001 }, 10)).toBe("0 / 10");
     expect(price({ units: 100 }, 10)).toBe("1000 / 10");
+});
+
+test("decimal conversion", () => {
+    expect(decimalFromNumAndDenomAsPowerOf10("2777771", 1)).toBe("277777.1");
+    expect(decimalFromNumAndDenomAsPowerOf10("12", 1)).toBe("1.2");
+    expect(decimalFromNumAndDenomAsPowerOf10("100", 1)).toBe("10");
+    expect(decimalFromNumAndDenomAsPowerOf10("123456789123456789123456789", 4)).toBe(
+        "12345678912345678912345.6789",
+    );
+    expect(decimalFromNumAndDenomAsPowerOf10("123", 3)).toBe("0.123");
+    expect(decimalFromNumAndDenomAsPowerOf10("123", 2)).toBe("1.23");
+    expect(decimalFromNumAndDenomAsPowerOf10("123", 4)).toBe("0.0123");
+    expect(decimalFromNumAndDenomAsPowerOf10("1230", 4)).toBe("0.123");
+    expect(decimalFromNumAndDenomAsPowerOf10("0", 2)).toBe("0");
 });

@@ -30,6 +30,7 @@ import {
     DeployTraderTip31WalletOptions,
     DeployTraderTip31WalletResult,
 } from "./deploy-tip31-wallet";
+import { getIndexInfo, GetIndexInfoResult } from "./get-index-info";
 
 export * from "./types";
 export {
@@ -206,6 +207,20 @@ export class Trader {
      */
     static async queryWallets(flex: Flex, options: QueryWalletsOptions): Promise<WalletInfo[]> {
         return await queryWallets(flex, options);
+    }
+
+    /**
+     * Returns Trader's index account info
+     * @param flex
+     * @param clientAddress
+     * @param traderId
+     */
+    static async getIndexInfo(
+        flex: Flex,
+        clientAddress: string,
+        traderId: string,
+    ): Promise<GetIndexInfoResult> {
+        return await getIndexInfo(flex.evr.accounts, clientAddress, traderId);
     }
 }
 

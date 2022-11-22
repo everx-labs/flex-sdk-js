@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EvrAccounts = void 0;
 const core_1 = require("@eversdk/core");
 const appkit_1 = require("@eversdk/appkit");
+const utils_1 = require("./utils");
 var MessageType;
 (function (MessageType) {
     MessageType[MessageType["Internal"] = 0] = "Internal";
@@ -66,6 +67,21 @@ class EvrAccounts {
                 limit: 1,
             })).result;
             return accounts.length > 0 && accounts[0].acc_type === appkit_1.AccountType.active;
+        });
+    }
+    getDecimalBalance(address) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            const balance = (_a = (yield this.sdk.net.query_collection({
+                collection: "accounts",
+                filter: { id: { eq: address } },
+                result: "acc_type balance",
+                limit: 1,
+            })).result.pop()) === null || _a === void 0 ? void 0 : _a.balance;
+            if (balance === undefined || balance === null) {
+                return "0";
+            }
+            return (0, utils_1.decimalFromNumAndDenomAsPowerOf10)(BigInt(balance).toString(), 9);
         });
     }
     waitForFinalExternalAnswer(transaction, abi) {
@@ -247,8 +263,7 @@ class WaitTimeout {
         return __awaiter(this, void 0, void 0, function* () {
             const now = Date.now();
             if (now > this.limit) {
-                const seconds = Math.floor((now - this.start) / 1000);
-                const error = new Error(`There are no required data on the blockchain for a ${seconds} seconds.`);
+                const error = new Error(`Blockchain shard experiences degradation. Blocks generation is slow or stopped. Client hasn't received a new block within timeout.`);
                 error.code = core_1.ProcessingErrorCode.TransactionWaitTimeout;
                 throw error;
             }
