@@ -247,8 +247,7 @@ class WaitTimeout {
         return __awaiter(this, void 0, void 0, function* () {
             const now = Date.now();
             if (now > this.limit) {
-                const seconds = Math.floor((now - this.start) / 1000);
-                const error = new Error(`There are no required data on the blockchain for a ${seconds} seconds.`);
+                const error = new Error(`Blockchain shard experiences degradation. Blocks generation is slow or stopped. Client hasn't received a new block within timeout.`);
                 error.code = core_1.ProcessingErrorCode.TransactionWaitTimeout;
                 throw error;
             }
