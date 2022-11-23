@@ -40,23 +40,27 @@ export type WalletInfo = {
     /**
      * Balance of wallet account in native currency (EVERs)
      */
-    nativeCurrencyBalance: number;
+    nativeCurrencyBalance: string;
+    nativeCurrencyBalanceUnits: string;
 
     /**
      * Token balance on the wallet (in tokens)
      */
 
-    totalBalance: number;
+    totalBalance: string;
+    totalBalanceUnits: string;
 
     /**
      * Available balance in tokens
      */
-    availableBalance: number;
+    availableBalance: string;
+    availableBalanceUnits: string;
 
     /**
      * Balance in orders
      */
-    balanceInOrders: number;
+    balanceInOrders: string;
+    balanceInOrdersUnits: string;
 
     cursor: string;
 };
@@ -70,9 +74,13 @@ export function walletInfoFromApi(result: any): WalletInfo {
         traderPublicKey: result.dappPubkey,
         token: result.token,
         nativeCurrencyBalance: result.nativeCurrencyBalance,
+        nativeCurrencyBalanceUnits: result.nativeCurrencyBalanceUnits,
         totalBalance: result.totalBalance,
+        totalBalanceUnits: result.totalBalanceUnits,
         availableBalance: result.availableBalance,
+        availableBalanceUnits: result.availableBalanceUnits,
         balanceInOrders: result.balanceInOrders,
+        balanceInOrdersUnits: result.balanceInOrdersUnits,
         cursor: result.cursor,
     };
 }

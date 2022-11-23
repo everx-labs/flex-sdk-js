@@ -56,7 +56,11 @@ exports.priceXchgErrors = [
     abiError("expired", 107, "Order is expired"),
     abiError("no_post_order_partially_done", 108, "Order without post-order flag is partially done"),
     abiError("incorrect_price", 109, "Incorrect price"),
-    abiError("have_other_side_with_non_immediate_client", 110, "When an order without 'immediate_client' flag comes to a PriceXchg with enqueued orders of other side. " + "New sell order comes to a PriceXchg with enqueued buy orders. " + "Or new buy order comes to a PriceXchg with enqueued sell orders."),
-    abiError("have_this_side_with_non_post_order", 111, "When an order without 'post_order' flag comes to a PriceXchg with enqueued orders of this side. " + "New sell order comes to a PriceXchg with enqueued sell orders. " + "Or new buy order comes to a PriceXchg with enqueued buy orders."),
+    abiError("have_other_side_with_non_immediate_client", 110, "When an order without 'immediate_client' flag comes to a PriceXchg with enqueued orders of other side. " +
+        "New sell order comes to a PriceXchg with enqueued buy orders. " +
+        "Or new buy order comes to a PriceXchg with enqueued sell orders."),
+    abiError("have_this_side_with_non_post_order", 111, "When an order without 'post_order' flag comes to a PriceXchg with enqueued orders of this side. " +
+        "New sell order comes to a PriceXchg with enqueued sell orders. " +
+        "Or new buy order comes to a PriceXchg with enqueued buy orders."),
 ];
 //# sourceMappingURL=account-ex.js.map

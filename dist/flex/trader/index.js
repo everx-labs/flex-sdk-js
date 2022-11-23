@@ -33,6 +33,7 @@ const deploy_trader_1 = require("./deploy-trader");
 const deploy_ever_wallet_1 = require("./deploy-ever-wallet");
 const deploy_tip31_wallet_1 = require("./deploy-tip31-wallet");
 const get_index_info_1 = require("./get-index-info");
+const top_up_1 = require("./top-up");
 __exportStar(require("./types"), exports);
 class Trader {
     static deploy(flex, options) {
@@ -88,6 +89,16 @@ class Trader {
     static getIndexInfo(flex, clientAddress, traderId) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, get_index_info_1.getIndexInfo)(flex.evr.accounts, clientAddress, traderId);
+        });
+    }
+    static topUp(flex, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0, top_up_1.topUp)(flex, options);
+        });
+    }
+    static getTopUpInfo(flex, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0, top_up_1.getTopUpInfo)(flex, options);
         });
     }
 }

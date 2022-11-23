@@ -64,9 +64,13 @@ function queryWallets(flex, options) {
             dappPubkey
             token { ${token_1.Token.queryFields()} }
             nativeCurrencyBalance
+            nativeCurrencyBalanceUnits
             totalBalance
+            totalBalanceUnits
             availableBalance
+            availableBalanceUnits
             balanceInOrders
+            balanceInOrdersUnits
             unsaltedPriceCodeHash
             cursor
         }

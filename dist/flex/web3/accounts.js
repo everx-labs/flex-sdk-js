@@ -13,6 +13,7 @@ exports.EvrAccounts = void 0;
 const core_1 = require("@eversdk/core");
 const appkit_1 = require("@eversdk/appkit");
 const utils_1 = require("./utils");
+const evr_1 = require("./evr");
 var MessageType;
 (function (MessageType) {
     MessageType[MessageType["Internal"] = 0] = "Internal";
@@ -69,19 +70,34 @@ class EvrAccounts {
             return accounts.length > 0 && accounts[0].acc_type === appkit_1.AccountType.active;
         });
     }
-    getDecimalBalance(address) {
-        var _a;
+    getBalancesUnits(addresses) {
         return __awaiter(this, void 0, void 0, function* () {
-            const balance = (_a = (yield this.sdk.net.query_collection({
+            const accounts = (yield this.sdk.net.query_collection({
                 collection: "accounts",
-                filter: { id: { eq: address } },
-                result: "acc_type balance",
-                limit: 1,
-            })).result.pop()) === null || _a === void 0 ? void 0 : _a.balance;
+                filter: { id: { in: addresses } },
+                result: "id acc_type balance",
+            })).result;
+            const balances = new Map();
+            for (const acc of accounts) {
+                if (acc.balance !== undefined && acc.balance !== null) {
+                    balances.set(acc.id, BigInt(acc.balance));
+                }
+            }
+            for (const address of addresses) {
+                if (!balances.has(address)) {
+                    balances.set(address, BigInt(0));
+                }
+            }
+            return balances;
+        });
+    }
+    getDecimalBalance(address) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const balance = (yield this.getBalancesUnits([address])).get(address);
             if (balance === undefined || balance === null) {
                 return "0";
             }
-            return (0, utils_1.decimalFromNumAndDenomAsPowerOf10)(BigInt(balance).toString(), 9);
+            return (0, utils_1.decimalFromNumAndDenomAsPowerOf10)(balance.toString(), evr_1.Evr.NATIVE_DECIMALS);
         });
     }
     waitForFinalExternalAnswer(transaction, abi) {

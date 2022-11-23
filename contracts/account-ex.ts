@@ -4,22 +4,27 @@ import { FlexWalletAccount, PriceXchgAccount, TONTokenWalletAccount } from "./ge
 import { ContractPackageEx } from "./helpers";
 
 export type AccountOptionsEx = {
-    address: string,
-    signer?: SignerOption,
-} | {
-    signer: SignerOption,
-}
+    useCachedState?: boolean;
+} & (
+    | {
+          address: string;
+          signer?: SignerOption;
+      }
+    | {
+          signer: SignerOption;
+      }
+);
 
 export type AbiError = {
-    name: string,
-    exitCode: number,
-    message: string,
+    name: string;
+    exitCode: number;
+    message: string;
 };
 
 export interface AccountClass {
-    package: ContractPackageEx,
+    package: ContractPackageEx;
 
-    new(options: AccountOptions & { log?: Log }): Account,
+    new (options: AccountOptions & { log?: Log }): Account;
 }
 
 export function abiError(name: string, exitCode: number, message: string): AbiError {
@@ -32,13 +37,13 @@ export function abiError(name: string, exitCode: number, message: string): AbiEr
 
 export function getAbiErrors(accountClass: AccountClass): AbiError[] {
     switch (accountClass) {
-    case TONTokenWalletAccount:
-    case FlexWalletAccount:
-        return flexWalletErrors;
-    case PriceXchgAccount:
-        return priceXchgErrors;
-    default:
-        return [];
+        case TONTokenWalletAccount:
+        case FlexWalletAccount:
+            return flexWalletErrors;
+        case PriceXchgAccount:
+            return priceXchgErrors;
+        default:
+            return [];
     }
 }
 
@@ -75,17 +80,9 @@ export const flexWalletErrors: AbiError[] = [
 ];
 
 export const priceXchgErrors: AbiError[] = [
-    abiError(
-        "out_of_native_currency",
-        100,
-        "Partially processed because out of native currency",
-    ),
+    abiError("out_of_native_currency", 100, "Partially processed because out of native currency"),
     abiError("deals_limit", 101, "Partially processed because deals limit"),
-    abiError(
-        "not_enough_native_currency_to_process",
-        102,
-        "Not enough native currency to process",
-    ),
+    abiError("not_enough_native_currency_to_process", 102, "Not enough native currency to process"),
     abiError("not_enough_tokens_amount", 103, "Not enough tokens amount"),
     abiError("too_big_tokens_amount", 104, "Too big calculated tokens amount"),
     abiError("unverified_tip3_wallet", 105, "Unverified tip3 token wallet"),
@@ -100,12 +97,15 @@ export const priceXchgErrors: AbiError[] = [
     abiError(
         "have_other_side_with_non_immediate_client",
         110,
-        "When an order without 'immediate_client' flag comes to a PriceXchg with enqueued orders of other side. " + "New sell order comes to a PriceXchg with enqueued buy orders. " + "Or new buy order comes to a PriceXchg with enqueued sell orders.",
+        "When an order without 'immediate_client' flag comes to a PriceXchg with enqueued orders of other side. " +
+            "New sell order comes to a PriceXchg with enqueued buy orders. " +
+            "Or new buy order comes to a PriceXchg with enqueued sell orders.",
     ),
     abiError(
         "have_this_side_with_non_post_order",
         111,
-        "When an order without 'post_order' flag comes to a PriceXchg with enqueued orders of this side. " + "New sell order comes to a PriceXchg with enqueued sell orders. " + "Or new buy order comes to a PriceXchg with enqueued buy orders.",
+        "When an order without 'post_order' flag comes to a PriceXchg with enqueued orders of this side. " +
+            "New sell order comes to a PriceXchg with enqueued sell orders. " +
+            "Or new buy order comes to a PriceXchg with enqueued buy orders.",
     ),
 ];
-

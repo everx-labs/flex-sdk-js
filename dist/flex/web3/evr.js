@@ -31,4 +31,5 @@ class Evr {
     }
 }
 exports.Evr = Evr;
+Evr.NATIVE_DECIMALS = 9;
 //# sourceMappingURL=evr.js.map

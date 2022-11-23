@@ -48,11 +48,15 @@ export class EverWallet {
         });
     }
 
-    async topUp(address: string, evers: number) {
+    async topUp(address: string, value: number) {
+        await this.topUpUnits(address, BigInt(toUnits(value, Evr.NATIVE_DECIMALS)));
+    }
+
+    async topUpUnits(address: string, value: bigint) {
         const account = await this.getAccount();
         await account.runSubmitTransaction({
             dest: address,
-            value: toUnits(evers),
+            value: value.toString(),
             allBalance: false,
             bounce: false,
             payload: "",

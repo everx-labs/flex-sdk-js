@@ -12,6 +12,7 @@ import { EvrSigners } from "./signers";
 import { Log } from "../../contracts/helpers";
 import { SdkError } from "../trader/processing";
 import { decimalFromNumAndDenomAsPowerOf10 } from "./utils";
+import { Evr } from "./evr";
 
 export { AccountOptionsEx };
 
@@ -61,6 +62,7 @@ export class EvrAccounts {
             address?: string;
             signer?: Signer;
             log?: Log;
+            useCachedState?: boolean;
         }) => T,
         options: string | AccountOptionsEx,
     ): Promise<T> {
@@ -94,21 +96,36 @@ export class EvrAccounts {
         return accounts.length > 0 && accounts[0].acc_type === AccountType.active;
     }
 
-    async getDecimalBalance(address: string): Promise<string> {
-        const balance = (
+    async getBalancesUnits(addresses: string[]): Promise<Map<string, bigint>> {
+        const accounts = (
             (
                 await this.sdk.net.query_collection({
                     collection: "accounts",
-                    filter: { id: { eq: address } },
-                    result: "acc_type balance",
-                    limit: 1,
+                    filter: { id: { in: addresses } },
+                    result: "id acc_type balance",
                 })
-            ).result as { acc_type: number; balance: string }[]
-        ).pop()?.balance;
+            ).result as { id: string, acc_type: number; balance: string }[]
+        );
+        const balances = new Map<string, bigint>();
+        for(const acc of accounts) {
+            if (acc.balance !== undefined && acc.balance !== null) {
+                balances.set(acc.id, BigInt(acc.balance))
+            }
+        }
+        for (const address of addresses) {
+            if (!balances.has(address)) {
+                balances.set(address, BigInt(0));
+            }
+        }
+        return balances;
+    }
+
+    async getDecimalBalance(address: string): Promise<string> {
+        const balance = (await this.getBalancesUnits([address])).get(address);
         if (balance === undefined || balance === null) {
             return "0";
         }
-        return decimalFromNumAndDenomAsPowerOf10(BigInt(balance).toString(), 9);
+        return decimalFromNumAndDenomAsPowerOf10(balance.toString(), Evr.NATIVE_DECIMALS);
     }
 
     async waitForFinalExternalAnswer(transaction: TransactionNode, abi: AbiContract): Promise<any> {

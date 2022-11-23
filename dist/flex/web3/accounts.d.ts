@@ -34,8 +34,10 @@ export declare class EvrAccounts {
         address?: string;
         signer?: Signer;
         log?: Log;
+        useCachedState?: boolean;
     }) => T, options: string | AccountOptionsEx): Promise<T>;
     isActive(address: string): Promise<boolean>;
+    getBalancesUnits(addresses: string[]): Promise<Map<string, bigint>>;
     getDecimalBalance(address: string): Promise<string>;
     waitForFinalExternalAnswer(transaction: TransactionNode, abi: AbiContract): Promise<any>;
     waitForInternalAnswer(transaction: TransactionNode, abi: AbiContract[]): Promise<import("@eversdk/core").MessageNode>;

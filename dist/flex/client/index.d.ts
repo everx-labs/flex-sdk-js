@@ -9,10 +9,14 @@ export declare type WalletInfo = {
     traderId: string;
     traderPublicKey: string;
     token: TokenInfo;
-    nativeCurrencyBalance: number;
-    totalBalance: number;
-    availableBalance: number;
-    balanceInOrders: number;
+    nativeCurrencyBalance: string;
+    nativeCurrencyBalanceUnits: string;
+    totalBalance: string;
+    totalBalanceUnits: string;
+    availableBalance: string;
+    availableBalanceUnits: string;
+    balanceInOrders: string;
+    balanceInOrdersUnits: string;
     cursor: string;
 };
 export declare function walletInfoFromApi(result: any): WalletInfo;
