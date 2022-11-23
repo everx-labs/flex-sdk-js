@@ -11,6 +11,8 @@ import { AccountType } from "@eversdk/appkit";
 import { EvrSigners } from "./signers";
 import { Log } from "../../contracts/helpers";
 import { SdkError } from "../trader/processing";
+import { decimalFromNumAndDenomAsPowerOf10 } from "./utils";
+import { Evr } from "./evr";
 
 export { AccountOptionsEx };
 
@@ -60,6 +62,7 @@ export class EvrAccounts {
             address?: string;
             signer?: Signer;
             log?: Log;
+            useCachedState?: boolean;
         }) => T,
         options: string | AccountOptionsEx,
     ): Promise<T> {
@@ -91,6 +94,38 @@ export class EvrAccounts {
             })
         ).result as { acc_type: number }[];
         return accounts.length > 0 && accounts[0].acc_type === AccountType.active;
+    }
+
+    async getBalancesUnits(addresses: string[]): Promise<Map<string, bigint>> {
+        const accounts = (
+            (
+                await this.sdk.net.query_collection({
+                    collection: "accounts",
+                    filter: { id: { in: addresses } },
+                    result: "id acc_type balance",
+                })
+            ).result as { id: string, acc_type: number; balance: string }[]
+        );
+        const balances = new Map<string, bigint>();
+        for(const acc of accounts) {
+            if (acc.balance !== undefined && acc.balance !== null) {
+                balances.set(acc.id, BigInt(acc.balance))
+            }
+        }
+        for (const address of addresses) {
+            if (!balances.has(address)) {
+                balances.set(address, BigInt(0));
+            }
+        }
+        return balances;
+    }
+
+    async getDecimalBalance(address: string): Promise<string> {
+        const balance = (await this.getBalancesUnits([address])).get(address);
+        if (balance === undefined || balance === null) {
+            return "0";
+        }
+        return decimalFromNumAndDenomAsPowerOf10(balance.toString(), Evr.NATIVE_DECIMALS);
     }
 
     async waitForFinalExternalAnswer(transaction: TransactionNode, abi: AbiContract): Promise<any> {
@@ -302,9 +337,8 @@ class WaitTimeout {
     async sleep() {
         const now = Date.now();
         if (now > this.limit) {
-            const seconds = Math.floor((now - this.start) / 1000);
             const error: SdkError = new Error(
-                `There are no required data on the blockchain for a ${seconds} seconds.`,
+                `Blockchain shard experiences degradation. Blocks generation is slow or stopped. Client hasn't received a new block within timeout.`,
             );
             error.code = ProcessingErrorCode.TransactionWaitTimeout;
             throw error;

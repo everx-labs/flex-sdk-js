@@ -15,7 +15,8 @@ export declare class EverWallet {
     options: AccountOptionsEx;
     constructor(web3: Evr, options: AccountOptionsEx);
     transfer(options: TransferOptions): Promise<void>;
-    topUp(address: string, evers: number): Promise<void>;
+    topUp(address: string, value: number): Promise<void>;
+    topUpUnits(address: string, value: bigint): Promise<void>;
     getAddress(): Promise<string>;
     private getAccount;
 }

@@ -13,8 +13,11 @@ exports.Flex = void 0;
 const config_1 = require("./config");
 const contracts_1 = require("../contracts");
 const web3_1 = require("./web3");
+const query_1 = require("./trader/query");
 class Flex {
     constructor(config) {
+        this.cachedFlexClients = new Map();
+        this.cachedTraderWallets = new Map();
         this.config = Object.assign(Object.assign({}, (0, config_1.defaultConfig)()), config);
         this.evr = new web3_1.Evr(config.evr);
     }
@@ -42,6 +45,35 @@ class Flex {
             const globalConfig = yield this.getGlobalConfigAccount();
             const globalConfigDetails = (yield globalConfig.getDetails()).output;
             return yield this.evr.accounts.get(contracts_1.UserDataConfigAccount, globalConfigDetails.user_cfg);
+        });
+    }
+    getCachedFlexClient(client) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const existing = this.cachedFlexClients.get(client);
+            if (existing) {
+                return existing;
+            }
+            const account = yield this.evr.accounts.get(contracts_1.FlexClientAccount, {
+                address: client,
+                useCachedState: true,
+            });
+            this.cachedFlexClients.set(client, account);
+            return account;
+        });
+    }
+    getCachedTraderWallets(client, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const key = `${client}/${id}`;
+            const existing = this.cachedTraderWallets.get(key);
+            if (existing) {
+                return existing;
+            }
+            const wallets = yield (0, query_1.queryWallets)(this, {
+                clientAddress: client,
+                traderId: id,
+            });
+            this.cachedTraderWallets.set(key, wallets);
+            return wallets;
         });
     }
     query(text) {

@@ -13,4 +13,5 @@ export declare function priceToUnits(price: TokenValue, denominator: DecimalNumb
     num: string;
     denum: string;
 };
+export declare function decimalFromNumAndDenomAsPowerOf10(intNum: string, powerOf10: number): string;
 //# sourceMappingURL=utils.d.ts.map

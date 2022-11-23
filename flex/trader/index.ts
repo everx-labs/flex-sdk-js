@@ -30,6 +30,8 @@ import {
     DeployTraderTip31WalletOptions,
     DeployTraderTip31WalletResult,
 } from "./deploy-tip31-wallet";
+import { getIndexInfo, GetIndexInfoResult } from "./get-index-info";
+import { TopUpOptions, TopUpResult, topUp, getTopUpInfo } from "./top-up";
 
 export * from "./types";
 export {
@@ -206,6 +208,44 @@ export class Trader {
      */
     static async queryWallets(flex: Flex, options: QueryWalletsOptions): Promise<WalletInfo[]> {
         return await queryWallets(flex, options);
+    }
+
+    /**
+     * Returns Trader's index account info
+     * @param flex
+     * @param clientAddress
+     * @param traderId
+     */
+    static async getIndexInfo(
+        flex: Flex,
+        clientAddress: string,
+        traderId: string,
+    ): Promise<GetIndexInfoResult> {
+        return await getIndexInfo(flex.evr.accounts, clientAddress, traderId);
+    }
+
+    /**
+     * Tops up Trader's wallets and UserIndex contracts.
+     * Tops up to the minimum balance specified + additional value on top. 
+     * Topup value will be equal to (minimum balance - current balance + value) for each account.
+     * @param flex 
+     * @param options 
+     * @returns 
+     */
+    static async topUp(flex: Flex, options: TopUpOptions): Promise<TopUpResult> {
+        return await topUp(flex, options);
+    }
+
+
+    /**
+     * Calculates topup value for Trader's wallets and UserIndex contracts. 
+     * Topup value will be equal to (minimum balance - current balance + value) for each account.
+     * @param flex 
+     * @param options 
+     * @returns 
+     */
+    static async getTopUpInfo(flex: Flex, options: TopUpOptions): Promise<TopUpResult> {
+        return await getTopUpInfo(flex, options);
     }
 }
 
