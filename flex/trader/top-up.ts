@@ -18,8 +18,14 @@ export type TopUpOptions = {
      */
     everWallet: AccountOptionsEx;
 
+    /**
+     * Minimum account balance we want to have after top-up.
+     */
     minBalance: TokenValue;
 
+    /**
+     * Additional value to add on top of minimum balance
+     */
     value: TokenValue;
 };
 

@@ -224,10 +224,26 @@ export class Trader {
         return await getIndexInfo(flex.evr.accounts, clientAddress, traderId);
     }
 
+    /**
+     * Tops up Trader's wallets and UserIndex contracts.
+     * Tops up to the minimum balance specified + additional value on top. 
+     * Topup value will be equal to (minimum balance - current balance + value) for each account.
+     * @param flex 
+     * @param options 
+     * @returns 
+     */
     static async topUp(flex: Flex, options: TopUpOptions): Promise<TopUpResult> {
         return await topUp(flex, options);
     }
 
+
+    /**
+     * Calculates topup value for Trader's wallets and UserIndex contracts. 
+     * Topup value will be equal to (minimum balance - current balance + value) for each account.
+     * @param flex 
+     * @param options 
+     * @returns 
+     */
     static async getTopUpInfo(flex: Flex, options: TopUpOptions): Promise<TopUpResult> {
         return await getTopUpInfo(flex, options);
     }
