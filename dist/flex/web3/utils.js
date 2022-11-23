@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.priceToUnits = exports.toUnits = exports.toUnitsString = exports.uint256 = void 0;
+exports.decimalFromNumAndDenomAsPowerOf10 = exports.priceToUnits = exports.toUnits = exports.toUnitsString = exports.uint256 = void 0;
 const decimal_js_light_1 = __importDefault(require("decimal.js-light"));
 const BIGINT_0 = BigInt(0);
 const BIGINT_1 = BigInt(1);
@@ -134,4 +134,36 @@ function mulDivPriceToUnits(price, denominator) {
         denum: denominator.toString(),
     };
 }
+function decimalFromNumAndDenomAsPowerOf10(intNum, powerOf10) {
+    let num = intNum;
+    while (num.startsWith("0")) {
+        num = num.substring(1);
+    }
+    let len = num.length;
+    if (len == 0) {
+        return "0";
+    }
+    if (powerOf10 === 0) {
+        return num;
+    }
+    let dec;
+    const d = len - powerOf10;
+    if (d === 0) {
+        dec = `0.${num}`;
+    }
+    else if (len > powerOf10) {
+        dec = `${num.substring(0, len - powerOf10)}.${num.substring(len - powerOf10)}`;
+    }
+    else {
+        dec = `0.${"0".repeat(powerOf10 - len)}${num}`;
+    }
+    while (dec.endsWith("0")) {
+        dec = dec.substring(0, dec.length - 1);
+    }
+    if (dec.endsWith(".")) {
+        dec = dec.substring(0, dec.length - 1);
+    }
+    return dec;
+}
+exports.decimalFromNumAndDenomAsPowerOf10 = decimalFromNumAndDenomAsPowerOf10;
 //# sourceMappingURL=utils.js.map

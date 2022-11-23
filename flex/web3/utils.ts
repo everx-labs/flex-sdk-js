@@ -186,3 +186,33 @@ function mulDivPriceToUnits(price: MulDiv, denominator: bigint): { num: string; 
         denum: denominator.toString(),
     };
 }
+
+export function decimalFromNumAndDenomAsPowerOf10(intNum: string, powerOf10: number): string {
+    let num = intNum;
+    while (num.startsWith("0")) {
+        num = num.substring(1);
+    }
+    let len = num.length;
+    if (len == 0) {
+        return "0";
+    }
+    if (powerOf10 === 0) {
+        return num;
+    }
+    let dec;
+    const d = len - powerOf10;
+    if (d === 0) {
+        dec = `0.${num}`;
+    } else if (len > powerOf10) {
+        dec = `${num.substring(0, len - powerOf10)}.${num.substring(len - powerOf10)}`;
+    } else {
+        dec = `0.${"0".repeat(powerOf10 - len)}${num}`;
+    }
+    while (dec.endsWith("0")) {
+        dec = dec.substring(0, dec.length - 1);
+    }
+    if (dec.endsWith(".")) {
+        dec = dec.substring(0, dec.length - 1);
+    }
+    return dec;
+}

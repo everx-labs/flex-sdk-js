@@ -6,6 +6,7 @@ import { TokenInfo } from "../token";
 import { Flex } from "../flex";
 import { DeployClientOptions } from "./deploy-client";
 import { deployClient } from "./deploy-client";
+import { getClientInfo, GetClientInfoResult } from "./client-info";
 
 export { DeployClientOptions };
 
@@ -13,52 +14,52 @@ export type WalletInfo = {
     /**
      * Flex wallet address
      */
-    address: string,
+    address: string;
 
     /**
      * Flex client account address
      */
-    clientAddress: string,
+    clientAddress: string;
 
     /**
     Trader ID uint256 hex string
      */
 
-    traderId: string,
+    traderId: string;
 
     /**
     Trader public key uint256 hex string
      */
-    traderPublicKey: string
+    traderPublicKey: string;
 
     /**
      * Token DEX Wrapper address
      */
-    token: TokenInfo,
+    token: TokenInfo;
 
     /**
      * Balance of wallet account in native currency (EVERs)
      */
-    nativeCurrencyBalance: number,
+    nativeCurrencyBalance: number;
 
     /**
      * Token balance on the wallet (in tokens)
      */
 
-    totalBalance: number,
+    totalBalance: number;
 
     /**
      * Available balance in tokens
      */
-    availableBalance: number,
+    availableBalance: number;
 
     /**
      * Balance in orders
      */
-    balanceInOrders: number,
+    balanceInOrders: number;
 
-    cursor: string,
-}
+    cursor: string;
+};
 
 /** @internal */
 export function walletInfoFromApi(result: any): WalletInfo {
@@ -86,11 +87,20 @@ export class Client {
      * @returns
      * Address of the Flex Client contract
      */
-    static async deploy(
-        flex: Flex,
-        options: DeployClientOptions,
-    ): Promise<string> {
+    static async deploy(flex: Flex, options: DeployClientOptions): Promise<string> {
         return await deployClient(flex, options);
     }
 
+    /**
+     * Returns Flex Client account information.
+     * @param flex
+     * DEX instance
+     * @param clientAddress
+     * Flex Client
+     * @returns
+     * Information about the Flex Client account
+     */
+    static async getClientInfo(flex: Flex, clientAddress: string): Promise<GetClientInfoResult> {
+        return getClientInfo(flex.evr.accounts, clientAddress);
+    }
 }
