@@ -20,9 +20,13 @@ function walletInfoFromApi(result) {
         traderPublicKey: result.dappPubkey,
         token: result.token,
         nativeCurrencyBalance: result.nativeCurrencyBalance,
+        nativeCurrencyBalanceUnits: result.nativeCurrencyBalanceUnits,
         totalBalance: result.totalBalance,
+        totalBalanceUnits: result.totalBalanceUnits,
         availableBalance: result.availableBalance,
+        availableBalanceUnits: result.availableBalanceUnits,
         balanceInOrders: result.balanceInOrders,
+        balanceInOrdersUnits: result.balanceInOrdersUnits,
         cursor: result.cursor,
     };
 }

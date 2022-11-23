@@ -11,32 +11,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const flex_1 = require("../flex");
 const examples_1 = require("./examples");
+const flex_2 = require("../flex");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
+    const log = flex.evr.log;
     try {
-        const clientAddress = yield flex_1.Client.deploy(flex, {
+        const traderId = examples_1.CONFIG.trader.id;
+        const topUpOptions = {
+            client: examples_1.CONFIG.trader.client,
+            id: traderId,
             everWallet: {
                 address: "0:d727caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
-                signer: "everWallet",
+                signer: "everWallet"
             },
-            signer: "everWallet",
-        });
-        flex.evr.log.info("Client:", clientAddress);
-        const traderId = examples_1.CONFIG.trader.id;
-        yield flex_1.Trader.deploy(flex, {
-            client: {
-                address: clientAddress,
-                signer: "everWallet",
-            },
-            id: traderId,
-            name: "trader_1",
-            pubkey: "8caaf998bdeafd81ccf0a7e15e25f0725ffb79cac898a527a2407c537240ea1d"
-        });
+            minBalance: 80,
+            value: 10,
+        };
+        yield flex_2.Trader.getTopUpInfo(flex, topUpOptions);
+        const start = Date.now();
+        log.info(yield flex_2.Trader.getTopUpInfo(flex, topUpOptions));
+        log.info("Time spent: ", (Date.now() - start) / 1000);
+        yield flex_2.Trader.topUp(flex, topUpOptions);
         yield flex.close();
     }
     catch (err) {
-        flex.evr.log.error(err);
+        log.error(err);
         process.exit(1);
     }
 }))();
-//# sourceMappingURL=create-client-and-trader.js.map
+//# sourceMappingURL=trader-top-up.js.map

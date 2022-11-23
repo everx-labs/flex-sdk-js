@@ -1,11 +1,14 @@
 import { defaultConfig, FlexConfig } from "./config";
 import {
     FlexAccount,
+    FlexClientAccount,
     GlobalConfigAccount,
     SuperRootAccount,
     UserDataConfigAccount,
 } from "../contracts";
 import { Evr } from "./web3";
+import { queryWallets } from "./trader/query";
+import { WalletInfo } from "./client";
 
 export class Flex {
     /**
@@ -16,6 +19,9 @@ export class Flex {
      * Dex Config
      */
     evr: Evr;
+
+    private cachedFlexClients = new Map<string, FlexClientAccount>();
+    private cachedTraderWallets = new Map<string, WalletInfo[]>();
 
     constructor(config: Partial<FlexConfig>) {
         this.config = {
@@ -50,6 +56,35 @@ export class Flex {
         const globalConfig = await this.getGlobalConfigAccount();
         const globalConfigDetails = (await globalConfig.getDetails()).output;
         return await this.evr.accounts.get(UserDataConfigAccount, globalConfigDetails.user_cfg);
+    }
+
+    /** @internal */
+    async getCachedFlexClient(client: string): Promise<FlexClientAccount> {
+        const existing = this.cachedFlexClients.get(client);
+        if (existing) {
+            return existing;
+        }
+        const account = await this.evr.accounts.get(FlexClientAccount, {
+            address: client,
+            useCachedState: true,
+        });
+        this.cachedFlexClients.set(client, account);
+        return account;
+    }
+
+    /** @internal */
+    async getCachedTraderWallets(client: string, id: string) {
+        const key = `${client}/${id}`;
+        const existing = this.cachedTraderWallets.get(key);
+        if (existing) {
+            return existing;
+        }
+        const wallets = await queryWallets(this, {
+            clientAddress: client,
+            traderId: id,
+        });
+        this.cachedTraderWallets.set(key, wallets);
+        return wallets;
     }
 
     async query(text: string): Promise<any> {

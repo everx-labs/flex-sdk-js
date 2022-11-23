@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
 
 - `Client.getClientInfo`
 - `Trader.getIndexInfo`
+- `Trader.topUp`, `Trader.getTopUpInfo`
+
 
 ## [0.8.0] – 2022-11-18
 

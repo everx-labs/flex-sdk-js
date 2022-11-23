@@ -8,6 +8,7 @@ export type EvrConfig = {
 }
 
 export class Evr {
+    static readonly NATIVE_DECIMALS = 9;
     /**
      * Everscale client instance
      */

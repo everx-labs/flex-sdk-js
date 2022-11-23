@@ -69,9 +69,13 @@ export async function queryWallets(
             dappPubkey
             token { ${Token.queryFields()} }
             nativeCurrencyBalance
+            nativeCurrencyBalanceUnits
             totalBalance
+            totalBalanceUnits
             availableBalance
+            availableBalanceUnits
             balanceInOrders
+            balanceInOrdersUnits
             unsaltedPriceCodeHash
             cursor
         }

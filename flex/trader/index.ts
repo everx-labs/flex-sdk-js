@@ -31,6 +31,7 @@ import {
     DeployTraderTip31WalletResult,
 } from "./deploy-tip31-wallet";
 import { getIndexInfo, GetIndexInfoResult } from "./get-index-info";
+import { TopUpOptions, TopUpResult, topUp, getTopUpInfo } from "./top-up";
 
 export * from "./types";
 export {
@@ -221,6 +222,14 @@ export class Trader {
         traderId: string,
     ): Promise<GetIndexInfoResult> {
         return await getIndexInfo(flex.evr.accounts, clientAddress, traderId);
+    }
+
+    static async topUp(flex: Flex, options: TopUpOptions): Promise<TopUpResult> {
+        return await topUp(flex, options);
+    }
+
+    static async getTopUpInfo(flex: Flex, options: TopUpOptions): Promise<TopUpResult> {
+        return await getTopUpInfo(flex, options);
     }
 }
 
