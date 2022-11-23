@@ -7,9 +7,9 @@ All notable changes to this project will be documented in this file.
 
 ### New
 
-- `Client.getClientInfo`
-- `Trader.getIndexInfo`
-- `Trader.topUp`, `Trader.getTopUpInfo`
+- `Client.getClientInfo` - shows Flex Client balance.
+- `Trader.getIndexInfo` - shows Index contract address
+- `Trader.topUp`, `Trader.getTopUpInfo` - tops up and calculates the topup value for Trader's wallets and UserIndex contract
 
 
 ## [0.8.0] – 2022-11-18
