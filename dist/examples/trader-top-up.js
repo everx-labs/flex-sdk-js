@@ -20,8 +20,11 @@ const flex_2 = require("../flex");
         const topUpOptions = {
             client: examples_1.CONFIG.trader.client,
             id: traderId,
-            everWallet: { signer: "msig" },
-            minBalance: 20,
+            everWallet: {
+                address: "0:d727caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
+                signer: "everWallet"
+            },
+            minBalance: 80,
             value: 10,
         };
         yield flex_2.Trader.getTopUpInfo(flex, topUpOptions);

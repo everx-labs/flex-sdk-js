@@ -11,8 +11,10 @@ import { TopUpOptions } from "../flex/trader/top-up";
         const topUpOptions: TopUpOptions = {
             client: CONFIG.trader.client,
             id: traderId,
-            everWallet: { signer: "msig" },
-            minBalance: 20,
+            everWallet: { 
+                address: "0:d727caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526" , 
+                signer: "everWallet" },
+            minBalance: 80,
             value: 10,
         };
         await Trader.getTopUpInfo(flex, topUpOptions);
