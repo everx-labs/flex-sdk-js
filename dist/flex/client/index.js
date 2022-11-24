@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Client = exports.walletInfoFromApi = void 0;
 const deploy_client_1 = require("./deploy-client");
+const client_info_1 = require("./client-info");
 function walletInfoFromApi(result) {
     return {
         address: result.address,
@@ -19,9 +20,13 @@ function walletInfoFromApi(result) {
         traderPublicKey: result.dappPubkey,
         token: result.token,
         nativeCurrencyBalance: result.nativeCurrencyBalance,
+        nativeCurrencyBalanceUnits: result.nativeCurrencyBalanceUnits,
         totalBalance: result.totalBalance,
+        totalBalanceUnits: result.totalBalanceUnits,
         availableBalance: result.availableBalance,
+        availableBalanceUnits: result.availableBalanceUnits,
         balanceInOrders: result.balanceInOrders,
+        balanceInOrdersUnits: result.balanceInOrdersUnits,
         cursor: result.cursor,
     };
 }
@@ -30,6 +35,11 @@ class Client {
     static deploy(flex, options) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, deploy_client_1.deployClient)(flex, options);
+        });
+    }
+    static getClientInfo(flex, clientAddress) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (0, client_info_1.getClientInfo)(flex.evr.accounts, clientAddress);
         });
     }
 }

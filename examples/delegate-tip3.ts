@@ -11,7 +11,7 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
         let trader_tip3_wallet = await Trader.deployTip31Wallet(flex, {
                 clientAddress: clientAddress,
                 everWallet: {
-                    address: "0:d807caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
+                    address: "0:d727caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
                     signer: "everWallet",
                 },
                 traderId: traderId,

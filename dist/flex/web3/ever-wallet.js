@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EverWallet = void 0;
 const contracts_1 = require("../../contracts");
 const core_1 = require("@eversdk/core");
+const evr_1 = require("./evr");
 const utils_1 = require("./utils");
 class EverWallet {
     constructor(web3, options) {
@@ -41,12 +42,17 @@ class EverWallet {
             });
         });
     }
-    topUp(address, evers) {
+    topUp(address, value) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.topUpUnits(address, BigInt((0, utils_1.toUnits)(value, evr_1.Evr.NATIVE_DECIMALS)));
+        });
+    }
+    topUpUnits(address, value) {
         return __awaiter(this, void 0, void 0, function* () {
             const account = yield this.getAccount();
             yield account.runSubmitTransaction({
                 dest: address,
-                value: (0, utils_1.toUnits)(evers),
+                value: value.toString(),
                 allBalance: false,
                 bounce: false,
                 payload: "",

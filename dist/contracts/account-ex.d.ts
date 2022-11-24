@@ -2,11 +2,13 @@ import { Log, SignerOption } from "../flex";
 import { Account, AccountOptions } from "@eversdk/appkit";
 import { ContractPackageEx } from "./helpers";
 export declare type AccountOptionsEx = {
+    useCachedState?: boolean;
+} & ({
     address: string;
     signer?: SignerOption;
 } | {
     signer: SignerOption;
-};
+});
 export declare type AbiError = {
     name: string;
     exitCode: number;

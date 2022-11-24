@@ -6,6 +6,7 @@ export declare type EvrConfig = {
     sdk: ClientConfig;
 };
 export declare class Evr {
+    static readonly NATIVE_DECIMALS = 9;
     sdk: TonClient;
     signers: EvrSigners;
     accounts: EvrAccounts;
