@@ -12,13 +12,13 @@
         "@eversdk/appkit": "^0.3.2",
         "@eversdk/core": "^1.38.0",
         "@eversdk/lib-node": "^1.38.0",
-        "typedoc-plugin-missing-exports": "^1.0.0",
-        "decimal.js-light": "^2.5.1"
+        "decimal.js-light": "^2.5.1",
+        "typedoc-plugin-missing-exports": "^1.0.0"
     },
     "devDependencies": {
         "@eversdk/lib-node": "^1.37.0",
         "@types/jest": "^27.4.1",
-        "@types/node": "^16.0.1",
+        "@types/node": "^16.18.3",
         "@typescript-eslint/eslint-plugin": "^5.19.0",
         "@typescript-eslint/parser": "^5.19.0",
         "eslint": "^7.30.0",
