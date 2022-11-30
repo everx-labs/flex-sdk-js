@@ -36,6 +36,6 @@ export declare type FlexFixture = {
     flex: Flex;
     config: IntegrationTestConfig;
 };
-export declare const test: import("@playwright/test").TestType<import("@playwright/test").PlaywrightTestArgs & import("@playwright/test").PlaywrightTestOptions, import("@playwright/test").PlaywrightWorkerArgs & import("@playwright/test").PlaywrightWorkerOptions & FlexFixture>;
+export declare const test: import("@playwright/test").TestType<import("@playwright/test").PlaywrightTestArgs & import("@playwright/test").PlaywrightTestOptions & FlexFixture, import("@playwright/test").PlaywrightWorkerArgs & import("@playwright/test").PlaywrightWorkerOptions>;
 export { expect } from "@playwright/test";
-//# sourceMappingURL=config.d.ts.map
+//# sourceMappingURL=fixture.d.ts.map

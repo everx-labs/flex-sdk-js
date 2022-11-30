@@ -9,28 +9,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const init_1 = require("./init");
-const flex_1 = require("../flex");
-const contracts_1 = require("../contracts");
-beforeAll(init_1.initIntegrationTest);
-afterAll(init_1.doneIntegrationTest);
-function getAddresses() {
+const flex_1 = require("../../flex");
+const fixtures_1 = require("../fixtures");
+const contracts_1 = require("../../contracts");
+function getAddresses({ flex, config }) {
     return __awaiter(this, void 0, void 0, function* () {
         return {
-            everWallet: yield new flex_1.EverWallet(init_1.FLEX.evr, init_1.CONFIG.everWallet).getAddress(),
-            flexClient: yield (yield init_1.FLEX.evr.accounts.get(contracts_1.FlexClientAccount, init_1.CONFIG.client)).getAddress(),
+            everWallet: yield new flex_1.EverWallet(flex.evr, config.everWallet).getAddress(),
+            flexClient: yield (yield flex.evr.accounts.get(contracts_1.FlexClientAccount, config.client)).getAddress(),
         };
     });
 }
-function checkBalances() {
+function checkBalances({ flex, config }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { everWallet, flexClient } = yield getAddresses();
-        const balances = yield init_1.FLEX.evr.accounts.getBalancesUnits([flexClient, everWallet]);
-        expect(balances.get(flexClient)).toBeGreaterThan(flex_1.Evr.toUnits(40));
-        expect(balances.get(everWallet)).toBeGreaterThan(flex_1.Evr.toUnits(100));
+        const { everWallet, flexClient } = yield getAddresses({ flex, config });
+        const balances = yield flex.evr.accounts.getBalancesUnits([flexClient, everWallet]);
+        (0, fixtures_1.expect)(balances.get(flexClient)).toBeGreaterThan(flex_1.Evr.toUnits(40));
+        (0, fixtures_1.expect)(balances.get(everWallet)).toBeGreaterThan(flex_1.Evr.toUnits(100));
     });
 }
-test("integration test", () => __awaiter(void 0, void 0, void 0, function* () {
-    yield checkBalances();
+(0, fixtures_1.test)("integration test", ({ flex, config }) => __awaiter(void 0, void 0, void 0, function* () {
+    yield checkBalances({ flex, config });
 }));
 //# sourceMappingURL=index.js.map

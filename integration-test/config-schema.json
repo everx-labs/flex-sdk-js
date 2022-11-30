@@ -1,0 +1,90 @@
+{
+    "id": "https://evercloud.dev/json-schema/flex-sdk-js/integration-test-config#",
+    "$schema": "http://json-schema-org/draft-06/schema#",
+    "type": "object",
+    "properties": {
+        "flex": { "$ref": "#/$defs/FlexConfig" },
+        "everWallet": { "$ref": "#/$defs/Account" },
+        "client": { "$ref": "#/$defs/Account" },
+        "trader": {
+            "type": "object",
+            "properties": {
+                "id": { "type": "string" },
+                "wallet": { "type": "string" },
+                "signer": { "type": "string" },
+                "TSDT": { "$ref": "#/$defs/WalletPair" },
+                "EVER": { "$ref": "#/$defs/WalletPair" }
+            }
+        },
+        "market": {
+            "$ref": "#/$defs/Market"
+        }
+    },
+    "$defs": {
+        "Account": {
+            "type": "object",
+            "properties": {
+                "address": { "type": "string" },
+                "signer": { "type": "string" }
+            }
+        },
+        "WalletPair": {
+            "type": "object",
+            "required": ["external", "internal"],
+            "properties": {
+                "external": { "$ref": "#/$defs/Account" },
+                "internal": { "$ref": "#/$defs/Account" }
+            }
+        },
+        "Market": {
+            "type": "object",
+            "required": ["address", "EVER", "TSDT"],
+            "properties": {
+                "EVER": {
+                    "type": "object",
+                    "required": ["wrapper"],
+                    "properties": {
+                        "wrapper": { "type": "string" }
+                    }
+                },
+                "TSDT": {
+                    "type": "object",
+                    "required": ["wrapper"],
+                    "properties": {
+                        "wrapper": { "type": "string" },
+                        "wrapperWallet": { "type": "string" }
+                    }
+                }
+            }
+        },
+        "FlexConfig": {
+            "type": "object",
+            "properties": {
+                "evr": {
+                    "type": "object",
+                    "properties": {
+                        "sdk": {
+                            "$ref": "#/$defs/SDKConfig"
+                        }
+                    }
+                }
+            }
+        },
+        "SDKConfig": {
+            "type": "object",
+            "properties": {
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "endpoints": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

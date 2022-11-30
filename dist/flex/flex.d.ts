@@ -1,5 +1,5 @@
 import { FlexConfig } from "./config";
-import { FlexAccount, FlexClientAccount, GlobalConfigAccount, SuperRootAccount, UserDataConfigAccount } from "../contracts";
+import { FlexAccount, FlexClientAccount, FlexWalletAccount, GlobalConfigAccount, SuperRootAccount, Tip31WalletAccount, TONTokenWalletAccount, UserDataConfigAccount } from "../contracts";
 import { Evr } from "./web3";
 import { WalletInfo } from "./client";
 export declare class Flex {
@@ -16,5 +16,8 @@ export declare class Flex {
     getCachedTraderWallets(client: string, id: string): Promise<WalletInfo[]>;
     query(text: string): Promise<any>;
     close(): Promise<void>;
+    getTip3TokenBalance(account: Tip31WalletAccount): Promise<number>;
+    getTokenBalance(account: TONTokenWalletAccount): Promise<number>;
+    getFlexTokenBalance(account: FlexWalletAccount): Promise<number>;
 }
 //# sourceMappingURL=flex.d.ts.map

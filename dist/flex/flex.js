@@ -14,6 +14,7 @@ const config_1 = require("./config");
 const contracts_1 = require("../contracts");
 const web3_1 = require("./web3");
 const query_1 = require("./trader/query");
+const utils_1 = require("./web3/utils");
 class Flex {
     constructor(config) {
         this.cachedFlexClients = new Map();
@@ -91,6 +92,27 @@ class Flex {
     close() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.evr.close();
+        });
+    }
+    getTip3TokenBalance(account) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const balance = (yield account.balance({ answerId: 0 })).output.value0;
+            const rootAddress = (yield account.root({ answerId: 0 })).output.value0;
+            const root = yield this.evr.accounts.get(contracts_1.Tip31RootAccount, rootAddress);
+            const decimals = (yield root.decimals({ answerId: 0 })).output.value0;
+            return Number((0, utils_1.decimalFromNumAndDenomAsPowerOf10)(balance, decimals));
+        });
+    }
+    getTokenBalance(account) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const details = (yield account.getDetails()).output;
+            return Number((0, utils_1.decimalFromNumAndDenomAsPowerOf10)(details.balance, details.decimals));
+        });
+    }
+    getFlexTokenBalance(account) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const details = (yield account.getDetails()).output;
+            return Number((0, utils_1.decimalFromNumAndDenomAsPowerOf10)(details.balance, details.decimals));
         });
     }
 }

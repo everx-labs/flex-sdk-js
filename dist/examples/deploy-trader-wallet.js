@@ -21,14 +21,14 @@ const examples_1 = require("./examples");
             tokenWrapperWalletAddress: "token-wrapper-wallet",
             tokenWalletAddress: "token-wallet",
             tokenUnits: "100000",
-            everWallet: { signer: "msig " },
+            everWallet: { signer: "everWallet" },
         });
         yield flex_1.Trader.deployEverWallet(flex, {
             clientAddress: examples_1.CONFIG.trader.client,
             traderId: examples_1.CONFIG.trader.id,
             tokens: 100000,
             wrapperAddress: "wrapper-address",
-            everWallet: { signer: "msig " },
+            everWallet: { signer: "everWallet" },
         });
         yield flex.close();
     }

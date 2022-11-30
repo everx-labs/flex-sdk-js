@@ -11,31 +11,22 @@ export declare type IntegrationTestConfig = {
         id: string;
         wallet: string;
         signer: string;
-        EVER: {
-            external: AccountConfig;
-            internal: string;
-        };
         TSDT: {
             external: AccountConfig;
             internal: string;
         };
-    };
-    market: {
-        address: string;
-        EVER: {
-            wrapper: string;
-        };
-        TSDT: {
-            wrapper: string;
-            wrapperWallet: string;
+        Ever: {
+            external: AccountConfig;
+            internal: string;
         };
     };
+    market: string;
 };
 export declare function integrationTestConfig(): IntegrationTestConfig;
 export declare type FlexFixture = {
     flex: Flex;
     config: IntegrationTestConfig;
 };
-export declare const test: import("@playwright/test").TestType<import("@playwright/test").PlaywrightTestArgs & import("@playwright/test").PlaywrightTestOptions, import("@playwright/test").PlaywrightWorkerArgs & import("@playwright/test").PlaywrightWorkerOptions & FlexFixture>;
-export { expect } from "@playwright/test";
-//# sourceMappingURL=config.d.ts.map
+export declare const test: import("@playwright/test").TestType<import("@playwright/test").PlaywrightTestArgs & import("@playwright/test").PlaywrightTestOptions & FlexFixture, import("@playwright/test").PlaywrightWorkerArgs & import("@playwright/test").PlaywrightWorkerOptions>;
+export { expect } from '@playwright/test';
+//# sourceMappingURL=fixtures.d.ts.map

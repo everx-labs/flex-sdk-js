@@ -39,7 +39,6 @@ const fs = __importStar(require("fs"));
 const core_1 = require("@eversdk/core");
 const lib_node_1 = require("@eversdk/lib-node");
 const test_1 = require("@playwright/test");
-const contracts_1 = require("../contracts");
 function getPackageFolder() {
     let folder = path.resolve(__dirname);
     while (folder !== "/" && !fs.existsSync(path.resolve(folder, "package.json"))) {
@@ -87,8 +86,8 @@ function integrationTestConfig() {
 }
 exports.integrationTestConfig = integrationTestConfig;
 exports.test = test_1.test.extend({
-    flex: [
-        ({ config }, use) => __awaiter(void 0, void 0, void 0, function* () {
+    flex({ config }, use) {
+        return __awaiter(this, void 0, void 0, function* () {
             core_1.TonClient.useBinaryLibrary(lib_node_1.libNode);
             const flex = new flex_1.Flex(config.flex);
             try {
@@ -97,81 +96,14 @@ exports.test = test_1.test.extend({
             finally {
                 yield flex.close();
             }
-        }),
-        { scope: "worker" },
-    ],
-    config: [
-        ({}, use) => __awaiter(void 0, void 0, void 0, function* () {
+        });
+    },
+    config({}, use) {
+        return __awaiter(this, void 0, void 0, function* () {
             yield use(integrationTestConfig());
-        }),
-        { scope: "worker" },
-    ],
+        });
+    },
 });
 var test_2 = require("@playwright/test");
 Object.defineProperty(exports, "expect", { enumerable: true, get: function () { return test_2.expect; } });
-function createTSDTInternal(flex, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const client = yield flex.evr.accounts.get(contracts_1.FlexClientAccount, config.client);
-        const clientAddress = yield client.getAddress();
-        const wallet = yield flex_1.Trader.deployTip31Wallet(flex, {
-            clientAddress,
-            everWallet: config.everWallet,
-            traderId: config.trader.id,
-            tokenWalletAddress: config.trader.TSDT.external.address,
-            tokenWrapperAddress: config.market.TSDT.wrapper,
-            tokenWrapperWalletAddress: config.market.TSDT.wrapperWallet,
-            tokenUnits: "10000000000",
-            transferEvers: 101,
-            evers: 100,
-            keepEvers: 15,
-        });
-        console.log("TSDT internal address", wallet.address);
-    });
-}
-function createEVERInternal(flex, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const client = yield flex.evr.accounts.get(contracts_1.FlexClientAccount, config.client);
-        let wallet = yield flex_1.Trader.deployEverWallet(flex, {
-            clientAddress: yield client.getAddress(),
-            everWallet: config.everWallet,
-            tokens: 1000,
-            evers: 101,
-            keepEvers: 50,
-            traderId: config.trader.id,
-            wrapperAddress: config.market.EVER.wrapper,
-        });
-        console.log("EVER internal address", wallet.address);
-    });
-}
-function prepare(options) {
-    var _a, _b;
-    return __awaiter(this, void 0, void 0, function* () {
-        core_1.TonClient.useBinaryLibrary(lib_node_1.libNode);
-        const config = integrationTestConfig();
-        const flex = new flex_1.Flex(config.flex);
-        try {
-            try {
-                if ((_a = options.EVER) !== null && _a !== void 0 ? _a : false) {
-                    yield createEVERInternal(flex, config);
-                }
-                if ((_b = options.TSDT) !== null && _b !== void 0 ? _b : false) {
-                    yield createTSDTInternal(flex, config);
-                }
-            }
-            catch (err) {
-                console.error(err);
-                process.exit(1);
-            }
-        }
-        finally {
-            yield flex.close();
-        }
-    });
-}
-if (process.env.PREPARE_FLEX_TEST === "1") {
-    (() => __awaiter(void 0, void 0, void 0, function* () {
-        console.log("Prepare test suite");
-        yield prepare({ EVER: true, TSDT: true });
-    }))();
-}
-//# sourceMappingURL=config.js.map
+//# sourceMappingURL=fixture.js.map

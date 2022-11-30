@@ -24,6 +24,9 @@ class Evr {
     static unitsFromTokens(tokens) {
         return tokens * 1e9;
     }
+    static toUnits(tokens) {
+        return BigInt(tokens) * Evr.NATIVE_TOKEN_IN_UNITS;
+    }
     close() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.sdk.close();
@@ -32,4 +35,5 @@ class Evr {
 }
 exports.Evr = Evr;
 Evr.NATIVE_DECIMALS = 9;
+Evr.NATIVE_TOKEN_IN_UNITS = BigInt(1e9);
 //# sourceMappingURL=evr.js.map

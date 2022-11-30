@@ -45,6 +45,7 @@
 		"cli/*.ts",
 		"examples/*.ts",
 		"tests/*.ts",
-		"integration-test/*.ts"
+		"integration-test/*.ts",
+		"integration-test/tests/*.ts"
 	]
 }
