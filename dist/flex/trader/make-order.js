@@ -32,7 +32,7 @@ function makeOrderError(orderId, error) {
     };
 }
 function makeOrder(flex, options) {
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e;
     return __awaiter(this, void 0, void 0, function* () {
         const defaults = flex.config.trader.order;
         const pair = yield flex.evr.accounts.get(contracts_1.XchgPairAccount, options.marketAddress);
@@ -48,14 +48,15 @@ function makeOrder(flex, options) {
         const saltedPriceCode = (yield pair.getPriceXchgCode({ salted: true })).output.value0;
         const priceSalt = (yield pair.getPriceXchgSalt()).output.value0;
         const amount = (0, web3_1.toUnits)(options.amount, pairDetails.major_tip3cfg.decimals);
-        const orderId = options.orderId !== undefined ? options.orderId : yield generateRandomOrderId(flex.evr);
+        const resolvedOrderId = (_a = options.orderId) !== null && _a !== void 0 ? _a : (yield generateRandomOrderId(flex.evr));
+        const orderId = `0x${BigInt(resolvedOrderId).toString(16)}`;
         const price = (0, utils_1.priceToUnits)(options.price, pairDetails.price_denum, pairDetails.major_tip3cfg.decimals, pairDetails.minor_tip3cfg.decimals);
         const lend_balance = (yield flexAccount.calcLendTokensForOrder({
             sell: options.sell,
             major_tokens: amount,
             price,
         })).output.value0;
-        const finishTime = (_a = options.finishTime) !== null && _a !== void 0 ? _a : Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
+        const finishTime = (_b = options.finishTime) !== null && _b !== void 0 ? _b : Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
         if (BigInt(amount) < BigInt(pairDetails.min_amount)) {
             throw new Error(`Specified amount ${amount} is less that market min amount ${pairDetails.min_amount}`);
         }
@@ -65,13 +66,13 @@ function makeOrder(flex, options) {
             salted_price_code: saltedPriceCode,
         })).output.value0;
         const walletAddress = yield wallet.getAddress();
-        const mode = (_b = options.mode) !== null && _b !== void 0 ? _b : defaults.mode;
+        const mode = (_c = options.mode) !== null && _c !== void 0 ? _c : defaults.mode;
         let result = undefined;
         let walletTransactionId = undefined;
         try {
             walletTransactionId = (yield wallet.runMakeOrder({
                 _answer_id: 0,
-                evers: (_c = options.evers) !== null && _c !== void 0 ? _c : defaults.evers,
+                evers: (_d = options.evers) !== null && _d !== void 0 ? _d : defaults.evers,
                 lend_balance,
                 lend_finish_time: finishTime,
                 price_num: price.num,
@@ -91,7 +92,7 @@ function makeOrder(flex, options) {
                 onProcessing: evt => {
                     if (evt.type === "WillSend") {
                         result = {
-                            orderId: orderId.toString(),
+                            orderId,
                             status: MakeOrderStatus.STARTING,
                             params: {
                                 isSell: options.sell,
@@ -116,7 +117,7 @@ function makeOrder(flex, options) {
         if (!result) {
             throw new Error("Message did not sent.");
         }
-        return yield finalizeMakeOrder(flex.evr, result, walletTransactionId, (_d = options.waitForOrderbookUpdate) !== null && _d !== void 0 ? _d : false);
+        return yield finalizeMakeOrder(flex.evr, result, walletTransactionId, (_e = options.waitForOrderbookUpdate) !== null && _e !== void 0 ? _e : false);
     });
 }
 exports.makeOrder = makeOrder;
@@ -189,7 +190,8 @@ function finalizeMakeOrder(evr, result, startingTransactionId, priceTransactionR
                 if (resolved.transaction) {
                     let answer = undefined;
                     for (const msg of resolved.transaction.out_messages) {
-                        if (msg.dst === walletAddress && Number(msg.created_lt) > ((_a = answer === null || answer === void 0 ? void 0 : answer.created_lt) !== null && _a !== void 0 ? _a : 0)) {
+                        if (msg.dst === walletAddress &&
+                            Number(msg.created_lt) > ((_a = answer === null || answer === void 0 ? void 0 : answer.created_lt) !== null && _a !== void 0 ? _a : 0)) {
                             answer = msg;
                         }
                     }

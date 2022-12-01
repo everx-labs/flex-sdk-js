@@ -1,53 +1,137 @@
-import { test as base } from "./config";
-import { PriceOrder, Trading } from "./trading";
+import { expect, test } from "./config";
+import { OrderInfo, PriceOrder, TokenValue, Trader, TradeSide } from "../flex";
+import { Trading } from "./config/trading";
 
-const test = base.extend<{}, { trading: Trading; orders: PriceOrder[] }>({
-    trading: [
-        async ({ flex, config }, use) => {
-            const trading = await Trading.create(flex, {
-                market: config.market.address,
-                client: config.client,
-                trader: config.trader,
-            });
-            await use(trading);
-            // await trading.cancelOrders(orders);
+type MakeOrderTest = {
+    title: string;
+    side: TradeSide;
+    price: TokenValue;
+    amount: TokenValue;
+    expected: Partial<OrderInfo>;
+};
+
+const makeOrderTests: MakeOrderTest[] = [
+    sell("0.045", "5.05", {
+        priceNum: "450",
+        priceScale: "10000",
+        price: "0.045",
+        amountLeft: "5.05",
+    }),
+    sell(
+        { tokens: "0.046" },
+        { tokens: "4.05" },
+        {
+            priceNum: "460",
+            priceScale: "10000",
+            price: "0.046",
+            amountLeft: "4.05",
         },
-        { scope: "worker" },
-    ],
-    orders: [
-        async ({}, use) => {
-            await use([]);
+    ),
+    sell(
+        { units: "0.000047" },
+        { units: "3050000000" },
+        {
+            priceNum: "470",
+            priceScale: "10000",
+            price: "0.047",
+            amountLeft: "3.05",
         },
-        { scope: "worker" },
-    ],
+    ),
+    buy("0.148", "6.05", {
+        priceNum: "1480",
+        priceScale: "10000",
+        price: "0.148",
+        amountLeft: "6.05",
+    }),
+    buy(
+        { tokens: "0.149" },
+        { tokens: "7.05" },
+        {
+            priceNum: "1490",
+            priceScale: "10000",
+            price: "0.149",
+            amountLeft: "7.05",
+        },
+    ),
+    buy(
+        { units: "0.000149" },
+        { units: "7050000000" },
+        {
+            priceNum: "1490",
+            priceScale: "10000",
+            price: "0.149",
+            amountLeft: "7.05",
+        },
+    ),
+];
+
+function makeOrderTest(
+    side: TradeSide,
+    price: TokenValue,
+    amount: TokenValue,
+    expected: Partial<OrderInfo>,
+): MakeOrderTest {
+    return {
+        title: `${side} ${JSON.stringify(amount)} for ${JSON.stringify(price)}`,
+        side,
+        price,
+        amount,
+        expected: {
+            ...expected,
+            side,
+        },
+    };
+}
+
+function sell(price: TokenValue, amount: TokenValue, expected: Partial<OrderInfo>): MakeOrderTest {
+    return makeOrderTest(TradeSide.SELL, price, amount, expected);
+}
+
+function buy(price: TokenValue, amount: TokenValue, expected: Partial<OrderInfo>): MakeOrderTest {
+    return makeOrderTest(TradeSide.BUY, price, amount, expected);
+}
+
+function title(i: number): string {
+    return makeOrderTests[i].title;
+}
+
+async function runMakeOrder(i: number, trading: Trading, orders: PriceOrder[]): Promise<OrderInfo> {
+    const { side, price, amount } = makeOrderTests[i];
+    const newOrder = await trading.makeOrder(side, price, amount);
+    orders.push(newOrder);
+    const order = (await Trader.queryOrders(trading.flex, trading.trader.id)).find(
+        x => x.orderId === newOrder.orderId,
+    );
+    if (!order) {
+        throw new Error(`Order [${newOrder.orderId}] does not found on API.`);
+    }
+    return order;
+}
+
+test(title(0), async ({ trading, orders }) => {
+    expect(await runMakeOrder(0, trading, orders)).toMatchObject(makeOrderTests[0].expected);
 });
 
-test(`Sell "0.045", "5.05"`, async ({ trading, orders }) => {
-    orders.push(await trading.makeSellOrder("0.045", "5.05"));
-    // expecting from API: side: SELL, amount: “5.05“, price”0.0450” (priceScale=10000 должно быть 4 знака после запятой), priceNum: 450, priceScale: 10000.
+test(title(1), async ({ trading, orders }) => {
+    expect(await runMakeOrder(1, trading, orders)).toMatchObject(makeOrderTests[1].expected);
 });
 
-test.skip(`Sell { tokens: "0.046" }, { tokens: "4.05" }`, async ({ trading, orders }) => {
-    orders.push(await trading.makeSellOrder({ tokens: "0.046" }, { tokens: "4.05" }));
-    // expecting from API to create an order: side: SELL, price: ”0.0460”  (priceScale=10000 должно быть 4 знака после запятой), amount: 4.05”, priceNum: 460, priceScale: 10000
+test(title(2), async ({ trading, orders }) => {
+    expect(await runMakeOrder(2, trading, orders)).toMatchObject(makeOrderTests[2].expected);
 });
 
-test.skip(`Sell { units: "0.000047" }, { units: "3050000000" }`, async ({ trading, orders }) => {
-    orders.push(await trading.makeSellOrder({ units: "0.000047" }, { units: "3050000000" }));
-    // expecting from API to create an order: side: SELL, price: ”0.0470”  (priceScale=10000 должно быть 4 знака после запятой), amount: 3.05”, priceNum: 470, priceScale: 10000
+test(title(3), async ({ trading, orders }) => {
+    expect(await runMakeOrder(3, trading, orders)).toMatchObject(makeOrderTests[3].expected);
 });
 
-test.skip(`Buy "0.048", "6.05"`, async ({ trading, orders }) => {
-    orders.push(await trading.makeBuyOrder("0.048", "6.05"));
-    // expecting from API to create an order: side: BUY, price: ”0.0480”  (priceScale=10000 должно быть 4 знака после запятой), amount: 6.05”, priceNum: 480, priceScale: 10000
+test(title(4), async ({ trading, orders }) => {
+    expect(await runMakeOrder(4, trading, orders)).toMatchObject(makeOrderTests[4].expected);
 });
 
-test.skip(`Buy { tokens: "0.049" }, { tokens: "7.05" }`, async ({ trading, orders }) => {
-    orders.push(await trading.makeBuyOrder({ tokens: "0.049" }, { tokens: "7.05" }));
-    // expecting from API to create an order: side: BUY, price: ”0.0490”  (priceScale=10000 должно быть 4 знака после запятой), amount: 7.05”, priceNum: 490, priceScale: 10000
+test(title(5), async ({ trading, orders }) => {
+    expect(await runMakeOrder(5, trading, orders)).toMatchObject(makeOrderTests[5].expected);
 });
 
-test.skip(`Buy { units: "0.000049" }, { units: "7050000000" }`, async ({ trading, orders }) => {
-    orders.push(await trading.makeBuyOrder({ units: "0.000049" }, { units: "7050000000" }));
-    // expecting from API to create an order: side: BUY, price: ”0.0490”  (priceScale=10000 должно быть 4 знака после запятой), amount: 7.05”, priceNum: 490, priceScale: 10000
+test(`Cancel All Orders`, async ({ trading }) => {
+    await trading.cancelAllOrders();
 });

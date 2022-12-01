@@ -1,96 +1,40 @@
-import { test, expect, FlexFixture } from "./config";
-import { EverWallet, Evr } from "../flex";
-import {
-    FlexClientAccount,
-    FlexWalletAccount,
-    MultisigWalletAccount,
-    Tip31WalletAccount,
-} from "../contracts";
+import { test, expect } from "./config";
+import { Evr } from "../flex";
 
-type TestAccounts = {
-    everWallet: EverWallet;
-    flexClient: FlexClientAccount;
-    EVER: {
-        external: MultisigWalletAccount;
-        internal: FlexWalletAccount;
-    };
-    TSDT: {
-        external: Tip31WalletAccount;
-        internal: FlexWalletAccount;
-    };
-};
-
-async function getAccounts({ flex, config }: FlexFixture): Promise<TestAccounts> {
-    const accounts = flex.evr.accounts;
-    return {
-        everWallet: new EverWallet(flex.evr, config.everWallet),
-        flexClient: await accounts.get(FlexClientAccount, config.client),
-        EVER: {
-            external: await accounts.get(MultisigWalletAccount, config.trader.EVER.external),
-            internal: await accounts.get(FlexWalletAccount, config.trader.EVER.internal),
-        },
-        TSDT: {
-            external: await accounts.get(Tip31WalletAccount, config.trader.TSDT.external),
-            internal: await accounts.get(FlexWalletAccount, config.trader.TSDT.internal),
-        },
-    };
-}
-
-async function getAddresses(accounts: TestAccounts) {
-    return {
-        everWallet: await accounts.everWallet.getAddress(),
-        flexClient: await accounts.flexClient.getAddress(),
-        EVER: {
-            external: await accounts.EVER.external.getAddress(),
-            internal: await accounts.EVER.internal.getAddress(),
-        },
-        TSDT: {
-            external: await accounts.TSDT.external.getAddress(),
-            internal: await accounts.TSDT.internal.getAddress(),
-        },
-    };
-}
-
-test("Check balances", async ({ flex, config }) => {
-    const accounts = await getAccounts({
-        flex,
-        config,
-    });
-    const addresses = await getAddresses(accounts);
-
-    const balances = await flex.evr.accounts.getBalancesUnits([
-        addresses.flexClient,
-        addresses.everWallet,
-        addresses.TSDT.internal,
-        addresses.EVER.internal,
+test("Check balances", async ({ flex, accounts }) => {
+    const nativeBalances = await flex.evr.accounts.getBalancesUnits([
+        accounts.flexClientAddress,
+        accounts.everWalletAddress,
+        accounts.TSDT.internalAddress,
+        accounts.EVER.internalAddress,
     ]);
 
     expect(
-        balances.get(addresses.flexClient),
-        `Natives on FlexClient ${addresses.flexClient}`,
+        nativeBalances.get(accounts.flexClientAddress),
+        `Natives on FlexClient ${accounts.flexClientAddress}`,
     ).toBeGreaterThan(Evr.toUnits(40));
     expect(
-        balances.get(addresses.everWallet),
-        `Natives on EverWallet ${addresses.everWallet}`,
+        nativeBalances.get(accounts.everWalletAddress),
+        `Natives on EverWallet ${accounts.everWalletAddress}`,
     ).toBeGreaterThan(Evr.toUnits(100));
     expect(
-        balances.get(addresses.EVER.internal),
-        `Natives on internal EVER ${addresses.EVER.internal}`,
+        nativeBalances.get(accounts.EVER.internalAddress),
+        `Natives on internal EVER ${accounts.EVER.internalAddress}`,
     ).toBeGreaterThan(Evr.toUnits(100));
     expect(
-        balances.get(addresses.TSDT.internal),
-        `Natives on internal TSDT ${addresses.TSDT.internal}`,
+        nativeBalances.get(accounts.TSDT.internalAddress),
+        `Natives on internal TSDT ${accounts.TSDT.internalAddress}`,
     ).toBeGreaterThan(Evr.toUnits(100));
     expect(
         await flex.getFlexTokenBalance(accounts.EVER.internal),
-        `Tokens on internal EVER ${addresses.EVER.internal}`,
+        `Tokens on internal EVER ${accounts.EVER.internalAddress}`,
     ).toBeGreaterThan(50);
     expect(
         await flex.getTip3TokenBalance(accounts.TSDT.external),
-        `Tokens on external TSDT ${addresses.TSDT.external}`,
+        `Tokens on external TSDT ${accounts.TSDT.externalAddress}`,
     ).toBeGreaterThan(100);
     expect(
         await flex.getFlexTokenBalance(accounts.TSDT.internal),
-        `Tokens on internal TSDT ${addresses.TSDT.internal}`,
+        `Tokens on internal TSDT ${accounts.TSDT.internalAddress}`,
     ).toBeGreaterThan(50);
 });

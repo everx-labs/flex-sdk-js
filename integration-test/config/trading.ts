@@ -2,23 +2,18 @@ import {
     AccountOptionsEx,
     Flex,
     MakeOrderStatus,
+    PriceOrder,
     TokenValue,
     Trader,
     TraderOptions,
     TradeSide,
-} from "../flex";
-import { FlexClientAccount } from "../contracts";
+} from "../../flex";
+import { FlexClientAccount } from "../../contracts";
 
 export type TradingOptions = {
     client: AccountOptionsEx;
     trader: TraderOptions;
     market: string;
-};
-
-export type PriceOrder = {
-    side: TradeSide;
-    price: TokenValue;
-    order: string;
 };
 
 export class Trading {
@@ -58,11 +53,10 @@ export class Trading {
             case MakeOrderStatus.ERROR:
                 throw result.error;
         }
-        const order = result.orderId;
         return {
-            side,
-            price,
-            order,
+            pairAddress: this.marketAddress,
+            price: price.toString(),
+            orderId: result.orderId,
         };
     }
 
@@ -82,16 +76,10 @@ export class Trading {
         return this.makeOrder(TradeSide.BUY, price, amount, orderId);
     }
 
-    async cancelOrders(orders: PriceOrder[]): Promise<void> {
-        for (const { price, order } of orders) {
-            await Trader.cancelOrder(this.flex, {
-                marketAddress: this.marketAddress,
-                clientAddress: this.clientAddress,
-                trader: this.trader,
-                price,
-                orderId: order,
-                waitForOrderbookUpdate: true,
-            });
-        }
+    async cancelAllOrders() {
+        await Trader.cancelAllOrders(this.flex, {
+            clientAddress: this.clientAddress,
+            trader: this.trader,
+        });
     }
 }

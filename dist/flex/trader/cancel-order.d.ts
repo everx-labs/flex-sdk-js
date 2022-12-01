@@ -1,5 +1,6 @@
-import { TraderOptions } from "./types";
+import { PriceOrder, TraderOptions } from "./types";
 import { Evr, TokenValue } from "../web3";
+import { Flex } from "../flex";
 export declare type CancelOrderOptions = {
     clientAddress: string;
     trader: TraderOptions;
@@ -46,8 +47,16 @@ declare type ErrorInfo = {
     data?: any;
 };
 export declare type CancelOrderResult = CancelOrderStarting | CancelOrderFinalizing | CancelOrderSuccess | CancelOrderError;
+export declare type CancelAllOrdersParams = {
+    clientAddress: string;
+    trader: TraderOptions;
+};
+export declare type CancelAllOrdersResult = {
+    orders: PriceOrder[];
+};
 export declare function cancelOrder(evr: Evr, options: CancelOrderOptions): Promise<CancelOrderResult>;
 export declare function waitForCancelOrder(evr: Evr, result: CancelOrderResult): Promise<CancelOrderResult>;
 export declare function finalizeCancelOrder(evr: Evr, result: CancelOrderResult, startingTransactionId: string, priceTransactionRequired: boolean): Promise<CancelOrderResult>;
+export declare function cancelAllOrders(flex: Flex, options: CancelAllOrdersParams): Promise<CancelAllOrdersResult>;
 export {};
 //# sourceMappingURL=cancel-order.d.ts.map

@@ -5,7 +5,25 @@ export declare const CONFIG: {
     trader: {
         client: string;
         id: string;
-        wallet: string;
+    };
+    everWallet: {
+        address: string;
+        signer: string;
+    };
+    tip3: {
+        TBTC: {
+            tokenWalletAddress: string;
+            tokenWrapperAddress: string;
+            tokenWrapperWalletAddress: string;
+        };
+        TSDT: {
+            tokenWalletAddress: string;
+            tokenWrapperAddress: string;
+            tokenWrapperWalletAddress: string;
+        };
+        EVER: {
+            wrapperAddress: string;
+        };
     };
     market: string;
 };

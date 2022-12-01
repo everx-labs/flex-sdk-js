@@ -16,18 +16,7 @@ const examples_1 = require("./examples");
     try {
         const clientAddress = examples_1.CONFIG.trader.client;
         const traderId = examples_1.CONFIG.trader.id;
-        let trader_ever_wallet = yield flex_1.Trader.deployEverWallet(flex, {
-            clientAddress: clientAddress,
-            everWallet: {
-                address: "0:d727caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
-                signer: "everWallet",
-            },
-            tokens: 100,
-            evers: 20,
-            keepEvers: 15,
-            traderId: traderId,
-            wrapperAddress: "0:1cc3596e2db5cc92d0e02f55526f8aec949924ef320d72b763a5f4aafcca3e30",
-        });
+        let trader_ever_wallet = yield flex_1.Trader.deployEverWallet(flex, Object.assign({ clientAddress: clientAddress, everWallet: examples_1.CONFIG.everWallet, tokens: 100, evers: 20, keepEvers: 15, traderId: traderId }, examples_1.CONFIG.tip3.EVER));
         flex.evr.log.info("Trader EVER wallet address:", trader_ever_wallet, "has been topped-up.");
         flex.evr.log.info("Trader balances:", yield flex_1.Trader.queryWallets(flex, {
             clientAddress: clientAddress,

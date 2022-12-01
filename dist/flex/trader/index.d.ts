@@ -1,6 +1,6 @@
 import { Flex } from "../flex";
 import { MakeOrderOptions, MakeOrderResult, MakeOrderStatus } from "./make-order";
-import { CancelOrderOptions, CancelOrderResult, CancelOrderStatus } from "./cancel-order";
+import { CancelAllOrdersParams, CancelAllOrdersResult, CancelOrderOptions, CancelOrderResult, CancelOrderStatus } from "./cancel-order";
 import { OrderInfo, TradeInfo } from "./types";
 import { QueryWalletsOptions } from "./query";
 import { WalletInfo } from "../client";
@@ -18,6 +18,7 @@ export declare class Trader {
     static makeOrder(flex: Flex, options: MakeOrderOptions): Promise<MakeOrderResult>;
     static waitForMakeOrder(flex: Flex, result: MakeOrderResult): Promise<MakeOrderResult>;
     static cancelOrder(flex: Flex, options: CancelOrderOptions): Promise<CancelOrderResult>;
+    static cancelAllOrders(flex: Flex, options: CancelAllOrdersParams): Promise<CancelAllOrdersResult>;
     static waitForCancelOrder(flex: Flex, result: CancelOrderResult): Promise<CancelOrderResult>;
     static queryOrders(flex: Flex, trader: string): Promise<OrderInfo[]>;
     static queryTrades(flex: Flex, trader: string): Promise<TradeInfo[]>;

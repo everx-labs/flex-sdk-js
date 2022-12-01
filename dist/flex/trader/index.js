@@ -66,6 +66,11 @@ class Trader {
             return yield (0, cancel_order_1.cancelOrder)(flex.evr, options);
         });
     }
+    static cancelAllOrders(flex, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0, cancel_order_1.cancelAllOrders)(flex, options);
+        });
+    }
     static waitForCancelOrder(flex, result) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield (0, cancel_order_1.waitForCancelOrder)(flex.evr, result);

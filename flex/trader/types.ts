@@ -3,31 +3,35 @@ import { SignerOption } from "../web3";
 
 export type TraderOptions = {
     /** Trader device ID.  Ask Flex Client owner for your ID. */
-    id: string,
+    id: string;
     /** Private key you Trader will use to sign messages */
-    signer: SignerOption,
+    signer: SignerOption;
 };
 
 export type OrderInfo = {
     /** May be assigned to some GUID*/
-    orderId: string,
+    orderId: string;
     /** Trader ID */
-    traderId: string,
+    traderId: string;
     /** Price of Major token */
-    price: number,
+    price: string;
+    /** Price nominator of Major token */
+    priceNum: string;
+    /** Price scale */
+    priceScale: string;
     /** Amount that has been processed */
-    amountProcessed: number,
+    amountProcessed: string;
     /** Amount left in the order*/
-    amountLeft: number,
+    amountLeft: string;
     /** Trader's side in the order*/
-    side: TradeSide,
+    side: TradeSide;
     /** Order expiration time */
-    finishTime: number,
+    finishTime: number;
     /** Market of the order */
     pair: {
-        address: string,
-    }
-}
+        address: string;
+    };
+};
 
 export enum TradeSide {
     SELL = "SELL",
@@ -41,26 +45,26 @@ export enum TradeLiquidity {
 
 export type TradeInfo = {
     /** Flex market (pair) */
-    pair: { address: string },
+    pair: { address: string };
 
     /** Price of the major token */
-    price: number,
+    price: number;
 
     /** Amount of the major tokens */
-    amount: number,
+    amount: number;
 
     /** Trade time as a unix time stamp */
-    time: number,
+    time: number;
 
     /** Determines the type of the later order (taker) in trade. */
-    side: TradeSide,
+    side: TradeSide;
 
     /**
      * Determines the users position in trade. Maker or taker.
      * Maker is a trade counterparty whose order was earlier.
      * Taker is a counterparty with a later order.
      */
-    liquidity: TradeLiquidity,
+    liquidity: TradeLiquidity;
 
     /**
      * User fees for this trade. Measured in major tokens.
@@ -71,19 +75,24 @@ export type TradeInfo = {
      * If the user is a taker then fees is a value that
      * the user pays to the exchange and maker.
      */
-    fees: number,
+    fees: number;
 
     /** User fees token. */
-    feesToken: TokenInfo
+    feesToken: TokenInfo;
 
     /**
      * User's order id related to this trade.
      */
-    userOrderId: string,
+    userOrderId: string;
 
     /**
      * Cursor value for pagination
      */
-    cursor: string
-}
+    cursor: string;
+};
 
+export type PriceOrder = {
+    pairAddress: string;
+    price: string;
+    orderId: string;
+};

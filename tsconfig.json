@@ -1,51 +1,43 @@
 {
-	"compilerOptions": {
-		"composite": true,
-		"target": "es2016",
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"esModuleInterop": true,
-		"sourceMap": true,
-		"declaration": true,
-		"declarationMap": true,
-		"removeComments": true,
-		"strict": true,
-		"noImplicitAny": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"noUnusedParameters": true,
-		"noUnusedLocals": true,
-		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true,
+    "compilerOptions": {
+        "composite": true,
+        "target": "es2016",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
+        "removeComments": true,
+        "strict": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedParameters": true,
+        "noUnusedLocals": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
         "outDir": "dist",
-		"lib": [
-			"es2017",
-			"esnext.asynciterable"
-		],
-		"types": [
-			"node",
-			"jest"
-		],
-		"baseUrl": ".",
-		"paths": {
-			"*": [
-				"types/*"
-			]
-		}
-	},
-	"include": [
-		"*.ts",
-		"contracts/*.ts",
-		"contracts/generated/*.ts",
-		"flex/*.ts",
-		"flex/client/*.ts",
-		"flex/trader/*.ts",
-		"flex/exchange/*.ts",
-		"flex/web3/*.ts",
-		"cli/*.ts",
-		"examples/*.ts",
-		"tests/*.ts",
-		"integration-test/*.ts",
-		"integration-test/tests/*.ts"
-	]
+        "lib": ["es2017", "esnext.asynciterable"],
+        "types": ["node", "jest"],
+        "baseUrl": ".",
+        "paths": {
+            "*": ["types/*"]
+        }
+    },
+    "include": [
+        "*.ts",
+        "contracts/*.ts",
+        "contracts/generated/*.ts",
+        "flex/*.ts",
+        "flex/client/*.ts",
+        "flex/trader/*.ts",
+        "flex/exchange/*.ts",
+        "flex/web3/*.ts",
+        "cli/*.ts",
+        "examples/*.ts",
+        "tests/*.ts",
+        "integration-test/*.ts",
+        "integration-test/config/*.ts"
+    ]
 }

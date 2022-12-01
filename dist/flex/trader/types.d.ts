@@ -7,9 +7,10 @@ export declare type TraderOptions = {
 export declare type OrderInfo = {
     orderId: string;
     traderId: string;
-    price: number;
-    amountProcessed: number;
-    amountLeft: number;
+    price: string;
+    priceNum: string;
+    amountProcessed: string;
+    amountLeft: string;
     side: TradeSide;
     finishTime: number;
     pair: {
@@ -37,5 +38,10 @@ export declare type TradeInfo = {
     feesToken: TokenInfo;
     userOrderId: string;
     cursor: string;
+};
+export declare type PriceOrder = {
+    pairAddress: string;
+    price: string;
+    orderId: string;
 };
 //# sourceMappingURL=types.d.ts.map

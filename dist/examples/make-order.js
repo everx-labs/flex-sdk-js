@@ -21,12 +21,12 @@ const examples_1 = require("./examples");
             clientAddress: clientAddress,
             trader: {
                 id: traderId,
-                signer: "traderSigner",
+                signer: "flex-trader",
             },
             sell: true,
             marketAddress: marketAddress,
-            price: { units: "2777771.1" },
-            amount: { units: 1000 },
+            price: "0.045",
+            amount: "5.05",
             waitForOrderbookUpdate: false,
         });
         flex.evr.log.info("MakeOrder Initialization result on wallet", result);

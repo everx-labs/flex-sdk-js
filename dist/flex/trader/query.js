@@ -20,6 +20,8 @@ function queryOrders(flex, trader) {
                 pair { ${market_1.Market.queryFields()} }
                 side
                 price
+                priceNum
+                priceScale
                 orderId
                 userId
                 amountProcessed

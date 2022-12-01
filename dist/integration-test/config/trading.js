@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Trading = void 0;
-const flex_1 = require("../flex");
-const contracts_1 = require("../contracts");
+const flex_1 = require("../../flex");
+const contracts_1 = require("../../contracts");
 class Trading {
     constructor(flex, marketAddress, client, clientAddress, trader) {
         this.flex = flex;
@@ -45,11 +45,10 @@ class Trading {
                 case flex_1.MakeOrderStatus.ERROR:
                     throw result.error;
             }
-            const order = result.orderId;
             return {
-                side,
-                price,
-                order,
+                pairAddress: this.marketAddress,
+                price: price.toString(),
+                orderId: result.orderId,
             };
         });
     }
@@ -63,25 +62,11 @@ class Trading {
             return this.makeOrder(flex_1.TradeSide.BUY, price, amount, orderId);
         });
     }
-    cancelOrders(orders) {
-        return __awaiter(this, void 0, void 0, function* () {
-            for (const { price, order } of orders) {
-                yield flex_1.Trader.cancelOrder(this.flex, {
-                    marketAddress: this.marketAddress,
-                    clientAddress: this.clientAddress,
-                    trader: this.trader,
-                    price,
-                    orderId: order,
-                    waitForOrderbookUpdate: true,
-                });
-            }
-        });
-    }
     cancelAllOrders() {
         return __awaiter(this, void 0, void 0, function* () {
             yield flex_1.Trader.cancelAllOrders(this.flex, {
                 clientAddress: this.clientAddress,
-                traderId: this.trader.id,
+                trader: this.trader,
             });
         });
     }

@@ -8,16 +8,28 @@
         "client": { "$ref": "#/$defs/Account" },
         "trader": {
             "type": "object",
+            "required": ["signer"],
             "properties": {
-                "id": { "type": "string" },
-                "wallet": { "type": "string" },
-                "signer": { "type": "string" },
-                "TSDT": { "$ref": "#/$defs/WalletPair" },
-                "EVER": { "$ref": "#/$defs/WalletPair" }
+                "signer": { "type": "string" }
             }
         },
-        "market": {
-            "$ref": "#/$defs/Market"
+        "market": { "type": "string" },
+        "EVER": {
+            "type": "object",
+            "required": ["wrapper"],
+            "properties": {
+                "wrapper": { "type": "string" },
+                "external": { "ref": "#/$defs/Account" }
+            }
+        },
+        "TSDT": {
+            "type": "object",
+            "required": ["wrapper"],
+            "properties": {
+                "wrapper": { "type": "string" },
+                "wrapperWallet": { "type": "string" },
+                "external": { "ref": "#/$defs/Account" }
+            }
         }
     },
     "$defs": {
@@ -26,35 +38,6 @@
             "properties": {
                 "address": { "type": "string" },
                 "signer": { "type": "string" }
-            }
-        },
-        "WalletPair": {
-            "type": "object",
-            "required": ["external", "internal"],
-            "properties": {
-                "external": { "$ref": "#/$defs/Account" },
-                "internal": { "$ref": "#/$defs/Account" }
-            }
-        },
-        "Market": {
-            "type": "object",
-            "required": ["address", "EVER", "TSDT"],
-            "properties": {
-                "EVER": {
-                    "type": "object",
-                    "required": ["wrapper"],
-                    "properties": {
-                        "wrapper": { "type": "string" }
-                    }
-                },
-                "TSDT": {
-                    "type": "object",
-                    "required": ["wrapper"],
-                    "properties": {
-                        "wrapper": { "type": "string" },
-                        "wrapperWallet": { "type": "string" }
-                    }
-                }
             }
         },
         "FlexConfig": {

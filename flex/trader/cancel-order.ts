@@ -7,13 +7,15 @@ import {
 } from "../../contracts";
 import { getWallet } from "./internals";
 import { PriceXchgGetDetailsOutput } from "../../contracts/generated/PriceXchgAccount";
-import { TraderOptions } from "./types";
+import { PriceOrder, TraderOptions } from "./types";
 import { Evr, TokenValue } from "../web3";
 import { abiContract, ProcessingErrorCode, TvmErrorCode } from "@eversdk/core";
 import { AccountClass } from "../../contracts/account-ex";
 import { resolveDerivativeTransaction, SdkError } from "./processing";
 import { DerivativeTransactionMessage } from "../web3/accounts";
 import { priceToUnits } from "../web3/utils";
+import { Flex } from "../flex";
+import { queryOrders } from "./query";
 
 export type CancelOrderOptions = {
     /**
@@ -123,6 +125,21 @@ function cancelOrderError(error: Error): CancelOrderResult {
         },
     };
 }
+
+export type CancelAllOrdersParams = {
+    /**
+     * Flex Client address. If you are a trader, ask the person who lent you the money.
+     */
+    clientAddress: string;
+    /**
+     * Trader info
+     */
+    trader: TraderOptions;
+};
+
+export type CancelAllOrdersResult = {
+    orders: PriceOrder[];
+};
 
 export async function cancelOrder(
     evr: Evr,
@@ -407,5 +424,34 @@ function resolveStartingError(original: SdkError, result: CancelOrderResult): Ca
     return {
         status: CancelOrderStatus.ERROR,
         error: error,
+    };
+}
+
+export async function cancelAllOrders(
+    flex: Flex,
+    options: CancelAllOrdersParams,
+): Promise<CancelAllOrdersResult> {
+    const existing = await queryOrders(flex, options.trader.id);
+    const orders: PriceOrder[] = [];
+    for (const order of existing) {
+        const result = await cancelOrder(flex.evr, {
+            marketAddress: order.pair.address,
+            clientAddress: options.clientAddress,
+            trader: options.trader,
+            orderId: order.orderId,
+            price: order.price,
+            waitForOrderbookUpdate: true,
+        });
+        if (result.status === CancelOrderStatus.ERROR) {
+            throw result.error;
+        }
+        orders.push({
+            pairAddress: order.pair.address,
+            price: order.price.toString(),
+            orderId: order.orderId,
+        });
+    }
+    return {
+        orders,
     };
 }

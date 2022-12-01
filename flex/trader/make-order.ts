@@ -137,8 +137,8 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
     const saltedPriceCode = (await pair.getPriceXchgCode({ salted: true })).output.value0;
     const priceSalt = (await pair.getPriceXchgSalt()).output.value0;
     const amount = toUnits(options.amount, pairDetails.major_tip3cfg.decimals);
-    const orderId =
-        options.orderId !== undefined ? options.orderId : await generateRandomOrderId(flex.evr);
+    const resolvedOrderId = options.orderId ?? (await generateRandomOrderId(flex.evr));
+    const orderId = `0x${BigInt(resolvedOrderId).toString(16)}`;
     const price = priceToUnits(
         options.price,
         pairDetails.price_denum,
@@ -198,7 +198,7 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
                     onProcessing: evt => {
                         if (evt.type === "WillSend") {
                             result = {
-                                orderId: orderId.toString(),
+                                orderId,
                                 status: MakeOrderStatus.STARTING,
                                 params: {
                                     isSell: options.sell,
@@ -327,7 +327,10 @@ export async function finalizeMakeOrder(
             if (resolved.transaction) {
                 let answer: DerivativeTransactionMessage | undefined = undefined;
                 for (const msg of resolved.transaction.out_messages) {
-                    if (msg.dst === walletAddress && Number(msg.created_lt) > (answer?.created_lt ?? 0)) {
+                    if (
+                        msg.dst === walletAddress &&
+                        Number(msg.created_lt) > (answer?.created_lt ?? 0)
+                    ) {
                         answer = msg;
                     }
                 }

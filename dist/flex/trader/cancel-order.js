@@ -9,12 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.finalizeCancelOrder = exports.waitForCancelOrder = exports.cancelOrder = exports.CancelOrderStatus = void 0;
+exports.cancelAllOrders = exports.finalizeCancelOrder = exports.waitForCancelOrder = exports.cancelOrder = exports.CancelOrderStatus = void 0;
 const contracts_1 = require("../../contracts");
 const internals_1 = require("./internals");
 const core_1 = require("@eversdk/core");
 const processing_1 = require("./processing");
 const utils_1 = require("../web3/utils");
+const query_1 = require("./query");
 var CancelOrderStatus;
 (function (CancelOrderStatus) {
     CancelOrderStatus[CancelOrderStatus["STARTING"] = 0] = "STARTING";
@@ -241,4 +242,32 @@ function resolveStartingError(original, result) {
         error: error,
     };
 }
+function cancelAllOrders(flex, options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const existing = yield (0, query_1.queryOrders)(flex, options.trader.id);
+        const orders = [];
+        for (const order of existing) {
+            const result = yield cancelOrder(flex.evr, {
+                marketAddress: order.pair.address,
+                clientAddress: options.clientAddress,
+                trader: options.trader,
+                orderId: order.orderId,
+                price: order.price,
+                waitForOrderbookUpdate: true,
+            });
+            if (result.status === CancelOrderStatus.ERROR) {
+                throw result.error;
+            }
+            orders.push({
+                pairAddress: order.pair.address,
+                price: order.price.toString(),
+                orderId: order.orderId,
+            });
+        }
+        return {
+            orders,
+        };
+    });
+}
+exports.cancelAllOrders = cancelAllOrders;
 //# sourceMappingURL=cancel-order.js.map

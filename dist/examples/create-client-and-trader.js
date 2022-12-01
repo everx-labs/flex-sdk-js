@@ -15,22 +15,19 @@ const examples_1 = require("./examples");
     const flex = new flex_1.Flex(examples_1.EXAMPLES_FLEX_CONFIG);
     try {
         const clientAddress = yield flex_1.Client.deploy(flex, {
-            everWallet: {
-                address: "0:d727caf6df3a7c2bb0b64915613eca9d8f17ca1de0b938dfdcbb9b4ff30c4526",
-                signer: "everWallet",
-            },
-            signer: "everWallet",
+            everWallet: examples_1.CONFIG.everWallet,
+            signer: examples_1.CONFIG.everWallet.signer,
         });
         flex.evr.log.info("Client:", clientAddress);
         const traderId = examples_1.CONFIG.trader.id;
         yield flex_1.Trader.deploy(flex, {
             client: {
                 address: clientAddress,
-                signer: "everWallet",
+                signer: examples_1.CONFIG.everWallet.signer,
             },
             id: traderId,
             name: "trader_1",
-            pubkey: "8caaf998bdeafd81ccf0a7e15e25f0725ffb79cac898a527a2407c537240ea1d"
+            pubkey: examples_1.CONFIG.trader.id
         });
         yield flex.close();
     }
