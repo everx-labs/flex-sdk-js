@@ -1,8 +1,9 @@
 import { Flex } from "../flex";
 import { toUnits, TokenValue, AccountOptionsEx, uint256, Evr, EverWallet } from "../web3";
-import { SdkError } from "./processing";
 import { TvmErrorCode } from "@eversdk/core";
 import { decimalFromNumAndDenomAsPowerOf10 } from "../web3/utils";
+import { FlexError } from "../error";
+import { STD_ERROR } from "../../contracts";
 
 function toNativeUnits(value: TokenValue): bigint {
     return BigInt(toUnits(value, Evr.NATIVE_DECIMALS));
@@ -117,7 +118,8 @@ export async function topUp(flex: Flex, options: TopUpOptions): Promise<TopUpRes
     const plan = await getTopupPlan(flex, everWallet, options);
 
     if (plan.value > plan.everWalletBalance + toNativeUnits(1)) {
-        const error: SdkError = new Error(
+        const error = new FlexError(
+            STD_ERROR.out_of_gas.exitCode,
             `Ever wallet balance is too low to topup trader balances.`,
         );
         error.code = TvmErrorCode.LowBalance;

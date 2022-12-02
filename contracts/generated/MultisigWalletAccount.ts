@@ -3,16 +3,16 @@ import { Account, AccountOptions } from "@eversdk/appkit";
 import {
     AbiContract,
 } from "@eversdk/core";
-import { 
+import {
     deployHelper,
     RunHelperOptions,
     RunHelperResult,
     RunLocalHelperResult,
-    runHelper, 
-    runLocalHelper, 
-    Transaction, 
-    ContractPackageEx, 
-    Log, 
+    runHelper,
+    runLocalHelper,
+    Transaction,
+    ContractPackageEx,
+    Log,
 } from "../helpers";
 export type MultisigWalletAcceptTransferInput = {
     payload: string /* bytes */,
@@ -266,7 +266,7 @@ export class MultisigWalletAccount extends Account {
         this.log = options.log ?? Log.default;
     }
     async deployContract(input: {
-        owners: string | number | bigint[] /* uint256[] */,
+        owners: (string | number | bigint)[] /* uint256[] */,
         reqConfirms: number /* uint8 */,
     }): Promise<{
         transaction: Transaction,

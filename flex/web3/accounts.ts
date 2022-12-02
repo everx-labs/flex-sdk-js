@@ -6,7 +6,7 @@ import {
     TonClient,
     TransactionNode,
 } from "@eversdk/core";
-import { AccountClass, AccountOptionsEx } from "../../contracts/account-ex";
+import { AccountClass, AccountOptionsEx } from "../../contracts";
 import { AccountType } from "@eversdk/appkit";
 import { EvrSigners } from "./signers";
 import { Log } from "../../contracts/helpers";

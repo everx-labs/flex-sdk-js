@@ -4,3 +4,5 @@
 /package-lock.json
 /tsconfig.tsbuildinfo
 .secret/
+/playwright-report/
+/dist/

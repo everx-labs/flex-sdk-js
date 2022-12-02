@@ -2,13 +2,18 @@ import { defaultConfig, FlexConfig } from "./config";
 import {
     FlexAccount,
     FlexClientAccount,
+    FlexWalletAccount,
     GlobalConfigAccount,
     SuperRootAccount,
+    Tip31RootAccount,
+    Tip31WalletAccount,
+    TONTokenWalletAccount,
     UserDataConfigAccount,
 } from "../contracts";
 import { Evr } from "./web3";
 import { queryWallets } from "./trader/query";
 import { WalletInfo } from "./client";
+import { decimalFromNumAndDenomAsPowerOf10 } from "./web3/utils";
 
 export class Flex {
     /**
@@ -105,5 +110,23 @@ export class Flex {
      */
     async close() {
         await this.evr.close();
+    }
+
+    async getTip3TokenBalance(account: Tip31WalletAccount): Promise<number> {
+        const balance = (await account.balance({ answerId: 0 })).output.value0;
+        const rootAddress = (await account.root({ answerId: 0 })).output.value0;
+        const root = await this.evr.accounts.get(Tip31RootAccount, rootAddress);
+        const decimals = (await root.decimals({ answerId: 0 })).output.value0;
+        return Number(decimalFromNumAndDenomAsPowerOf10(balance, decimals));
+    }
+
+    async getTokenBalance(account: TONTokenWalletAccount): Promise<number> {
+        const details = (await account.getDetails()).output;
+        return Number(decimalFromNumAndDenomAsPowerOf10(details.balance, details.decimals));
+    }
+
+    async getFlexTokenBalance(account: FlexWalletAccount): Promise<number> {
+        const details = (await account.getDetails()).output;
+        return Number(decimalFromNumAndDenomAsPowerOf10(details.balance, details.decimals));
     }
 }

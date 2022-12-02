@@ -4,30 +4,30 @@ import {
     TONTokenWalletAccount,
     WrapperAccount,
     WrapperDeployerTip3Account,
+    AccountOptionsEx,
 } from "../../contracts";
-import { AccountOptionsEx } from "../../contracts/account-ex";
 import { TokenTypeInfo } from "./ever-token-type";
 import { EverWallet, SignerOption, toUnits, Evr } from "../web3";
 
 export const TIP3_TOKEN_TYPE = 0;
 export type Tip3TokenTypeOptions = {
-    wrapperSigner: SignerOption,
-    wrapperDeployerSigner: SignerOption,
-    wrapperDeployerBalance?: number,
-    wrapperDeployEvers?: number,
-    wrapperKeepEvers?: number,
-    reserveWalletEvers?: number
-    mainEvers?: number,
-    callEvers?: number,
-    keepEvers?: number,
-    extWalletEvers?: number,
-}
+    wrapperSigner: SignerOption;
+    wrapperDeployerSigner: SignerOption;
+    wrapperDeployerBalance?: number;
+    wrapperDeployEvers?: number;
+    wrapperKeepEvers?: number;
+    reserveWalletEvers?: number;
+    mainEvers?: number;
+    callEvers?: number;
+    keepEvers?: number;
+    extWalletEvers?: number;
+};
 
 export type AddTip3TokenTypeOptions = {
-    everWallet: AccountOptionsEx,
-    superRootOwner: AccountOptionsEx,
-    superRoot: string,
-    wrappersConfigAddress: string,
+    everWallet: AccountOptionsEx;
+    superRootOwner: AccountOptionsEx;
+    superRoot: string;
+    wrappersConfigAddress: string;
 } & Tip3TokenTypeOptions;
 
 const DEFAULTS = {
@@ -81,4 +81,3 @@ export async function addTip3TokenType(
         deployer: await deployer.getAddress(),
     };
 }
-
