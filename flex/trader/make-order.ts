@@ -4,6 +4,7 @@ import {
     findTransactionError,
     FlexClientAccount,
     FlexWalletAccount,
+    PRICE_XCHG_ERROR,
     PriceXchgAccount,
     resolveContractError,
     XchgPairAccount,
@@ -11,10 +12,11 @@ import {
 import { getWallet } from "./internals";
 import { TraderOptions } from "./types";
 import { toUnits, Evr, TokenValue } from "../web3";
-import { AccountClass } from "../../contracts/account-ex";
+import { AccountClass } from "../../contracts";
 import { resolveDerivativeTransaction, SdkError } from "./processing";
 import { DerivativeTransactionMessage } from "../web3/accounts";
 import { priceToUnits } from "../web3/utils";
+import { FlexError } from "../error";
 
 export type MakeOrderOptions = {
     clientAddress: string;
@@ -155,8 +157,9 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
     const finishTime = options.finishTime ?? Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
 
     if (BigInt(amount) < BigInt(pairDetails.min_amount)) {
-        throw new Error(
-            `Specified amount ${amount} is less that market min amount ${pairDetails.min_amount}`,
+        throw new FlexError(
+            PRICE_XCHG_ERROR.amount_is_less_then_market_min_amount.exitCode,
+            `Specified amount ${amount} is less then market min amount ${pairDetails.min_amount}`,
         );
     }
     const clientAccount = await flex.evr.accounts.get(FlexClientAccount, options.clientAddress);

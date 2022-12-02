@@ -1,6 +1,5 @@
 import { DerivativeTransaction } from "../web3/accounts";
-import { AccountClass } from "../../contracts/account-ex";
-import { findTransactionError } from "../../contracts";
+import { AccountClass, findTransactionError } from "../../contracts";
 
 export enum ProcessingStatus {
     /**
@@ -65,7 +64,6 @@ export type SdkError = Error & {
     };
 };
 
-
 export type ProcessingResult<R, P> = R &
     (StartingState<P> | FinalizingState<P> | SuccessState | ErrorState);
 
@@ -104,4 +102,3 @@ export function resolveDerivativeTransaction<R>(
     }
     return { result, transaction: undefined };
 }
-

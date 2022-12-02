@@ -1,21 +1,23 @@
 import {
     FlexClientAccount,
     FlexWalletAccount,
+    PRICE_XCHG_ERROR,
     PriceXchgAccount,
     resolveContractError,
     XchgPairAccount,
+    AccountClass,
 } from "../../contracts";
 import { getWallet } from "./internals";
 import { PriceXchgGetDetailsOutput } from "../../contracts/generated/PriceXchgAccount";
 import { PriceOrder, TraderOptions } from "./types";
 import { Evr, TokenValue } from "../web3";
 import { abiContract, ProcessingErrorCode, TvmErrorCode } from "@eversdk/core";
-import { AccountClass } from "../../contracts/account-ex";
 import { resolveDerivativeTransaction, SdkError } from "./processing";
 import { DerivativeTransactionMessage } from "../web3/accounts";
 import { priceToUnits } from "../web3/utils";
 import { Flex } from "../flex";
 import { queryOrders } from "./query";
+import { FlexError } from "../error";
 
 export type CancelOrderOptions = {
     /**
@@ -166,7 +168,10 @@ export async function cancelOrder(
     } else if (findOrder(options.orderId, priceDetails.buys)) {
         sell = false;
     } else {
-        throw new Error(`Order ${options.orderId} not found in price ${priceDetails.address}.`);
+        throw new FlexError(
+            PRICE_XCHG_ERROR.canceled.exitCode,
+            `Order ${options.orderId} not found in price ${priceDetails.address}.`,
+        );
     }
     const wallet = await getWallet(evr, {
         marketAddress: options.marketAddress,
@@ -250,7 +255,8 @@ async function getPriceDetails(
         })
     ).output.value0;
     if (!(await evr.accounts.isActive(address))) {
-        throw new Error(
+        throw new FlexError(
+            PRICE_XCHG_ERROR.incorrect_price.exitCode,
             `Orderbook's price account [${address}] does not exist. Please check that the price (${JSON.stringify(
                 price,
             )}) is correct.`,

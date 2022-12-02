@@ -1,4 +1,3 @@
-import { AccountOptionsEx } from "../../contracts/account-ex";
 import {
     AuthIndexAccount,
     FlexAccount,
@@ -10,6 +9,7 @@ import {
     SuperRootOwnerAccount,
     UserDataConfigAccount,
     UserIdIndexAccount,
+    AccountOptionsEx,
     WICAccount,
     WrappersConfigAccount,
     XchgPairAccount,
@@ -25,48 +25,48 @@ import { addTip3TokenType, Tip3TokenTypeOptions } from "./tip3-token-type";
 import { EverWallet, SignerOption, toUnits, Evr } from "../web3";
 
 export type DeployExchangeOptions = {
-    everWallet: AccountOptionsEx,
-    signer: SignerOption,
+    everWallet: AccountOptionsEx;
+    signer: SignerOption;
     version?: {
-        wallet: number,
-        exchange: number,
-        user: number
-    },
-    superRootOwnerEvers?: number,
-    superRootEvers?: number,
-    prevSuperRoot?: string,
+        wallet: number;
+        exchange: number;
+        user: number;
+    };
+    superRootOwnerEvers?: number;
+    superRootEvers?: number;
+    prevSuperRoot?: string;
     wrappers?: {
-        mainEvers?: number,
-        deployEvers?: number,
-        keepEvers?: number,
-        version?: number,
-    },
+        mainEvers?: number;
+        deployEvers?: number;
+        keepEvers?: number;
+        version?: number;
+    };
     flex?: {
-        mainEvers?: number,
-        deployEvers?: number,
-        keepEvers?: number,
+        mainEvers?: number;
+        deployEvers?: number;
+        keepEvers?: number;
         evers?: {
-            deploy?: number,
-            setNext?: number,
-            pairKeep?: number,
-        },
-        oldFlex?: string /* optional(address) */,
-        version?: number /* uint32 */,
+            deploy?: number;
+            setNext?: number;
+            pairKeep?: number;
+        };
+        oldFlex?: string /* optional(address) */;
+        version?: number /* uint32 */;
         fees?: {
-            transferTip3?: number,
-            returnOwnership?: number,
-            orderAnswer?: number,
-            processQueue?: number,
-            sendNotify?: number,
-            destWalletKeepEvers: number,
-        },
-        dealsLimit: number /* uint8 */,
-    },
+            transferTip3?: number;
+            returnOwnership?: number;
+            orderAnswer?: number;
+            processQueue?: number;
+            sendNotify?: number;
+            destWalletKeepEvers: number;
+        };
+        dealsLimit: number /* uint8 */;
+    };
     tokenTypes?: {
-        ever?: EverTokenTypeOptions,
-        tip3?: Tip3TokenTypeOptions,
-    },
-}
+        ever?: EverTokenTypeOptions;
+        tip3?: Tip3TokenTypeOptions;
+    };
+};
 
 const DEFAULTS = {
     superRootOwnerEvers: 200,
@@ -113,15 +113,15 @@ enum FlexSetCodeType {
 }
 
 export type ExchangeInfo = {
-    superRootOwner: string,
-    superRoot: string,
-    wrappersConfig: string,
-    flex: string,
+    superRootOwner: string;
+    superRoot: string;
+    wrappersConfig: string;
+    flex: string;
     tokenTypes: {
-        ever?: TokenTypeInfo,
-        tip3?: TokenTypeInfo,
-    }
-}
+        ever?: TokenTypeInfo;
+        tip3?: TokenTypeInfo;
+    };
+};
 
 /** @internal */
 export async function deployExchange(
@@ -129,40 +129,47 @@ export async function deployExchange(
     options: DeployExchangeOptions,
 ): Promise<ExchangeInfo> {
     const superRootOwnerAddress = await deploySuperRootOwner(web3, options);
-    const superRootOwner = await web3.accounts.get(
-        SuperRootOwnerAccount,
-        {
-            address: superRootOwnerAddress,
-            signer: options.signer,
-        },
-    );
+    const superRootOwner = await web3.accounts.get(SuperRootOwnerAccount, {
+        address: superRootOwnerAddress,
+        signer: options.signer,
+    });
     const details = (await superRootOwner.getDetails()).output;
     let superRootAddress = details.super_root ?? "";
-    if (!superRootAddress || !await web3.accounts.isActive(superRootAddress)) {
-        superRootAddress = (await superRootOwner.runDeploySuperRoot({
-            evers: toUnits(options.superRootEvers ?? DEFAULTS.superRootEvers),
-            prev_super_root: options.prevSuperRoot,
-        })).output.value0;
+    if (!superRootAddress || !(await web3.accounts.isActive(superRootAddress))) {
+        superRootAddress = (
+            await superRootOwner.runDeploySuperRoot({
+                evers: toUnits(options.superRootEvers ?? DEFAULTS.superRootEvers),
+                prev_super_root: options.prevSuperRoot,
+            })
+        ).output.value0;
     }
     //
     // "wrappersConfig": "0:3cacf420de239c6f17e3be4224c278411f18c47cc5f49ae716dde072300037a1",
     //  "flex": "0:fd794c5fe241aacafa88d1e5bac6620b45400bfd58f2c762ae9f50289cf7e549",
 
-
-    let wrappersConfigAddress = "0:3cacf420de239c6f17e3be4224c278411f18c47cc5f49ae716dde072300037a1";
-    if (!await web3.accounts.isActive(wrappersConfigAddress)) {
-        wrappersConfigAddress = (await web3.accounts.waitForFinalExternalAnswer(
-            (await superRootOwner.runDeployWrappersConfig(wrappersConfig(options))).transaction as TransactionNode,
-            SuperRootOwnerAccount.package.abi,
-        )).value0;
+    let wrappersConfigAddress =
+        "0:3cacf420de239c6f17e3be4224c278411f18c47cc5f49ae716dde072300037a1";
+    if (!(await web3.accounts.isActive(wrappersConfigAddress))) {
+        wrappersConfigAddress = (
+            await web3.accounts.waitForFinalExternalAnswer(
+                (
+                    await superRootOwner.runDeployWrappersConfig(wrappersConfig(options))
+                ).transaction as TransactionNode,
+                SuperRootOwnerAccount.package.abi,
+            )
+        ).value0;
     }
 
     let flexAddress = "0:fd794c5fe241aacafa88d1e5bac6620b45400bfd58f2c762ae9f50289cf7e549";
-    if (!await web3.accounts.isActive(flexAddress)) {
-        flexAddress = (await web3.accounts.waitForFinalExternalAnswer(
-            (await superRootOwner.runDeployFlex(flexConfig(options))).transaction as TransactionNode,
-            SuperRootOwnerAccount.package.abi,
-        )).value0;
+    if (!(await web3.accounts.isActive(flexAddress))) {
+        flexAddress = (
+            await web3.accounts.waitForFinalExternalAnswer(
+                (
+                    await superRootOwner.runDeployFlex(flexConfig(options))
+                ).transaction as TransactionNode,
+                SuperRootOwnerAccount.package.abi,
+            )
+        ).value0;
     }
 
     const tokenTypeOptions = {
@@ -197,7 +204,9 @@ export async function deployExchange(
     return info;
 }
 
-function wrappersConfig(exchangeOptions: DeployExchangeOptions): SuperRootOwnerDeployWrappersConfigInput {
+function wrappersConfig(
+    exchangeOptions: DeployExchangeOptions,
+): SuperRootOwnerDeployWrappersConfigInput {
     const options = exchangeOptions.wrappers;
     const defaults = DEFAULTS.wrappers;
     return {
@@ -224,27 +233,28 @@ function flexConfig(exchangeOptions: DeployExchangeOptions): SuperRootOwnerDeplo
         exchange_version: options?.version ?? exchangeOptions.version?.exchange ?? 1,
         ev_cfg: {
             transfer_tip3: toUnits(options?.fees?.transferTip3 ?? defaults.fees.transferTip3),
-            return_ownership: toUnits(options?.fees?.returnOwnership ?? defaults.fees.returnOwnership),
+            return_ownership: toUnits(
+                options?.fees?.returnOwnership ?? defaults.fees.returnOwnership,
+            ),
             order_answer: toUnits(options?.fees?.orderAnswer ?? defaults.fees.orderAnswer),
             process_queue: toUnits(options?.fees?.processQueue ?? defaults.fees.processQueue),
             send_notify: toUnits(options?.fees?.sendNotify ?? defaults.fees.sendNotify),
-            dest_wallet_keep_evers: toUnits(options?.fees?.destWalletKeepEvers ?? defaults.fees.destWalletKeepEvers),
+            dest_wallet_keep_evers: toUnits(
+                options?.fees?.destWalletKeepEvers ?? defaults.fees.destWalletKeepEvers,
+            ),
         },
         deals_limit: options?.dealsLimit ?? defaults.dealsLimit,
     };
 }
 
-async function deploySuperRootOwner(
-    web3: Evr,
-    options: DeployExchangeOptions,
-): Promise<string> {
+async function deploySuperRootOwner(web3: Evr, options: DeployExchangeOptions): Promise<string> {
     const pubkey = await web3.signers.resolvePublicKey(options.signer);
     const superRootOwner = await web3.accounts.get(SuperRootOwnerAccount, {
         signer: options.signer,
     });
     const superRootOwnerAddress = await superRootOwner.getAddress();
 
-    if (!await web3.accounts.isActive(superRootOwnerAddress)) {
+    if (!(await web3.accounts.isActive(superRootOwnerAddress))) {
         await new EverWallet(web3, options.everWallet).topUp(
             superRootOwnerAddress,
             options.superRootOwnerEvers ?? DEFAULTS.superRootOwnerEvers,
@@ -270,7 +280,11 @@ async function deploySuperRootOwner(
 
     await setCode(FlexSetCodeType.SUPER_ROOT, SuperRootAccount, details.super_root_code);
     await setCode(FlexSetCodeType.GLOBAL_CFG, GlobalConfigAccount, details.global_cfg_code);
-    await setCode(FlexSetCodeType.FLEX_CLIENT_STUB, FlexClientStubAccount, details.flex_client_stub);
+    await setCode(
+        FlexSetCodeType.FLEX_CLIENT_STUB,
+        FlexClientStubAccount,
+        details.flex_client_stub,
+    );
     await setCode(FlexSetCodeType.WRAPPERS_CFG, WrappersConfigAccount, details.wrappers_cfg_code);
     await setCode(FlexSetCodeType.WIC, WICAccount, details.wic_code);
     await setCode(FlexSetCodeType.FLEX, FlexAccount, details.flex_code);
@@ -282,5 +296,3 @@ async function deploySuperRootOwner(
     await setCode(FlexSetCodeType.USER_ID_INDEX, UserIdIndexAccount, details.user_id_index_code);
     return superRootOwnerAddress;
 }
-
-

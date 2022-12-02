@@ -223,5 +223,110 @@ After that step the `flex-sdk-js` library can stop to compile.
 You have to perform changes in library code to reflect changes in 
 FLEX contract system if required.
 
+# TESTS
 
+## Install
 
+```bash 
+npm i
+npm run build
+```
+
+## Unit Tests
+
+```bash 
+npm t
+```
+
+## Integration Tests
+
+### Configure
+
+Create config file.
+Config file must be located and named as `flex-sdk-js/.secret/integration-test-config.json`.
+
+```json
+{
+    "flex": {
+        "evr": {
+            "sdk": {
+                "network": {
+                    "endpoints": [
+                        "https://devnet.evercloud.dev/<evercloud-project-id>/graphql"
+                    ]
+                }
+            }
+        },
+        "superRoot": "0:7a6d3ab04ab26333d6e0523410b60d9f4bc55913e4c0291010c8314e9e47d169"
+    },
+    "everWallet": {
+        "address": "<ever-wallet-address>",
+        "signer": "<ever-wallet-signer>"
+    },
+    "client": {
+        "address": "<flex-client-address>",
+        "signer": "<flex-client-signer>"
+    },
+    "trader": {
+        "signer": "<flex-trader-signer>"
+    },
+    "market": "0:a8f3f3bfafcac2adf95b62670aa01fbf610a103ce7029dc5f13cab4f0a7edfe8",
+    "EVER": {
+        "wrapper": "0:1cc3596e2db5cc92d0e02f55526f8aec949924ef320d72b763a5f4aafcca3e30",
+        "wallet": {
+            "address": "<ever-token-wallet-address>",
+            "signer": "<ever-token-wallet-signer>"
+        }
+    },
+    "TSDT": {
+        "wrapper": "0:b550a9138452d36d0a1e38edebac0063f3126e4d7a4cf593e6c090faa2ec0523",
+        "wrapperWallet": "0:c304ee549051d5500877f2fc796bb81e3f9cfde2b1b62de0eb360804ab7fe661",
+        "wallet": {
+            "address": "<tsdt-token-wallet-address>",
+            "signer": "<tsdt-token-wallet-signer>"
+        }
+    }
+}
+```
+
+Where:
+
+- `<ever-wallet-address>` and `<ever-wallet-signer>` is a main ever wallet.
+  If you omit address, it will be calculated from signer's public key.
+  This wallet must have enough balance to perform all integration test.
+
+- `<flex-client-address>` and `<flex-client-signer>` is a FlexClient account. 
+  
+- `<flex-trader-signer>` is a traders keys used in trading operations. Public key of this signer is
+  used as a `traderId`.
+
+- `<ever-token-wallet-address>` and `<ever-token-wallet-signer>` is a multisig wallet that will be 
+  used as an external EVER wallet.  
+  If you omit address, it will be calculated from signer's public key.
+  Usually it is the same as a main ever wallet.
+
+- `<tsdt-token-wallet-address>` and `<tsdt-token-wallet-signer>` is a TSDT TIP3 Token Wallet that will be used
+  as an external TSDT wallet.
+  Usually this wallet is related to the main ever wallet. So `<tsdt-token-wallet-signer>` is equal to
+  the `<ever-wallet-signer>`.
+
+Recommended signer names:
+- `flex-ever-wallet` for `<ever-wallet-signer>`.
+- `flex-client` for `<flex-client-signer>`.  
+- `flex-trader` for `<flex-trader-signer>`.
+- `flex-ever-token-wallet` for `<ever-token-wallet-signer>`.
+- `flex-tsdt-token-wallet` for `<tsdt-token-wallet-signer>`.
+
+### Prepare
+
+If you have no deployed trader and token wallets yet, you can do it with `prepare` script.  
+
+```bash
+npm run integration-test-prepare
+```
+
+### Run
+
+```bash 
+npm run integration-test
+```

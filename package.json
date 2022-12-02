@@ -5,9 +5,12 @@
     "scripts": {
         "docs": "typedoc --options typedoc.js",
         "build": "rimraf dist && tsc --project tsconfig.json",
-        "update-contracts": "node dist/contracts/update.js"
+        "update-contracts": "node dist/contracts/update.js",
+        "test": "playwright test --project unit",
+        "integration-test": "playwright test --project integration",
+        "integration-test-prepare": "node dist/integration-test/config/prepare"
     },
-    "test": "jest",
+    "test": "test",
     "dependencies": {
         "@eversdk/appkit": "^0.3.2",
         "@eversdk/core": "^1.38.0",

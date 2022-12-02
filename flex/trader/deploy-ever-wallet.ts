@@ -1,47 +1,45 @@
 import { Flex } from "../flex";
-import { WrapperEverAccount } from "../../contracts";
-import { AccountOptionsEx } from "../../contracts/account-ex";
+import { WrapperEverAccount, AccountOptionsEx } from "../../contracts";
 import { EverWallet, toUnits, uint256 } from "../web3";
 
 export type DeployTraderEverWalletOptions = {
     /**
      * Multisig EVER wallet from which EVERs are deposited on Trader's wallet on DEX
      */
-    everWallet: AccountOptionsEx,
+    everWallet: AccountOptionsEx;
     /**
      * Flex Client contract address
      */
-    clientAddress: string,
+    clientAddress: string;
     /**
      * Trader ID. uint256 hex string.
      */
-    traderId: string,
+    traderId: string;
     /**
      * EVER wrapper (that also acts as EVER Vault) address
      */
-    wrapperAddress: string,
+    wrapperAddress: string;
     /**
      * Amount of EVERs to deposit
      */
-    tokens: number,
+    tokens: number;
 
     /**
-     * Amount of native EVERs that the deposit message carries. Later on, DEX wallet will spend them to pay for gas. 
+     * Amount of native EVERs that the deposit message carries. Later on, DEX wallet will spend them to pay for gas.
      */
-    evers?: number,
+    evers?: number;
     /**
      * Minimum amount of EVERs on DEX wallet. If balance drops below this amount,
      * wallet is automatically topped-up from the Trader's Index wallet.
      */
-    keepEvers?: number,
-}
+    keepEvers?: number;
+};
 
 export type EverWalletInfo = {
-    address: string,
-}
+    address: string;
+};
 
 const DEFAULTS = {
-    
     evers: 15,
     keepEvers: 12,
 };
@@ -53,10 +51,12 @@ export async function deployTraderEverWallet(
 ): Promise<EverWalletInfo> {
     const pubkey = uint256(options.traderId);
     const wrapper = await flex.evr.accounts.get(WrapperEverAccount, options.wrapperAddress);
-    const walletAddress = (await wrapper.getWalletAddress({
-        owner: options.clientAddress,
-        pubkey,
-    })).output.value0;
+    const walletAddress = (
+        await wrapper.getWalletAddress({
+            owner: options.clientAddress,
+            pubkey,
+        })
+    ).output.value0;
     const everWallet = new EverWallet(flex.evr, options.everWallet);
     const evers = options.evers ?? DEFAULTS.evers;
     const keepEvers = options.keepEvers ?? DEFAULTS.keepEvers;
@@ -78,7 +78,7 @@ export async function deployTraderEverWallet(
             },
         },
     });
-    
+
     return {
         address: walletAddress,
     };

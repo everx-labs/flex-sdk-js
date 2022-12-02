@@ -73,6 +73,5 @@ async function prepare(options: { trader?: boolean; TSDT?: boolean; EVER?: boole
     }
 }
 
-if (process.env.PREPARE_FLEX_TEST === "1") {
-    void prepare({ trader: true, EVER: true, TSDT: true });
-}
+void prepare({ trader: true, EVER: true, TSDT: true });
+

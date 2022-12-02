@@ -97,7 +97,7 @@ function title(i: number): string {
 
 async function runMakeOrder(i: number, trading: Trading, orders: PriceOrder[]): Promise<OrderInfo> {
     const { side, price, amount } = makeOrderTests[i];
-    const newOrder = await trading.makeOrder(side, price, amount);
+    const newOrder = await trading.makeOrderWithRequiredSuccess({ side, price, amount });
     orders.push(newOrder);
     const order = (await Trader.queryOrders(trading.flex, trading.trader.id)).find(
         x => x.orderId === newOrder.orderId,
