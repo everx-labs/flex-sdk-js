@@ -21,7 +21,7 @@ async function createTSDTInternal(flex: Flex, config: TestConfig, accounts: Test
         clientAddress,
         everWallet: config.everWallet,
         traderId: accounts.traderId,
-        tokenUnits: "10000000000",
+        tokenUnits: "50000000",
         transferEvers: 21,
         evers: 20,
         keepEvers: 15,

@@ -142,7 +142,7 @@ test("Create TSDT Wallet", async ({ flex, config, client, traderId, accounts }) 
                 signer: (await accounts.everWallet.getAccount()).signer,
             },
             traderId,
-            tokenUnits: "100000000",
+            tokenUnits: "10000000",
             transferEvers: 21,
             evers: 20,
             keepEvers: 15,
