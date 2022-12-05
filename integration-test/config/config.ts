@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import { defaultConfig, FlexConfig, SignerOption } from "../../flex";
+import { FlexConfig, SignerOption } from "../../flex";
 
 type AccountConfig = {
     address?: string;
@@ -40,29 +40,5 @@ export function createConfig(): TestConfig {
         ".secret",
         "integration-test-config.json",
     );
-    if (fs.existsSync(configFilePath)) {
-        return JSON.parse(fs.readFileSync(configFilePath, "utf8"));
-    }
-    return {
-        flex: defaultConfig(),
-        everWallet: {
-            signer: "everWallet",
-        },
-        client: {
-            signer: "everWallet",
-        },
-        trader: {
-            signer: "everWallet",
-        },
-        market: "",
-        EVER: {
-            wrapper: "",
-            wallet: { signer: "everWallet" },
-        },
-        TSDT: {
-            wrapper: "",
-            wrapperWallet: "",
-            wallet: { signer: "everWallet" },
-        },
-    };
+    return JSON.parse(fs.readFileSync(configFilePath, "utf8"));
 }
