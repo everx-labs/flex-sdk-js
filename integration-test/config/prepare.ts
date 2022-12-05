@@ -52,6 +52,7 @@ async function prepare(options: { trader?: boolean; TSDT?: boolean; EVER?: boole
     try {
         TonClient.useBinaryLibrary(libNode);
         const config = createConfig();
+        console.log("Prepare accounts using config:", JSON.stringify(config, undefined, 4));
         const flex = new Flex(config.flex);
         const accounts = await createAccounts(flex, config);
         try {
