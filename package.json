@@ -1,13 +1,16 @@
 {
     "name": "flex-sdk-js",
-    "version": "0.8.0",
+    "version": "0.10.0",
     "main": "dist/flex/index.js",
     "scripts": {
         "docs": "typedoc --options typedoc.js",
         "build": "rimraf dist && tsc --project tsconfig.json",
-        "update-contracts": "node dist/contracts/update.js"
+        "update-contracts": "node dist/contracts/update.js",
+        "test": "playwright test --project unit",
+        "integration-test": "playwright test --project integration",
+        "integration-test-prepare": "node dist/integration-test/config/prepare.js"
     },
-    "test": "jest",
+    "test": "test",
     "dependencies": {
         "@eversdk/appkit": "^0.3.2",
         "@eversdk/core": "^1.38.0",
@@ -17,19 +20,17 @@
     },
     "devDependencies": {
         "@eversdk/lib-node": "^1.37.0",
-        "@types/jest": "^27.4.1",
-        "@types/node": "^16.18.3",
+        "@playwright/test": "^1.28.1",
+        "@types/node": "^16.0.1",
         "@typescript-eslint/eslint-plugin": "^5.19.0",
         "@typescript-eslint/parser": "^5.19.0",
         "eslint": "^7.30.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-jest": "^26.1.4",
         "eslint-plugin-prettier": "^4.0.0",
-        "jest": "^27.5.1",
         "prettier": "^2.3.2",
         "rimraf": "^3.0.2",
-        "ts-jest": "^27.1.4",
         "typedoc": "^0.23.11",
-        "typescript": "^4.6.3"
+        "typescript": "^4.9.3"
     }
 }

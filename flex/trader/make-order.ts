@@ -4,6 +4,7 @@ import {
     findTransactionError,
     FlexClientAccount,
     FlexWalletAccount,
+    PRICE_XCHG_ERROR,
     PriceXchgAccount,
     resolveContractError,
     XchgPairAccount,
@@ -11,10 +12,11 @@ import {
 import { getWallet } from "./internals";
 import { TraderOptions } from "./types";
 import { toUnits, Evr, TokenValue } from "../web3";
-import { AccountClass } from "../../contracts/account-ex";
+import { AccountClass } from "../../contracts";
 import { resolveDerivativeTransaction, SdkError } from "./processing";
 import { DerivativeTransactionMessage } from "../web3/accounts";
 import { priceToUnits } from "../web3/utils";
+import { FlexError } from "../error";
 
 export type MakeOrderOptions = {
     clientAddress: string;
@@ -137,8 +139,8 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
     const saltedPriceCode = (await pair.getPriceXchgCode({ salted: true })).output.value0;
     const priceSalt = (await pair.getPriceXchgSalt()).output.value0;
     const amount = toUnits(options.amount, pairDetails.major_tip3cfg.decimals);
-    const orderId =
-        options.orderId !== undefined ? options.orderId : await generateRandomOrderId(flex.evr);
+    const resolvedOrderId = options.orderId ?? (await generateRandomOrderId(flex.evr));
+    const orderId = `0x${BigInt(resolvedOrderId).toString(16)}`;
     const price = priceToUnits(
         options.price,
         pairDetails.price_denum,
@@ -155,8 +157,9 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
     const finishTime = options.finishTime ?? Math.floor((Date.now() + 10 * 60 * 60 * 1000) / 1000);
 
     if (BigInt(amount) < BigInt(pairDetails.min_amount)) {
-        throw new Error(
-            `Specified amount ${amount} is less that market min amount ${pairDetails.min_amount}`,
+        throw new FlexError(
+            PRICE_XCHG_ERROR.amount_is_less_then_market_min_amount.exitCode,
+            `Specified amount ${amount} is less then market min amount ${pairDetails.min_amount}`,
         );
     }
     const clientAccount = await flex.evr.accounts.get(FlexClientAccount, options.clientAddress);
@@ -198,7 +201,7 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
                     onProcessing: evt => {
                         if (evt.type === "WillSend") {
                             result = {
-                                orderId: orderId.toString(),
+                                orderId,
                                 status: MakeOrderStatus.STARTING,
                                 params: {
                                     isSell: options.sell,
@@ -327,7 +330,10 @@ export async function finalizeMakeOrder(
             if (resolved.transaction) {
                 let answer: DerivativeTransactionMessage | undefined = undefined;
                 for (const msg of resolved.transaction.out_messages) {
-                    if (msg.dst === walletAddress && Number(msg.created_lt) > (answer?.created_lt ?? 0)) {
+                    if (
+                        msg.dst === walletAddress &&
+                        Number(msg.created_lt) > (answer?.created_lt ?? 0)
+                    ) {
                         answer = msg;
                     }
                 }

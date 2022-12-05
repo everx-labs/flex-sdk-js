@@ -4,11 +4,13 @@ import { EvrAccounts } from "./accounts";
 import { Log } from "../../contracts/helpers";
 
 export type EvrConfig = {
-    sdk: ClientConfig,
-}
+    sdk: ClientConfig;
+};
 
 export class Evr {
     static readonly NATIVE_DECIMALS = 9;
+    static readonly NATIVE_TOKEN_IN_UNITS = BigInt(1e9);
+
     /**
      * Everscale client instance
      */
@@ -28,6 +30,10 @@ export class Evr {
 
     static unitsFromTokens(tokens: number): number {
         return tokens * 1e9;
+    }
+
+    static toUnits(tokens: number): bigint {
+        return BigInt(tokens) * Evr.NATIVE_TOKEN_IN_UNITS;
     }
 
     constructor(config?: EvrConfig) {

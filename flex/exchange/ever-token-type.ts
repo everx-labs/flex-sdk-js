@@ -4,29 +4,29 @@ import {
     // TONTokenWalletAccount,
     WrapperDeployerEverAccount,
     WrapperEverAccount,
+    AccountOptionsEx,
 } from "../../contracts";
-import { AccountOptionsEx } from "../../contracts/account-ex";
 import { EverWallet, toUnits, Evr, SignerOption } from "../web3";
 
 export const EVER_TOKEN_TYPE = 1;
 
 export type EverTokenTypeOptions = {
-    wrapperSigner: SignerOption,
-    wrapperDeployerSigner: SignerOption,
-    wrapperDeployerBalance?: number,
-    wrapperDeployEvers?: number,
-    wrapperKeepEvers?: number,
-    reserveWalletEvers?: number
-    mainEvers?: number,
-    callEvers?: number,
-    keepEvers?: number,
-}
+    wrapperSigner: SignerOption;
+    wrapperDeployerSigner: SignerOption;
+    wrapperDeployerBalance?: number;
+    wrapperDeployEvers?: number;
+    wrapperKeepEvers?: number;
+    reserveWalletEvers?: number;
+    mainEvers?: number;
+    callEvers?: number;
+    keepEvers?: number;
+};
 
 export type AddEverTokenTypeOptions = {
-    everWallet: AccountOptionsEx,
-    superRootOwner: AccountOptionsEx,
-    superRoot: string,
-    wrappersConfigAddress: string,
+    everWallet: AccountOptionsEx;
+    superRootOwner: AccountOptionsEx;
+    superRoot: string;
+    wrappersConfigAddress: string;
 } & EverTokenTypeOptions;
 
 const DEFAULTS = {
@@ -42,8 +42,8 @@ const DEFAULTS = {
 };
 
 export type TokenTypeInfo = {
-    deployer: string,
-}
+    deployer: string;
+};
 
 /** @internal */
 export async function addEverTokenType(
@@ -84,4 +84,3 @@ export async function addEverTokenType(
         deployer: await deployer.getAddress(),
     };
 }
-

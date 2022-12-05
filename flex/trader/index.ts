@@ -10,6 +10,9 @@ import {
     waitForMakeOrder,
 } from "./make-order";
 import {
+    cancelAllOrders,
+    CancelAllOrdersParams,
+    CancelAllOrdersResult,
     cancelOrder,
     CancelOrderOptions,
     CancelOrderResult,
@@ -152,9 +155,26 @@ export class Trader {
      * @param options
      * Cancellation options
      *
-     * @returns     */
+     * @returns
+     */
     static async cancelOrder(flex: Flex, options: CancelOrderOptions): Promise<CancelOrderResult> {
         return await cancelOrder(flex.evr, options);
+    }
+
+    /**
+     * Cancels all trader orders.
+     *
+     * @param flex
+     * DEX instance
+     *
+     * @param options
+     * Cancellation options
+     */
+    static async cancelAllOrders(
+        flex: Flex,
+        options: CancelAllOrdersParams,
+    ): Promise<CancelAllOrdersResult> {
+        return await cancelAllOrders(flex, options);
     }
 
     /**
@@ -226,23 +246,22 @@ export class Trader {
 
     /**
      * Tops up Trader's wallets and UserIndex contracts.
-     * Tops up to the minimum balance specified + additional value on top. 
+     * Tops up to the minimum balance specified + additional value on top.
      * Topup value will be equal to (minimum balance - current balance + value) for each account.
-     * @param flex 
-     * @param options 
-     * @returns 
+     * @param flex
+     * @param options
+     * @returns
      */
     static async topUp(flex: Flex, options: TopUpOptions): Promise<TopUpResult> {
         return await topUp(flex, options);
     }
 
-
     /**
-     * Calculates topup value for Trader's wallets and UserIndex contracts. 
+     * Calculates topup value for Trader's wallets and UserIndex contracts.
      * Topup value will be equal to (minimum balance - current balance + value) for each account.
-     * @param flex 
-     * @param options 
-     * @returns 
+     * @param flex
+     * @param options
+     * @returns
      */
     static async getTopUpInfo(flex: Flex, options: TopUpOptions): Promise<TopUpResult> {
         return await getTopUpInfo(flex, options);

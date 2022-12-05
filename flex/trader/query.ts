@@ -11,6 +11,8 @@ export async function queryOrders(flex: Flex, trader: string): Promise<OrderInfo
                 pair { ${Market.queryFields()} }
                 side
                 price
+                priceNum
+                priceScale
                 orderId
                 userId
                 amountProcessed

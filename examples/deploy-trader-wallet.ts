@@ -12,7 +12,7 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
             tokenWrapperWalletAddress: "token-wrapper-wallet",
             tokenWalletAddress: "token-wallet",
             tokenUnits: "100000",
-            everWallet: { signer: "msig " },
+            everWallet: { signer: "everWallet" },
         });
 
         await Trader.deployEverWallet(flex, {
@@ -20,7 +20,7 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
             traderId: CONFIG.trader.id,
             tokens: 100000,
             wrapperAddress: "wrapper-address",
-            everWallet: { signer: "msig " },
+            everWallet: { signer: "everWallet" },
         });
 
         await flex.close();

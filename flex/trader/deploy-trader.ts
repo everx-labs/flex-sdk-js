@@ -1,39 +1,41 @@
-import { FlexClientAccount } from "../../contracts";
-import { AccountOptionsEx } from "../../contracts/account-ex";
+import { AccountOptionsEx, FlexClientAccount, PRICE_XCHG_ERROR } from "../../contracts";
 import { Flex } from "../flex";
 import { Evr, uint256 } from "../web3";
+import { FlexError } from "../error";
 
 export type DeployTraderOptions = {
     /**
      *
      */
-    client: AccountOptionsEx,
+    client: AccountOptionsEx;
     /**
      * Trader's ID. uint256 hex string, can be generated randomly or by some
      * algorithms by the DEX integrator.
      */
-    id: string,
+    id: string;
     /**
      * Trader's name. Can be any.
      */
-    name: string,
+    name: string;
     /**
      * Trader's pubkey from signing key pair which Trader generates on his own.
      */
-    pubkey: string,
+    pubkey: string;
 
     eversAll?: string | number | bigint;
     eversAuth?: string | number | bigint;
     refillWallet?: string | number | bigint;
     minRefill?: string | number | bigint;
-}
+};
 
 export async function deployTrader(flex: Flex, options: DeployTraderOptions): Promise<void> {
     const clientAccount = await flex.evr.accounts.get(FlexClientAccount, options.client);
     const userId = uint256(options.id);
-    const address = (await clientAccount.getUserIdIndex({
-        user_id: userId,
-    })).output.value0;
+    const address = (
+        await clientAccount.getUserIdIndex({
+            user_id: userId,
+        })
+    ).output.value0;
     flex.evr.log.info(`Deploy trader address: ${address}`);
     if (!(await flex.evr.accounts.isActive(address))) {
         const defaults = flex.config.trader.deploy;
@@ -42,7 +44,10 @@ export async function deployTrader(flex: Flex, options: DeployTraderOptions): Pr
         const clientBalance = Number(await clientAccount.getBalance());
         const requiredBalance = Number(eversAll) + Evr.unitsFromTokens(1);
         if (clientBalance < requiredBalance) {
-            throw Error(`Flex client ${address} balance ${clientBalance} is not enough to deploy trader. Required balance is ${requiredBalance}. You have to topup flex client balance.`);
+            throw new FlexError(
+                PRICE_XCHG_ERROR.not_enough_native_currency_to_process.exitCode,
+                `Flex client ${address} balance ${clientBalance} is not enough to deploy trader. Required balance is ${requiredBalance}. You have to topup flex client balance.`,
+            );
         }
         await clientAccount.runDeployIndex({
             user_id: userId,
