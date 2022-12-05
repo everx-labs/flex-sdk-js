@@ -49,11 +49,11 @@ async function createEVERInternal(flex: Flex, config: TestConfig, accounts: Test
 }
 
 async function prepare(options: { trader?: boolean; TSDT?: boolean; EVER?: boolean }) {
-    TonClient.useBinaryLibrary(libNode);
-    const config = createConfig();
-    const flex = new Flex(config.flex);
-    const accounts = await createAccounts(flex, config);
     try {
+        TonClient.useBinaryLibrary(libNode);
+        const config = createConfig();
+        const flex = new Flex(config.flex);
+        const accounts = await createAccounts(flex, config);
         try {
             if (options.trader ?? false) {
                 await createTrader(flex, config, accounts);
@@ -64,14 +64,13 @@ async function prepare(options: { trader?: boolean; TSDT?: boolean; EVER?: boole
             if (options.TSDT ?? false) {
                 await createTSDTInternal(flex, config, accounts);
             }
-        } catch (err) {
-            console.error(err);
-            process.exit(1);
+        } finally {
+            await flex.close();
         }
-    } finally {
-        await flex.close();
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
     }
 }
 
 void prepare({ trader: true, EVER: true, TSDT: true });
-

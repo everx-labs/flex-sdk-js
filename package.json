@@ -8,7 +8,7 @@
         "update-contracts": "node dist/contracts/update.js",
         "test": "playwright test --project unit",
         "integration-test": "playwright test --project integration",
-        "integration-test-prepare": "node dist/integration-test/config/prepare"
+        "integration-test-prepare": "node dist/integration-test/config/prepare.js"
     },
     "test": "test",
     "dependencies": {
