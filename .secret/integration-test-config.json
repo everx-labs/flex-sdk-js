@@ -1,0 +1,47 @@
+{
+    "flex": {
+		"superRoot": "0:7a6d3ab04ab26333d6e0523410b60d9f4bc55913e4c0291010c8314e9e47d169",
+        "evr": {
+            "sdk": {
+                "network": {
+                    "endpoints": ["https://test.flex.everos.dev"]
+                }
+            }
+        }
+	},
+    "everWallet": {
+		"address": "0:c2578fa6292d3d56b17051d289f428ccafd09282e43ad27119d6107e5c492070",
+        "signer": "83abd136ef19358dd4f5039f46a8dfa86e1c666d4d9cbcd6b69479217e77d1ef"
+	},
+    "client": {
+		"address": "0:69899f1d1f4e0b548a398e1e79001395de9414aa4badfb06956cc4d8da025e4f",
+        "signer": "83abd136ef19358dd4f5039f46a8dfa86e1c666d4d9cbcd6b69479217e77d1ef"
+	},
+    "trader": {
+        "signer": "0e1c26b94299e3d88b2fcde617af1abab1f759bb27bb84563d9c6da630f8f163"
+    },
+	"market": "0:a8f3f3bfafcac2adf95b62670aa01fbf610a103ce7029dc5f13cab4f0a7edfe8",
+    "EVER": {
+        "wrapper": "0:1cc3596e2db5cc92d0e02f55526f8aec949924ef320d72b763a5f4aafcca3e30",
+        "wallet": {
+            "address": "0:c2578fa6292d3d56b17051d289f428ccafd09282e43ad27119d6107e5c492070",
+            "signer": "83abd136ef19358dd4f5039f46a8dfa86e1c666d4d9cbcd6b69479217e77d1ef"
+		}
+    },
+    "TSDT": {
+        "wrapper": "0:b550a9138452d36d0a1e38edebac0063f3126e4d7a4cf593e6c090faa2ec0523",
+        "wrapperWallet": "0:c304ee549051d5500877f2fc796bb81e3f9cfde2b1b62de0eb360804ab7fe661",
+        "wallet": {
+            "address": "0:c2578fa6292d3d56b17051d289f428ccafd09282e43ad27119d6107e5c492070",
+            "signer": "83abd136ef19358dd4f5039f46a8dfa86e1c666d4d9cbcd6b69479217e77d1ef"
+		}
+    },
+    "TBTC": {
+        "wrapper": "0:b10af0f3b17440d3a152e78b7dd971be7d47bc3299aa465bf7ceddb79660b948",
+        "wrapperWallet": "0:69d1ab51377f2fa29fc121b956b96f01f9234b9a3579552d0ec526c1d6e66613",
+        "wallet": {
+            "address": "0:c2578fa6292d3d56b17051d289f428ccafd09282e43ad27119d6107e5c492070",
+            "signer": "83abd136ef19358dd4f5039f46a8dfa86e1c666d4d9cbcd6b69479217e77d1ef"
+		}
+    }
+}
