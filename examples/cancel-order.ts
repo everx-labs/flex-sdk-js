@@ -6,17 +6,11 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
     const flex = new Flex(EXAMPLES_FLEX_CONFIG);
     try {
         // flex.evr.log.level = LogLevel.DEBUG;
-        const clientAddress = CONFIG.trader.client;
-        const traderId = CONFIG.trader.id;
-        const marketAddress = CONFIG.market;
 
         let result = await Trader.cancelOrder(flex, {
-            clientAddress: clientAddress,
-            trader: {
-                id: traderId,
-                signer: "traderSigner",
-            },
-            marketAddress: marketAddress,
+            clientAddress: CONFIG.trader.client,
+            trader: CONFIG.trader,
+            marketAddress: CONFIG.market.EVER_TBTC,
             // price: { tokens: 0.2 },
             price: { units: "2777771.1" },
             orderId: "0xd5ec99b62fdd7523",

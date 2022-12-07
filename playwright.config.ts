@@ -3,6 +3,7 @@ const TIMEOUT = 30 * 60 * 1000;
 const config: PlaywrightTestConfig = {
     timeout: 30 * 60 * 1000,
     workers: 1,
+    maxFailures: 1,
     projects: [
         {
             name: "unit",

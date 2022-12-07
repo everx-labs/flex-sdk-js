@@ -1,4 +1,4 @@
-import { EverWallet, Flex, uint256 } from "../../flex";
+import { EverWallet, Flex, Client, uint256 } from "../../flex";
 import {
     FlexClientAccount,
     FlexWalletAccount,
@@ -32,6 +32,13 @@ export type TestAccounts = {
 export async function createAccounts(flex: Flex, config: TestConfig): Promise<TestAccounts> {
     const traderId = await flex.evr.signers.resolvePublicKey(config.trader.signer);
     const everWallet = new EverWallet(flex.evr, config.everWallet);
+    if (config.client.address == "") {
+        config.client.address = await Client.deploy(flex, {
+            everWallet: config.everWallet,
+            signer: config.client.signer
+        });
+        console.log("Client:", config.client.address);
+    }
     const flexClient = await flex.evr.accounts.get(FlexClientAccount, config.client);
     const everTokenWallet = await flex.evr.accounts.get(MultisigWalletAccount, config.EVER.wallet);
     const pubkey = uint256(traderId);
