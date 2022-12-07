@@ -6,20 +6,14 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
     const flex = new Flex(EXAMPLES_FLEX_CONFIG);
     try {
         // flex.evr.log.level = LogLevel.DEBUG;
-        const clientAddress = CONFIG.trader.client;
-        const traderId = CONFIG.trader.id;
-        const marketAddress = CONFIG.market;
 
         let result = await Trader.makeOrder(flex, {
-            clientAddress: clientAddress,
-            trader: {
-                id: traderId,
-                signer: "flex-trader",
-            },
+            clientAddress: CONFIG.trader.client,
+            trader: CONFIG.trader,
             sell: true,
-            marketAddress: marketAddress,
-            price: "0.045",
-            amount: "5.05",
+            marketAddress: CONFIG.market.EVER_TBTC,
+            price: { units: "2777771.1" },
+            amount: { units: 1000 },
             waitForOrderbookUpdate: false,
         });
         flex.evr.log.info("MakeOrder Initialization result on wallet", result);
