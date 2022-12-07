@@ -5,4 +5,3 @@
 /tsconfig.tsbuildinfo
 .secret/
 /playwright-report/
-/dist/
