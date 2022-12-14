@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.10.1] – 2022-12-05
+
+### Fixed
+
+- ```...
+Run FlexWalletAccount.cancelOrder... TX: 3c4ea23aeecc3bec5e208a2ead7aeafba7fcf1be48714ace986bedcf48098dcf ✓
+Waiting for derivative transaction was stopped: account 0:0302cf72b231d26ba1a28ed21010d48029b236cdc69c2c9571ba4d9ac08f0153 has inactive state 3."
+STDERR: "TypeError: Cannot read properties of null (reading 'toString')
+    at errorFromExitCode (node_modules/flex-sdk-js/dist/contracts/errors.js:9:90)
+    at findTransactionError (node_modules/flex-sdk-js/dist/contracts/errors.js:42:19)
+    at resolveDerivativeTransaction (node_modules/flex-sdk-js/dist/flex/trader/processing.js:19:60)
+    at node_modules/flex-sdk-js/dist/flex/trader/cancel-order.js:177:80```
+
 ## [0.10.0] – 2022-12-05
 
 ### New
