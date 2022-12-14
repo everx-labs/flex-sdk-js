@@ -19,8 +19,8 @@ export type DerivativeTransaction = {
     out_messages: DerivativeTransactionMessage[];
     account_addr: string;
     aborted: boolean;
-    compute: {
-        exit_code: number;
+    compute?: {
+        exit_code?: number;
     };
     lt: string;
 };

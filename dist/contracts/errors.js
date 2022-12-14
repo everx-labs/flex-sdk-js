@@ -31,8 +31,10 @@ function resolveContractError(originalError, contract) {
 }
 exports.resolveContractError = resolveContractError;
 function findTransactionError(transaction, contract, altErrorCode = 0) {
-    const { id, aborted, compute: { exit_code }, account_addr, } = transaction;
-    const errorCode = exit_code !== 0 ? exit_code : altErrorCode;
+    var _a, _b;
+    const { id, aborted, account_addr, } = transaction;
+    const exitCode = (_b = (_a = transaction.compute) === null || _a === void 0 ? void 0 : _a.exit_code) !== null && _b !== void 0 ? _b : 0;
+    const errorCode = exitCode !== 0 ? exitCode : altErrorCode;
     if (!aborted && errorCode === 0) {
         return undefined;
     }
