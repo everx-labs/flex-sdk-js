@@ -1,7 +1,9 @@
 ---
 markmap:
     initialExpandLevel: 3
-    # use markmap VSCode extension to render this file
+    # Use markmap VSCode extension to render this file
+    # After installation, you must click the Trust source button
+    # Then Cmd+p > Open as markmup
 ---
 
 - FLEX
