@@ -62,10 +62,10 @@ export function findTransactionError(
     const {
         id,
         aborted,
-        compute: { exit_code },
         account_addr,
     } = transaction;
-    const errorCode = exit_code !== 0 ? exit_code : altErrorCode;
+    const exitCode = transaction.compute?.exit_code ?? 0;
+    const errorCode = exitCode !== 0 ? exitCode : altErrorCode;
     if (!aborted && errorCode === 0) {
         return undefined;
     }
