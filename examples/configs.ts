@@ -67,7 +67,7 @@ export const DEFAULT_CONFIG: ExamplesConfig = {
         }
     },
     market: {
-        EVER_TSDT: "0:a8f3f3bfafcac2adf95b62670aa01fbf610a103ce7029dc5f13cab4f0a7edfe8",
-        EVER_TBTC: "0:10a7d6fedfc295ffe65316c3639934b3240a0cde715836d87eb2f59bc71a94bc",
+        EVER_TSDT: "0:6e5cdd84aae99152121653c0901632b11b848f8eb18b1a0963cfffcf9b82d61f",
+        EVER_TBTC: "0:c03421cbca87a213a6f9feafd9830f9e3d19d02e6a438ff964362e36cffcb31a",
     }
 };
