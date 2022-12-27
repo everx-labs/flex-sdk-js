@@ -2,6 +2,7 @@ import path from "path"
 import fs from "fs"
 import { TonClient } from "@eversdk/core"
 import { libNode } from "@eversdk/lib-node"
+import { Flex, FlexConfig, SignerOption, Token, Market, Client, Trader, EverWallet } from "../flex"
 
 type AccountConfig = {
     address?: string
@@ -44,8 +45,6 @@ export function createConfig(): TestConfig {
     return JSON.parse(fs.readFileSync(configFilePath, "utf8"))
 }
 
-import { Flex, FlexConfig, SignerOption, Token, Market, Client, Trader } from "../flex"
-
 (async () => {
     TonClient.useBinaryLibrary(libNode)
     const config = createConfig()
@@ -65,8 +64,14 @@ import { Flex, FlexConfig, SignerOption, Token, Market, Client, Trader } from ".
         flex.evr.log.info("Market Order Book", await Market.queryOrderBook(flex, market))
         flex.evr.log.info("Market Price", await Market.queryPrice(flex, market))
 
+        console.log({everWallet})
         console.log({clientAddress})
         console.log({traderId})
+
+        const everWalletContract = new EverWallet(flex.evr, everWallet)
+        const everWalletAccount = await everWalletContract.getAccount()
+        const everWalletAccountBalance = await everWalletAccount.getBalance()
+        flex.evr.log.info("everWallet Account balance", Number(everWalletAccountBalance) / 1e9)
 
         flex.evr.log.info("Client info", await Client.getClientInfo(flex, clientAddress))
         flex.evr.log.info("Trader index info", await Trader.getIndexInfo(flex, clientAddress, traderId))
@@ -74,6 +79,7 @@ import { Flex, FlexConfig, SignerOption, Token, Market, Client, Trader } from ".
         flex.evr.log.info("Trader Trades", await Trader.queryTrades(flex, traderId))
 
         flex.evr.log.info("Trader Wallets", await Trader.queryWallets(flex, {clientAddress, traderId}))
+        flex.evr.log.info("Trader Trades", await Trader.queryTrades(flex, traderId))
 
     } catch (err) {
         flex.evr.log.error(err)
