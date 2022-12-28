@@ -6,26 +6,21 @@ const test = base.extend<{
     nativeBalances: { get: (address: string) => bigint | undefined}
 }>({
     nativeBalances: async({flex, accounts}, use) => {
-        await use(await flex.evr.accounts.getBalancesUnits([
-                accounts.flexClientAddress,
-                accounts.everWalletAddress,
-                accounts.TSDT.internalAddress,
-                accounts.EVER.internalAddress,
-            ]))
-        }
-})
-
-test.describe('Balances', () => {
-    test("TopUp", async ({ flex, nativeBalances, accounts }) => {
-        if ( Number(nativeBalances.get(accounts.everWalletAddress) ?? 0) < Evr.toUnits(200) ) {
+        const res = await flex.evr.accounts.getBalancesUnits([
+            accounts.flexClientAddress,
+            accounts.everWalletAddress,
+            accounts.TSDT.internalAddress,
+            accounts.EVER.internalAddress,
+        ])
+        if ( Number(res.get(accounts.everWalletAddress) ?? 0) < Evr.toUnits(300) ) {
             console.log(execFileSync("everdev", [
                 "contract",
                 "topup",
                 "-a", accounts.everWalletAddress,
-                "-v", Evr.toUnits(200).toString()
+                "-v", Evr.toUnits(300).toString()
             ]).toString('utf8'))
         }
-        if ( Number(nativeBalances.get(accounts.flexClientAddress) ?? 0) < Evr.toUnits(50) ) {
+        if ( Number(res.get(accounts.flexClientAddress) ?? 0) < Evr.toUnits(50) ) {
             console.log(await accounts.everWallet.topUp(accounts.flexClientAddress, 50))
         }
         console.log(await Trader.topUp(flex, {
@@ -35,8 +30,11 @@ test.describe('Balances', () => {
             minBalance: 100,
             value: 0,
         }))
-    })
+        await use(res)
+    }
+})
 
+test.describe('Balances', () => {
     test("natives", async ({ nativeBalances, accounts }) => {
         expect(
             nativeBalances.get(accounts.everWalletAddress),

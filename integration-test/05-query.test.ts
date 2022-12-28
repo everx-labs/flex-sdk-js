@@ -7,13 +7,13 @@ import { assert } from "console";
 type HelperFixtures = {
     takeOrder: ( side: TradeSide, price: TokenValue, amount: TokenValue ) => Promise<MakeOrderResult>
     makeOrder: ( side: TradeSide, price: TokenValue, amount: TokenValue ) => Promise<PriceOrder>
+    taker: { id: string; signer: SignerOption}
 }
 
 type PreparedClient = {
     everWallet: { address: string; signer: SignerOption }
     client: { address: string; signer: SignerOption }
     traderId: string
-    taker: { id: string; signer: SignerOption}
 }
 
 async function sleep(ms: number): Promise<void> {
@@ -74,6 +74,41 @@ const test = base.extend<HelperFixtures, PreparedClient>({
             return order
         })
     },
+    taker: async ({ flex, config, accounts }, use) => {
+        const takerSigner = signerKeys(await flex.evr.sdk.crypto.generate_random_sign_keys())
+        const takerId = await flex.evr.signers.resolvePublicKey(takerSigner)
+        const nativeBalances = await flex.evr.accounts.getBalancesUnits([
+            accounts.flexClientAddress,
+            accounts.everWalletAddress,
+        ])
+        if ( Number(nativeBalances.get(accounts.everWalletAddress) ?? 0) < Evr.toUnits(300) ) {
+            console.log(execFileSync("everdev", [
+                "contract",
+                "topup",
+                "-a", accounts.everWalletAddress,
+                "-v", Evr.toUnits(300).toString()
+            ]).toString('utf8'))
+        }
+        if ( Number(nativeBalances.get(accounts.flexClientAddress) ?? 0) < Evr.toUnits(50) ) {
+            await accounts.everWallet.topUp(accounts.flexClientAddress, 50)
+            console.log(`TopUp 50 flex client ${accounts.flexClientAddress}`)
+        }
+        await Trader.topUp(flex, {
+            client: accounts.flexClientAddress,
+            id: takerId,
+            everWallet: accounts.everWallet.options,
+            minBalance: 100,
+            value: 0,
+        })
+        await Trader.deploy(flex, {
+            client: config.client,
+            id: takerId,
+            name: "Integration Test Taker",
+            pubkey: takerId,
+        });
+        await sleep(5000);
+        await use({id: takerId, signer: takerSigner})
+    },
     makeOrder: async ({ trading }, use) => {
         await use(async (side: TradeSide, price: TokenValue, amount: TokenValue) => {
             return await trading.makeOrderWithRequiredSuccess({
@@ -117,43 +152,6 @@ const test = base.extend<HelperFixtures, PreparedClient>({
                 ).output.value0,
                 signer: config.client.signer,
             })
-        },
-        { scope: "worker" },
-    ],
-    taker: [
-        async ({ flex, config, accounts }, use) => {
-            const takerSigner = signerKeys(await flex.evr.sdk.crypto.generate_random_sign_keys())
-            const takerId = await flex.evr.signers.resolvePublicKey(takerSigner)
-            const nativeBalances = await flex.evr.accounts.getBalancesUnits([
-                accounts.flexClientAddress,
-                accounts.everWalletAddress,
-            ])
-            if ( Number(nativeBalances.get(accounts.everWalletAddress) ?? 0) < Evr.toUnits(100) ) {
-                console.log(execFileSync("everdev", [
-                    "contract",
-                    "topup",
-                    "-a", accounts.everWalletAddress,
-                    "-v", Evr.toUnits(200).toString()
-                ]).toString('utf8'))
-            }
-            if ( Number(nativeBalances.get(accounts.flexClientAddress) ?? 0) < Evr.toUnits(50) ) {
-                console.log(await accounts.everWallet.topUp(accounts.flexClientAddress, 50))
-            }
-            await Trader.topUp(flex, {
-                client: accounts.flexClientAddress,
-                id: takerId,
-                everWallet: accounts.everWallet.options,
-                minBalance: 100,
-                value: 0,
-            })
-            await Trader.deploy(flex, {
-                client: config.client,
-                id: takerId,
-                name: "Integration Test Taker",
-                pubkey: takerId,
-            });
-            //await sleep(5000);
-            await use({id: takerId, signer: takerSigner})
         },
         { scope: "worker" },
     ],
@@ -350,7 +348,7 @@ test.describe('Trader', () => {
                     token: expect.objectContaining({
                         ticker: 'EVER'
                     }),
-                    traderId: `0x${traderId}`
+                    traderId: `0x${traderId}` // FIXME: 0x should be by default for all traderId returned values
                 })
             ])
         )
