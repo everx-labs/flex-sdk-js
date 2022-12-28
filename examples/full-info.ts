@@ -16,12 +16,17 @@ export type TestConfig = {
     trader: {
         signer: string
     }
-    market: string
+    market: {
+        address: string
+        ticker: string
+    }
     EVER: {
+        ticker: string
         wrapper: string
         wallet: AccountConfig
     }
     TSDT: {
+        ticker: string
         wrapper: string
         wrapperWallet: string
         wallet: AccountConfig
@@ -61,8 +66,8 @@ export function createConfig(): TestConfig {
     try {
         flex.evr.log.info("Tokens", await Token.queryTokens(flex))
         flex.evr.log.info("Markets", await Market.queryMarkets(flex))
-        flex.evr.log.info("Market Order Book", await Market.queryOrderBook(flex, market))
-        flex.evr.log.info("Market Price", await Market.queryPrice(flex, market))
+        flex.evr.log.info("Market Order Book", await Market.queryOrderBook(flex, market.address))
+        flex.evr.log.info("Market Price", await Market.queryPrice(flex, market.address))
 
         console.log({everWallet})
         console.log({clientAddress})
@@ -79,7 +84,6 @@ export function createConfig(): TestConfig {
         flex.evr.log.info("Trader Trades", await Trader.queryTrades(flex, traderId))
 
         flex.evr.log.info("Trader Wallets", await Trader.queryWallets(flex, {clientAddress, traderId}))
-        flex.evr.log.info("Trader Trades", await Trader.queryTrades(flex, traderId))
 
     } catch (err) {
         flex.evr.log.error(err)

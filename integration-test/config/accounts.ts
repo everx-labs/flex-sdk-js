@@ -8,9 +8,11 @@ import {
     WrapperEverAccount,
 } from "../../contracts";
 import { TestConfig } from "./config";
+import { Account, AccountGiver } from "@eversdk/appkit";
 
 export type TestAccounts = {
     traderId: string;
+    giver: AccountGiver;
     everWallet: EverWallet;
     everWalletAddress: string;
     flexClient: FlexClientAccount;
@@ -60,6 +62,7 @@ export async function createAccounts(flex: Flex, config: TestConfig): Promise<Te
     ).output.value0;
     return {
         traderId,
+        giver: await Account.getGiverForClient(flex.evr.sdk),
         everWallet,
         everWalletAddress: await everWallet.getAddress(),
         flexClient,

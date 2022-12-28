@@ -45,6 +45,7 @@ async function createEVERInternal(flex: Flex, config: TestConfig, accounts: Test
         traderId: accounts.traderId,
         wrapperAddress: config.EVER.wrapper,
     });
+
     console.log("EVER internal address", wallet.address);
 }
 

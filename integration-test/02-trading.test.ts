@@ -134,4 +134,6 @@ test(title(5), async ({ trading, orders }) => {
 
 test(`Cancel All Orders`, async ({ trading }) => {
     await trading.cancelAllOrders();
+    const orders = await Trader.queryOrders(trading.flex, trading.trader.id)
+    expect(orders.length).toEqual(0)
 });

@@ -1,42 +1,7 @@
-import { test as base, expect } from "./config"
-import { Evr, Trader } from "../flex"
-import { execFileSync } from "child_process"
-
-const test = base.extend<{
-    nativeBalances: { get: (address: string) => bigint | undefined}
-}>({
-    nativeBalances: async({flex, accounts}, use) => {
-        await use(await flex.evr.accounts.getBalancesUnits([
-                accounts.flexClientAddress,
-                accounts.everWalletAddress,
-                accounts.TSDT.internalAddress,
-                accounts.EVER.internalAddress,
-            ]))
-        }
-})
+import { test, expect } from "./config"
+import { Evr } from "../flex"
 
 test.describe('Balances', () => {
-    test("TopUp", async ({ flex, nativeBalances, accounts }) => {
-        if ( Number(nativeBalances.get(accounts.everWalletAddress) ?? 0) < Evr.toUnits(200) ) {
-            console.log(execFileSync("everdev", [
-                "contract",
-                "topup",
-                "-a", accounts.everWalletAddress,
-                "-v", Evr.toUnits(200).toString()
-            ]).toString('utf8'))
-        }
-        if ( Number(nativeBalances.get(accounts.flexClientAddress) ?? 0) < Evr.toUnits(50) ) {
-            console.log(await accounts.everWallet.topUp(accounts.flexClientAddress, 50))
-        }
-        console.log(await Trader.topUp(flex, {
-            client: accounts.flexClientAddress,
-            id: accounts.traderId,
-            everWallet: accounts.everWallet.options,
-            minBalance: 100,
-            value: 0,
-        }))
-    })
-
     test("natives", async ({ nativeBalances, accounts }) => {
         expect(
             nativeBalances.get(accounts.everWalletAddress),

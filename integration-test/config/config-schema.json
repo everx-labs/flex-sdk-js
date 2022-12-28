@@ -13,19 +13,27 @@
                 "signer": { "type": "string" }
             }
         },
-        "market": { "type": "string" },
+        "market": {
+            "type": "object",
+            "properties": {
+                "address": { "type": "string" },
+                "ticker": { "type": "string" }
+            }
+        },
         "EVER": {
             "type": "object",
             "required": ["wrapper"],
             "properties": {
+                "ticker": { "type": "string" },
                 "wrapper": { "type": "string" },
                 "external": { "ref": "#/$defs/Account" }
             }
         },
         "TSDT": {
             "type": "object",
-            "required": ["wrapper"],
+            "required": ["wrapper", "wrapperWallet"],
             "properties": {
+                "ticker": { "type": "string" },
                 "wrapper": { "type": "string" },
                 "wrapperWallet": { "type": "string" },
                 "external": { "ref": "#/$defs/Account" }
