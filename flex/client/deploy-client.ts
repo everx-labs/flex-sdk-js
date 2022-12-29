@@ -48,7 +48,7 @@ export async function deployClient(flex: Flex, options: DeployClientOptions): Pr
         const everWallet = new EverWallet(flex.evr, options.everWallet);
         await everWallet.transfer({
             dest: await userConfig.getAddress(),
-            value: toUnits(transferEvers + deployEvers),
+            value: toUnits(transferEvers),
             payload: {
                 abi: UserDataConfigAccount.package.abi,
                 fn: "deployFlexClient",

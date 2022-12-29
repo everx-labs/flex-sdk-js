@@ -3,6 +3,7 @@
     "version": "0.10.1",
     "main": "dist/flex/index.js",
     "scripts": {
+        "postinstall": "npx tsc --project tsconfig.json",
         "docs": "typedoc --options typedoc.js",
         "build": "rimraf dist && tsc --project tsconfig.json",
         "update-contracts": "node dist/contracts/update.js",
