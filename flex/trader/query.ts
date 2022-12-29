@@ -4,6 +4,21 @@ import { Token } from "../token";
 import { WalletInfo, walletInfoFromApi } from "../client";
 import { OrderInfo, TradeInfo } from "./types";
 
+function orderInfoInfoFromApi(result: any): OrderInfo {
+    return {
+        orderId: result.orderId,
+        traderId: result.userId,
+        price: result.price,
+        priceNum: result.priceNum,
+        priceScale: result.priceScale,
+        amountProcessed: result.amountProcessed,
+        amountLeft: result.amountLeft,
+        side: result.side,
+        finishTime: result.finishTime,
+        pair: result.pair,
+    };
+}
+
 /** @internal */
 export async function queryOrders(flex: Flex, trader: string): Promise<OrderInfo[]> {
     const result = await flex.query(`
@@ -17,9 +32,25 @@ export async function queryOrders(flex: Flex, trader: string): Promise<OrderInfo
                 userId
                 amountProcessed
                 amountLeft
+                finishTime
             }
         `);
-    return result.userOrders;
+    return result.userOrders.map(orderInfoInfoFromApi);
+}
+
+function tradeFromApi(result: any): TradeInfo {
+    return {
+        pair: result.pair,
+        price: result.price,
+        amount: result.amount,
+        time: result.time,
+        side: result.side,
+        liquidity: result.liquidity,
+        fees: result.fees,
+        feesToken: result.feesToken,
+        userOrderId: result.userOrderId,
+        cursor: result.cursor,
+    };
 }
 
 /** @internal */
@@ -38,21 +69,20 @@ export async function queryTrades(flex: Flex, trader: string): Promise<TradeInfo
             cursor
         }
     `);
-    return result.userTrades;
+    return result.userTrades.map(tradeFromApi);
 }
 
 export type QueryWalletsOptions = {
-
-    clientAddress: string,
+    clientAddress: string;
     /**
      * Trader ID as uint256 hex string
      */
-    traderId?: string,
+    traderId?: string;
     /**
      * Token DEX Wrapper address
      */
-    token?: string,
-}
+    token?: string;
+};
 
 /** @internal */
 export async function queryWallets(
