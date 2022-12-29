@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.10.2] – 2022-12-14
+
+### Fixed
+
+- `queryPrice` hided server errors
+- `queryOrders` does not return `traderId` and `finishTime`
+
 ## [0.10.1] – 2022-12-14
 
 ### Fixed

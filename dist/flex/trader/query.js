@@ -13,6 +13,20 @@ exports.queryWallets = exports.queryTrades = exports.queryOrders = void 0;
 const market_1 = require("../market");
 const token_1 = require("../token");
 const client_1 = require("../client");
+function orderInfoInfoFromApi(result) {
+    return {
+        orderId: result.orderId,
+        traderId: result.userId,
+        price: result.price,
+        priceNum: result.priceNum,
+        priceScale: result.priceScale,
+        amountProcessed: result.amountProcessed,
+        amountLeft: result.amountLeft,
+        side: result.side,
+        finishTime: result.finishTime,
+        pair: result.pair,
+    };
+}
 function queryOrders(flex, trader) {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield flex.query(`
@@ -26,12 +40,27 @@ function queryOrders(flex, trader) {
                 userId
                 amountProcessed
                 amountLeft
+                finishTime
             }
         `);
-        return result.userOrders;
+        return result.userOrders.map(orderInfoInfoFromApi);
     });
 }
 exports.queryOrders = queryOrders;
+function tradeFromApi(result) {
+    return {
+        pair: result.pair,
+        price: result.price,
+        amount: result.amount,
+        time: result.time,
+        side: result.side,
+        liquidity: result.liquidity,
+        fees: result.fees,
+        feesToken: result.feesToken,
+        userOrderId: result.userOrderId,
+        cursor: result.cursor,
+    };
+}
 function queryTrades(flex, trader) {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield flex.query(`
@@ -48,7 +77,7 @@ function queryTrades(flex, trader) {
             cursor
         }
     `);
-        return result.userTrades;
+        return result.userTrades.map(tradeFromApi);
     });
 }
 exports.queryTrades = queryTrades;
