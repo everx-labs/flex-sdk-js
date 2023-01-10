@@ -245,9 +245,9 @@ export class Trader {
     }
 
     /**
-     * Tops up Trader's wallets and UserIndex contracts.
+     * Tops up Trader's wallets and UserIndex account.
      * Tops up to the minimum balance specified + additional value on top.
-     * Topup value will be equal to (minimum balance - current balance + value) for each account.
+     * Topup value will be equal to (TopUpOptions.minBalance - current balance + TopUpOptions.value) for each account.
      * @param flex
      * @param options
      * @returns
@@ -257,8 +257,8 @@ export class Trader {
     }
 
     /**
-     * Calculates topup value for Trader's wallets and UserIndex contracts.
-     * Topup value will be equal to (minimum balance - current balance + value) for each account.
+     * Returns the list of accounts that require topup, with amount of
+     * TopUpResult.totalTopUpValue = (TopUpOptions.minBalance - account.balance + TopUpOptions.value)
      * @param flex
      * @param options
      * @returns
