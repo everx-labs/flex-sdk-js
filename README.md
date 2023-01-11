@@ -66,7 +66,7 @@ for Client contract used to perform management operations of Flex.
 Good choice is a Multisig Wallet because it can send payloads to other contracts. 
 
 Owner contract means that only this contract can call functions of Client contract. 
-One of the management funcstions is deploy of a Trader's contract.
+One of the management functions is deploy of a Trader's contract.
 
 Let's deploy Flex Client and then a Trader: 
 
@@ -82,12 +82,12 @@ const clientAddress = await Client.deploy(flex, {
 console.log(`Client: ${clientAddress}}`);
 ```
 
-To deploy a Trader, a person or organization who becomes Trader must generate a pair of keys and profive Flex Client with
+To deploy a Trader, a person or organization who becomes Trader must generate a pair of keys and provide Flex Client with
 **the pubkey only**.
 
-If Flex Client will be its only Teader herself, than it can use its Client pubkey. 
+If Flex Client will be its only Trader himself, then it can use its Client pubkey. 
 
-Then, Flex Client must generate some Trader ID (uint256) that must be unique for each its Trader. 
+Then, Flex Client must generate some Trader ID (uint256) that must be unique for each of its Trader. 
 
 
 We already generated some ID and have a Trader pubkey, let's deploy Trader contract:
