@@ -3,8 +3,9 @@ import { Market } from "../market";
 import { Token } from "../token";
 import { WalletInfo, walletInfoFromApi } from "../client";
 import { OrderInfo, TradeInfo } from "./types";
+import { uint256 } from "../web3";
 
-function orderInfoInfoFromApi(result: any): OrderInfo {
+function orderInfoFromApi(result: any): OrderInfo {
     return {
         orderId: result.orderId,
         traderId: result.userId,
@@ -22,7 +23,7 @@ function orderInfoInfoFromApi(result: any): OrderInfo {
 /** @internal */
 export async function queryOrders(flex: Flex, trader: string): Promise<OrderInfo[]> {
     const result = await flex.query(`
-            userOrders(userId:"0x${trader}") {
+            userOrders(userId:"${uint256(trader)}") {
                 pair { ${Market.queryFields()} }
                 side
                 price
@@ -35,7 +36,7 @@ export async function queryOrders(flex: Flex, trader: string): Promise<OrderInfo
                 finishTime
             }
         `);
-    return result.userOrders.map(orderInfoInfoFromApi);
+    return result.userOrders.map(orderInfoFromApi);
 }
 
 function tradeFromApi(result: any): TradeInfo {
@@ -56,7 +57,7 @@ function tradeFromApi(result: any): TradeInfo {
 /** @internal */
 export async function queryTrades(flex: Flex, trader: string): Promise<TradeInfo[]> {
     const result = await flex.query(`
-        userTrades(userId:"0x${trader}") {
+        userTrades(userId:"${uint256(trader)}") {
             pair { ${Market.queryFields()} }
             price
             amount
@@ -92,7 +93,7 @@ export async function queryWallets(
     const result = await flex.query(`
         wallets(
             clientAddress: "${options.clientAddress}"
-            ${options.traderId ? `userId: "0x${options.traderId}"` : ""}
+            ${options.traderId ? `userId: "${uint256(options.traderId)}"` : ""}
             ${options.token ? `token: "${options.token}",` : ""}
         ) {
             address

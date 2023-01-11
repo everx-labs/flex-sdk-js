@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.11.0] – 2022-12-14
+
+### New
+
+- all functions with the userId/traderId as an input now accepts:
+    1) hex string with `0x` prefix;
+    2) hex string of 64 char length without `0x` prefix;
+    3) decimal string.
+
 ## [0.10.2] – 2022-12-14
 
 ### Fixed
