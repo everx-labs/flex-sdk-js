@@ -16,7 +16,7 @@ All notable changes to this project will be documented in this file.
 
 - Changed contract errors: "<contract-name> failed with exit code <exit-code>. <known-contract-error-message>.".
 
-- Replaced `number` with `string` in SDK parameters and results.
+- Replaced `number` with `string` and `TokenValue` in SDK parameters and results.
 
 ## [0.10.2] – 2022-12-14
 
