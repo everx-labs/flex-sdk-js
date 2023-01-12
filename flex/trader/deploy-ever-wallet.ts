@@ -1,7 +1,7 @@
 import { Flex } from "../flex";
 import { WrapperEverAccount, AccountOptionsEx } from "../../contracts";
-import { EverWallet, TokenValue, toUnitsBigIntString, uint256 } from "../web3";
-import { toUnitsBigInt } from "../web3/utils";
+import { EverWallet, Evr, TokenValue, toUnitsString, uint256 } from "../web3";
+import { toUnits } from "../web3/utils";
 
 export type DeployTraderEverWalletOptions = {
     /**
@@ -63,17 +63,17 @@ export async function deployTraderEverWallet(
     const keepEvers = options.keepEvers ?? DEFAULTS.keepEvers;
     await everWallet.transfer({
         dest: options.wrapperAddress,
-        value: (toUnitsBigInt(options.tokens) + toUnitsBigInt(evers)).toString(),
+        value: { units: toUnits(options.tokens, Evr) + toUnits(evers, Evr) },
         payload: {
             abi: WrapperEverAccount.package.abi,
             fn: "onEverTransfer",
             params: {
-                tokens: toUnitsBigIntString(options.tokens),
+                tokens: toUnitsString(options.tokens, Evr),
                 args: {
                     pubkey,
                     owner: options.clientAddress,
-                    evers: toUnitsBigIntString(evers),
-                    keep_evers: toUnitsBigIntString(keepEvers),
+                    evers: toUnitsString(evers, Evr),
+                    keep_evers: toUnitsString(keepEvers, Evr),
                 },
                 answer_addr: await everWallet.getAddress(),
             },

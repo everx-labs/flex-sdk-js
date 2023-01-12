@@ -48,10 +48,10 @@ export type TradeInfo = {
     pair: { address: string };
 
     /** Price of the major token */
-    price: number;
+    price: string;
 
     /** Amount of the major tokens */
-    amount: number;
+    amount: string;
 
     /** Trade time as a unix time stamp */
     time: number;
@@ -75,7 +75,7 @@ export type TradeInfo = {
      * If the user is a taker then fees is a value that
      * the user pays to the exchange and maker.
      */
-    fees: number;
+    fees: string;
 
     /** User fees token. */
     feesToken: TokenInfo;

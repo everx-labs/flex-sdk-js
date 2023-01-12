@@ -33,7 +33,7 @@ export type TradingMakeOrderOptions = {
      */
     orderId?: number | string;
     /** Amount of native currency attached for processing fees */
-    evers?: bigint | number | string;
+    evers?: TokenValue;
     /** Order expiration time */
     finishTime?: number;
     /** Order type */
@@ -57,7 +57,7 @@ export type TradingCancelOrderOptions = {
     /**
      * Evers for commission.
      */
-    evers?: bigint | number | string;
+    evers?: TokenValue;
 
     /** Wait for the transaction which updates the price contract (orderbook) */
     waitForOrderbookUpdate?: boolean;

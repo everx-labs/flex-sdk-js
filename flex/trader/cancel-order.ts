@@ -10,7 +10,7 @@ import {
 import { getWallet } from "./internals";
 import { PriceXchgGetDetailsOutput } from "../../contracts/generated/PriceXchgAccount";
 import { PriceOrder, TraderOptions } from "./types";
-import { Evr, TokenValue } from "../web3";
+import { Evr, TokenValue, toUnitsString } from "../web3";
 import { abiContract, ProcessingErrorCode, TvmErrorCode } from "@eversdk/core";
 import { resolveDerivativeTransaction, SdkError } from "./processing";
 import { DerivativeTransactionMessage } from "../web3/accounts";
@@ -45,7 +45,7 @@ export type CancelOrderOptions = {
     /**
      * Evers for commission.
      */
-    evers?: bigint | number | string;
+    evers?: TokenValue;
 
     /** Wait for the transaction which updates the price contract (orderbook) */
     waitForOrderbookUpdate?: boolean;
@@ -190,7 +190,7 @@ export async function cancelOrder(
                     order_id: options.orderId,
                     sell,
                     price: priceDetails.address,
-                    evers: options.evers ?? 3e9,
+                    evers: toUnitsString(options.evers ?? { tokens: 3 }, Evr),
                 },
                 {
                     skipTransactionTree: true,

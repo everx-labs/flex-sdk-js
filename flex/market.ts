@@ -17,7 +17,7 @@ export type MarketInfo = {
 
     /// Minimum amount of major token required for an order creation
     /// in token units.
-    minAmount: number;
+    minAmount: string;
 
     /// Price tick size numerator
     minMove: string;
@@ -46,10 +46,10 @@ export type OrderBookInfo = {
 /// Market price summary for time range
 export type OrderBookItem = {
     /// Major token price
-    price: number;
+    price: string;
 
     /// Amount of major tokens
-    amount: number;
+    amount: string;
 };
 
 export class Market {
@@ -71,7 +71,7 @@ export class Market {
         return result.market.orderBook;
     }
 
-    static async queryPrice(flex: Flex, market: string): Promise<number | null> {
+    static async queryPrice(flex: Flex, market: string): Promise<string | null> {
         const result = await flex.query(`
         market(pairAddress: "${market}") {
             price

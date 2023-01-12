@@ -14,7 +14,7 @@ export type TokenInfo = {
     decimals: number
 
     /// Total allocated and granted tokens (in tokens).
-    totalAllocated: number
+    totalAllocated: string
 
     /// Flex wallet code hash
     walletCodeHash: string

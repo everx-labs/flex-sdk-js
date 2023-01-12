@@ -7,7 +7,7 @@ import {
     AccountOptionsEx,
 } from "../../contracts";
 import { TokenTypeInfo } from "./ever-token-type";
-import { EverWallet, SignerOption, toUnitsBigIntString, Evr } from "../web3";
+import { EverWallet, SignerOption, toUnitsString, Evr } from "../web3";
 
 export const TIP3_TOKEN_TYPE = 0;
 export type Tip3TokenTypeOptions = {
@@ -60,10 +60,19 @@ export async function addTip3TokenType(
         pubkey: `0x${deployerPublicKey}`,
         wrapper_pubkey: `0x${wrapperPublicKey}`,
         super_root: options.superRoot,
-        wrapper_deploy_value: toUnitsBigIntString(options.wrapperDeployEvers ?? DEFAULTS.wrapperDeployEvers),
-        wrapper_keep_balance: toUnitsBigIntString(options.wrapperKeepEvers ?? DEFAULTS.wrapperKeepEvers),
-        reserve_wallet_value: toUnitsBigIntString(options.reserveWalletEvers ?? DEFAULTS.reserveWalletEvers),
-        ext_wallet_value: toUnitsBigIntString(options.extWalletEvers ?? DEFAULTS.extWalletEvers),
+        wrapper_deploy_value: toUnitsString(
+            options.wrapperDeployEvers ?? DEFAULTS.wrapperDeployEvers,
+            Evr,
+        ),
+        wrapper_keep_balance: toUnitsString(
+            options.wrapperKeepEvers ?? DEFAULTS.wrapperKeepEvers,
+            Evr,
+        ),
+        reserve_wallet_value: toUnitsString(
+            options.reserveWalletEvers ?? DEFAULTS.reserveWalletEvers,
+            Evr,
+        ),
+        ext_wallet_value: toUnitsString(options.extWalletEvers ?? DEFAULTS.extWalletEvers, Evr),
     });
     await deployer.runSetWrapperCode({ code: WrapperAccount.package.code });
     await deployer.runSetExtWalletCode({ code: TONTokenWalletAccount.package.code });
@@ -72,8 +81,8 @@ export async function addTip3TokenType(
     const superRootOwner = await web3.accounts.get(SuperRootOwnerAccount, options.superRootOwner);
     await superRootOwner.runAddWrapperType({
         type: TIP3_TOKEN_TYPE,
-        main_evers: toUnitsBigIntString(options.mainEvers ?? DEFAULTS.mainEvers),
-        wrappers_cfg_keep_evers: toUnitsBigIntString(options.keepEvers ?? DEFAULTS.keepEvers),
+        main_evers: toUnitsString(options.mainEvers ?? DEFAULTS.mainEvers, Evr),
+        wrappers_cfg_keep_evers: toUnitsString(options.keepEvers ?? DEFAULTS.keepEvers, Evr),
         wrappers_cfg: options.wrappersConfigAddress,
         wrapper_deployer: await deployer.getAddress(),
     });

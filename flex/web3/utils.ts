@@ -1,6 +1,9 @@
 import Decimal from "decimal.js-light";
 
-const BIGINT_0 = BigInt(0);
+export interface TokenProperties {
+    decimals: DecimalNumber;
+}
+
 const BIGINT_1 = BigInt(1);
 const BIGINT_10 = BigInt(10);
 
@@ -43,27 +46,32 @@ type MulDiv = {
     div: bigint;
 };
 
-function decToInt(dec: DecimalNumber): bigint {
+function decToBigInt(dec: DecimalNumber): bigint {
     const f = toMulDiv(dec);
     return f.mul / f.div;
 }
 
-function applyExp(n: MulDiv, exp: bigint) {
+function decToInt(dec: DecimalNumber): number {
+    const f = toMulDiv(dec);
+    return Number(f.mul / f.div);
+}
+
+function applyExp(n: MulDiv, exp: number) {
     let e = exp;
-    while (e !== BIGINT_0) {
+    while (e !== 0) {
         if (e > 0) {
             n.mul *= BIGINT_10;
-            e -= BIGINT_1;
+            e -= 1;
         } else {
             n.div *= BIGINT_10;
-            e += BIGINT_1;
+            e += 1;
         }
     }
 }
 
 function toMulDiv(decimal: DecimalNumber): MulDiv {
     let [decimalPart, exponentPart] = decimal.toString().split("e");
-    let exp = exponentPart ? BigInt(exponentPart) : BIGINT_0;
+    let exp = exponentPart ? Number(exponentPart) : 0;
 
     if (decimalPart.indexOf(".") >= 0) {
         while (decimalPart.endsWith("0")) {
@@ -92,7 +100,7 @@ function toMulDiv(decimal: DecimalNumber): MulDiv {
     let [intPart, fractionalPart] = decimalPart.split(".");
     if (fractionalPart) {
         intPart = `${intPart}${fractionalPart}`;
-        exp -= BigInt(fractionalPart.length);
+        exp -= fractionalPart.length;
     }
     const result = {
         mul: BigInt(intPart),
@@ -118,42 +126,35 @@ function mulDivToString(value: MulDiv): string {
     return d.toFixed();
 }
 
-function toUnitsMulDiv(value: TokenValue, decimals: DecimalNumber): MulDiv {
+function toUnitsMulDiv(value: TokenValue, token: TokenProperties): MulDiv {
     let result;
     if (typeof value === "number" || typeof value === "string" || typeof value === "bigint") {
-        result = tokensToUnitsMulDiv(value, decimals);
+        result = tokensToUnitsMulDiv(value, token);
     } else if ("tokens" in value) {
-        result = tokensToUnitsMulDiv(value.tokens, decimals);
+        result = tokensToUnitsMulDiv(value.tokens, token);
     } else {
         result = toMulDiv(value.units);
     }
     return result;
 }
 
-export function toUnitsDecimalString(value: TokenValue, decimals: DecimalNumber): string {
-    return mulDivToString(toUnitsMulDiv(value, decimals));
+export function toFractionalUnitsString(value: TokenValue, token: TokenProperties): string {
+    return mulDivToString(toUnitsMulDiv(value, token));
 }
 
-function tokensToUnitsMulDiv(value: DecimalNumber, decimals: DecimalNumber): MulDiv {
+function tokensToUnitsMulDiv(value: DecimalNumber, token: TokenProperties): MulDiv {
     const f = toMulDiv(value);
-    applyExp(f, decToInt(decimals));
+    applyExp(f, decToInt(token.decimals));
     return f;
 }
 
-export function toUnitsBigInt(value: TokenValue, decimals: DecimalNumber = 9): bigint {
-    const f = toUnitsMulDiv(value, decimals);
+export function toUnits(value: TokenValue, token: TokenProperties): bigint {
+    const f = toUnitsMulDiv(value, token);
     return f.mul / f.div;
 }
 
-export function toUnitsBigIntString(value: TokenValue, decimals: DecimalNumber = 9): string {
-    return toUnitsBigInt(value, decimals).toString();
-}
-
-/**
- * @deprecated use toUnitsBigInt, toUnitsBigIntString, toUnitsDecimalString
- */
-export function toUnits(value: TokenValue, decimals: DecimalNumber = 9): string {
-    return toUnitsBigIntString(value, decimals);
+export function toUnitsString(value: TokenValue, token: TokenProperties): string {
+    return toUnits(value, token).toString();
 }
 
 export function priceToUnits(
@@ -162,7 +163,7 @@ export function priceToUnits(
     majorDecimals: DecimalNumber,
     minorDecimals: DecimalNumber,
 ): { num: string; denum: string } {
-    const denominatorInt = decToInt(denominator);
+    const denominatorInt = decToBigInt(denominator);
     const majorDecimalsInt = decToInt(majorDecimals);
     const minorDecimalsInt = decToInt(minorDecimals);
     if (typeof price === "number" || typeof price === "string" || typeof price === "bigint") {
@@ -187,8 +188,8 @@ export function priceToUnits(
 function tokenPriceToUnits(
     price: MulDiv,
     denominator: bigint,
-    majorDecimals: bigint,
-    minorDecimals: bigint,
+    majorDecimals: number,
+    minorDecimals: number,
 ): { num: string; denum: string } {
     applyExp(price, minorDecimals - majorDecimals);
     return mulDivPriceToUnits(price, denominator);

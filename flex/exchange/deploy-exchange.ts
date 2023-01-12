@@ -22,7 +22,7 @@ import {
 } from "../../contracts/generated/SuperRootOwnerAccount";
 import { addEverTokenType, EverTokenTypeOptions, TokenTypeInfo } from "./ever-token-type";
 import { addTip3TokenType, Tip3TokenTypeOptions } from "./tip3-token-type";
-import { EverWallet, SignerOption, toUnitsBigIntString, Evr } from "../web3";
+import { EverWallet, SignerOption, toUnitsString, Evr, TokenValue } from "../web3";
 
 export type DeployExchangeOptions = {
     everWallet: AccountOptionsEx;
@@ -32,33 +32,33 @@ export type DeployExchangeOptions = {
         exchange: number;
         user: number;
     };
-    superRootOwnerEvers?: number;
-    superRootEvers?: number;
+    superRootOwnerEvers?: TokenValue;
+    superRootEvers?: TokenValue;
     prevSuperRoot?: string;
     wrappers?: {
-        mainEvers?: number;
-        deployEvers?: number;
-        keepEvers?: number;
+        mainEvers?: TokenValue;
+        deployEvers?: TokenValue;
+        keepEvers?: TokenValue;
         version?: number;
     };
     flex?: {
-        mainEvers?: number;
-        deployEvers?: number;
-        keepEvers?: number;
+        mainEvers?: TokenValue;
+        deployEvers?: TokenValue;
+        keepEvers?: TokenValue;
         evers?: {
-            deploy?: number;
-            setNext?: number;
-            pairKeep?: number;
+            deploy?: TokenValue;
+            setNext?: TokenValue;
+            pairKeep?: TokenValue;
         };
         oldFlex?: string /* optional(address) */;
         version?: number /* uint32 */;
         fees?: {
-            transferTip3?: number;
-            returnOwnership?: number;
-            orderAnswer?: number;
-            processQueue?: number;
-            sendNotify?: number;
-            destWalletKeepEvers: number;
+            transferTip3?: TokenValue;
+            returnOwnership?: TokenValue;
+            orderAnswer?: TokenValue;
+            processQueue?: TokenValue;
+            sendNotify?: TokenValue;
+            destWalletKeepEvers: TokenValue;
         };
         dealsLimit: number /* uint8 */;
     };
@@ -138,7 +138,7 @@ export async function deployExchange(
     if (!superRootAddress || !(await web3.accounts.isActive(superRootAddress))) {
         superRootAddress = (
             await superRootOwner.runDeploySuperRoot({
-                evers: toUnitsBigIntString(options.superRootEvers ?? DEFAULTS.superRootEvers),
+                evers: toUnitsString(options.superRootEvers ?? DEFAULTS.superRootEvers, Evr),
                 prev_super_root: options.prevSuperRoot,
             })
         ).output.value0;
@@ -210,9 +210,9 @@ function wrappersConfig(
     const options = exchangeOptions.wrappers;
     const defaults = DEFAULTS.wrappers;
     return {
-        main_evers: toUnitsBigIntString(options?.mainEvers ?? defaults.mainEvers),
-        deploy_evers: toUnitsBigIntString(options?.deployEvers ?? defaults.deployEvers),
-        wrappers_cfg_keep_evers: toUnitsBigIntString(options?.keepEvers ?? defaults.keepEvers),
+        main_evers: toUnitsString(options?.mainEvers ?? defaults.mainEvers, Evr),
+        deploy_evers: toUnitsString(options?.deployEvers ?? defaults.deployEvers, Evr),
+        wrappers_cfg_keep_evers: toUnitsString(options?.keepEvers ?? defaults.keepEvers, Evr),
         token_version: options?.version ?? exchangeOptions.version?.wallet ?? 1,
     };
 }
@@ -221,26 +221,37 @@ function flexConfig(exchangeOptions: DeployExchangeOptions): SuperRootOwnerDeplo
     const options = exchangeOptions.flex;
     const defaults = DEFAULTS.flex;
     return {
-        main_evers: toUnitsBigIntString(options?.mainEvers ?? defaults.mainEvers),
-        deploy_evers: toUnitsBigIntString(options?.deployEvers ?? defaults.deployEvers),
-        keep_evers: toUnitsBigIntString(options?.keepEvers ?? defaults.keepEvers),
+        main_evers: toUnitsString(options?.mainEvers ?? defaults.mainEvers, Evr),
+        deploy_evers: toUnitsString(options?.deployEvers ?? defaults.deployEvers, Evr),
+        keep_evers: toUnitsString(options?.keepEvers ?? defaults.keepEvers, Evr),
         evers: {
-            deploy: toUnitsBigIntString(options?.evers?.deploy ?? defaults.evers.deploy),
-            setnext: toUnitsBigIntString(options?.evers?.setNext ?? defaults.evers.setNext),
-            pair_keep: toUnitsBigIntString(options?.evers?.pairKeep ?? defaults.evers.pairKeep),
+            deploy: toUnitsString(options?.evers?.deploy ?? defaults.evers.deploy, Evr),
+            setnext: toUnitsString(options?.evers?.setNext ?? defaults.evers.setNext, Evr),
+            pair_keep: toUnitsString(options?.evers?.pairKeep ?? defaults.evers.pairKeep, Evr),
         },
         old_flex: options?.oldFlex,
         exchange_version: options?.version ?? exchangeOptions.version?.exchange ?? 1,
         ev_cfg: {
-            transfer_tip3: toUnitsBigIntString(options?.fees?.transferTip3 ?? defaults.fees.transferTip3),
-            return_ownership: toUnitsBigIntString(
-                options?.fees?.returnOwnership ?? defaults.fees.returnOwnership,
+            transfer_tip3: toUnitsString(
+                options?.fees?.transferTip3 ?? defaults.fees.transferTip3,
+                Evr,
             ),
-            order_answer: toUnitsBigIntString(options?.fees?.orderAnswer ?? defaults.fees.orderAnswer),
-            process_queue: toUnitsBigIntString(options?.fees?.processQueue ?? defaults.fees.processQueue),
-            send_notify: toUnitsBigIntString(options?.fees?.sendNotify ?? defaults.fees.sendNotify),
-            dest_wallet_keep_evers: toUnitsBigIntString(
+            return_ownership: toUnitsString(
+                options?.fees?.returnOwnership ?? defaults.fees.returnOwnership,
+                Evr,
+            ),
+            order_answer: toUnitsString(
+                options?.fees?.orderAnswer ?? defaults.fees.orderAnswer,
+                Evr,
+            ),
+            process_queue: toUnitsString(
+                options?.fees?.processQueue ?? defaults.fees.processQueue,
+                Evr,
+            ),
+            send_notify: toUnitsString(options?.fees?.sendNotify ?? defaults.fees.sendNotify, Evr),
+            dest_wallet_keep_evers: toUnitsString(
                 options?.fees?.destWalletKeepEvers ?? defaults.fees.destWalletKeepEvers,
+                Evr,
             ),
         },
         deals_limit: options?.dealsLimit ?? defaults.dealsLimit,
