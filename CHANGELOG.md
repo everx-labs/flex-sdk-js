@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
     1) hex string with `0x` prefix;
     2) hex string of 64 char length without `0x` prefix;
     3) decimal string.
+- `Trader.deployEverWallet` accepts token parameters as `TokenValue` instead of `number`'s.
 
 ## [0.10.2] – 2022-12-14
 

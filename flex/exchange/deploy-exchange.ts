@@ -22,7 +22,7 @@ import {
 } from "../../contracts/generated/SuperRootOwnerAccount";
 import { addEverTokenType, EverTokenTypeOptions, TokenTypeInfo } from "./ever-token-type";
 import { addTip3TokenType, Tip3TokenTypeOptions } from "./tip3-token-type";
-import { EverWallet, SignerOption, toUnits, Evr } from "../web3";
+import { EverWallet, SignerOption, toUnitsBigIntString, Evr } from "../web3";
 
 export type DeployExchangeOptions = {
     everWallet: AccountOptionsEx;
@@ -138,7 +138,7 @@ export async function deployExchange(
     if (!superRootAddress || !(await web3.accounts.isActive(superRootAddress))) {
         superRootAddress = (
             await superRootOwner.runDeploySuperRoot({
-                evers: toUnits(options.superRootEvers ?? DEFAULTS.superRootEvers),
+                evers: toUnitsBigIntString(options.superRootEvers ?? DEFAULTS.superRootEvers),
                 prev_super_root: options.prevSuperRoot,
             })
         ).output.value0;
@@ -210,9 +210,9 @@ function wrappersConfig(
     const options = exchangeOptions.wrappers;
     const defaults = DEFAULTS.wrappers;
     return {
-        main_evers: toUnits(options?.mainEvers ?? defaults.mainEvers),
-        deploy_evers: toUnits(options?.deployEvers ?? defaults.deployEvers),
-        wrappers_cfg_keep_evers: toUnits(options?.keepEvers ?? defaults.keepEvers),
+        main_evers: toUnitsBigIntString(options?.mainEvers ?? defaults.mainEvers),
+        deploy_evers: toUnitsBigIntString(options?.deployEvers ?? defaults.deployEvers),
+        wrappers_cfg_keep_evers: toUnitsBigIntString(options?.keepEvers ?? defaults.keepEvers),
         token_version: options?.version ?? exchangeOptions.version?.wallet ?? 1,
     };
 }
@@ -221,25 +221,25 @@ function flexConfig(exchangeOptions: DeployExchangeOptions): SuperRootOwnerDeplo
     const options = exchangeOptions.flex;
     const defaults = DEFAULTS.flex;
     return {
-        main_evers: toUnits(options?.mainEvers ?? defaults.mainEvers),
-        deploy_evers: toUnits(options?.deployEvers ?? defaults.deployEvers),
-        keep_evers: toUnits(options?.keepEvers ?? defaults.keepEvers),
+        main_evers: toUnitsBigIntString(options?.mainEvers ?? defaults.mainEvers),
+        deploy_evers: toUnitsBigIntString(options?.deployEvers ?? defaults.deployEvers),
+        keep_evers: toUnitsBigIntString(options?.keepEvers ?? defaults.keepEvers),
         evers: {
-            deploy: toUnits(options?.evers?.deploy ?? defaults.evers.deploy),
-            setnext: toUnits(options?.evers?.setNext ?? defaults.evers.setNext),
-            pair_keep: toUnits(options?.evers?.pairKeep ?? defaults.evers.pairKeep),
+            deploy: toUnitsBigIntString(options?.evers?.deploy ?? defaults.evers.deploy),
+            setnext: toUnitsBigIntString(options?.evers?.setNext ?? defaults.evers.setNext),
+            pair_keep: toUnitsBigIntString(options?.evers?.pairKeep ?? defaults.evers.pairKeep),
         },
         old_flex: options?.oldFlex,
         exchange_version: options?.version ?? exchangeOptions.version?.exchange ?? 1,
         ev_cfg: {
-            transfer_tip3: toUnits(options?.fees?.transferTip3 ?? defaults.fees.transferTip3),
-            return_ownership: toUnits(
+            transfer_tip3: toUnitsBigIntString(options?.fees?.transferTip3 ?? defaults.fees.transferTip3),
+            return_ownership: toUnitsBigIntString(
                 options?.fees?.returnOwnership ?? defaults.fees.returnOwnership,
             ),
-            order_answer: toUnits(options?.fees?.orderAnswer ?? defaults.fees.orderAnswer),
-            process_queue: toUnits(options?.fees?.processQueue ?? defaults.fees.processQueue),
-            send_notify: toUnits(options?.fees?.sendNotify ?? defaults.fees.sendNotify),
-            dest_wallet_keep_evers: toUnits(
+            order_answer: toUnitsBigIntString(options?.fees?.orderAnswer ?? defaults.fees.orderAnswer),
+            process_queue: toUnitsBigIntString(options?.fees?.processQueue ?? defaults.fees.processQueue),
+            send_notify: toUnitsBigIntString(options?.fees?.sendNotify ?? defaults.fees.sendNotify),
+            dest_wallet_keep_evers: toUnitsBigIntString(
                 options?.fees?.destWalletKeepEvers ?? defaults.fees.destWalletKeepEvers,
             ),
         },

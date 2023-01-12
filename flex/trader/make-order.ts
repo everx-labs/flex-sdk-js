@@ -11,7 +11,7 @@ import {
 } from "../../contracts";
 import { getWallet } from "./internals";
 import { TraderOptions } from "./types";
-import { toUnits, Evr, TokenValue } from "../web3";
+import { toUnitsBigIntString, Evr, TokenValue } from "../web3";
 import { AccountClass } from "../../contracts";
 import { resolveDerivativeTransaction, SdkError } from "./processing";
 import { DerivativeTransactionMessage } from "../web3/accounts";
@@ -138,7 +138,7 @@ export async function makeOrder(flex: Flex, options: MakeOrderOptions): Promise<
     const priceCode = (await pair.getPriceXchgCode({ salted: false })).output.value0;
     const saltedPriceCode = (await pair.getPriceXchgCode({ salted: true })).output.value0;
     const priceSalt = (await pair.getPriceXchgSalt()).output.value0;
-    const amount = toUnits(options.amount, pairDetails.major_tip3cfg.decimals);
+    const amount = toUnitsBigIntString(options.amount, pairDetails.major_tip3cfg.decimals);
     const resolvedOrderId = options.orderId ?? (await generateRandomOrderId(flex.evr));
     const orderId = `0x${BigInt(resolvedOrderId).toString(16)}`;
     const price = priceToUnits(

@@ -1,7 +1,7 @@
 import { AccountOptionsEx, MultisigWalletAccount } from "../../contracts";
 import { abiContract, AbiContract, signerNone } from "@eversdk/core";
 import { Evr } from "./evr";
-import { toUnits } from "./utils";
+import { toUnitsBigIntString } from "./utils";
 
 export type TransferOptions = {
     dest: string;
@@ -52,7 +52,7 @@ export class EverWallet {
     }
 
     async topUp(address: string, value: number) {
-        await this.topUpUnits(address, BigInt(toUnits(value, Evr.NATIVE_DECIMALS)));
+        await this.topUpUnits(address, BigInt(toUnitsBigIntString(value, Evr.NATIVE_DECIMALS)));
     }
 
     async topUpUnits(address: string, value: bigint) {

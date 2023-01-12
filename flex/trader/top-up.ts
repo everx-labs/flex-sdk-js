@@ -1,12 +1,12 @@
 import { Flex } from "../flex";
-import { toUnits, TokenValue, AccountOptionsEx, uint256, Evr, EverWallet } from "../web3";
+import { toUnitsBigIntString, TokenValue, AccountOptionsEx, uint256, Evr, EverWallet } from "../web3";
 import { TvmErrorCode } from "@eversdk/core";
 import { decimalFromNumAndDenomAsPowerOf10 } from "../web3/utils";
 import { FlexError } from "../error";
 import { STD_ERROR } from "../../contracts";
 
 function toNativeUnits(value: TokenValue): bigint {
-    return BigInt(toUnits(value, Evr.NATIVE_DECIMALS));
+    return BigInt(toUnitsBigIntString(value, Evr.NATIVE_DECIMALS));
 }
 
 export type TopUpOptions = {
