@@ -5,7 +5,7 @@ import {
     WrapperAccount,
     AccountOptionsEx,
 } from "../../contracts";
-import { EverWallet, toUnits, uint256 } from "../web3";
+import { EverWallet, toUnitsBigIntString, uint256 } from "../web3";
 
 export type DeployTraderTip31WalletOptions = {
     /**
@@ -85,15 +85,15 @@ export async function deployTraderTip31Wallet(
         await client.getPayloadForDeployInternalWallet({
             owner_addr: options.clientAddress,
             owner_pubkey: pubkey,
-            evers: toUnits(evers),
-            keep_evers: toUnits(keepEvers),
+            evers: toUnitsBigIntString(evers),
+            keep_evers: toUnitsBigIntString(keepEvers),
         })
     ).output.value0;
 
     const everWallet = new EverWallet(flex.evr, options.everWallet);
     await everWallet.transfer({
         dest: options.tokenWalletAddress,
-        value: toUnits(options.transferEvers ?? DEFAULTS.transferEvers),
+        value: toUnitsBigIntString(options.transferEvers ?? DEFAULTS.transferEvers),
         payload: {
             abi: Tip31WalletAccount.package.abi,
             fn: "transferToWallet",

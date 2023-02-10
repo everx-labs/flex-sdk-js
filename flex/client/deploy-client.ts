@@ -1,6 +1,6 @@
 import { Flex } from "../flex";
 import { AccountOptionsEx, UserDataConfigAccount } from "../../contracts";
-import { EverWallet, SignerOption, toUnits } from "../web3";
+import { EverWallet, SignerOption, toUnitsBigIntString } from "../web3";
 
 export type DeployClientOptions = {
     /**
@@ -48,13 +48,13 @@ export async function deployClient(flex: Flex, options: DeployClientOptions): Pr
         const everWallet = new EverWallet(flex.evr, options.everWallet);
         await everWallet.transfer({
             dest: await userConfig.getAddress(),
-            value: toUnits(transferEvers),
+            value: toUnitsBigIntString(transferEvers),
             payload: {
                 abi: UserDataConfigAccount.package.abi,
                 fn: "deployFlexClient",
                 params: {
                     pubkey,
-                    deploy_evers: toUnits(deployEvers),
+                    deploy_evers: toUnitsBigIntString(deployEvers),
                     signature,
                 },
             },

@@ -3,7 +3,8 @@ import {
     DecimalNumber,
     priceToUnits,
     TokenValue,
-    toUnitsString,
+    toUnitsDecimalString,
+    uint256,
 } from "../flex/web3/utils";
 import { test, expect } from "@playwright/test";
 
@@ -18,17 +19,19 @@ function price(
 }
 
 test("amount converter", () => {
-    expect(toUnitsString("2777771", 1)).toBe("27777710");
-    expect(toUnitsString("12", 1)).toBe("120");
-    expect(toUnitsString("100", 1)).toBe("1000");
-    expect(toUnitsString("12345678912345678912345.6789", 4)).toBe("123456789123456789123456789");
-    expect(toUnitsString("20", "5")).toBe("2000000");
-    expect(toUnitsString("123", 3)).toBe("123000");
-    expect(toUnitsString("1.23", 2)).toBe("123");
-    expect(toUnitsString("0.123", 2)).toBe("12.3");
-    expect(toUnitsString("0.1230", 4)).toBe("1230");
-    expect(toUnitsString("0", 2)).toBe("0");
-    expect(toUnitsString("0", 9)).toBe("0");
+    expect(toUnitsDecimalString("2777771", 1)).toBe("27777710");
+    expect(toUnitsDecimalString("12", 1)).toBe("120");
+    expect(toUnitsDecimalString("100", 1)).toBe("1000");
+    expect(toUnitsDecimalString("12345678912345678912345.6789", 4)).toBe(
+        "123456789123456789123456789",
+    );
+    expect(toUnitsDecimalString("20", "5")).toBe("2000000");
+    expect(toUnitsDecimalString("123", 3)).toBe("123000");
+    expect(toUnitsDecimalString("1.23", 2)).toBe("123");
+    expect(toUnitsDecimalString("0.123", 2)).toBe("12.3");
+    expect(toUnitsDecimalString("0.1230", 4)).toBe("1230");
+    expect(toUnitsDecimalString("0", 2)).toBe("0");
+    expect(toUnitsDecimalString("0", 9)).toBe("0");
 });
 
 test("price converter", () => {
@@ -52,4 +55,21 @@ test("decimal conversion", () => {
     expect(decimalFromNumAndDenomAsPowerOf10("123", 4)).toBe("0.0123");
     expect(decimalFromNumAndDenomAsPowerOf10("1230", 4)).toBe("0.123");
     expect(decimalFromNumAndDenomAsPowerOf10("0", 2)).toBe("0");
+});
+
+test("uint256", async () => {
+    expect(uint256("1")).toBe("0x1");
+    expect(uint256("16")).toBe("0x10");
+    expect(uint256("255")).toBe("0xff");
+    expect(uint256("0x1")).toBe("0x1");
+    expect(uint256("0x01")).toBe("0x01");
+    expect(uint256("a1125f809825a8a2524e03469b70b4087300d95b9799a6d4908ba748ff0b7bd9")).toBe(
+        "0xa1125f809825a8a2524e03469b70b4087300d95b9799a6d4908ba748ff0b7bd9",
+    );
+    expect(uint256("0xa1125f809825a8a2524e03469b70b4087300d95b9799a6d4908ba748ff0b7bd9")).toBe(
+        "0xa1125f809825a8a2524e03469b70b4087300d95b9799a6d4908ba748ff0b7bd9",
+    );
+    expect(() => uint256("825a8a2524e03469b70b4087300d95b9799a6d4908ba748ff0b7bd9")).toThrow(
+        /^Cannot convert/,
+    );
 });

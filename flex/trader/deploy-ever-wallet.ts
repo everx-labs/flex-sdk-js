@@ -1,6 +1,7 @@
 import { Flex } from "../flex";
 import { WrapperEverAccount, AccountOptionsEx } from "../../contracts";
-import { EverWallet, toUnits, uint256 } from "../web3";
+import { EverWallet, TokenValue, toUnitsBigIntString, uint256 } from "../web3";
+import { toUnitsBigInt } from "../web3/utils";
 
 export type DeployTraderEverWalletOptions = {
     /**
@@ -22,17 +23,17 @@ export type DeployTraderEverWalletOptions = {
     /**
      * Amount of EVERs to deposit
      */
-    tokens: number;
+    tokens: TokenValue;
 
     /**
      * Amount of native EVERs that the deposit message carries. Later on, DEX wallet will spend them to pay for gas.
      */
-    evers?: number;
+    evers?: TokenValue;
     /**
      * Minimum amount of EVERs on DEX wallet. If balance drops below this amount,
      * wallet is automatically topped-up from the Trader's Index wallet.
      */
-    keepEvers?: number;
+    keepEvers?: TokenValue;
 };
 
 export type EverWalletInfo = {
@@ -62,17 +63,17 @@ export async function deployTraderEverWallet(
     const keepEvers = options.keepEvers ?? DEFAULTS.keepEvers;
     await everWallet.transfer({
         dest: options.wrapperAddress,
-        value: toUnits(options.tokens + evers),
+        value: (toUnitsBigInt(options.tokens) + toUnitsBigInt(evers)).toString(),
         payload: {
             abi: WrapperEverAccount.package.abi,
             fn: "onEverTransfer",
             params: {
-                tokens: toUnits(options.tokens),
+                tokens: toUnitsBigIntString(options.tokens),
                 args: {
                     pubkey,
                     owner: options.clientAddress,
-                    evers: toUnits(evers),
-                    keep_evers: toUnits(keepEvers),
+                    evers: toUnitsBigIntString(evers),
+                    keep_evers: toUnitsBigIntString(keepEvers),
                 },
                 answer_addr: await everWallet.getAddress(),
             },

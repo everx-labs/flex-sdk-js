@@ -130,7 +130,7 @@ function toUnitsMulDiv(value: TokenValue, decimals: DecimalNumber): MulDiv {
     return result;
 }
 
-export function toUnitsString(value: TokenValue, decimals: DecimalNumber): string {
+export function toUnitsDecimalString(value: TokenValue, decimals: DecimalNumber): string {
     return mulDivToString(toUnitsMulDiv(value, decimals));
 }
 
@@ -140,9 +140,20 @@ function tokensToUnitsMulDiv(value: DecimalNumber, decimals: DecimalNumber): Mul
     return f;
 }
 
-export function toUnits(value: TokenValue, decimals: DecimalNumber = 9): string {
+export function toUnitsBigInt(value: TokenValue, decimals: DecimalNumber = 9): bigint {
     const f = toUnitsMulDiv(value, decimals);
-    return (f.mul / f.div).toString();
+    return f.mul / f.div;
+}
+
+export function toUnitsBigIntString(value: TokenValue, decimals: DecimalNumber = 9): string {
+    return toUnitsBigInt(value, decimals).toString();
+}
+
+/**
+ * @deprecated use toUnitsBigInt, toUnitsBigIntString, toUnitsDecimalString
+ */
+export function toUnits(value: TokenValue, decimals: DecimalNumber = 9): string {
+    return toUnitsBigIntString(value, decimals);
 }
 
 export function priceToUnits(
