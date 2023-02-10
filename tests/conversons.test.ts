@@ -3,7 +3,7 @@ import {
     DecimalNumber,
     priceToUnits,
     TokenValue,
-    toUnitsDecimalString,
+    toFractionalUnitsString,
     uint256,
 } from "../flex/web3/utils";
 import { test, expect } from "@playwright/test";
@@ -19,19 +19,19 @@ function price(
 }
 
 test("amount converter", () => {
-    expect(toUnitsDecimalString("2777771", 1)).toBe("27777710");
-    expect(toUnitsDecimalString("12", 1)).toBe("120");
-    expect(toUnitsDecimalString("100", 1)).toBe("1000");
-    expect(toUnitsDecimalString("12345678912345678912345.6789", 4)).toBe(
+    expect(toFractionalUnitsString("2777771", { decimals: 1 })).toBe("27777710");
+    expect(toFractionalUnitsString("12", { decimals: 1 })).toBe("120");
+    expect(toFractionalUnitsString("100", { decimals: 1 })).toBe("1000");
+    expect(toFractionalUnitsString("12345678912345678912345.6789", { decimals: 4 })).toBe(
         "123456789123456789123456789",
     );
-    expect(toUnitsDecimalString("20", "5")).toBe("2000000");
-    expect(toUnitsDecimalString("123", 3)).toBe("123000");
-    expect(toUnitsDecimalString("1.23", 2)).toBe("123");
-    expect(toUnitsDecimalString("0.123", 2)).toBe("12.3");
-    expect(toUnitsDecimalString("0.1230", 4)).toBe("1230");
-    expect(toUnitsDecimalString("0", 2)).toBe("0");
-    expect(toUnitsDecimalString("0", 9)).toBe("0");
+    expect(toFractionalUnitsString("20", { decimals: "5" })).toBe("2000000");
+    expect(toFractionalUnitsString("123", { decimals: 3 })).toBe("123000");
+    expect(toFractionalUnitsString("1.23", { decimals: 2 })).toBe("123");
+    expect(toFractionalUnitsString("0.123", { decimals: 2 })).toBe("12.3");
+    expect(toFractionalUnitsString("0.1230", { decimals: 4 })).toBe("1230");
+    expect(toFractionalUnitsString("0", { decimals: 2 })).toBe("0");
+    expect(toFractionalUnitsString("0", { decimals: 9 })).toBe("0");
 });
 
 test("price converter", () => {

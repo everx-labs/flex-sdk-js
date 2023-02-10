@@ -1,7 +1,8 @@
 import { AccountOptionsEx, FlexClientAccount, PRICE_XCHG_ERROR } from "../../contracts";
 import { Flex } from "../flex";
-import { Evr, uint256 } from "../web3";
+import { Evr, TokenValue, toUnitsString, uint256 } from "../web3";
 import { FlexError } from "../error";
+import { toUnits } from "../web3/utils";
 
 export type DeployTraderOptions = {
     /**
@@ -22,10 +23,10 @@ export type DeployTraderOptions = {
      */
     pubkey: string;
 
-    eversAll?: string | number | bigint;
-    eversAuth?: string | number | bigint;
-    refillWallet?: string | number | bigint;
-    minRefill?: string | number | bigint;
+    eversAll?: TokenValue;
+    eversAuth?: TokenValue;
+    refillWallet?: TokenValue;
+    minRefill?: TokenValue;
 };
 
 export async function deployTrader(flex: Flex, options: DeployTraderOptions): Promise<void> {
@@ -41,8 +42,8 @@ export async function deployTrader(flex: Flex, options: DeployTraderOptions): Pr
         const defaults = flex.config.trader.deploy;
         const eversAll = options.eversAll ?? defaults.eversAll;
         const eversAuth = options.eversAuth ?? defaults.eversAuth;
-        const clientBalance = Number(await clientAccount.getBalance());
-        const requiredBalance = Number(eversAll) + Evr.unitsFromTokens(1);
+        const clientBalance = BigInt(await clientAccount.getBalance());
+        const requiredBalance = toUnits(eversAll, Evr) + toUnits(1, Evr);
         if (clientBalance < requiredBalance) {
             throw new FlexError(
                 PRICE_XCHG_ERROR.not_enough_native_currency_to_process.exitCode,
@@ -53,10 +54,10 @@ export async function deployTrader(flex: Flex, options: DeployTraderOptions): Pr
             user_id: userId,
             lend_pubkey: uint256(options.pubkey),
             name: options.name,
-            evers_all: eversAll,
-            evers_to_auth_idx: eversAuth,
-            refill_wallet: options.refillWallet ?? defaults.refillWallet,
-            min_refill: options.minRefill ?? defaults.minRefill,
+            evers_all: toUnitsString(eversAll, Evr),
+            evers_to_auth_idx: toUnitsString(eversAuth, Evr),
+            refill_wallet: toUnitsString(options.refillWallet ?? defaults.refillWallet, Evr),
+            min_refill: toUnitsString(options.minRefill ?? defaults.minRefill, Evr),
         });
     }
 }

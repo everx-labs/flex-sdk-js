@@ -5,7 +5,7 @@ import {
     WrapperAccount,
     AccountOptionsEx,
 } from "../../contracts";
-import { EverWallet, toUnitsBigIntString, uint256 } from "../web3";
+import { EverWallet, Evr, TokenValue, toUnitsString, uint256 } from "../web3";
 
 export type DeployTraderTip31WalletOptions = {
     /**
@@ -46,18 +46,18 @@ export type DeployTraderTip31WalletOptions = {
     /**
      *  TODO: need to describe
      */
-    transferEvers?: number;
+    transferEvers?: TokenValue;
 
     /**
      * TODO: need to describe
      */
-    evers?: number;
+    evers?: TokenValue;
 
     /**
      * Minimum amount of EVERs on DEX wallet. If balance drops below this amount,
      * wallet is topped-up from Trader's Index wallet.
      */
-    keepEvers?: number;
+    keepEvers?: TokenValue;
 };
 
 export type DeployTraderTip31WalletResult = {
@@ -65,9 +65,9 @@ export type DeployTraderTip31WalletResult = {
 };
 
 const DEFAULTS = {
-    transferEvers: 30,
-    evers: 15,
-    keepEvers: 12,
+    transferEvers: { tokens: 30 },
+    evers: { tokens: 15 },
+    keepEvers: { tokens: 12 },
 };
 
 /** @internal */
@@ -85,15 +85,15 @@ export async function deployTraderTip31Wallet(
         await client.getPayloadForDeployInternalWallet({
             owner_addr: options.clientAddress,
             owner_pubkey: pubkey,
-            evers: toUnitsBigIntString(evers),
-            keep_evers: toUnitsBigIntString(keepEvers),
+            evers: toUnitsString(evers, Evr),
+            keep_evers: toUnitsString(keepEvers, Evr),
         })
     ).output.value0;
 
     const everWallet = new EverWallet(flex.evr, options.everWallet);
     await everWallet.transfer({
         dest: options.tokenWalletAddress,
-        value: toUnitsBigIntString(options.transferEvers ?? DEFAULTS.transferEvers),
+        value: options.transferEvers ?? DEFAULTS.transferEvers,
         payload: {
             abi: Tip31WalletAccount.package.abi,
             fn: "transferToWallet",

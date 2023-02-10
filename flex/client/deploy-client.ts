@@ -1,6 +1,6 @@
 import { Flex } from "../flex";
 import { AccountOptionsEx, UserDataConfigAccount } from "../../contracts";
-import { EverWallet, SignerOption, toUnitsBigIntString } from "../web3";
+import { EverWallet, Evr, SignerOption, TokenValue, toUnitsString } from "../web3";
 
 export type DeployClientOptions = {
     /**
@@ -13,18 +13,18 @@ export type DeployClientOptions = {
      */
     signer: SignerOption;
     /**
-     * Evers, transfered to User Config contract. The change will be returned.
+     * Evers, transferred to User Config contract. The change will be returned.
      */
-    transferEvers?: number;
+    transferEvers?: TokenValue;
     /**
-     * Evers transfered to Flex Client during deploy
+     * Evers transferred to Flex Client during deploy
      */
-    deployEvers?: number;
+    deployEvers?: TokenValue;
 };
 
 const DEFAULTS = {
-    transferEvers: 55,
-    deployEvers: 50,
+    transferEvers: { tokens: 55 },
+    deployEvers: { tokens: 50 },
 };
 
 /** @internal */
@@ -48,13 +48,13 @@ export async function deployClient(flex: Flex, options: DeployClientOptions): Pr
         const everWallet = new EverWallet(flex.evr, options.everWallet);
         await everWallet.transfer({
             dest: await userConfig.getAddress(),
-            value: toUnitsBigIntString(transferEvers),
+            value: transferEvers,
             payload: {
                 abi: UserDataConfigAccount.package.abi,
                 fn: "deployFlexClient",
                 params: {
                     pubkey,
-                    deploy_evers: toUnitsBigIntString(deployEvers),
+                    deploy_evers: toUnitsString(deployEvers, Evr),
                     signature,
                 },
             },

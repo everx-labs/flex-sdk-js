@@ -1,5 +1,5 @@
 import { TonClient } from "@eversdk/core";
-import { EvrConfig } from "./web3";
+import { EvrConfig, TokenValue } from "./web3";
 
 export enum MakeOrderMode {
     /**
@@ -26,34 +26,34 @@ export enum MakeOrderMode {
 }
 
 export type FlexConfig = {
-    superRoot: string,
-    globalConfig?: string,
-    evr?: EvrConfig,
+    superRoot: string;
+    globalConfig?: string;
+    evr?: EvrConfig;
     trader: {
         deploy: {
             /**
              * Full payment for Trader creation.
              *
              * @remarks
-             * Must be specified in nanotokens, i.e. 1e9. Default value is 40e9.
+             * Default value is 40 native tokens.
              */
-            eversAll: number,
+            eversAll: TokenValue;
             /**
              * Payment for Auth Contract deploy. Included into eversAll.
              *
              * @remarks
-             * Must be specified in nanotokens, i.e. 1e9. Default value is 1e9.
+             * Default value is 1 native token.
              */
-            eversAuth: number,
+            eversAuth: TokenValue;
             /**
              * When trader receives tokens the sum (refillWallet-wallet.eversBalance)
              * is additionally sent to this wallet from `userIdIndex` contract.
              * Included into eversAll.
              *
              * @remarks
-             * Must be specified in nanotokens, i.e. 1e9. Default value is 10e9.
+             * Default value is 10 native tokens.
              */
-            refillWallet: number,
+            refillWallet: TokenValue;
             /**
              * Minimal amount of EVERs the wallet receives from `userIdIndex`
              * contract when a trade happens (when the wallet receives tokens)
@@ -61,16 +61,16 @@ export type FlexConfig = {
              * Included into eversAll
              *
              * @remarks
-             * Must be specified in nanotokens, i.e. 1e9. Default value is 0.1e9.
+             * Default value is 0.1 native tokens.
              */
-            minRefill: number,
-        },
+            minRefill: TokenValue;
+        };
         order: {
-            evers: number,
-            mode: MakeOrderMode,
-        }
-    }
-}
+            evers: TokenValue;
+            mode: MakeOrderMode;
+        };
+    };
+};
 
 /** @internal */
 export function defaultConfig(): FlexConfig {
@@ -80,13 +80,13 @@ export function defaultConfig(): FlexConfig {
         },
         trader: {
             deploy: {
-                eversAll: 40e9,
-                eversAuth: 1e9,
-                refillWallet: 10e9,
-                minRefill: 0.1e9,
+                eversAll: { tokens: 40 },
+                eversAuth: { tokens: 1 },
+                refillWallet: { tokens: 10 },
+                minRefill: { tokens: 0.1 },
             },
             order: {
-                evers: 3e9,
+                evers: { tokens: 3 },
                 mode: MakeOrderMode.IOP,
             },
         },
