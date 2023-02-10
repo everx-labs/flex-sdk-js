@@ -1,5 +1,5 @@
 import { expect, test as base } from "./config"
-import { Token, Client, EverWallet, Market, SignerOption, Trader, TradeSide, TokenValue, PriceOrder, MakeOrderResult } from "../flex"
+import { Token, Client, EverWallet, Market, SignerOption, Trader, TradeSide, TokenValue, PriceOrder, MakeOrderResult, uint256 } from "../flex"
 import { signerKeys } from "@eversdk/core";
 
 type HelperFixtures = {
@@ -344,7 +344,7 @@ test.describe('Trader', () => {
                     token: expect.objectContaining({
                         ticker: config.TSDT.ticker,
                     }),
-                    traderId: `0x${traderId}` // FIXME
+                    traderId: uint256(traderId)
                 }),
                 expect.objectContaining({
                     address: accounts.EVER.internalAddress,
@@ -354,7 +354,7 @@ test.describe('Trader', () => {
                     token: expect.objectContaining({
                         ticker: config.EVER.ticker
                     }),
-                    traderId: `0x${traderId}` // FIXME
+                    traderId: uint256(traderId)
                 })
             ])
         )

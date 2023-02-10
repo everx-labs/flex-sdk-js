@@ -8,7 +8,10 @@ export function uint256(value: string): string {
     if (value.startsWith("0x") || value.startsWith("0X")) {
         return value;
     }
-    return `0x${value}`;
+    if (value.length === 64) {
+        return `0x${value}`;
+    }
+    return `0x${BigInt(value).toString(16)}`;
 }
 
 export type DecimalNumber = number | bigint | string;
