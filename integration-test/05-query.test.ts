@@ -49,7 +49,7 @@ const test = base.extend<HelperFixtures, PreparedClient>({
                 })
                 expect(internalEverWallet.address, 'Problem with internalEverWallet deploy').toBeTruthy()
             }
-            await sleep(5000);
+            await sleep(5_000)
             const wallets = await Trader.queryWallets(flex, {
                 clientAddress: accounts.flexClientAddress,
                 traderId: taker.id
@@ -77,7 +77,7 @@ const test = base.extend<HelperFixtures, PreparedClient>({
             name: "Integration Test Taker",
             pubkey: id,
         });
-        await sleep(5000);
+        await sleep(5_000)
         const taker = { id, signer }
         await use(taker)
         await Trader.cancelAllOrders(flex, {
@@ -95,6 +95,7 @@ const test = base.extend<HelperFixtures, PreparedClient>({
             })
         })
         await trading.cancelAllOrders()
+        await sleep(10_000)
     },
     everWallet: [
         async ({ flex, config }, use) => {
@@ -329,7 +330,7 @@ test.describe('Trader', () => {
 
     test('queryWallets', async ({ config, flex, trading, traderId, client, accounts }) => {
         await trading.cancelAllOrders()
-        await sleep(8000) // FIXME: need to wait for all orders are canceled
+        await sleep(10_000) // FIXME: need to wait for all orders are canceled
         const info = await Trader.queryWallets(flex, {
             clientAddress: client.address,
             traderId
