@@ -1,6 +1,6 @@
 {
     "name": "flex-sdk-js",
-    "version": "0.10.2",
+    "version": "0.11.0",
     "main": "dist/flex/index.js",
     "scripts": {
         "prepare": "npx tsc --project tsconfig.json",
