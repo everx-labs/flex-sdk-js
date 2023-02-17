@@ -112,21 +112,21 @@ export class Flex {
         await this.evr.close();
     }
 
-    async getTip3TokenBalance(account: Tip31WalletAccount): Promise<number> {
+    async getTip3TokenBalance(account: Tip31WalletAccount): Promise<string> {
         const balance = (await account.balance({ answerId: 0 })).output.value0;
         const rootAddress = (await account.root({ answerId: 0 })).output.value0;
         const root = await this.evr.accounts.get(Tip31RootAccount, rootAddress);
         const decimals = (await root.decimals({ answerId: 0 })).output.value0;
-        return Number(decimalFromNumAndDenomAsPowerOf10(balance, decimals));
+        return decimalFromNumAndDenomAsPowerOf10(balance, decimals);
     }
 
-    async getTokenBalance(account: TONTokenWalletAccount): Promise<number> {
+    async getTokenBalance(account: TONTokenWalletAccount): Promise<string> {
         const details = (await account.getDetails()).output;
-        return Number(decimalFromNumAndDenomAsPowerOf10(details.balance, details.decimals));
+        return decimalFromNumAndDenomAsPowerOf10(details.balance, details.decimals);
     }
 
-    async getFlexTokenBalance(account: FlexWalletAccount): Promise<number> {
+    async getFlexTokenBalance(account: FlexWalletAccount): Promise<string> {
         const details = (await account.getDetails()).output;
-        return Number(decimalFromNumAndDenomAsPowerOf10(details.balance, details.decimals));
+        return decimalFromNumAndDenomAsPowerOf10(details.balance, details.decimals);
     }
 }

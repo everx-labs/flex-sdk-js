@@ -14,9 +14,11 @@ export function errorFromExitCode(contract: AccountClass, exitCode: number): Con
                 exitCode < 0 ? `_cpp_${Math.abs(exitCode)}` : exitCode.toString()
             }`,
             exitCode,
-            message: `${contract.name} failed with exit code ${exitCode}. See contract documentation or contact contract developers for details.`,
+            message: `See contract documentation or contact contract developers for details.`,
         };
-    const error: ContractError = new Error(contractError.message);
+    const error: ContractError = new Error(
+        `${contract.name} failed with exit code ${exitCode}. ${contractError.message}.`,
+    );
     error.code = ProcessingErrorCode.MessageRejected;
     error.data = {
         ...error.data,
@@ -59,11 +61,7 @@ export function findTransactionError(
     contract: AccountClass,
     altErrorCode: number = 0,
 ): Error | undefined {
-    const {
-        id,
-        aborted,
-        account_addr,
-    } = transaction;
+    const { id, aborted, account_addr } = transaction;
     const exitCode = transaction.compute?.exit_code ?? 0;
     const errorCode = exitCode !== 0 ? exitCode : altErrorCode;
     if (!aborted && errorCode === 0) {

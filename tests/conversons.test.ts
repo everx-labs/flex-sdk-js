@@ -3,7 +3,8 @@ import {
     DecimalNumber,
     priceToUnits,
     TokenValue,
-    toUnitsString,
+    toFractionalUnitsString,
+    uint256,
 } from "../flex/web3/utils";
 import { test, expect } from "@playwright/test";
 
@@ -18,17 +19,19 @@ function price(
 }
 
 test("amount converter", () => {
-    expect(toUnitsString("2777771", 1)).toBe("27777710");
-    expect(toUnitsString("12", 1)).toBe("120");
-    expect(toUnitsString("100", 1)).toBe("1000");
-    expect(toUnitsString("12345678912345678912345.6789", 4)).toBe("123456789123456789123456789");
-    expect(toUnitsString("20", "5")).toBe("2000000");
-    expect(toUnitsString("123", 3)).toBe("123000");
-    expect(toUnitsString("1.23", 2)).toBe("123");
-    expect(toUnitsString("0.123", 2)).toBe("12.3");
-    expect(toUnitsString("0.1230", 4)).toBe("1230");
-    expect(toUnitsString("0", 2)).toBe("0");
-    expect(toUnitsString("0", 9)).toBe("0");
+    expect(toFractionalUnitsString("2777771", { decimals: 1 })).toBe("27777710");
+    expect(toFractionalUnitsString("12", { decimals: 1 })).toBe("120");
+    expect(toFractionalUnitsString("100", { decimals: 1 })).toBe("1000");
+    expect(toFractionalUnitsString("12345678912345678912345.6789", { decimals: 4 })).toBe(
+        "123456789123456789123456789",
+    );
+    expect(toFractionalUnitsString("20", { decimals: "5" })).toBe("2000000");
+    expect(toFractionalUnitsString("123", { decimals: 3 })).toBe("123000");
+    expect(toFractionalUnitsString("1.23", { decimals: 2 })).toBe("123");
+    expect(toFractionalUnitsString("0.123", { decimals: 2 })).toBe("12.3");
+    expect(toFractionalUnitsString("0.1230", { decimals: 4 })).toBe("1230");
+    expect(toFractionalUnitsString("0", { decimals: 2 })).toBe("0");
+    expect(toFractionalUnitsString("0", { decimals: 9 })).toBe("0");
 });
 
 test("price converter", () => {
@@ -52,4 +55,21 @@ test("decimal conversion", () => {
     expect(decimalFromNumAndDenomAsPowerOf10("123", 4)).toBe("0.0123");
     expect(decimalFromNumAndDenomAsPowerOf10("1230", 4)).toBe("0.123");
     expect(decimalFromNumAndDenomAsPowerOf10("0", 2)).toBe("0");
+});
+
+test("uint256", async () => {
+    expect(uint256("1")).toBe("0x1");
+    expect(uint256("16")).toBe("0x10");
+    expect(uint256("255")).toBe("0xff");
+    expect(uint256("0x1")).toBe("0x1");
+    expect(uint256("0x01")).toBe("0x01");
+    expect(uint256("a1125f809825a8a2524e03469b70b4087300d95b9799a6d4908ba748ff0b7bd9")).toBe(
+        "0xa1125f809825a8a2524e03469b70b4087300d95b9799a6d4908ba748ff0b7bd9",
+    );
+    expect(uint256("0xa1125f809825a8a2524e03469b70b4087300d95b9799a6d4908ba748ff0b7bd9")).toBe(
+        "0xa1125f809825a8a2524e03469b70b4087300d95b9799a6d4908ba748ff0b7bd9",
+    );
+    expect(() => uint256("825a8a2524e03469b70b4087300d95b9799a6d4908ba748ff0b7bd9")).toThrow(
+        /^Cannot convert/,
+    );
 });

@@ -14,12 +14,17 @@ export type TestConfig = {
     trader: {
         signer: string;
     };
-    market: string;
+    market: {
+        address: string;
+        ticker: string;
+    }
     EVER: {
+        ticker: string;
         wrapper: string;
         wallet: AccountConfig;
     };
     TSDT: {
+        ticker: string;
         wrapper: string;
         wrapperWallet: string;
         wallet: AccountConfig;

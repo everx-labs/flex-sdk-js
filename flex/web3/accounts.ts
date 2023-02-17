@@ -125,7 +125,7 @@ export class EvrAccounts {
         if (balance === undefined || balance === null) {
             return "0";
         }
-        return decimalFromNumAndDenomAsPowerOf10(balance.toString(), Evr.NATIVE_DECIMALS);
+        return decimalFromNumAndDenomAsPowerOf10(balance.toString(), Evr.decimals);
     }
 
     async waitForFinalExternalAnswer(transaction: TransactionNode, abi: AbiContract): Promise<any> {

@@ -5,3 +5,5 @@
 /tsconfig.tsbuildinfo
 .secret/
 /playwright-report/
+/dist/
+/integration-test/test-results/

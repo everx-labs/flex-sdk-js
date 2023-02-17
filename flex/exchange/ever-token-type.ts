@@ -6,7 +6,7 @@ import {
     WrapperEverAccount,
     AccountOptionsEx,
 } from "../../contracts";
-import { EverWallet, toUnits, Evr, SignerOption } from "../web3";
+import { EverWallet, toUnitsString, Evr, SignerOption } from "../web3";
 
 export const EVER_TOKEN_TYPE = 1;
 
@@ -64,9 +64,9 @@ export async function addEverTokenType(
         pubkey: `0x${deployerPublicKey}`,
         wrapper_pubkey: `0x${wrapperPublicKey}`,
         super_root: options.superRoot,
-        wrapper_deploy_value: toUnits(options.wrapperDeployEvers ?? DEFAULTS.wrapperDeployEvers),
-        wrapper_keep_balance: toUnits(options.wrapperKeepEvers ?? DEFAULTS.wrapperKeepEvers),
-        reserve_wallet_value: toUnits(options.reserveWalletEvers ?? DEFAULTS.reserveWalletEvers),
+        wrapper_deploy_value: toUnitsString(options.wrapperDeployEvers ?? DEFAULTS.wrapperDeployEvers, Evr),
+        wrapper_keep_balance: toUnitsString(options.wrapperKeepEvers ?? DEFAULTS.wrapperKeepEvers, Evr),
+        reserve_wallet_value: toUnitsString(options.reserveWalletEvers ?? DEFAULTS.reserveWalletEvers, Evr),
     });
     await deployer.runSetWrapperEverCode({ code: WrapperEverAccount.package.code });
     // await deployer.runSetExtWalletCode({ code: TONTokenWalletAccount.package.code });
@@ -75,8 +75,8 @@ export async function addEverTokenType(
     const superRootOwner = await web3.accounts.get(SuperRootOwnerAccount, options.superRootOwner);
     await superRootOwner.runAddWrapperType({
         type: EVER_TOKEN_TYPE,
-        main_evers: toUnits(options.mainEvers ?? DEFAULTS.mainEvers),
-        wrappers_cfg_keep_evers: toUnits(options.keepEvers ?? DEFAULTS.keepEvers),
+        main_evers: toUnitsString(options.mainEvers ?? DEFAULTS.mainEvers, Evr),
+        wrappers_cfg_keep_evers: toUnitsString(options.keepEvers ?? DEFAULTS.keepEvers, Evr),
         wrappers_cfg: options.wrappersConfigAddress,
         wrapper_deployer: await deployer.getAddress(),
     });

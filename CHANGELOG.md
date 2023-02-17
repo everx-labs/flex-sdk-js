@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 
 
+## [0.11.0] – 2022-12-14
+
+### New
+
+- all functions with the userId/traderId as an input now accepts:
+    1) hex string with `0x` prefix;
+    2) hex string of 64 char length without `0x` prefix;
+    3) decimal string.
+  
+- `Trader.deployEverWallet` accepts token parameters as `TokenValue` instead of `number`'s.
+
+- Changed contract errors: "<contract-name> failed with exit code <exit-code>. <known-contract-error-message>.".
+
+- Replaced `number` with `string` and `TokenValue` in SDK parameters and results.
+
+## [0.10.2] – 2022-12-14
+
+### Fixed
+
+- `queryPrice` hided server errors
+- `queryOrders` does not return `traderId` and `finishTime`
+
 ## [0.10.1] – 2022-12-14
 
 ### Fixed

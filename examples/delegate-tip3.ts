@@ -11,7 +11,7 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
         let trader_tip3_wallet = await Trader.deployTip31Wallet(flex, {
                 clientAddress: clientAddress,
                 everWallet: CONFIG.everWallet,
-                traderId: traderId,
+                traderId,
                 tokenUnits: "10000000000",
                 transferEvers: 21,
                 evers: 20,
@@ -27,7 +27,7 @@ import { CONFIG, EXAMPLES_FLEX_CONFIG } from "./examples";
                 flex,
                 {
                     clientAddress: clientAddress,
-                    traderId: traderId,
+                    traderId,
                 },
             ),
         );

@@ -8,8 +8,8 @@ import { Market } from "../flex";
     try {
         flex.evr.log.info("Tokens", await Token.queryTokens(flex));
         flex.evr.log.info("Markets", await Market.queryMarkets(flex));
-        flex.evr.log.info("Market Order Book", await Market.queryOrderBook(flex, CONFIG.market));
-        flex.evr.log.info("Market Price", await Market.queryPrice(flex, CONFIG.market));
+        flex.evr.log.info("Market Order Book", await Market.queryOrderBook(flex, CONFIG.market.EVER_TBTC));
+        flex.evr.log.info("Market Price", await Market.queryPrice(flex, CONFIG.market.EVER_TBTC));
 
         await flex.close();
     } catch (err) {

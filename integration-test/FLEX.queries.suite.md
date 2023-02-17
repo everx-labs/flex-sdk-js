@@ -42,3 +42,7 @@
     Test getTopUpInfo
     call Trader.getTopUpInfo
     Verify wallet value
+
+# Client
+    Test getClientInfo 
+    Verify nativeCurrencyBalance value

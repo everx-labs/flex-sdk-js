@@ -3,54 +3,54 @@ import { Token, TokenInfo } from "./token";
 
 export type MarketInfo = {
     /// Flex Pair account address
-    address: string
+    address: string;
 
     /// Abbreviation used to identify pair.
     /// Derived from major and minor root tickers, i.e. 'EVER/SOL'
-    ticker: string
+    ticker: string;
 
     /// Major token
-    major: TokenInfo
+    major: TokenInfo;
 
     /// Minor token
-    minor: TokenInfo
+    minor: TokenInfo;
 
     /// Minimum amount of major token required for an order creation
     /// in token units.
-    minAmount: number
+    minAmount: string;
 
     /// Price tick size numerator
-    minMove: string
+    minMove: string;
 
     /// Token price denominator
-    priceScale: string
+    priceScale: string;
 
     /// Code hash of price contracts for the pair
-    priceCodeHash: string
+    priceCodeHash: string;
 
     /// Price contracts code BOC encoded with base64
-    priceCode: string
+    priceCode: string;
 
     /// Notification contract address
-    notifyAddress: String
-}
+    notifyAddress: String;
+};
 
 export type OrderBookInfo = {
     /// Buys
-    bids: OrderBookItem[],
+    bids: OrderBookItem[];
 
     /// Sells
-    asks: OrderBookItem[],
-}
+    asks: OrderBookItem[];
+};
 
 /// Market price summary for time range
 export type OrderBookItem = {
     /// Major token price
-    price: number
+    price: string;
 
     /// Amount of major tokens
-    amount: number
-}
+    amount: string;
+};
 
 export class Market {
     static async queryOrderBook(flex: Flex, market: string): Promise<OrderBookInfo> {
@@ -71,17 +71,13 @@ export class Market {
         return result.market.orderBook;
     }
 
-    static async queryPrice(flex: Flex, market: string): Promise<number | null> {
-        try {
-            const result = await flex.query(`
-            market(pairAddress: "${market}") {
-                price
-            }
-        `);
-            return result.market.price;
-        } catch {
-            return null;
+    static async queryPrice(flex: Flex, market: string): Promise<string | null> {
+        const result = await flex.query(`
+        market(pairAddress: "${market}") {
+            price
         }
+        `);
+        return result.market.price;
     }
 
     static async queryMarkets(flex: Flex): Promise<MarketInfo[]> {
